@@ -59,21 +59,14 @@ export default function Layout() {
         <Outlet />
 
         <p className="footnote warn" style={{ marginTop: 30 }}>
-          <b>On odds:</b> upcoming-game spreads/totals are realistic to source live — CFBD's own{' '}
-          <code>/lines</code> endpoint aggregates them from multiple books. "Make the playoff" /
-          "win it all" futures are the hard part: The Odds API explicitly does not carry NCAAF
-          outrights, and CFBD doesn't offer futures either — so a real build would either
-          (a) point-in-time scrape a couple of sportsbook futures pages on a schedule (fragile, ToS
-          risk, needs disclosure), or (b) compute an in-house estimate blending rank, record, and
-          computer ratings (SP+/FPI) like the gauges above — still a stand-in for a proper
-          Monte-Carlo simulation over the remaining schedule, and labeled as a model estimate rather
-          than a market price. Mixing the two without a loud label is the one thing to avoid.
-        </p>
-        <p className="footnote">
-          A real build would source polls, lines, and SP+/FPI/Elo from the{' '}
+          <b>On odds:</b> upcoming-game spreads/totals are sourced live from{' '}
           <a href="https://collegefootballdata.com/key" style={{ color: 'inherit' }} target="_blank" rel="noopener noreferrer">
-            CollegeFootballData.com API
-          </a>.
+            CollegeFootballData.com
+          </a>'s <code>/lines</code> endpoint, which aggregates them from multiple books. "Make the
+          playoff" / "win it all" percentages are different: no free API carries NCAAF
+          championship-futures odds, so those are an in-house estimate blending rank, record, and
+          computer ratings (SP+/FPI/Elo) — a stand-in for a proper Monte-Carlo simulation over the
+          remaining schedule, not a market price.
         </p>
       </div>
     </div>

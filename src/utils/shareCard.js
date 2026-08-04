@@ -41,7 +41,7 @@ export function downloadShareCard(team) {
   }
 
   ctx.fillStyle = ink2; ctx.font = '400 18px system-ui, sans-serif';
-  ctx.fillText('Illustrative sample data — cfbhq mockup', 60, 590);
+  ctx.fillText('Playoff & title odds are a simplified model, not sportsbook prices', 60, 590);
 
   const a = document.createElement('a');
   a.href = canvas.toDataURL('image/png');

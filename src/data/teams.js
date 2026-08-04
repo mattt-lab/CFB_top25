@@ -1,8 +1,8 @@
-// Real data module — loads data/current.json's fixture (data/current.sample.json until the live
-// fetch pipeline lands) and re-derives the same helpers the mockup-era hand-authored data used to
-// export, so component code doesn't need to change shape. See docs/data-schema.md for the
-// authoritative schema this file targets.
-import raw from '../../data/current.sample.json';
+// Real data module — loads data/current.json (written by the fetch/score/narrate pipeline) and
+// re-derives the same helpers the mockup-era hand-authored data used to export, so component code
+// doesn't need to change shape. See docs/data-schema.md for the authoritative schema this file
+// targets.
+import raw from '../../data/current.json';
 
 export const WEEKS = Array.from({ length: raw.meta.currentWeek }, (_, i) => i + 1);
 export const WEEK_IDX_MIN = Math.min(...raw.meta.weeksAvailable) - 1; // array index for the first week with ANY poll

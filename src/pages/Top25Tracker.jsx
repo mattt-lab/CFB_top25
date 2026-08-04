@@ -5,6 +5,19 @@ import WeekTravelBar from '../components/WeekTravelBar.jsx';
 import MyTeamsSection from '../components/MyTeamsSection.jsx';
 import Top25Table from '../components/Top25Table.jsx';
 
+// `when` is ISO 8601 in the real schema (e.g. "2026-09-05T23:30:00Z") -- format it for display
+// rather than rendering the raw string.
+function formatKickoff(iso) {
+  if (!iso) return null;
+  try {
+    return new Date(iso).toLocaleString('en-US', {
+      weekday: 'short', hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
+    });
+  } catch {
+    return iso;
+  }
+}
+
 export default function Top25Tracker() {
   const weekIdx = useWeekStore((s) => s.weekIdx);
   const currentWeekNumber = WEEK_IDX_MAX + 1;
@@ -29,23 +42,27 @@ export default function Top25Tracker() {
         <div className="panel-title" style={{ marginBottom: 10 }}>
           <div>
             <h2 style={{ fontSize: 17 }}>This week's biggest games</h2>
-            <p>Matchups that move the field. Lines are illustrative sample data.</p>
+            <p>Matchups that move the field.</p>
           </div>
         </div>
         <div className="games-grid">
           {games.map((g) => (
             <div className="game-card" key={g.id}>
-              {/* TODO(schema): `when` is ISO in the real schema but the sample fixture kept the
-                  mockup's display strings (e.g. "Sat 3:30pm") — render as-is either way. */}
-              <div className="game-meta">{g.when}</div>
+              <div className="game-meta">{formatKickoff(g.when)}</div>
               <div className="game-teams">
-                <div className="game-team"><span className="r">#{g.awayRank}</span>{g.awayTeam?.name ?? g.away}</div>
+                <div className="game-team">
+                  {g.awayRank != null && <span className="r">#{g.awayRank}</span>}
+                  {g.awayTeam?.name ?? g.away}
+                </div>
                 <div className="game-at">at</div>
-                <div className="game-team"><span className="r">#{g.homeRank}</span>{g.homeTeam?.name ?? g.home}</div>
+                <div className="game-team">
+                  {g.homeRank != null && <span className="r">#{g.homeRank}</span>}
+                  {g.homeTeam?.name ?? g.home}
+                </div>
               </div>
               <div className="game-line">
-                <span className="spread">{g.spread}</span>
-                <span style={{ color: 'var(--muted)' }}>O/U {g.ou}</span>
+                {g.spread && <span className="spread">{g.spread}</span>}
+                {g.ou != null && <span style={{ color: 'var(--muted)' }}>O/U {g.ou}</span>}
               </div>
               <div className="game-impl">{g.blurb}</div>
             </div>
@@ -72,7 +89,7 @@ export default function Top25Tracker() {
           <h2>Top 25</h2>
           <p>Tap any team for full history, scorecard, and odds.</p>
         </div>
-        <span className="odds-hint">Playoff / title odds are illustrative — see note below</span>
+        <span className="odds-hint">Playoff / title odds are a simplified model — see note below</span>
       </div>
       <Top25Table weekIdx={weekIdx} />
 
@@ -85,9 +102,10 @@ export default function Top25Tracker() {
       </div>
 
       <p className="footnote">
-        Mockup with illustrative sample data — not live rankings, lines, or odds. See odds &amp; data
-        sourcing notes below. Records and each team's resume/chart reflect the full season regardless
-        of the week snapshot selected above.
+        Rankings, records, and betting lines are real, fetched from CollegeFootballData.com.
+        Playoff and title odds are a simplified in-house model (rank, record, and computer-rating
+        deltas) — not sportsbook prices. Records and each team's resume/chart reflect the full
+        season regardless of the week snapshot selected above.
       </p>
     </div>
   );
