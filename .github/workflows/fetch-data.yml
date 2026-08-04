@@ -1,0 +1,58 @@
+name: Fetch CFB data
+
+# Runs the full data pipeline (fetch -> score -> narrate) and commits the result straight to
+# main. That push is what triggers deploy-pages.yml -- this workflow does not build/deploy
+# itself. data/rankings/*.json snapshots are append-only (never overwritten -- see
+# scripts/fetch-cfb-data.mjs and docs/data-schema.md), so they accumulate in git history on
+# purpose; only data/current.json is expected to change on every run.
+
+on:
+  schedule:
+    # 13:00 UTC daily -- comfortably after CFBD/poll updates land, works year-round through the
+    # season-changeover logic in scripts/lib/season.mjs (off-season runs just re-fetch the same
+    # settled season, which is a harmless no-op commit-wise since nothing changes).
+    - cron: '0 13 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-data
+  cancel-in-progress: false
+
+jobs:
+  fetch-score-narrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+
+      - name: Fetch CFBD data
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+        run: node scripts/fetch-cfb-data.mjs
+
+      - name: Stage 1 -- deterministic scoring
+        run: node scripts/score.mjs
+
+      - name: Stage 2 -- LLM narration
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/narrate.mjs
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/current.json data/rankings/
+          if git diff --cached --quiet; then
+            echo "No data changes -- skipping commit."
+          else
+            git commit -m "Update CFB data ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+            git push
+          fi
