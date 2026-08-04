@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useWeekStore } from '../store/useWeekStore.js';
 import { WEEK_IDX_MAX, computeField, primaryLabel, PRIMARY_SOURCE_BY_WEEK } from '../data/teams.js';
-import WeekTravelBar from '../components/WeekTravelBar.jsx';
 import ConfDot from '../components/ConfDot.jsx';
 
 // Hand-authored editorial copy — not part of the data schema (docs/data-schema.md has no
@@ -46,8 +45,6 @@ export default function PlayoffWatch() {
 
   return (
     <div>
-      <WeekTravelBar />
-
       <div className="page-title">
         <div className="eyebrow">{eyebrow}</div>
         <h1>Playoff Watch</h1>

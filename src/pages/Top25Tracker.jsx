@@ -3,7 +3,6 @@ import { useWeekStore } from '../store/useWeekStore.js';
 import {
   WEEK_IDX_MAX, games, predictions, primaryLabel, PRIMARY_SOURCE_BY_WEEK, formatKickoff,
 } from '../data/teams.js';
-import WeekTravelBar from '../components/WeekTravelBar.jsx';
 import MyTeamsSection from '../components/MyTeamsSection.jsx';
 import Top25Table from '../components/Top25Table.jsx';
 
@@ -17,8 +16,6 @@ export default function Top25Tracker() {
 
   return (
     <div>
-      <WeekTravelBar />
-
       <div className="page-title">
         <div className="eyebrow">{eyebrow}</div>
         <h1>CFB Top 25 Tracker</h1>
@@ -92,13 +89,6 @@ export default function Top25Tracker() {
         </div>
         <Link className="cta-btn" to="/playoff-watch">Open Playoff Watch →</Link>
       </div>
-
-      <p className="footnote">
-        Rankings, records, and betting lines are real, fetched from CollegeFootballData.com.
-        Playoff and title odds are a simplified in-house model (rank, record, and computer-rating
-        deltas) — not sportsbook prices. Records and each team's resume/chart reflect the full
-        season regardless of the week snapshot selected above.
-      </p>
     </div>
   );
 }

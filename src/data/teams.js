@@ -105,12 +105,17 @@ export function arrowGlyph(delta) { return delta > 0 ? '▲' : delta < 0 ? '▼'
 
 // `when` is ISO 8601 in the real schema (e.g. "2026-09-05T23:30:00Z") -- format it for display
 // rather than rendering the raw string. Shared by the "biggest games" panel and "Your Teams".
+// A bare weekday ("Sat, 4:30 PM PDT") is only unambiguous if the game is actually within the next
+// few days -- add the month/day once it's more than a week out (a bye pushing a team's next game
+// further than usual, viewing the site mid-week, etc.), so "Sat" can't be read as the wrong Saturday.
 export function formatKickoff(iso) {
   if (!iso) return null;
   try {
-    return new Date(iso).toLocaleString('en-US', {
-      weekday: 'short', hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
-    });
+    const date = new Date(iso);
+    const daysOut = (date - new Date()) / 86400000;
+    const opts = { weekday: 'short', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' };
+    if (daysOut < 0 || daysOut > 6) Object.assign(opts, { month: 'short', day: 'numeric' });
+    return date.toLocaleString('en-US', opts);
   } catch {
     return iso;
   }

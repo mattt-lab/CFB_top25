@@ -81,11 +81,9 @@ body {
 .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; background: none; border: none; color: var(--ink-2); cursor: pointer; padding: 20px 0 4px; text-decoration: none; }
 .back-link:hover { color: var(--accent); }
 
-/* Week travel + historical banner */
-.week-bar { display: flex; align-items: center; gap: 10px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 9px 14px; font-size: 12.5px; color: var(--ink-2); flex-wrap: wrap; margin: 20px 0 0; }
-.week-bar select { font: inherit; font-weight: 700; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 4px 8px; color: var(--ink-1); cursor: pointer; }
-.week-bar .hint { color: var(--muted); font-size: 12px; }
-.hist-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: color-mix(in srgb, var(--accent) 14%, var(--panel)); border: 1px solid var(--accent); border-radius: 10px; padding: 10px 16px; margin: 14px 0 0; font-size: 13px; font-weight: 600; }
+/* Week travel (compact, lives in the header) + historical-snapshot banner */
+.week-select { font: inherit; font-size: 12.5px; font-weight: 700; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 5px 9px; color: var(--ink-1); cursor: pointer; }
+.hist-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: color-mix(in srgb, var(--accent) 14%, var(--panel)); border: 1px solid var(--accent); border-radius: 10px; padding: 10px 16px; margin: 0 0 16px; font-size: 13px; font-weight: 600; }
 .hist-banner button { flex: none; font: inherit; font-weight: 700; font-size: 12px; background: var(--accent); color: var(--accent-ink); border: none; border-radius: 999px; padding: 6px 13px; cursor: pointer; }
 
 /* Pins & conference dots */
