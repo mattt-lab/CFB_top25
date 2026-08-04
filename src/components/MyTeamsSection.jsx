@@ -21,6 +21,9 @@ export default function MyTeamsSection({ weekIdx }) {
       ) : (
         <div className="bubble-list">
           {pinned
+            // A pinned id can outlive the team it pointed to (a rename, or a schema change) —
+            // drop anything that no longer resolves rather than crashing the whole section.
+            .filter((id) => teamById(id))
             .map((id) => ({ id, rank: rankAt(id, weekIdx) }))
             .sort((a, b) => a.rank - b.rank)
             .map(({ id, rank }) => {
