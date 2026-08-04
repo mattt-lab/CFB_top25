@@ -8,7 +8,7 @@
 // memory):
 //   GET /rankings    ?year, seasonType         -> full-season poll history (AP/Coaches/CFP)
 //   GET /games        ?year, seasonType, classification -> full-season game results + schedule
-//   GET /lines        ?year, seasonType, week   -> betting lines for the current week's slate
+//   GET /lines        ?year, seasonType, week   -> betting lines for the upcoming week's slate
 //   GET /ratings/sp   ?year                     -> SP+ ratings (has a `ranking` field directly)
 //   GET /ratings/fpi  ?year                     -> FPI ratings (rating only, no rank -- see TODO below)
 //
@@ -168,6 +168,9 @@ async function main() {
   }
 
   const currentWeek = committeeWeeks[committeeWeeks.length - 1];
+  // The week the *next* slate of games falls in -- see the Step 6 comment below for why this
+  // (not currentWeek) is what "this week's games" / betting lines actually means on this site.
+  const NEXT_WEEK = currentWeek + 1;
   const weeksAvailable = committeeWeeks; // weeks with a committee ranking, ascending
   const allWeeksToDate = Array.from({ length: currentWeek }, (_, i) => i + 1); // 1..currentWeek
 
@@ -281,9 +284,9 @@ async function main() {
   }
   for (const id of Object.keys(teamGameLog)) teamGameLog[id].sort((a, b) => a.wk - b.wk);
 
-  // ---- Step 4: betting lines for this week's slate ---------------------------------------------
-  console.log(`Fetching betting lines for week ${currentWeek}...`);
-  const lines = await cfbdGet('/lines', { year: SEASON, seasonType: SEASON_TYPE, week: currentWeek });
+  // ---- Step 4: betting lines for the upcoming slate ----------------------------------------------
+  console.log(`Fetching betting lines for week ${NEXT_WEEK}...`);
+  const lines = await cfbdGet('/lines', { year: SEASON, seasonType: SEASON_TYPE, week: NEXT_WEEK });
   const linesByGameId = new Map();
   for (const bg of lines) {
     if (bg && bg.id != null) linesByGameId.set(bg.id, bg);
@@ -318,14 +321,20 @@ async function main() {
   }
   function isRivalry(a, b) { return rivalryPairs.has([a, b].sort().join('|')); }
 
-  // ---- Step 6: this week's slate --------------------------------------------------------------
+  // ---- Step 6: the UPCOMING slate (the games that will shape the *next* ranking) ---------------
+  // `currentWeek` is the week of the latest committee RANKING, which already reflects results
+  // through the previous week's games (e.g. conference championship games all land in week 15,
+  // but the ranking built from them is dated week 16 -- confirmed against real 2024 CFBD data,
+  // where a naive `week === currentWeek` filter returned just 1 stray game instead of the actual
+  // championship slate). The site's own framing ("What the model expects -- Week N -> N+1") makes
+  // the intent explicit: this panel previews upcoming games, not a recap of already-ranked ones.
   const currentCfpOrder = rankingsByWeek[currentWeek].cfp;
   function currentRank(id) {
     const i = currentCfpOrder.indexOf(id);
     return i === -1 ? null : i + 1;
   }
 
-  const weekGames = games.filter((g) => g && g.week === currentWeek && g.seasonType === SEASON_TYPE);
+  const weekGames = games.filter((g) => g && g.week === NEXT_WEEK && g.seasonType === SEASON_TYPE);
   const gamesOut = weekGames.map((g) => {
     const awayId = slugify(g.awayTeam);
     const homeId = slugify(g.homeTeam);
@@ -333,7 +342,7 @@ async function main() {
     touchTeam(awayId, g.awayTeam, g.awayConference);
     const line = pickLine(linesByGameId.get(g.id));
     return {
-      id: `${SEASON}-wk${currentWeek}-${awayId}-${homeId}`,
+      id: `${SEASON}-wk${NEXT_WEEK}-${awayId}-${homeId}`,
       away: awayId,
       awayRank: currentRank(awayId),
       home: homeId,
