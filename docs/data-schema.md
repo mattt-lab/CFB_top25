@@ -122,6 +122,7 @@ time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order be
       "when": "2026-11-29T17:00:00Z",
       "spread": "Ohio State -6.5",
       "ou": 44.5,
+      "network": "FOX",              // TV network or streaming outlet from CFBD's /games/media endpoint; null if CFBD has no media entry yet (common for games far in advance)
       "rivalry": true,               // from data/rivalries.json
       "stakesScore": 9.1,            // Stage 1 output, for debugging/tuning — not rendered directly
       "blurb": "The Game. A Michigan win puts real pressure on the committee's #1 seed.",

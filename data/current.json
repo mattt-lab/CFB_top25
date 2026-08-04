@@ -3,7 +3,7 @@
     "season": 2026,
     "currentWeek": 1,
     "currentPrimarySource": "coaches",
-    "lastUpdated": "2026-08-04T20:24:41.572Z",
+    "lastUpdated": "2026-08-04T21:44:33.020Z",
     "weeksAvailable": [
       1
     ]
@@ -3615,9 +3615,10 @@
       "when": "2026-09-05T23:30:00.000Z",
       "spread": "LSU -10.5",
       "ou": 50.5,
+      "network": "ABC",
       "rivalry": false,
       "stakesScore": 6.2,
-      "blurb": "A top-25 opener with real teeth: No. 23 Clemson heads to Baton Rouge as a 10.5-point underdog to No. 13 LSU. The 50.5 total says oddsmakers expect defense and field position to decide it.",
+      "blurb": "No. 23 Clemson opens the season in Baton Rouge as a 10.5-point underdog to No. 13 LSU, and a total of 50.5 says oddsmakers expect defense to set the terms. It's the rare Week 1 game where both teams' ceilings are already on the line.",
       "blurbSource": "llm"
     },
     {
@@ -3629,9 +3630,10 @@
       "when": "2026-09-06T20:00:00.000Z",
       "spread": "Washington -21.5",
       "ou": null,
+      "network": "NBC",
       "rivalry": true,
       "stakesScore": 4.87,
-      "blurb": "The Apple Cup kicks off the season, but Vegas isn't treating it like a coin flip -- No. 19 Washington is a 21.5-point favorite at home. Washington State will need the rivalry factor to travel.",
+      "blurb": "The Apple Cup kicks off the year with No. 19 Washington favored by 21.5 at home. Rivalry or not, the line suggests the Huskies are treating this like a tune-up.",
       "blurbSource": "llm"
     },
     {
@@ -3643,9 +3645,10 @@
       "when": "2026-09-06T23:30:00.000Z",
       "spread": "Ole Miss -6.5",
       "ou": 55.5,
+      "network": "ABC",
       "rivalry": false,
       "stakesScore": 4.27,
-      "blurb": "Louisville draws the toughest kind of Week 1 trip, visiting No. 10 Ole Miss as a 6.5-point dog. The 55.5 total is the highest on the slate, so points should come in bunches in Oxford.",
+      "blurb": "Unranked Louisville heads to Oxford as just a 6.5-point underdog against No. 10 Ole Miss, with the total up at 55.5. That's a slim number for a top-10 host in Week 1.",
       "blurbSource": "llm"
     },
     {
@@ -3657,9 +3660,10 @@
       "when": "2026-09-06T23:30:00.000Z",
       "spread": "Notre Dame -20.5",
       "ou": 47.5,
+      "network": "NBC",
       "rivalry": false,
       "stakesScore": 3.07,
-      "blurb": "No. 5 Notre Dame opens at home as a 20.5-point favorite over Wisconsin, with the total set at just 47.5. The number suggests the Irish are expected to win this one with their defense as much as their offense.",
+      "blurb": "No. 5 Notre Dame hosts Wisconsin and is favored by 20.5 with a modest 47.5 total. The Irish are expected to win comfortably without needing a shootout to do it.",
       "blurbSource": "llm"
     },
     {
@@ -3671,9 +3675,10 @@
       "when": "2026-09-05T22:00:00.000Z",
       "spread": "Colorado State -4",
       "ou": null,
+      "network": "USA Net",
       "rivalry": true,
       "stakesScore": 3,
-      "blurb": "The Border War opens the season with Colorado State favored by just four at home. Neither side is ranked, but a four-point line in a rivalry game is as close to a pure toss-up as Week 1 offers.",
+      "blurb": "The Border War opens the season with Colorado State favored by just four at home. Neither side is ranked, but a four-point rivalry line is the definition of a coin flip.",
       "blurbSource": "llm"
     },
     {
@@ -3685,9 +3690,10 @@
       "when": "2026-09-05T23:30:00.000Z",
       "spread": "Michigan -26.5",
       "ou": null,
+      "network": "NBC",
       "rivalry": false,
       "stakesScore": 2.58,
-      "blurb": "No. 16 Michigan is a 26.5-point favorite over Western Michigan, the biggest spread on the board. This is a tune-up, and the Wolverines are being priced like it.",
+      "blurb": "No. 16 Michigan opens at home as a 26.5-point favorite over Western Michigan. Little intrigue in the result, plenty in how the Wolverines look doing it.",
       "blurbSource": "llm"
     }
   ],
@@ -3695,31 +3701,31 @@
     {
       "teamId": "texas",
       "score": 5.45,
-      "blurb": "Texas checks in at No. 4 in the SEC, and FPI is even higher on the Longhorns at No. 2 nationally. The metrics see a team built to be in the title conversation.",
+      "blurb": "Texas checks in at No. 4 with FPI slotting the Longhorns even higher at No. 2, so the numbers think this SEC contender is being slightly undersold.",
       "blurbSource": "llm"
     },
     {
       "teamId": "texas-tech",
       "score": 5.45,
-      "blurb": "Texas Tech opens at No. 12 with FPI nudging the Red Raiders up to No. 10 -- a Big 12 favorite by the numbers.",
+      "blurb": "Texas Tech sits 12th in the poll while FPI has the Red Raiders 10th, a rare case of the metrics and the voters landing in nearly the same place on a Big 12 favorite.",
       "blurbSource": "llm"
     },
     {
       "teamId": "michigan",
       "score": 5.23,
-      "blurb": "Michigan sits at No. 16, and FPI essentially agrees at No. 15. Rare consensus on a Big Ten contender.",
+      "blurb": "Michigan opens 16th with FPI a tick more bullish at No. 15, marking the Wolverines as a solid but not elite Big Ten entry.",
       "blurbSource": "llm"
     },
     {
       "teamId": "byu",
       "score": 5.13,
-      "blurb": "BYU is No. 15 in the poll but only No. 20 in FPI, making the Cougars one of the more skeptically viewed teams in the Big 12.",
+      "blurb": "BYU is ranked 15th but FPI puts the Cougars 20th, the widest gap of skepticism among the Big 12's ranked teams.",
       "blurbSource": "llm"
     },
     {
       "teamId": "lsu",
       "score": 4.9,
-      "blurb": "LSU starts at No. 13 while FPI has the Tigers up at No. 9 -- the model sees an SEC team the voters are underrating.",
+      "blurb": "LSU starts 13th while FPI likes the Tigers at No. 9, suggesting the metrics see more in Baton Rouge than the poll does.",
       "blurbSource": "llm"
     }
   ]

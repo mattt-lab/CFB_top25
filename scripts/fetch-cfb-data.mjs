@@ -9,6 +9,7 @@
 //   GET /rankings    ?year, seasonType         -> full-season poll history (AP/Coaches/CFP)
 //   GET /games        ?year, seasonType, classification -> full-season game results + schedule
 //   GET /lines        ?year, seasonType, week   -> betting lines for the upcoming week's slate
+//   GET /games/media  ?year, seasonType, week, classification -> TV/streaming outlet per game
 //   GET /ratings/sp   ?year                     -> SP+ ratings (has a `ranking` field directly)
 //   GET /ratings/fpi  ?year                     -> FPI ratings (rating only, no rank -- see TODO below)
 //
@@ -365,6 +366,28 @@ async function main() {
     return bettingGame.lines[0];
   }
 
+  // ---- Step 4b: broadcast/streaming outlet for the upcoming slate --------------------------------
+  // CFBD's /games endpoint has no TV/network field -- broadcast info lives on a separate
+  // /games/media endpoint (confirmed against the live OpenAPI spec, components.schemas.GameMedia),
+  // joined back to a game by its shared `id`. A game can have more than one media entry (e.g. a
+  // regional/alt TV feed alongside a streaming simulcast) -- prefer mediaType "tv" over "web" since
+  // "what channel is it on" is the question being asked; fall back to whatever's first (usually a
+  // streaming-only outlet, e.g. "SECN+") when there's no over-the-air/cable feed at all.
+  console.log(`Fetching broadcast info for week ${NEXT_WEEK}...`);
+  const media = await cfbdGet('/games/media', { year: SEASON, seasonType: SEASON_TYPE, week: NEXT_WEEK, classification: 'fbs' });
+  const mediaByGameId = new Map();
+  for (const m of media) {
+    if (!m || m.id == null) continue;
+    if (!mediaByGameId.has(m.id)) mediaByGameId.set(m.id, []);
+    mediaByGameId.get(m.id).push(m);
+  }
+  function pickNetwork(gameId) {
+    const entries = mediaByGameId.get(gameId);
+    if (!entries || !entries.length) return null;
+    const tv = entries.find((m) => m.mediaType === 'tv');
+    return (tv || entries[0]).outlet || null;
+  }
+
   // ---- Step 5: rivalries (static config, read-only -- owned by a sibling task) -----------------
   const rivalriesPath = join(DATA_DIR, 'rivalries.json');
   const rivalryPairs = new Set();
@@ -412,6 +435,7 @@ async function main() {
       // directly avoids guessing at CFBD's home/away spread-sign convention ourselves.
       spread: line && line.formattedSpread ? line.formattedSpread : null,
       ou: line && line.overUnder != null ? line.overUnder : null,
+      network: pickNetwork(g.id),
       rivalry: isRivalry(awayId, homeId),
       // populated by downstream scripts that don't exist yet (Stage 1 scoring / Stage 2 narration)
       stakesScore: null,

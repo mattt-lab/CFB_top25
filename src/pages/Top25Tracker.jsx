@@ -48,7 +48,10 @@ export default function Top25Tracker() {
         <div className="games-grid">
           {games.map((g) => (
             <div className="game-card" key={g.id}>
-              <div className="game-meta">{formatKickoff(g.when)}</div>
+              <div className="game-meta">
+                {formatKickoff(g.when)}
+                {g.network && <span> · {g.network}</span>}
+              </div>
               <div className="game-teams">
                 <div className="game-team">
                   {g.awayRank != null && <span className="r">#{g.awayRank}</span>}
