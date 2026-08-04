@@ -12,6 +12,21 @@
 //   GET /ratings/sp   ?year                     -> SP+ ratings (has a `ranking` field directly)
 //   GET /ratings/fpi  ?year                     -> FPI ratings (rating only, no rank -- see TODO below)
 //
+// SEASON CHANGEOVER: which year is "the season" flips Aug 1 (scripts/lib/season.mjs) -- the
+// previous season's final data stays the target through the off-season, then the site points at
+// the new season starting Aug 1 even though that new season won't have committee rankings for
+// another couple months.
+//
+// PRE-COMMITTEE POLL FALLBACK: the CFP committee's first reveal is ~week 7-11 depending on the
+// season -- for every week before that (which, right after the Aug 1 changeover, is EVERY week
+// until the committee starts), there's no CFP data to rank/tier/seed teams by. Confirmed live:
+// as of this comment, 2026 has exactly one poll on file -- a preseason Coaches Poll, tagged
+// week 1, with real teams/points/first-place votes; no AP, no CFP, no SP+ yet. resolvePrimaryPoll
+// below picks, per week: CFP if it exists that week, else Coaches Poll, else AP. Everything that
+// needs "the" ranking (Top 25 order, tiers, the Playoff Watch bracket, time-travel) reads this
+// resolved `primary` order rather than assuming CFP is always populated -- because for a real
+// chunk of every season, it isn't.
+//
 // ---------------------------------------------------------------------------------------------
 // HOW TO TEST (once a live CFBD_API_KEY is available -- get a free one at
 // https://collegefootballdata.com/key):
@@ -19,17 +34,17 @@
 //   CFBD_API_KEY=xxxxxxxx node scripts/fetch-cfb-data.mjs
 //
 // Optional env overrides:
-//   CFBD_SEASON=2026     -- defaults to the current calendar year
+//   CFBD_SEASON=2026     -- defaults to resolveSeasonYear()'s Aug-1 rule
 //
-// This has NOT been run against live data (no key was available while writing it). It's been
-// written defensively -- every array/field from the API is checked before use -- but a live run
-// is a separate, later verification task. Known open questions are marked TODO(schema) or
-// "ASSUMPTION" inline; see the end-of-run report for the full list.
+// Verified against real 2024 (fully committee-covered) and 2026 (pre-committee, preseason-poll-
+// only) data -- see the git history for what each run surfaced. Every remaining unverified
+// assumption is marked TODO(schema) or "ASSUMPTION" inline.
 // ---------------------------------------------------------------------------------------------
 
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { resolveSeasonYear } from './lib/season.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -50,11 +65,11 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-const SEASON = Number(process.env.CFBD_SEASON) || new Date().getFullYear();
+const SEASON = Number(process.env.CFBD_SEASON) || resolveSeasonYear();
 
 // ASSUMPTION: conference championship week is still CFBD seasonType "regular" (only bowls/CFP
-// are "postseason"). Not verified live -- if a live run shows conf-champ-week data missing,
-// this is the first place to check.
+// are "postseason"). Confirmed live for 2024: SEC/Big Ten/ACC/etc. championship games are all
+// seasonType "regular" -- see the games-slate fix in git history for the investigation.
 const SEASON_TYPE = 'regular';
 
 // Point-in-time "quality win" / "bad loss" thresholds for teams[].games[].tag. Formalizes the
@@ -71,7 +86,16 @@ const QUALITY_WIN_MAX_RANK = 20;
 // ---- small helpers --------------------------------------------------------------------------
 
 function slugify(name) {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  // Strip diacritics rather than dropping the letter outright -- "San José State" should slug to
+  // "san-jose-state", not "san-jos-state" (confirmed live: that team is real FBS/CFBD data, not
+  // a hypothetical). NFD decomposes accented chars into base+combining-mark pairs; stripping the
+  // combining-mark Unicode block leaves the plain base letter.
+  return name
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 async function cfbdGet(path, params = {}) {
@@ -155,36 +179,49 @@ async function main() {
     }
   }
 
-  const committeeWeeks = Object.keys(weekPolls)
+  // Per-week primary-ranking fallback: CFP Committee if that week has it, else Coaches Poll
+  // (CFBD's "USA Today Coaches Poll"), else AP. This is what every cross-team feature (Top 25
+  // order, tiers, the Playoff Watch bracket, time-travel) actually ranks teams by -- not raw CFP,
+  // because CFP doesn't exist for a real chunk of every season (weeks 1 through ~7-11).
+  function resolvePrimaryPoll(wk) {
+    const p = weekPolls[wk] || {};
+    if (p.cfp && p.cfp.length) return { order: p.cfp, source: 'cfp' };
+    if (p.coaches && p.coaches.length) return { order: p.coaches, source: 'coaches' };
+    if (p.ap && p.ap.length) return { order: p.ap, source: 'ap' };
+    return null;
+  }
+
+  const weeksAvailable = Object.keys(weekPolls)
     .map(Number)
-    .filter((wk) => weekPolls[wk].cfp && weekPolls[wk].cfp.length > 0)
+    .filter((wk) => resolvePrimaryPoll(wk) != null)
     .sort((a, b) => a - b);
 
-  if (committeeWeeks.length === 0) {
+  if (weeksAvailable.length === 0) {
     throw new Error(
-      `No CFP committee rankings found for season ${SEASON} yet (the committee's first reveal is ` +
-      'typically week 7). Nothing meaningful to fetch until the committee publishes its first poll.',
+      `CFBD /rankings returned data for season ${SEASON}, but none of it parsed into a usable ` +
+      'AP/Coaches/CFP poll (see classifyPoll) -- nothing to rank teams by yet.',
     );
   }
 
-  const currentWeek = committeeWeeks[committeeWeeks.length - 1];
-  // The week the *next* slate of games falls in -- see the Step 6 comment below for why this
-  // (not currentWeek) is what "this week's games" / betting lines actually means on this site.
-  const NEXT_WEEK = currentWeek + 1;
-  const weeksAvailable = committeeWeeks; // weeks with a committee ranking, ascending
+  const currentWeek = weeksAvailable[weeksAvailable.length - 1];
   const allWeeksToDate = Array.from({ length: currentWeek }, (_, i) => i + 1); // 1..currentWeek
 
-  // rankingsByWeek: committee-era weeks only, per docs/data-schema.md ("One entry per week that
-  // has a committee ranking").
+  // rankingsByWeek: every week with ANY poll data (not committee-only -- see above).
   const rankingsByWeek = {};
   for (const wk of weeksAvailable) {
+    const primary = resolvePrimaryPoll(wk);
     rankingsByWeek[wk] = {
       ap: weekPolls[wk].ap || [],
       coaches: weekPolls[wk].coaches || [],
       cfp: weekPolls[wk].cfp || [],
+      primary: primary.order,
+      primarySource: primary.source,
     };
   }
-  console.log(`Current week: ${currentWeek}. Committee weeks available: ${weeksAvailable.join(', ')}.`);
+  const currentSource = rankingsByWeek[currentWeek].primarySource;
+  console.log(
+    `Current week: ${currentWeek} (ranked by ${currentSource}). Weeks with poll data: ${weeksAvailable.join(', ')}.`,
+  );
 
   // ---- Step 2: write this week's raw snapshot file (append-only -- never overwrite) -----------
   const snapshotPath = join(RANKINGS_DIR, `${SEASON}-wk${String(currentWeek).padStart(2, '0')}.json`);
@@ -226,9 +263,11 @@ async function main() {
   function opponentRankAtWeek(wk, opponentId) {
     const polls = loadWeekSnapshotPolls(wk);
     if (!polls) return null;
-    // CFP committee poll is the canonical point-in-time rank for tagging purposes; fall back to
-    // AP if the committee snapshot is somehow missing that week (shouldn't happen post-week-7).
-    const order = polls.cfp && polls.cfp.length ? polls.cfp : polls.ap;
+    // `primary` already encodes the CFP -> Coaches -> AP fallback for that week (see
+    // resolvePrimaryPoll above) -- this is the same ranking used everywhere else, so a "quality
+    // win" in October (pre-committee, ranked by Coaches Poll) uses the same definition of
+    // "ranked" as one in November (post-committee, ranked by CFP).
+    const order = polls.primary;
     if (!Array.isArray(order)) return null;
     const idx = order.indexOf(opponentId);
     return idx === -1 ? null : idx + 1;
@@ -265,9 +304,10 @@ async function main() {
       if (homeWon) { teamRecord[homeId].wins += 1; teamRecord[awayId].losses += 1; }
       else { teamRecord[awayId].wins += 1; teamRecord[homeId].losses += 1; }
 
-      // Per-team game log only covers committee-era weeks (7+) -- that's the only span the
-      // per-week snapshot files can cross-reference for a point-in-time opponent rank, and it
-      // matches the shape of the hand-authored mock (src/data/teams.js DETAILED games arrays).
+      // Per-team game log only covers weeks with poll data (weeksAvailable[0] onward) -- that's
+      // the only span the per-week snapshot files can cross-reference for a point-in-time
+      // opponent rank. Early in a season this is the preseason poll week; once the CFP committee
+      // starts, opponentRankAtWeek is already reading committee ranks for those weeks too.
       if (g.week >= weeksAvailable[0]) {
         const homeOppRank = opponentRankAtWeek(g.week, awayId);
         const awayOppRank = opponentRankAtWeek(g.week, homeId);
@@ -283,6 +323,27 @@ async function main() {
     }
   }
   for (const id of Object.keys(teamGameLog)) teamGameLog[id].sort((a, b) => a.wk - b.wk);
+
+  // The week of the *next* slate of games still to be played -- derived from which games are
+  // actually incomplete, not assumed as `currentWeek + 1`. That assumption breaks specifically
+  // for the preseason poll: CFBD tags it "week 1" as a labeling convention (there's no "week 0"),
+  // but unlike every later week's poll it does NOT mean "built from week 1's results" -- confirmed
+  // live for 2026, where every week-1 game is still `completed: false` in early August. Taking the
+  // earliest incomplete week handles both cases uniformly: mid-season, that's naturally
+  // currentWeek + 1 (this week's games are done, next week's aren't yet); preseason, it correctly
+  // resolves to week 1 itself instead of skipping straight to week 2.
+  //
+  // Bounded to weeks >= currentWeek -- a stray incomplete game from a WEEK ALREADY PASSED (e.g. a
+  // postponed/cancelled game CFBD never marked final) would otherwise get picked up as "next".
+  // Confirmed live: 2024's App State-Liberty game (week 5, likely hurricane-related) is still
+  // `completed: false` in CFBD's data even though that season ended in January 2025 -- without
+  // this lower bound, a query against the completed 2024 season resolved NEXT_WEEK to 5 instead
+  // of correctly finding no more games left to preview.
+  const incompleteWeeks = games
+    .filter((g) => g && g.seasonType === SEASON_TYPE && typeof g.week === 'number'
+      && g.week >= currentWeek && g.completed !== true)
+    .map((g) => g.week);
+  const NEXT_WEEK = incompleteWeeks.length ? Math.min(...incompleteWeeks) : currentWeek + 1;
 
   // ---- Step 4: betting lines for the upcoming slate ----------------------------------------------
   console.log(`Fetching betting lines for week ${NEXT_WEEK}...`);
@@ -322,15 +383,14 @@ async function main() {
   function isRivalry(a, b) { return rivalryPairs.has([a, b].sort().join('|')); }
 
   // ---- Step 6: the UPCOMING slate (the games that will shape the *next* ranking) ---------------
-  // `currentWeek` is the week of the latest committee RANKING, which already reflects results
-  // through the previous week's games (e.g. conference championship games all land in week 15,
-  // but the ranking built from them is dated week 16 -- confirmed against real 2024 CFBD data,
-  // where a naive `week === currentWeek` filter returned just 1 stray game instead of the actual
-  // championship slate). The site's own framing ("What the model expects -- Week N -> N+1") makes
-  // the intent explicit: this panel previews upcoming games, not a recap of already-ranked ones.
-  const currentCfpOrder = rankingsByWeek[currentWeek].cfp;
+  // NEXT_WEEK is computed above from actual game-completion state, not assumed -- see that
+  // comment for why `currentWeek + 1` isn't reliable (conference championship games all land in
+  // the week before their ranking is dated, and the preseason poll's "week 1" label doesn't mean
+  // week 1 already happened). This panel previews upcoming games, matching the site's own framing
+  // ("What the model expects -- Week N -> N+1"), not a recap of games already baked into the rank.
+  const currentPrimaryOrder = rankingsByWeek[currentWeek].primary;
   function currentRank(id) {
-    const i = currentCfpOrder.indexOf(id);
+    const i = currentPrimaryOrder.indexOf(id);
     return i === -1 ? null : i + 1;
   }
 
@@ -478,6 +538,11 @@ async function main() {
     meta: {
       season: SEASON,
       currentWeek,
+      // Which poll currentWeek's rankings/tiers/bracket are actually built from -- 'cfp' most of
+      // the season, 'coaches' (or, rarely, 'ap') for the weeks before the committee's first
+      // reveal. The frontend uses this to label things honestly (e.g. "Coaches Poll" instead of
+      // a hardcoded "CFP Committee") rather than pretend it's always committee data.
+      currentPrimarySource: currentSource,
       lastUpdated: new Date().toISOString(),
       weeksAvailable,
     },
