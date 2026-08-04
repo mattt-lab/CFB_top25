@@ -1,6 +1,28 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { NavLink, Outlet, useLocation, matchPath } from 'react-router-dom';
+import { teamById } from '../data/teams.js';
+import { trackPageview } from '../utils/analytics.js';
+
+function titleFor(pathname) {
+  if (pathname === '/') return 'Top 25 Tracker';
+  if (pathname === '/playoff-watch') return 'Playoff Watch';
+  const teamMatch = matchPath('/team/:teamId', pathname);
+  if (teamMatch) {
+    const team = teamById(teamMatch.params.teamId);
+    return team ? team.name : 'Team';
+  }
+  return pathname;
+}
 
 export default function Layout() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const pageTitle = `CFB HQ — ${titleFor(location.pathname)}`;
+    document.title = pageTitle;
+    trackPageview(location.pathname, pageTitle);
+  }, [location.pathname]);
+
   return (
     <div>
       <header className="header">
