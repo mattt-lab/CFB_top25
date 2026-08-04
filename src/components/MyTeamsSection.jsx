@@ -25,7 +25,10 @@ export default function MyTeamsSection({ weekIdx }) {
             // drop anything that no longer resolves rather than crashing the whole section.
             .filter((id) => teamById(id))
             .map((id) => ({ id, rank: rankAt(id, weekIdx) }))
-            .sort((a, b) => a.rank - b.rank)
+            // Unranked (rank === null -- e.g. pinned from a direct team-page visit rather than
+            // the Top 25 table) sorts to the end, not the front (plain a.rank - b.rank would
+            // coerce null to 0 and put unranked teams first).
+            .sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity))
             .map(({ id, rank }) => {
               const t = teamById(id);
               const delta = deltaAt(id, weekIdx);
@@ -33,7 +36,7 @@ export default function MyTeamsSection({ weekIdx }) {
               const color = delta > 0 ? 'var(--good)' : delta < 0 ? 'var(--critical)' : 'var(--muted)';
               return (
                 <Link key={id} className="bubble-row" to={`/team/${id}`} state={{ from: 'top25' }}>
-                  <span className="rk tabnum">{rank}</span>
+                  <span className="rk tabnum">{rank ?? '—'}</span>
                   <ConfDot conf={t.conf} />
                   <span className="nm">{t.name}</span>
                   <span className="needs">

@@ -81,6 +81,10 @@ export function sparkPoints(teamId, wIdx) {
 }
 
 export function tierFor(rank) {
+  // Guard first: `null <= 4` is true in JS (null coerces to 0), so an unranked team (rank ===
+  // null -- e.g. pinned from a direct team-page visit rather than the Top 25 table) would
+  // otherwise silently qualify as "Bye contender" instead of "Unranked".
+  if (rank == null) return { cls: 'long', label: 'Unranked' };
   if (rank <= 4) return { cls: 'lock', label: 'Bye contender' };
   if (rank <= 12) return { cls: 'in', label: 'In the field' };
   if (rank <= 16) return { cls: 'bubble', label: 'On the bubble' };

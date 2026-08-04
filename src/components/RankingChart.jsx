@@ -93,9 +93,12 @@ export default function RankingChart({ team }) {
                 tickLine={false}
               />
               <YAxis
-                domain={[1, 20]}
+                // Ranks legitimately run 1-25 (Top 25 polls) -- a domain capped at 20 was
+                // clipping/hiding any week a team spent ranked #21-25, which is a completely
+                // normal thing for a team hovering near the bottom of the poll.
+                domain={[1, 25]}
                 reversed
-                ticks={[1, 5, 10, 15, 20]}
+                ticks={[1, 5, 10, 15, 20, 25]}
                 tick={{ fontSize: 10, fill: 'var(--muted)' }}
                 axisLine={false}
                 tickLine={false}
