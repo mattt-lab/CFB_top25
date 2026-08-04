@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useWeekStore } from '../store/useWeekStore.js';
-import { WEEK_IDX_MAX, computeField } from '../data/teams.js';
+import { WEEK_IDX_MAX, computeField, primaryLabel, PRIMARY_SOURCE_BY_WEEK } from '../data/teams.js';
 import WeekTravelBar from '../components/WeekTravelBar.jsx';
 import ConfDot from '../components/ConfDot.jsx';
 
@@ -33,7 +33,10 @@ function TeamRow({ o, seedNum }) {
 export default function PlayoffWatch() {
   const weekIdx = useWeekStore((s) => s.weekIdx);
   const field = computeField(weekIdx);
-  const eyebrow = weekIdx === WEEK_IDX_MAX ? 'Week 12 Projection' : `Week ${weekIdx + 1} Projection (historical)`;
+  const weekSource = primaryLabel(PRIMARY_SOURCE_BY_WEEK[weekIdx]);
+  const eyebrow = weekIdx === WEEK_IDX_MAX
+    ? `Week ${weekIdx + 1} Projection (by ${weekSource})`
+    : `Week ${weekIdx + 1} Projection (historical, by ${weekSource})`;
 
   const confs = Object.keys(field.champsByConf).sort(
     (a, b) => field.champsByConf[a].rank - field.champsByConf[b].rank
@@ -139,6 +142,10 @@ export default function PlayoffWatch() {
         champion gets a guaranteed at-large-seeded bid, and the rest fills by rank. Each conference's
         "champion" here is just its current highest-ranked team — real championship games haven't
         been played in this model.
+        {weekSource !== 'CFP Committee' && (
+          <> This week's ranking comes from the {weekSource} — the CFP committee hasn't released
+          its first ranking of the season yet, so this is a projection, not an official field.</>
+        )}
       </p>
     </div>
   );

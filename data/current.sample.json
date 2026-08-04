@@ -10,7 +10,8 @@
       10,
       11,
       12
-    ]
+    ],
+    "currentPrimarySource": "cfp"
   },
   "rankingsByWeek": {
     "7": {
@@ -94,7 +95,35 @@
         "illinois",
         "utah",
         "memphis"
-      ]
+      ],
+      "primary": [
+        "georgia",
+        "ohio-state",
+        "miami",
+        "oregon",
+        "tennessee",
+        "alabama",
+        "texas",
+        "michigan",
+        "penn-state",
+        "ole-miss",
+        "indiana",
+        "byu",
+        "iowa-state",
+        "texas-a-m",
+        "vanderbilt",
+        "notre-dame",
+        "missouri",
+        "usc",
+        "louisville",
+        "nebraska",
+        "washington",
+        "south-carolina",
+        "illinois",
+        "utah",
+        "memphis"
+      ],
+      "primarySource": "cfp"
     },
     "8": {
       "ap": [
@@ -177,7 +206,35 @@
         "washington",
         "utah",
         "memphis"
-      ]
+      ],
+      "primary": [
+        "georgia",
+        "ohio-state",
+        "miami",
+        "oregon",
+        "tennessee",
+        "alabama",
+        "texas",
+        "penn-state",
+        "michigan",
+        "ole-miss",
+        "indiana",
+        "byu",
+        "iowa-state",
+        "texas-a-m",
+        "vanderbilt",
+        "notre-dame",
+        "missouri",
+        "louisville",
+        "usc",
+        "nebraska",
+        "illinois",
+        "south-carolina",
+        "washington",
+        "utah",
+        "memphis"
+      ],
+      "primarySource": "cfp"
     },
     "9": {
       "ap": [
@@ -260,7 +317,35 @@
         "washington",
         "utah",
         "memphis"
-      ]
+      ],
+      "primary": [
+        "georgia",
+        "ohio-state",
+        "miami",
+        "oregon",
+        "tennessee",
+        "alabama",
+        "texas",
+        "penn-state",
+        "michigan",
+        "ole-miss",
+        "byu",
+        "indiana",
+        "iowa-state",
+        "texas-a-m",
+        "vanderbilt",
+        "notre-dame",
+        "missouri",
+        "louisville",
+        "usc",
+        "nebraska",
+        "illinois",
+        "south-carolina",
+        "washington",
+        "utah",
+        "memphis"
+      ],
+      "primarySource": "cfp"
     },
     "10": {
       "ap": [
@@ -343,7 +428,35 @@
         "washington",
         "utah",
         "memphis"
-      ]
+      ],
+      "primary": [
+        "georgia",
+        "ohio-state",
+        "miami",
+        "oregon",
+        "texas",
+        "alabama",
+        "tennessee",
+        "penn-state",
+        "michigan",
+        "ole-miss",
+        "byu",
+        "notre-dame",
+        "iowa-state",
+        "indiana",
+        "vanderbilt",
+        "texas-a-m",
+        "missouri",
+        "louisville",
+        "usc",
+        "nebraska",
+        "illinois",
+        "south-carolina",
+        "washington",
+        "utah",
+        "memphis"
+      ],
+      "primarySource": "cfp"
     },
     "11": {
       "ap": [
@@ -426,7 +539,35 @@
         "illinois",
         "utah",
         "memphis"
-      ]
+      ],
+      "primary": [
+        "georgia",
+        "ohio-state",
+        "texas",
+        "oregon",
+        "miami",
+        "alabama",
+        "tennessee",
+        "penn-state",
+        "michigan",
+        "ole-miss",
+        "notre-dame",
+        "byu",
+        "iowa-state",
+        "indiana",
+        "vanderbilt",
+        "texas-a-m",
+        "missouri",
+        "louisville",
+        "usc",
+        "nebraska",
+        "washington",
+        "south-carolina",
+        "illinois",
+        "utah",
+        "memphis"
+      ],
+      "primarySource": "cfp"
     },
     "12": {
       "ap": [
@@ -509,7 +650,35 @@
         "illinois",
         "utah",
         "memphis"
-      ]
+      ],
+      "primary": [
+        "ohio-state",
+        "georgia",
+        "texas",
+        "oregon",
+        "miami",
+        "alabama",
+        "penn-state",
+        "michigan",
+        "tennessee",
+        "ole-miss",
+        "notre-dame",
+        "byu",
+        "iowa-state",
+        "indiana",
+        "vanderbilt",
+        "texas-a-m",
+        "missouri",
+        "louisville",
+        "usc",
+        "nebraska",
+        "washington",
+        "south-carolina",
+        "illinois",
+        "utah",
+        "memphis"
+      ],
+      "primarySource": "cfp"
     }
   },
   "teams": {

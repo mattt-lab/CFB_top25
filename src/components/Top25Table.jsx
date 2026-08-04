@@ -46,7 +46,7 @@ export default function Top25Table({ weekIdx }) {
                 <td className="tabnum">{t.record}</td>
                 <td style={{ color, fontWeight: 700 }}>{arrowGlyph(delta)}{delta !== 0 ? Math.abs(delta) : ''}</td>
                 <td><Sparkline points={sparkPoints(id, weekIdx)} /></td>
-                <td className="tabnum">#{t.sp}</td>
+                <td className="tabnum">{t.sp != null ? `#${t.sp}` : '—'}</td>
                 <td><TierBadge tier={tier} /></td>
                 <td className="tabnum">{po}%</td>
                 <td className="tabnum">{americanOdds(no)}</td>

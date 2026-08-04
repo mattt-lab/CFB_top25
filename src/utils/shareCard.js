@@ -1,4 +1,4 @@
-import { WEEK_IDX_MAX, playoffOddsFor, nattyOddsFor, americanOdds } from '../data/teams.js';
+import { playoffOddsFor, nattyOddsFor, americanOdds } from '../data/teams.js';
 
 export function downloadShareCard(team) {
   const cs = getComputedStyle(document.documentElement);
@@ -24,15 +24,21 @@ export function downloadShareCard(team) {
   ctx.fillStyle = ink2; ctx.font = '600 26px system-ui, sans-serif';
   ctx.fillText(`${team.conf} · ${team.record}`, 60, 235);
 
-  const rank = team.cfp[WEEK_IDX_MAX];
-  ctx.fillStyle = accent; ctx.font = '800 150px system-ui, sans-serif';
-  ctx.fillText(`#${rank}`, 60, 410);
+  // cfpRank is the resolved primary rank (CFP/Coaches/AP fallback) -- null for a team that isn't
+  // currently ranked at all.
+  const rank = team.cfpRank;
+  ctx.fillStyle = accent; ctx.font = (rank != null ? '800 150px' : '800 80px') + ' system-ui, sans-serif';
+  ctx.fillText(rank != null ? `#${rank}` : 'Unranked', 60, 410);
 
-  const po = playoffOddsFor(rank, team.record, team.sp);
-  const no = nattyOddsFor(rank, team.record, team.sp, team.fpi);
   ctx.fillStyle = ink; ctx.font = '700 30px system-ui, sans-serif';
-  ctx.fillText(`Make CFP: ${po}%`, 60, 475);
-  ctx.fillText(`Win it all: ${americanOdds(no)}`, 60, 518);
+  if (rank != null) {
+    const po = playoffOddsFor(rank, team.record, team.sp);
+    const no = nattyOddsFor(rank, team.record, team.sp, team.fpi);
+    ctx.fillText(`Make CFP: ${po}%`, 60, 475);
+    ctx.fillText(`Win it all: ${americanOdds(no)}`, 60, 518);
+  } else {
+    ctx.fillText('Not currently ranked', 60, 475);
+  }
 
   ctx.fillStyle = ink2; ctx.font = '400 18px system-ui, sans-serif';
   ctx.fillText('Illustrative sample data — cfbhq mockup', 60, 590);

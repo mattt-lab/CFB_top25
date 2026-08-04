@@ -1,7 +1,19 @@
 import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation, matchPath } from 'react-router-dom';
-import { teamById } from '../data/teams.js';
+import {
+  teamById, WEEK_IDX_MAX, SEASON, LAST_UPDATED, primaryLabel, PRIMARY_SOURCE_BY_WEEK,
+} from '../data/teams.js';
 import { trackPageview } from '../utils/analytics.js';
+
+function formatLastUpdated(iso) {
+  try {
+    return new Date(iso).toLocaleString('en-US', {
+      month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+    });
+  } catch {
+    return iso;
+  }
+}
 
 function titleFor(pathname) {
   if (pathname === '/') return 'Top 25 Tracker';
@@ -30,7 +42,9 @@ export default function Layout() {
           <span className="dot" />CFB&nbsp;HQ
         </NavLink>
         <div className="week">
-          Week <b>12</b> · Nov 22 · <span>CFP Committee, AP &amp; Coaches Polls</span>
+          {SEASON} season · Week <b>{WEEK_IDX_MAX + 1}</b> ·{' '}
+          <span>Ranked by {primaryLabel(PRIMARY_SOURCE_BY_WEEK[WEEK_IDX_MAX])}</span>
+          {LAST_UPDATED && <span> · Data as of {formatLastUpdated(LAST_UPDATED)}</span>}
         </div>
       </header>
       <nav className="nav">

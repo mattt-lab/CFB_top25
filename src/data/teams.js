@@ -5,8 +5,35 @@
 import raw from '../../data/current.sample.json';
 
 export const WEEKS = Array.from({ length: raw.meta.currentWeek }, (_, i) => i + 1);
-export const WEEK_IDX_MIN = Math.min(...raw.meta.weeksAvailable) - 1; // array index for the first committee week
+export const WEEK_IDX_MIN = Math.min(...raw.meta.weeksAvailable) - 1; // array index for the first week with ANY poll
 export const WEEK_IDX_MAX = raw.meta.currentWeek - 1; // array index for the latest week
+export const SEASON = raw.meta.season;
+export const LAST_UPDATED = raw.meta.lastUpdated;
+
+// "CFP" | "Coaches Poll" | "AP Poll" display label for a resolved primary-poll source code.
+export function primaryLabel(source) {
+  if (source === 'cfp') return 'CFP Committee';
+  if (source === 'coaches') return 'Coaches Poll';
+  if (source === 'ap') return 'AP Poll';
+  return 'Rankings';
+}
+
+// ---- Real weekly ranking order, keyed by week array-index — replaces the mockup's seeded-RNG
+// WEEKLY_ORDER generator entirely. rankingsByWeek[week].primary IS the ranking order: CFP once
+// the committee exists, else Coaches Poll, else AP (see docs/data-schema.md "Season changeover
+// and the pre-committee gap" -- the committee doesn't exist for the first ~6-10 weeks of every
+// season, so raw `.cfp` alone would be empty for a real stretch of the calendar). Built before
+// `teams` below, since team ranks are derived from this, not from a raw per-team `.cfp` array
+// (which can be entirely null pre-committee -- confirmed live, that's the real August case).
+export const WEEKLY_ORDER = {};
+export const PRIMARY_SOURCE_BY_WEEK = {}; // week array-index -> 'cfp' | 'coaches' | 'ap'
+WEEKS.forEach((wk, idx) => {
+  const rbw = raw.rankingsByWeek[String(wk)];
+  WEEKLY_ORDER[idx] = rbw && rbw.primary ? rbw.primary.slice() : [];
+  PRIMARY_SOURCE_BY_WEEK[idx] = rbw ? rbw.primarySource : null;
+});
+
+export const CURRENT_PRIMARY_SOURCE = raw.meta.currentPrimarySource;
 
 // ---- teams: every team gets a full entry in the real schema (no DETAILED/SUMMARY split) ----
 // Keyed by id already (schema: `teams` is an object keyed by slugify(name)) — just attach `id`
@@ -14,11 +41,14 @@ export const WEEK_IDX_MAX = raw.meta.currentWeek - 1; // array index for the lat
 const byIdMap = {};
 Object.keys(raw.teams).forEach((id) => {
   const t = raw.teams[id];
+  const i = WEEKLY_ORDER[WEEK_IDX_MAX].indexOf(id);
   byIdMap[id] = {
     ...t,
     id,
     record: `${t.wins}-${t.losses}`,
-    cfpRank: t.cfp[WEEK_IDX_MAX],
+    // Despite the name (kept for minimal churn across components), this is the resolved PRIMARY
+    // rank -- CFP/Coaches/AP, whichever was active -- not necessarily a raw CFP poll position.
+    cfpRank: i === -1 ? null : i + 1,
   };
 });
 
@@ -35,14 +65,6 @@ export const games = raw.games.map((g) => ({
   homeTeam: teamById(g.home),
 }));
 export const predictions = raw.predictions;
-
-// ---- Real weekly CFP committee order, keyed by week array-index — replaces the mockup's
-// seeded-RNG WEEKLY_ORDER generator entirely. rankingsByWeek[week].cfp IS the ranking order.
-export const WEEKLY_ORDER = {};
-WEEKS.forEach((wk, idx) => {
-  const rbw = raw.rankingsByWeek[String(wk)];
-  WEEKLY_ORDER[idx] = rbw && rbw.cfp ? rbw.cfp.slice() : [];
-});
 
 export function rankAt(teamId, wIdx) {
   const order = WEEKLY_ORDER[wIdx] || [];
@@ -110,7 +132,11 @@ export function computeField(wIdx) {
   const champsByConf = {};
   teams.forEach((o) => {
     const conf = o.team.conf;
-    if (conf === 'Independent') return;
+    // Independents have no conference championship to win, so no auto-bid -- matched
+    // case-insensitively/by substring rather than an exact string, since real CFBD data uses
+    // "FBS Independents" (confirmed live for Notre Dame), not the mockup's "Independent". An
+    // exact-match check let Notre Dame slip through as a fake "FBS Independents champ" bye seed.
+    if (!conf || conf.toLowerCase().includes('independent')) return;
     if (!champsByConf[conf] || o.rank < champsByConf[conf].rank) champsByConf[conf] = o;
   });
   const champs = Object.keys(champsByConf).map((c) => champsByConf[c]).sort((a, b) => a.rank - b.rank);

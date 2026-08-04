@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom';
 import { useWeekStore } from '../store/useWeekStore.js';
-import { WEEK_IDX_MAX, games, predictions } from '../data/teams.js';
+import { WEEK_IDX_MAX, games, predictions, primaryLabel, PRIMARY_SOURCE_BY_WEEK } from '../data/teams.js';
 import WeekTravelBar from '../components/WeekTravelBar.jsx';
 import MyTeamsSection from '../components/MyTeamsSection.jsx';
 import Top25Table from '../components/Top25Table.jsx';
 
 export default function Top25Tracker() {
   const weekIdx = useWeekStore((s) => s.weekIdx);
+  const currentWeekNumber = WEEK_IDX_MAX + 1;
+  const weekSource = primaryLabel(PRIMARY_SOURCE_BY_WEEK[weekIdx]);
   const eyebrow = weekIdx === WEEK_IDX_MAX
-    ? 'Week 12 · Regular Season'
-    : `Week ${weekIdx + 1} snapshot (historical)`;
+    ? `Week ${currentWeekNumber} · Ranked by ${weekSource}`
+    : `Week ${weekIdx + 1} snapshot (historical, by ${weekSource})`;
 
   return (
     <div>
@@ -54,7 +56,7 @@ export default function Top25Tracker() {
       <section className="card" style={{ marginTop: 22 }}>
         <div className="panel-title">
           <div>
-            <h2>What the model expects — Week 12 → 13</h2>
+            <h2>What the model expects — Week {currentWeekNumber} → {currentWeekNumber + 1}</h2>
             <p>Notes generated from rankings, resume, and this week's lines.</p>
           </div>
         </div>

@@ -32,26 +32,58 @@ same fields. Similarly, the mockup's seeded-RNG `WEEKLY_ORDER` generator (fabric
 historical ranking order) goes away entirely — `rankingsByWeek` below is real historical data, not
 a simulation.
 
+## Season changeover and the pre-committee gap
+
+Two related facts about real CFBD data that shape this schema, both confirmed live rather than
+assumed:
+
+- **Which season is "current" isn't just the calendar year.** A season is named by the year it
+  starts (the "2026 season" runs Aug 2026 → Jan 2027), and the previous season's national
+  championship happens in January — so for the five months between January and July, "the
+  season worth showing" started the *previous* calendar year. `scripts/lib/season.mjs` resolves
+  this with an explicit rule: the previous season stays the target through the off-season, and
+  the site flips forward on **August 1**, even though the new season won't have meaningful
+  ranking data for another couple of months.
+- **The CFP committee doesn't exist for the first ~6-10 weeks of every season** (its first
+  reveal is usually week 7-11). For that whole span — which, right after the Aug 1 changeover,
+  is *every* week until the committee starts — there's no `cfp` poll to rank teams by. Every
+  week therefore resolves a **primary** ranking with a fallback chain: **CFP Committee → Coaches
+  Poll → AP**. This is "our own analytics [SP+/FPI/Elo] + USA Today/Coaches poll stuff" filling
+  the gap the committee hasn't filled yet — not a placeholder, a real published poll. Confirmed
+  live: early August currently has exactly one poll on file for the upcoming season — a
+  preseason Coaches Poll — with real teams, points, and first-place votes, weeks before the
+  committee exists.
+
+Everything that needs "the" cross-team ranking (Top 25 order, tiers, the Playoff Watch bracket,
+time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order below, **never**
+`cfp` directly — `cfp` alone would be empty for a real stretch of every season.
+
 ## `data/current.json`
 
 ```jsonc
 {
   "meta": {
     "season": 2026,
-    "currentWeek": 12,              // most recent week with a committee ranking
+    "currentWeek": 12,                    // most recent week with ANY poll data (not committee-only)
+    "currentPrimarySource": "cfp",        // "cfp" | "coaches" | "ap" — which poll currentWeek's ranking actually comes from;
+                                           // the frontend labels things honestly off this ("Coaches Poll" pre-committee)
+                                           // rather than assume it's always committee data
     "lastUpdated": "2026-11-25T13:04:00Z",
-    "weeksAvailable": [7, 8, 9, 10, 11, 12]   // weeks with a CFP committee ranking (poll history starts wk 1, committee starts wk 7)
+    "weeksAvailable": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]   // every week with ANY poll (AP/Coaches/CFP), ascending
   },
 
-  // One entry per week that has a committee ranking. Used for time-travel (Top 25 Tracker +
-  // Playoff Watch only — team drilldowns always show current/full-season data regardless).
-  // Each poll is an ordered array of team ids, best-ranked first. `cfp` may be a shorter list
-  // than 25 in early committee weeks if CFBD hasn't published a full 25 yet — treat missing
+  // One entry per week with ANY poll data — not committee-only; a preseason-Coaches-Poll-only
+  // week (or any pre-committee week) still gets an entry here, just with `cfp: []`. Used for
+  // time-travel (Top 25 Tracker + Playoff Watch only — team drilldowns always show
+  // current/full-season data regardless). Each poll is an ordered array of team ids, best-ranked
+  // first; `primary` is the pre-resolved CFP → Coaches → AP fallback (see "Season changeover"
+  // above) — use THIS for cross-team ranking, not `cfp` directly. `cfp` may also be a shorter
+  // list than 25 in early committee weeks if CFBD hasn't published a full 25 yet — treat missing
   // entries as unranked, not an error.
   "rankingsByWeek": {
-    "7":  { "ap": ["ohio-state", "georgia", "..."], "coaches": ["..."], "cfp": ["..."] },
-    "8":  { "ap": ["..."], "coaches": ["..."], "cfp": ["..."] },
-    "12": { "ap": ["..."], "coaches": ["..."], "cfp": ["..."] }
+    "1":  { "ap": [], "coaches": ["ohio-state", "oregon", "..."], "cfp": [], "primary": ["ohio-state", "oregon", "..."], "primarySource": "coaches" },
+    "7":  { "ap": ["ohio-state", "georgia", "..."], "coaches": ["..."], "cfp": ["..."], "primary": ["..."], "primarySource": "cfp" },
+    "12": { "ap": ["..."], "coaches": ["..."], "cfp": ["..."], "primary": ["..."], "primarySource": "cfp" }
   },
 
   // Keyed by team id (lowercase, hyphenated: slugify(name)) for O(1) lookup.
@@ -67,7 +99,7 @@ a simulation.
       "elo": 1,          // Elo rank
       "ap": [3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1],           // one entry per week 1-12+, null before the team is first ranked
       "coaches": [3, 3, 2, 2, 2, 3, 2, 2, 2, 1, 1, 1],
-      "cfp": [null, null, null, null, null, null, 2, 2, 2, 1, 1, 1], // null for weeks 1-6 (pre-committee)
+      "cfp": [null, null, null, null, null, null, 2, 2, 2, 1, 1, 1], // null before the committee's first reveal that season -- this varies year to year (confirmed live: week 7 in some seasons, week 11 in 2024), it isn't a fixed week number
       "games": [
         {
           "wk": 7,
@@ -121,7 +153,9 @@ as one entry of `rankingsByWeek` above:
   "polls": {
     "ap": ["georgia", "ohio-state", "..."],
     "coaches": ["..."],
-    "cfp": ["..."]   // omitted/empty for weeks before the committee's first reveal (week 7)
+    "cfp": [],                              // empty before the committee's first reveal
+    "primary": ["georgia", "ohio-state", "..."],  // CFP -> Coaches -> AP fallback, resolved once here
+    "primarySource": "coaches"
   }
 }
 ```
@@ -141,9 +175,12 @@ above.
 
 ## Team id convention
 
-`slugify(name) = name.toLowerCase().replace(/[^a-z0-9]+/g, '-')` — e.g. `"Texas A&M"` →
-`"texas-a-m"`, `"Ohio State"` → `"ohio-state"`. Every file in `data/` that references a team uses
-this id, never the display name, so a mid-season name/branding change doesn't break joins.
+`slugify(name)`: NFD-normalize and strip combining diacritics first (so `"San José State"` →
+`"san-jose-state"`, not `"san-jos-state"` — confirmed live, that's a real FBS team), then
+lowercase and replace runs of non-alphanumeric characters with a single hyphen, trimming leading/
+trailing hyphens. E.g. `"Texas A&M"` → `"texas-a-m"`, `"Ohio State"` → `"ohio-state"`. Every file
+in `data/` that references a team uses this id, never the display name, so a mid-season name/
+branding change doesn't break joins.
 
 ## Who populates what
 

@@ -1,6 +1,7 @@
 import { useParams, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import {
   teamById, WEEK_IDX_MAX, trendOf, playoffOddsFor, nattyOddsFor, americanOdds,
+  deltaAt, primaryLabel, PRIMARY_SOURCE_BY_WEEK,
 } from '../data/teams.js';
 import { usePinnedStore } from '../store/usePinnedStore.js';
 import { downloadShareCard } from '../utils/shareCard.js';
@@ -25,11 +26,19 @@ export default function TeamDetail() {
   const backLabel = cameFrom === 'playoff' ? '← Back to Playoff Watch' : '← Back to Top 25 Tracker';
   const backPath = cameFrom === 'playoff' ? '/playoff-watch' : '/';
 
-  const rank = team.cfp[WEEK_IDX_MAX];
-  const rankTrend = trendOf(team.cfp);
+  // cfpRank is the resolved PRIMARY rank (CFP once the committee exists, else Coaches, else AP —
+  // see docs/data-schema.md) -- never the raw team.cfp[] array, which is null pre-committee.
+  const rank = team.cfpRank;
+  const sourceLabel = primaryLabel(PRIMARY_SOURCE_BY_WEEK[WEEK_IDX_MAX]);
+  const rankDelta = deltaAt(team.id, WEEK_IDX_MAX);
+  const rankDeltaDir = rankDelta > 0 ? 'up' : rankDelta < 0 ? 'down' : 'flat';
   const apTrend = trendOf(team.ap);
-  const po = playoffOddsFor(rank, team.record, team.sp);
-  const no = nattyOddsFor(rank, team.record, team.sp, team.fpi);
+  // Unranked teams (fell out of the poll, or never ranked) have rank === null -- the odds
+  // formulas assume a real rank, so skip them rather than let `null` silently coerce to 0 and
+  // produce a nonsense near-100% "playoff odds" for a team that isn't even ranked.
+  const po = rank != null ? playoffOddsFor(rank, team.record, team.sp) : null;
+  const no = rank != null ? nattyOddsFor(rank, team.record, team.sp, team.fpi) : null;
+  const currentWeekNumber = WEEK_IDX_MAX + 1;
 
   return (
     <div>
@@ -51,33 +60,33 @@ export default function TeamDetail() {
           </div>
           <div className="rank-block">
             <div>
-              <div className={`delta-badge ${rankTrend.dir}`}>
-                {rankTrend.dir === 'flat' ? 'No change' : `${rankTrend.dir === 'up' ? '▲' : '▼'} ${rankTrend.diff} this week`}
+              <div className={`delta-badge ${rankDeltaDir}`}>
+                {rankDeltaDir === 'flat' ? 'No change' : `${rankDeltaDir === 'up' ? '▲' : '▼'} ${Math.abs(rankDelta)} this week`}
               </div>
             </div>
-            <div className="rank-figure tabnum">{rank}</div>
-            <div className="eyebrow-lbl" style={{ marginBottom: 12 }}>CFP&nbsp;RANK</div>
+            <div className="rank-figure tabnum">{rank ?? '—'}</div>
+            <div className="eyebrow-lbl" style={{ marginBottom: 12 }}>{sourceLabel.toUpperCase()}&nbsp;RANK</div>
           </div>
           <div className="stat-grid">
             <div className="stat">
               <div className="lbl">AP Poll</div>
-              <div className="val tabnum">#{team.ap[WEEK_IDX_MAX]}</div>
+              <div className="val tabnum">{team.ap[WEEK_IDX_MAX] != null ? `#${team.ap[WEEK_IDX_MAX]}` : '—'}</div>
               <div className="sub">
                 {apTrend.dir === 'flat' ? 'No change' : `${apTrend.dir === 'up' ? '▲' : '▼'}${apTrend.diff} vs last wk`}
               </div>
             </div>
             <div className="stat">
               <div className="lbl">SP+ Rank</div>
-              <div className="val tabnum">#{team.sp}</div>
+              <div className="val tabnum">{team.sp != null ? `#${team.sp}` : '—'}</div>
               <div className="sub">
-                {team.sp < rank ? 'Model likes them more' : team.sp > rank ? 'Model ranks them lower' : 'Matches committee'}
+                {team.sp == null || rank == null ? 'Not yet available' : team.sp < rank ? 'Model likes them more' : team.sp > rank ? 'Model ranks them lower' : `Matches ${sourceLabel}`}
               </div>
             </div>
             <div className="stat">
               <div className="lbl">FPI Rank</div>
-              <div className="val tabnum">#{team.fpi}</div>
+              <div className="val tabnum">{team.fpi != null ? `#${team.fpi}` : '—'}</div>
               <div className="sub">
-                {team.fpi < rank ? 'Model likes them more' : team.fpi > rank ? 'Model ranks them lower' : 'Matches committee'}
+                {team.fpi == null || rank == null ? 'Not yet available' : team.fpi < rank ? 'Model likes them more' : team.fpi > rank ? 'Model ranks them lower' : `Matches ${sourceLabel}`}
               </div>
             </div>
           </div>
@@ -92,14 +101,22 @@ export default function TeamDetail() {
         </div>
 
         <div className="card gauge-card">
-          <div className="two-gauges">
-            <Gauge pct={po} color="var(--accent)" valueLabel={`${po}%`} caption="Make the 12-team field" />
-            <Gauge pct={no} color="var(--series-cfp)" valueLabel={`${no.toFixed(1)}%`} caption="Win the national title" />
-          </div>
-          <div className="gauge-note">
-            Title odds ≈ {americanOdds(no)} american, blended from rank + record + SP+/FPI.{' '}
-            {po >= 75 ? 'Comfortably in the field as of Week 12.' : po >= 40 ? "Control it and they're in." : 'Needs help to sneak in.'}
-          </div>
+          {rank == null ? (
+            <p style={{ fontSize: 13, color: 'var(--ink-2)', textAlign: 'center' }}>
+              {team.name} isn't currently ranked — odds need a rank to estimate from.
+            </p>
+          ) : (
+            <>
+              <div className="two-gauges">
+                <Gauge pct={po} color="var(--accent)" valueLabel={`${po}%`} caption="Make the 12-team field" />
+                <Gauge pct={no} color="var(--series-cfp)" valueLabel={`${no.toFixed(1)}%`} caption="Win the national title" />
+              </div>
+              <div className="gauge-note">
+                Title odds ≈ {americanOdds(no)} american, blended from rank + record + SP+/FPI.{' '}
+                {po >= 75 ? `Comfortably in the field as of Week ${currentWeekNumber}.` : po >= 40 ? "Control it and they're in." : 'Needs help to sneak in.'}
+              </div>
+            </>
+          )}
         </div>
       </section>
 
@@ -109,8 +126,8 @@ export default function TeamDetail() {
         <section className="card">
           <div className="panel-title">
             <div>
-              <h2>Committee vs. the computers</h2>
-              <p>Rank differential — positive means a model rates the team better than the committee does.</p>
+              <h2>{sourceLabel} vs. the computers</h2>
+              <p>Rank differential — positive means a model rates the team better than the poll does.</p>
             </div>
           </div>
           <DeltaRows team={team} />

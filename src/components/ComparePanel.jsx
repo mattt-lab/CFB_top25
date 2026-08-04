@@ -6,7 +6,9 @@ export default function ComparePanel({ team }) {
   // valid compare target — not just the old hand-authored 7.
   const others = Object.values(teams)
     .filter((t) => t.id !== team.id)
-    .sort((a, b) => a.cfpRank - b.cfpRank);
+    // Unranked teams have cfpRank === null -- sort them to the end, not the front (plain
+    // `a.cfpRank - b.cfpRank` would coerce null to 0 and put unranked teams first).
+    .sort((a, b) => (a.cfpRank ?? Infinity) - (b.cfpRank ?? Infinity));
   const [otherId, setOtherId] = useState(others[0]?.id);
 
   // If the current team changes (navigated to a different team page), reset the comparison target.
@@ -19,8 +21,9 @@ export default function ComparePanel({ team }) {
 
   let body = null;
   if (other) {
-    // The fixture is intentionally sparse — most teams have an empty `games: []` (see
-    // scripts/generate-sample-fixture.mjs). Head-to-head/common-opponent logic needs real game
+    // Some teams have an empty `games: []` -- either the sample fixture's intentionally sparse
+    // non-priority teams, or (in real data) a team with no game log yet this early in a season.
+    // Head-to-head/common-opponent logic needs real game
     // logs on both sides, so bail out to a plain message instead of rendering an empty table.
     if (!team.games.length || !other.games.length) {
       const missing = !team.games.length && !other.games.length
