@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import {
   WEEKLY_ORDER, teamById, deltaAt, sparkPoints,
-  tierFor, playoffOddsFor, nattyOddsFor, americanOdds, arrowGlyph,
+  playoffOddsFor, nattyOddsFor, americanOdds, arrowGlyph,
 } from '../data/teams.js';
 import ConfDot from './ConfDot.jsx';
 import Sparkline from './Sparkline.jsx';
-import TierBadge from './TierBadge.jsx';
 import PinButton from './PinButton.jsx';
 
 export default function Top25Table({ weekIdx }) {
@@ -18,7 +17,7 @@ export default function Top25Table({ weekIdx }) {
         <thead>
           <tr>
             <th></th><th>Rk</th><th>Team</th><th>Record</th><th>Wk &Delta;</th><th>Trend</th>
-            <th>SP+</th><th>Status</th><th>Make CFP</th><th>Win it all</th>
+            <th>SP+</th><th>Make CFP</th><th>Win it all</th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +25,6 @@ export default function Top25Table({ weekIdx }) {
             const rank = i + 1;
             const t = teamById(id);
             const delta = deltaAt(id, weekIdx);
-            const tier = tierFor(rank);
             const po = playoffOddsFor(rank, t.record, t.sp);
             const no = nattyOddsFor(rank, t.record, t.sp, t.fpi);
             const color = delta > 0 ? 'var(--good)' : delta < 0 ? 'var(--critical)' : 'var(--muted)';
@@ -47,7 +45,6 @@ export default function Top25Table({ weekIdx }) {
                 <td style={{ color, fontWeight: 700 }}>{arrowGlyph(delta)}{delta !== 0 ? Math.abs(delta) : ''}</td>
                 <td><Sparkline points={sparkPoints(id, weekIdx)} /></td>
                 <td className="tabnum">{t.sp != null ? `#${t.sp}` : '—'}</td>
-                <td><TierBadge tier={tier} /></td>
                 <td className="tabnum">{po}%</td>
                 <td className="tabnum">{americanOdds(no)}</td>
               </tr>
