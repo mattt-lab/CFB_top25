@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import {
-  WEEKLY_ORDER, teamById, isDetailed, deltaAt, sparkPoints,
+  WEEKLY_ORDER, teamById, deltaAt, sparkPoints,
   tierFor, playoffOddsFor, nattyOddsFor, americanOdds, arrowGlyph,
 } from '../data/teams.js';
 import ConfDot from './ConfDot.jsx';
@@ -29,14 +29,13 @@ export default function Top25Table({ weekIdx }) {
             const tier = tierFor(rank);
             const po = playoffOddsFor(rank, t.record, t.sp);
             const no = nattyOddsFor(rank, t.record, t.sp, t.fpi);
-            const detailed = isDetailed(id);
             const color = delta > 0 ? 'var(--good)' : delta < 0 ? 'var(--critical)' : 'var(--muted)';
 
             return (
               <tr
                 key={id}
-                className={detailed ? 'row-click' : undefined}
-                onClick={detailed ? () => navigate(`/team/${id}`, { state: { from: 'top25' } }) : undefined}
+                className="row-click"
+                onClick={() => navigate(`/team/${id}`, { state: { from: 'top25' } })}
               >
                 <td><PinButton teamId={id} /></td>
                 <td className="tabnum" style={{ fontWeight: 800 }}>{rank}</td>

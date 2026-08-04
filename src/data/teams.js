@@ -1,188 +1,54 @@
-// Illustrative mock data — stand-in for data/current.json until the real fetch pipeline exists.
-// Shape mirrors what the CollegeFootballData.com API + weekly snapshots will eventually produce.
+// Real data module — loads data/current.json's fixture (data/current.sample.json until the live
+// fetch pipeline lands) and re-derives the same helpers the mockup-era hand-authored data used to
+// export, so component code doesn't need to change shape. See docs/data-schema.md for the
+// authoritative schema this file targets.
+import raw from '../../data/current.sample.json';
 
-export const WEEKS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-export const WEEK_IDX_MIN = 6; // array index for Week 7 (first committee week)
-export const WEEK_IDX_MAX = 11; // array index for Week 12 (latest)
+export const WEEKS = Array.from({ length: raw.meta.currentWeek }, (_, i) => i + 1);
+export const WEEK_IDX_MIN = Math.min(...raw.meta.weeksAvailable) - 1; // array index for the first committee week
+export const WEEK_IDX_MAX = raw.meta.currentWeek - 1; // array index for the latest week
 
-export const DETAILED = [
-  {
-    id: 'ohio-state', name: 'Ohio State', conf: 'Big Ten', record: '11-1',
-    ap: [3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1],
-    coaches: [3, 3, 2, 2, 2, 3, 2, 2, 2, 1, 1, 1],
-    cfp: [null, null, null, null, null, null, 2, 2, 2, 1, 1, 1],
-    sp: 1, fpi: 2, elo: 1,
-    games: [
-      { wk: 7, opp: 'Penn State', oppRank: 4, res: 'W', note: 'Quality win', tag: 'quality' },
-      { wk: 8, opp: 'Purdue', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 9, opp: 'Michigan', oppRank: 8, res: 'W', note: 'Rivalry, ranked win', tag: 'quality' },
-      { wk: 10, opp: 'Indiana', oppRank: 14, res: 'W', note: 'Solid road win', tag: '' },
-      { wk: 11, opp: 'Illinois', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 12, opp: 'Rutgers', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-    ],
-  },
-  {
-    id: 'georgia', name: 'Georgia', conf: 'SEC', record: '10-2',
-    ap: [2, 2, 3, 3, 4, 4, 4, 3, 3, 3, 2, 2],
-    coaches: [2, 2, 3, 4, 4, 4, 4, 3, 3, 3, 3, 2],
-    cfp: [null, null, null, null, null, null, 4, 3, 3, 3, 2, 2],
-    sp: 2, fpi: 1, elo: 2,
-    games: [
-      { wk: 7, opp: 'Florida', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 8, opp: 'Texas', oppRank: 5, res: 'L', note: 'Bad loss', tag: 'bad' },
-      { wk: 9, opp: 'Ole Miss', oppRank: 11, res: 'W', note: 'Ranked win', tag: 'quality' },
-      { wk: 10, opp: 'Tennessee', oppRank: 9, res: 'W', note: 'Quality win', tag: 'quality' },
-      { wk: 11, opp: 'UMass', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 12, opp: 'Georgia Tech', oppRank: null, res: 'W', note: 'Rivalry win', tag: '' },
-    ],
-  },
-  {
-    id: 'texas', name: 'Texas', conf: 'SEC', record: '10-2',
-    ap: [6, 5, 5, 4, 3, 3, 3, 4, 4, 4, 4, 3],
-    coaches: [6, 5, 5, 4, 3, 3, 3, 4, 4, 4, 4, 3],
-    cfp: [null, null, null, null, null, null, 3, 4, 4, 4, 4, 3],
-    sp: 3, fpi: 3, elo: 3,
-    games: [
-      { wk: 7, opp: 'Oklahoma', oppRank: 12, res: 'W', note: 'Red River win', tag: 'quality' },
-      { wk: 8, opp: 'Georgia', oppRank: 2, res: 'W', note: 'Marquee win', tag: 'quality' },
-      { wk: 9, opp: 'Vanderbilt', oppRank: 20, res: 'L', note: 'Bad loss', tag: 'bad' },
-      { wk: 10, opp: 'Arkansas', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 11, opp: 'Kentucky', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 12, opp: 'Texas A&M', oppRank: 16, res: 'W', note: 'Rivalry, ranked win', tag: 'quality' },
-    ],
-  },
-  {
-    id: 'oregon', name: 'Oregon', conf: 'Big Ten', record: '11-1',
-    ap: [5, 4, 4, 5, 5, 5, 5, 5, 5, 5, 3, 4],
-    coaches: [5, 4, 4, 5, 5, 5, 5, 5, 5, 5, 3, 4],
-    cfp: [null, null, null, null, null, null, 5, 5, 5, 5, 3, 4],
-    sp: 4, fpi: 4, elo: 4,
-    games: [
-      { wk: 7, opp: 'USC', oppRank: 19, res: 'W', note: 'Ranked win', tag: 'quality' },
-      { wk: 8, opp: 'Michigan State', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 9, opp: 'Iowa', oppRank: null, res: 'W', note: 'Close road win', tag: '' },
-      { wk: 10, opp: 'Wisconsin', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 11, opp: 'Washington', oppRank: 22, res: 'W', note: 'Ranked win', tag: 'quality' },
-      { wk: 12, opp: 'Minnesota', oppRank: null, res: 'L', note: 'Bad loss', tag: 'bad' },
-    ],
-  },
-  {
-    id: 'miami', name: 'Miami', conf: 'ACC', record: '10-1',
-    ap: [9, 8, 7, 6, 6, 6, 6, 6, 6, 6, 5, 5],
-    coaches: [9, 8, 7, 7, 6, 6, 6, 6, 6, 6, 5, 5],
-    cfp: [null, null, null, null, null, null, 6, 6, 6, 6, 5, 5],
-    sp: 7, fpi: 8, elo: 7,
-    games: [
-      { wk: 7, opp: 'Louisville', oppRank: 18, res: 'W', note: 'Ranked win', tag: 'quality' },
-      { wk: 8, opp: 'Wake Forest', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 9, opp: 'SMU', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 10, opp: 'Florida State', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 11, opp: 'NC State', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 12, opp: 'Duke', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-    ],
-  },
-  {
-    id: 'alabama', name: 'Alabama', conf: 'SEC', record: '9-3',
-    ap: [8, 9, 8, 7, 6, 6, 6, 6, 7, 7, 6, 6],
-    coaches: [8, 9, 8, 7, 7, 6, 6, 6, 7, 7, 6, 6],
-    cfp: [null, null, null, null, null, null, 6, 6, 7, 7, 6, 6],
-    sp: 5, fpi: 5, elo: 6,
-    games: [
-      { wk: 7, opp: 'Missouri', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 8, opp: 'Tennessee', oppRank: 9, res: 'W', note: 'Quality win', tag: 'quality' },
-      { wk: 9, opp: 'LSU', oppRank: 15, res: 'L', note: 'Bad loss', tag: 'bad' },
-      { wk: 10, opp: 'Oklahoma', oppRank: 12, res: 'W', note: 'Ranked win', tag: 'quality' },
-      { wk: 11, opp: 'Eastern Illinois', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 12, opp: 'Auburn', oppRank: null, res: 'W', note: 'Rivalry win', tag: '' },
-    ],
-  },
-  {
-    id: 'penn-state', name: 'Penn State', conf: 'Big Ten', record: '9-3',
-    ap: [4, 6, 6, 6, 7, 7, 7, 7, 6, 6, 7, 7],
-    coaches: [4, 6, 6, 6, 6, 7, 7, 7, 6, 6, 7, 7],
-    cfp: [null, null, null, null, null, null, 7, 7, 6, 6, 7, 7],
-    sp: 6, fpi: 6, elo: 5,
-    games: [
-      { wk: 7, opp: 'Ohio State', oppRank: 1, res: 'L', note: 'Close, ranked loss', tag: '' },
-      { wk: 8, opp: 'Northwestern', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 9, opp: 'UCLA', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-      { wk: 10, opp: 'Michigan', oppRank: 8, res: 'W', note: 'Ranked win', tag: 'quality' },
-      { wk: 11, opp: 'Nebraska', oppRank: 24, res: 'L', note: 'Bad loss', tag: 'bad' },
-      { wk: 12, opp: 'Maryland', oppRank: null, res: 'W', note: 'Expected result', tag: '' },
-    ],
-  },
-];
-
-export const SUMMARY = [
-  { name: 'Michigan', conf: 'Big Ten', record: '9-3', cfpRank: 8, delta: 1, sp: 9, fpi: 9 },
-  { name: 'Tennessee', conf: 'SEC', record: '9-3', cfpRank: 9, delta: -2, sp: 8, fpi: 7 },
-  { name: 'Ole Miss', conf: 'SEC', record: '9-3', cfpRank: 10, delta: 0, sp: 10, fpi: 11 },
-  { name: 'Notre Dame', conf: 'Independent', record: '9-3', cfpRank: 11, delta: 2, sp: 11, fpi: 10 },
-  { name: 'BYU', conf: 'Big 12', record: '10-2', cfpRank: 12, delta: -1, sp: 14, fpi: 13 },
-  { name: 'Iowa State', conf: 'Big 12', record: '9-3', cfpRank: 13, delta: 1, sp: 15, fpi: 14 },
-  { name: 'Indiana', conf: 'Big Ten', record: '9-3', cfpRank: 14, delta: -1, sp: 12, fpi: 12 },
-  { name: 'Vanderbilt', conf: 'SEC', record: '9-3', cfpRank: 15, delta: 3, sp: 16, fpi: 17 },
-  { name: 'Texas A&M', conf: 'SEC', record: '8-4', cfpRank: 16, delta: -2, sp: 13, fpi: 15 },
-  { name: 'Missouri', conf: 'SEC', record: '8-4', cfpRank: 17, delta: 0, sp: 17, fpi: 16 },
-  { name: 'Louisville', conf: 'ACC', record: '9-3', cfpRank: 18, delta: 1, sp: 18, fpi: 19 },
-  { name: 'USC', conf: 'Big Ten', record: '8-4', cfpRank: 19, delta: -1, sp: 19, fpi: 18 },
-  { name: 'Nebraska', conf: 'Big Ten', record: '8-4', cfpRank: 20, delta: 2, sp: 21, fpi: 20 },
-  { name: 'Washington', conf: 'Big Ten', record: '8-4', cfpRank: 21, delta: -3, sp: 20, fpi: 22 },
-  { name: 'South Carolina', conf: 'SEC', record: '8-4', cfpRank: 22, delta: 1, sp: 22, fpi: 21 },
-  { name: 'Illinois', conf: 'Big Ten', record: '8-4', cfpRank: 23, delta: 0, sp: 23, fpi: 23 },
-  { name: 'Utah', conf: 'Big 12', record: '8-4', cfpRank: 24, delta: -1, sp: 24, fpi: 24 },
-  { name: 'Memphis', conf: 'American', record: '11-1', cfpRank: 25, delta: 4, sp: 25, fpi: 25 },
-];
-
-function slugify(n) {
-  return n.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-}
-SUMMARY.forEach((s) => { s.id = slugify(s.name); });
-DETAILED.forEach((t) => { t.cfpRank = t.cfp[WEEK_IDX_MAX]; });
-
+// ---- teams: every team gets a full entry in the real schema (no DETAILED/SUMMARY split) ----
+// Keyed by id already (schema: `teams` is an object keyed by slugify(name)) — just attach `id`
+// onto each value and reconstruct the old `"W-L"` display string the components expect.
 const byIdMap = {};
-DETAILED.forEach((t) => { byIdMap[t.id] = t; });
-const summaryByIdMap = {};
-SUMMARY.forEach((s) => { summaryByIdMap[s.id] = s; });
-
-export function isDetailed(id) { return !!byIdMap[id]; }
-export function getDetailedTeam(id) { return byIdMap[id]; }
-export function teamById(id) { return byIdMap[id] || summaryByIdMap[id]; }
-
-export const FULL25 = DETAILED.concat(SUMMARY).sort((a, b) => a.cfpRank - b.cfpRank);
-
-// ---- Deterministic seeded RNG so historical weeks are stable across reloads ----
-function mulberry32(seed) {
-  return function () {
-    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+Object.keys(raw.teams).forEach((id) => {
+  const t = raw.teams[id];
+  byIdMap[id] = {
+    ...t,
+    id,
+    record: `${t.wins}-${t.losses}`,
+    cfpRank: t.cfp[WEEK_IDX_MAX],
   };
+});
+
+export const teams = byIdMap;
+export function teamById(id) { return byIdMap[id]; }
+
+export const FULL25 = Object.values(byIdMap).sort((a, b) => a.cfpRank - b.cfpRank);
+
+// ---- this week's slate + storylines, from current.json's own `games`/`predictions` arrays ----
+// (replaces the hand-authored src/data/content.js, which is deleted).
+export const games = raw.games.map((g) => ({
+  ...g,
+  awayTeam: teamById(g.away),
+  homeTeam: teamById(g.home),
+}));
+export const predictions = raw.predictions;
+
+// ---- Real weekly CFP committee order, keyed by week array-index — replaces the mockup's
+// seeded-RNG WEEKLY_ORDER generator entirely. rankingsByWeek[week].cfp IS the ranking order.
+export const WEEKLY_ORDER = {};
+WEEKS.forEach((wk, idx) => {
+  const rbw = raw.rankingsByWeek[String(wk)];
+  WEEKLY_ORDER[idx] = rbw && rbw.cfp ? rbw.cfp.slice() : [];
+});
+
+export function rankAt(teamId, wIdx) {
+  const order = WEEKLY_ORDER[wIdx] || [];
+  const i = order.indexOf(teamId);
+  return i === -1 ? null : i + 1;
 }
-
-// ---- Build a full 1-25 permutation for every week 7-12, anchored so week 12 matches the authored order ----
-function buildWeeklyOrder(finalOrderIds) {
-  const orders = {};
-  orders[WEEK_IDX_MAX] = finalOrderIds.slice();
-  for (let w = WEEK_IDX_MAX - 1; w >= WEEK_IDX_MIN; w--) {
-    const arr = orders[w + 1].slice();
-    const rand = mulberry32(900 + w * 13);
-    const swaps = 3 + Math.floor(rand() * 3);
-    for (let k = 0; k < swaps; k++) {
-      const i = Math.floor(rand() * arr.length);
-      const dir = rand() < 0.5 ? -1 : 1;
-      const j = Math.max(0, Math.min(arr.length - 1, i + dir * (1 + Math.floor(rand() * 2))));
-      const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
-    }
-    orders[w] = arr;
-  }
-  return orders;
-}
-
-export const WEEKLY_ORDER = buildWeeklyOrder(FULL25.map((t) => t.id));
-
-export function rankAt(teamId, wIdx) { return 1 + WEEKLY_ORDER[wIdx].indexOf(teamId); }
 export function deltaAt(teamId, wIdx) {
   return wIdx <= WEEK_IDX_MIN ? 0 : rankAt(teamId, wIdx - 1) - rankAt(teamId, wIdx);
 }

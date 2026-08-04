@@ -1,6 +1,6 @@
 import { useParams, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import {
-  getDetailedTeam, WEEK_IDX_MAX, trendOf, playoffOddsFor, nattyOddsFor, americanOdds,
+  teamById, WEEK_IDX_MAX, trendOf, playoffOddsFor, nattyOddsFor, americanOdds,
 } from '../data/teams.js';
 import { usePinnedStore } from '../store/usePinnedStore.js';
 import { downloadShareCard } from '../utils/shareCard.js';
@@ -18,7 +18,7 @@ export default function TeamDetail() {
   const isPinned = usePinnedStore((s) => s.isPinned(teamId));
   const togglePin = usePinnedStore((s) => s.togglePin);
 
-  const team = getDetailedTeam(teamId);
+  const team = teamById(teamId);
   if (!team) return <Navigate to="/" replace />;
 
   const cameFrom = location.state?.from === 'playoff' ? 'playoff' : 'top25';

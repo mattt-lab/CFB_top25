@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useWeekStore } from '../store/useWeekStore.js';
-import { WEEK_IDX_MAX } from '../data/teams.js';
-import { GAMES, PREDICTIONS } from '../data/content.js';
+import { WEEK_IDX_MAX, games, predictions } from '../data/teams.js';
 import WeekTravelBar from '../components/WeekTravelBar.jsx';
 import MyTeamsSection from '../components/MyTeamsSection.jsx';
 import Top25Table from '../components/Top25Table.jsx';
@@ -32,19 +31,21 @@ export default function Top25Tracker() {
           </div>
         </div>
         <div className="games-grid">
-          {GAMES.map((g, i) => (
-            <div className="game-card" key={i}>
+          {games.map((g) => (
+            <div className="game-card" key={g.id}>
+              {/* TODO(schema): `when` is ISO in the real schema but the sample fixture kept the
+                  mockup's display strings (e.g. "Sat 3:30pm") — render as-is either way. */}
               <div className="game-meta">{g.when}</div>
               <div className="game-teams">
-                <div className="game-team"><span className="r">#{g.away.rank}</span>{g.away.name}</div>
+                <div className="game-team"><span className="r">#{g.awayRank}</span>{g.awayTeam?.name ?? g.away}</div>
                 <div className="game-at">at</div>
-                <div className="game-team"><span className="r">#{g.home.rank}</span>{g.home.name}</div>
+                <div className="game-team"><span className="r">#{g.homeRank}</span>{g.homeTeam?.name ?? g.home}</div>
               </div>
               <div className="game-line">
                 <span className="spread">{g.spread}</span>
-                <span style={{ color: 'var(--muted)' }}>{g.ou}</span>
+                <span style={{ color: 'var(--muted)' }}>O/U {g.ou}</span>
               </div>
-              <div className="game-impl">{g.note}</div>
+              <div className="game-impl">{g.blurb}</div>
             </div>
           ))}
         </div>
@@ -58,8 +59,8 @@ export default function Top25Tracker() {
           </div>
         </div>
         <ul className="pred-list">
-          {PREDICTIONS.map((p, i) => (
-            <li key={i}><span className="ic">{i + 1}</span><span>{p}</span></li>
+          {predictions.map((p, i) => (
+            <li key={p.teamId ?? i}><span className="ic">{i + 1}</span><span>{p.blurb}</span></li>
           ))}
         </ul>
       </section>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { usePinnedStore } from '../store/usePinnedStore.js';
-import { teamById, isDetailed, rankAt, deltaAt, tierFor, arrowGlyph } from '../data/teams.js';
+import { teamById, rankAt, deltaAt, tierFor, arrowGlyph } from '../data/teams.js';
 import ConfDot from './ConfDot.jsx';
 import TierBadge from './TierBadge.jsx';
 import PinButton from './PinButton.jsx';
@@ -30,14 +30,9 @@ export default function MyTeamsSection({ weekIdx }) {
               const t = teamById(id);
               const delta = deltaAt(id, weekIdx);
               const tier = tierFor(rank);
-              const detailed = isDetailed(id);
               const color = delta > 0 ? 'var(--good)' : delta < 0 ? 'var(--critical)' : 'var(--muted)';
-              const Row = detailed ? Link : 'div';
-              const rowProps = detailed
-                ? { to: `/team/${id}`, state: { from: 'top25' } }
-                : { style: { cursor: 'default' } };
               return (
-                <Row key={id} className="bubble-row" {...rowProps}>
+                <Link key={id} className="bubble-row" to={`/team/${id}`} state={{ from: 'top25' }}>
                   <span className="rk tabnum">{rank}</span>
                   <ConfDot conf={t.conf} />
                   <span className="nm">{t.name}</span>
@@ -46,7 +41,7 @@ export default function MyTeamsSection({ weekIdx }) {
                     · <span style={{ color, fontWeight: 700 }}>{arrowGlyph(delta)}{delta !== 0 ? Math.abs(delta) : ''}</span> this wk
                   </span>
                   <PinButton teamId={id} />
-                </Row>
+                </Link>
               );
             })}
         </div>

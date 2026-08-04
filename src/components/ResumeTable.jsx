@@ -1,4 +1,15 @@
 export default function ResumeTable({ team }) {
+  // Fixture is intentionally sparse for non-priority teams (empty `games: []`) — see the
+  // comment in scripts/generate-sample-fixture.mjs. Show a plain message instead of a
+  // headers-only empty table.
+  if (!team.games.length) {
+    return (
+      <p style={{ fontSize: 12.5, color: 'var(--ink-2)', margin: 0 }}>
+        No game-by-game data available for {team.name} yet.
+      </p>
+    );
+  }
+
   return (
     <div style={{ overflowX: 'auto' }}>
       <table className="data-table">

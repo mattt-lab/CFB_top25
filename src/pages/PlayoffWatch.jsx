@@ -1,21 +1,33 @@
 import { Link } from 'react-router-dom';
 import { useWeekStore } from '../store/useWeekStore.js';
-import { WEEK_IDX_MAX, computeField, isDetailed } from '../data/teams.js';
-import { BUBBLE_NOTES, PATH_SCENARIOS } from '../data/content.js';
+import { WEEK_IDX_MAX, computeField } from '../data/teams.js';
 import WeekTravelBar from '../components/WeekTravelBar.jsx';
 import ConfDot from '../components/ConfDot.jsx';
 
+// Hand-authored editorial copy — not part of the data schema (docs/data-schema.md has no
+// per-seed bubble commentary or path-scenario fields), so it stays local UI copy rather than
+// data. TODO(schema): once Stage 2 narration exists, these could become generated blurbs.
+const PATH_SCENARIOS = [
+  'Texas at Alabama (Sat) is the only game this week involving two current bye-line teams — the loser has the most to lose in seeding.',
+  "If Ole Miss and Iowa State both win, seeds 10–13 could reshuffle entirely by Tuesday's reveal.",
+  'Notre Dame and USC are playing each other on the bubble line — one of them is likely out of the top 16 by Sunday regardless of anything else.',
+  "No one-loss Group of Five team (Memphis included) projects into the field under this model — the ceiling for an undefeated G5 run is a New Year's Six at-large.",
+];
+
+const BUBBLE_NOTES = {
+  13: 'Needs a win and help — a top-12 loss above them opens the door.',
+  14: 'Controls its own fate with one more quality win.',
+  15: "Fastest riser on the board — one more week like this and they're in.",
+  16: 'Trending the wrong way; needs chaos above to stay relevant.',
+};
+
 function TeamRow({ o, seedNum }) {
-  const detailed = isDetailed(o.id);
-  const content = (
-    <>
+  return (
+    <Link className="matchup-row" to={`/team/${o.id}`} state={{ from: 'playoff' }}>
       <span className="n tabnum">{seedNum}</span>
       <span className="t"><ConfDot conf={o.team.conf} />{o.team.name}</span>
-    </>
+    </Link>
   );
-  return detailed
-    ? <Link className="matchup-row" to={`/team/${o.id}`} state={{ from: 'playoff' }}>{content}</Link>
-    : <div className="matchup-row" style={{ cursor: 'default' }}>{content}</div>;
 }
 
 export default function PlayoffWatch() {
@@ -68,22 +80,14 @@ export default function PlayoffWatch() {
 
       <div className="bracket-label">Seeds 1–4 — bye week (top 4 conference champions)</div>
       <div className="seed-grid">
-        {field.byes.map((o, i) => {
-          const detailed = isDetailed(o.id);
-          const inner = (
-            <>
-              <div className="n">Seed {i + 1}</div>
-              <div className="t"><ConfDot conf={o.team.conf} />{o.team.name}</div>
-              <div className="c">{o.team.conf} champ · {o.team.record} · #{o.rank} overall</div>
-              <div className="byetag">First-round bye · auto-bid</div>
-            </>
-          );
-          return detailed ? (
-            <Link className="seed-card" key={o.id} to={`/team/${o.id}`} state={{ from: 'playoff' }}>{inner}</Link>
-          ) : (
-            <div className="seed-card" key={o.id} style={{ cursor: 'default' }}>{inner}</div>
-          );
-        })}
+        {field.byes.map((o, i) => (
+          <Link className="seed-card" key={o.id} to={`/team/${o.id}`} state={{ from: 'playoff' }}>
+            <div className="n">Seed {i + 1}</div>
+            <div className="t"><ConfDot conf={o.team.conf} />{o.team.name}</div>
+            <div className="c">{o.team.conf} champ · {o.team.record} · #{o.rank} overall</div>
+            <div className="byetag">First-round bye · auto-bid</div>
+          </Link>
+        ))}
       </div>
 
       <div className="bracket-label">First round — seeds 5–12 (5th champion + 7 at-large)</div>
@@ -105,19 +109,13 @@ export default function PlayoffWatch() {
       <div className="bubble-list">
         {field.bubble.map((o, i) => {
           const seedNum = 13 + i;
-          const detailed = isDetailed(o.id);
-          const content = (
-            <>
+          return (
+            <Link className="bubble-row" key={o.id} to={`/team/${o.id}`} state={{ from: 'playoff' }}>
               <span className="rk tabnum">{seedNum}</span>
               <ConfDot conf={o.team.conf} />
               <span className="nm">{o.team.name}</span>
               <span className="needs">{BUBBLE_NOTES[seedNum] || ''}</span>
-            </>
-          );
-          return detailed ? (
-            <Link className="bubble-row" key={o.id} to={`/team/${o.id}`} state={{ from: 'playoff' }}>{content}</Link>
-          ) : (
-            <div className="bubble-row" key={o.id} style={{ cursor: 'default' }}>{content}</div>
+            </Link>
           );
         })}
       </div>
