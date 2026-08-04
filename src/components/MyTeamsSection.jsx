@@ -1,9 +1,21 @@
 import { Link } from 'react-router-dom';
 import { usePinnedStore } from '../store/usePinnedStore.js';
-import { teamById, rankAt, deltaAt, tierFor, arrowGlyph } from '../data/teams.js';
+import { teamById, rankAt, formatKickoff } from '../data/teams.js';
 import ConfDot from './ConfDot.jsx';
-import TierBadge from './TierBadge.jsx';
 import PinButton from './PinButton.jsx';
+
+// e.g. "vs #8 Michigan · Sat, 3:30 PM PDT · FOX" / "at Alabama · ..." (opponent unranked).
+// null nextGame (bye week, or no games left on CFBD's schedule) renders as "Bye week".
+function nextMatchupText(nextGame) {
+  if (!nextGame) return 'Bye week';
+  const vsAt = nextGame.homeAway === 'home' ? 'vs' : 'at';
+  const opp = nextGame.opponentRank != null ? `#${nextGame.opponentRank} ${nextGame.opponent}` : nextGame.opponent;
+  const parts = [`${vsAt} ${opp}`];
+  const kickoff = formatKickoff(nextGame.when);
+  if (kickoff) parts.push(kickoff);
+  if (nextGame.network) parts.push(nextGame.network);
+  return parts.join(' · ');
+}
 
 export default function MyTeamsSection({ weekIdx }) {
   const pinned = usePinnedStore((s) => s.pinned);
@@ -31,17 +43,14 @@ export default function MyTeamsSection({ weekIdx }) {
             .sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity))
             .map(({ id, rank }) => {
               const t = teamById(id);
-              const delta = deltaAt(id, weekIdx);
-              const tier = tierFor(rank);
-              const color = delta > 0 ? 'var(--good)' : delta < 0 ? 'var(--critical)' : 'var(--muted)';
               return (
                 <Link key={id} className="bubble-row" to={`/team/${id}`} state={{ from: 'top25' }}>
                   <span className="rk tabnum">{rank ?? '—'}</span>
                   <ConfDot conf={t.conf} />
                   <span className="nm">{t.name}</span>
                   <span className="needs">
-                    <TierBadge tier={tier} />{' '}
-                    · <span style={{ color, fontWeight: 700 }}>{arrowGlyph(delta)}{delta !== 0 ? Math.abs(delta) : ''}</span> this wk
+                    <span className="tabnum" style={{ fontWeight: 700 }}>{t.record}</span>
+                    {' · '}{nextMatchupText(t.nextGame)}
                   </span>
                   <PinButton teamId={id} />
                 </Link>

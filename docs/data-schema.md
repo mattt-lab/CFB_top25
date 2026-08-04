@@ -108,7 +108,17 @@ time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order be
           "res": "W",
           "tag": "quality"       // "quality" | "bad" | "" — computed once at derive time, not in the browser
         }
-      ]
+      ],
+      "nextGame": {            // this team's own upcoming matchup, from the FULL NEXT_WEEK slate —
+                                // survives Stage 1 trimming `games` (top-level) down to the top 6,
+                                // so every team has this, not just the ones in "biggest games"
+        "opponent": "Michigan",
+        "opponentRank": 8,      // null if the opponent is unranked
+        "homeAway": "home",     // "home" | "away" — is THIS team hosting or visiting
+        "when": "2026-11-29T17:00:00Z",
+        "network": "FOX"        // same source as games[].network; null if CFBD has no media entry yet
+      }                         // null (not present as an object) if this team has no game in
+                                // NEXT_WEEK's slate — bye week, or no games left on the schedule
     }
   },
 

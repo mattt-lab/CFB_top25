@@ -1,22 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useWeekStore } from '../store/useWeekStore.js';
-import { WEEK_IDX_MAX, games, predictions, primaryLabel, PRIMARY_SOURCE_BY_WEEK } from '../data/teams.js';
+import {
+  WEEK_IDX_MAX, games, predictions, primaryLabel, PRIMARY_SOURCE_BY_WEEK, formatKickoff,
+} from '../data/teams.js';
 import WeekTravelBar from '../components/WeekTravelBar.jsx';
 import MyTeamsSection from '../components/MyTeamsSection.jsx';
 import Top25Table from '../components/Top25Table.jsx';
-
-// `when` is ISO 8601 in the real schema (e.g. "2026-09-05T23:30:00Z") -- format it for display
-// rather than rendering the raw string.
-function formatKickoff(iso) {
-  if (!iso) return null;
-  try {
-    return new Date(iso).toLocaleString('en-US', {
-      weekday: 'short', hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
-    });
-  } catch {
-    return iso;
-  }
-}
 
 export default function Top25Tracker() {
   const weekIdx = useWeekStore((s) => s.weekIdx);

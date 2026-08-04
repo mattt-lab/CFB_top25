@@ -418,24 +418,39 @@ async function main() {
   }
 
   const weekGames = games.filter((g) => g && g.week === NEXT_WEEK && g.seasonType === SEASON_TYPE);
+
+  // Per-team "next matchup" -- built from the FULL weekGames list, not the top-6 slate Stage 1
+  // trims `games` down to (score.mjs overwrites current.games, but teams[id].nextGame lives on
+  // the team object and survives that trim). This is what lets "Your Teams" show every pinned
+  // team's next opponent/kickoff/network, not just the handful in the "biggest games" panel.
+  const nextGameByTeam = {};
+
   const gamesOut = weekGames.map((g) => {
     const awayId = slugify(g.awayTeam);
     const homeId = slugify(g.homeTeam);
     touchTeam(homeId, g.homeTeam, g.homeConference);
     touchTeam(awayId, g.awayTeam, g.awayConference);
     const line = pickLine(linesByGameId.get(g.id));
+    const awayRank = currentRank(awayId);
+    const homeRank = currentRank(homeId);
+    const when = g.startDate || null;
+    const network = pickNetwork(g.id);
+
+    nextGameByTeam[awayId] = { opponent: g.homeTeam, opponentRank: homeRank, homeAway: 'away', when, network };
+    nextGameByTeam[homeId] = { opponent: g.awayTeam, opponentRank: awayRank, homeAway: 'home', when, network };
+
     return {
       id: `${SEASON}-wk${NEXT_WEEK}-${awayId}-${homeId}`,
       away: awayId,
-      awayRank: currentRank(awayId),
+      awayRank,
       home: homeId,
-      homeRank: currentRank(homeId),
-      when: g.startDate || null,
+      homeRank,
+      when,
       // formattedSpread comes pre-formatted from CFBD (e.g. "Ohio State -6.5") -- using it
       // directly avoids guessing at CFBD's home/away spread-sign convention ourselves.
       spread: line && line.formattedSpread ? line.formattedSpread : null,
       ou: line && line.overUnder != null ? line.overUnder : null,
-      network: pickNetwork(g.id),
+      network,
       rivalry: isRivalry(awayId, homeId),
       // populated by downstream scripts that don't exist yet (Stage 1 scoring / Stage 2 narration)
       stakesScore: null,
@@ -554,6 +569,9 @@ async function main() {
       coaches: coachesArr,
       cfp: cfpArr,
       games: teamGameLog[id] || [],
+      // null when this team has no game in NEXT_WEEK's slate (bye week, or a team with no more
+      // games left on CFBD's schedule for the season).
+      nextGame: nextGameByTeam[id] || null,
     };
   }
 

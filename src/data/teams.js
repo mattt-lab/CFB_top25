@@ -80,16 +80,6 @@ export function sparkPoints(teamId, wIdx) {
   return pts;
 }
 
-export function tierFor(rank) {
-  // Guard first: `null <= 4` is true in JS (null coerces to 0), so an unranked team (rank ===
-  // null -- e.g. pinned from a direct team-page visit rather than the Top 25 table) would
-  // otherwise silently qualify as "Bye contender" instead of "Unranked".
-  if (rank == null) return { cls: 'long', label: 'Unranked' };
-  if (rank <= 4) return { cls: 'lock', label: 'Bye contender' };
-  if (rank <= 12) return { cls: 'in', label: 'In the field' };
-  if (rank <= 16) return { cls: 'bubble', label: 'On the bubble' };
-  return { cls: 'long', label: 'Long shot' };
-}
 export function lossesFrom(record) { return +record.split('-')[1]; }
 export function playoffOddsFor(rank, record, spRank) {
   const losses = lossesFrom(record);
@@ -112,6 +102,19 @@ export function americanOdds(pct) {
   return '+' + Math.round(((1 - p) / p) * 100);
 }
 export function arrowGlyph(delta) { return delta > 0 ? '▲' : delta < 0 ? '▼' : '–'; }
+
+// `when` is ISO 8601 in the real schema (e.g. "2026-09-05T23:30:00Z") -- format it for display
+// rather than rendering the raw string. Shared by the "biggest games" panel and "Your Teams".
+export function formatKickoff(iso) {
+  if (!iso) return null;
+  try {
+    return new Date(iso).toLocaleString('en-US', {
+      weekday: 'short', hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
+    });
+  } catch {
+    return iso;
+  }
+}
 
 // Last-two-non-null-values trend for a team's own authored poll array (AP/Coaches/CFP).
 export function trendOf(series) {
