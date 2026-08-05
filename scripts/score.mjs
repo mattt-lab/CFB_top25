@@ -10,17 +10,19 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { rankAt, distanceToCutoff } from './lib/ranking.mjs';
+import { rankAt, distanceToCutoff, computeField } from './lib/ranking.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const CURRENT_PATH = join(ROOT, 'data', 'current.json');
 
-// How many games/predictions survive Stage 1, out of however many were fetched (often 50-100+ for
-// a full FBS slate). Tunable -- these weights and this count are a starting point, not a
-// calibrated model; expect to adjust once real weekly output has been eyeballed a few times.
+// How many games/predictions/field-storylines survive Stage 1, out of however many were fetched
+// (often 50-100+ for a full FBS slate). Tunable -- these weights and this count are a starting
+// point, not a calibrated model; expect to adjust once real weekly output has been eyeballed a
+// few times.
 const GAMES_KEPT = 6;
 const PREDICTIONS_KEPT = 5;
+const FIELD_STORYLINES_KEPT = 4;
 
 function spreadMagnitude(spreadStr) {
   if (!spreadStr) return null;
@@ -101,6 +103,97 @@ function scoreTeamTrend(teamId, current) {
   return trajectoryScore(teamId, current) * 1.5 + cutoffProximity;
 }
 
+function confSlugFor(conf) { return conf.toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+
+// Real, computable "what could reshape the field" candidates for the Playoff Watch "Path
+// scenarios" panel -- replaces hand-written mockup-era copy that named real teams in scenarios
+// that had nothing to do with the actual data. Two signal types:
+//   1. Conference-race gap -- how close the auto-bid chaser is to the leader (tighter = higher).
+//   2. Bye-line / bubble-line head-to-head -- an upcoming game between two teams in the same
+//      contention band (both bye contenders, or both on the bubble) is high-stakes by definition.
+// `current.games` must still be the FULL upcoming-week slate here, not yet trimmed to the top-6
+// "biggest games" list main() reduces it to below.
+function scoreFieldStorylines(current, field) {
+  const storylines = [];
+
+  const confGroups = {};
+  field.allTeams.forEach((o) => {
+    const conf = o.team.conf;
+    // Independents have no conference championship/race to be part of -- same exclusion as
+    // computeField's own bye-seeding logic.
+    if (!conf || conf.toLowerCase().includes('independent')) return;
+    (confGroups[conf] ||= []).push(o);
+  });
+  for (const [conf, group] of Object.entries(confGroups)) {
+    if (group.length < 2) continue; // no race to describe with only one ranked team in the conference
+    const [leader, chaser] = group.slice().sort((a, b) => a.rank - b.rank);
+    const gap = chaser.rank - leader.rank;
+    const score = Math.max(0, 10 - gap);
+    if (score <= 0) continue; // gap too wide to call it a "race" worth narrating
+    storylines.push({
+      id: `conf-race-${confSlugFor(conf)}`,
+      type: 'conf-race-gap',
+      conf,
+      leaderId: leader.id, leaderRank: leader.rank,
+      chaserId: chaser.id, chaserRank: chaser.rank,
+      gap,
+      score,
+      blurb: null, blurbSource: null,
+    });
+  }
+
+  const byeIds = new Set(field.byes.map((o) => o.id));
+  const bubbleIds = new Set(field.bubble.map((o) => o.id));
+  for (const g of current.games) {
+    if (g.awayRank == null || g.homeRank == null) continue;
+    const bothBye = byeIds.has(g.away) && byeIds.has(g.home);
+    const bothBubble = bubbleIds.has(g.away) && bubbleIds.has(g.home);
+    if (!bothBye && !bothBubble) continue;
+    storylines.push({
+      id: `matchup-${g.id}`,
+      type: bothBye ? 'bye-line-matchup' : 'bubble-line-matchup',
+      gameId: g.id,
+      awayId: g.away, awayRank: g.awayRank,
+      homeId: g.home, homeRank: g.homeRank,
+      // Bye-line collisions are rarer (only 4 bye seeds vs. 4 bubble seeds spread across more
+      // teams that have already cycled through the bubble list week to week) and higher-stakes.
+      score: bothBye ? 9 : 7,
+      blurb: null, blurbSource: null,
+    });
+  }
+
+  return storylines.sort((a, b) => b.score - a.score).slice(0, FIELD_STORYLINES_KEPT);
+}
+
+// Real per-team facts (distance to the field, trend, next opponent) for exactly the current
+// week's 4 bubble teams (seeds 13-16) -- replaces hand-written generic per-seed-position copy on
+// Playoff Watch. A "current state" field like teams[id].nextGame, not a historical per-week
+// series -- doesn't apply to whoever occupied the bubble in a past week during time-travel.
+function scoreBubbleNotes(current, field) {
+  const notes = {};
+  // Seed position (13-16, by array order), not raw rank: a conference-champion bye can absorb a
+  // higher-ranked team out of the at-large pool, so a bubble team's raw poll rank doesn't
+  // necessarily land at 13-16 even though its SEED does -- confirmed live, e.g. a team ranked #11
+  // overall still landing in the bubble-4 because enough higher-ranked teams were bye champs.
+  field.bubble.forEach((o, i) => {
+    const teamId = o.id;
+    const seed = 13 + i;
+    const rankPrev = current.meta.currentWeek > 1
+      ? rankAt(current.rankingsByWeek, current.meta.currentWeek - 1, teamId)
+      : null;
+    notes[teamId] = {
+      seed,
+      spotsFromField: seed - 12, // 1 = just missed the field, 4 = furthest out of the four
+      movedUp: rankPrev != null ? rankPrev - o.rank : 0, // positive = trending toward the field
+      trendScore: Math.round(trajectoryScore(teamId, current) * 100) / 100,
+      nextOpponentRank: current.teams[teamId]?.nextGame?.opponentRank ?? null,
+      blurb: null,
+      blurbSource: null,
+    };
+  });
+  return notes;
+}
+
 function main() {
   const current = JSON.parse(readFileSync(CURRENT_PATH, 'utf8'));
 
@@ -129,8 +222,19 @@ function main() {
   }));
   console.log(`Predictions: ${scoredTeams.length} teams had a nonzero trend score, kept top ${keptPredictions.length}.`);
 
+  // Field storylines + bubble notes read from the FULL games list, before it's trimmed below.
+  const field = computeField(current.rankingsByWeek, current.meta.currentWeek, current.teams);
+  const fieldStorylines = scoreFieldStorylines(current, field);
+  console.log(`Field storylines: kept ${fieldStorylines.length} (conference-race gaps + bye/bubble-line matchups).`);
+
+  const bubbleNotes = scoreBubbleNotes(current, field);
+  for (const id of Object.keys(current.teams)) {
+    current.teams[id].bubbleNote = bubbleNotes[id] || null;
+  }
+
   current.games = keptGames;
   current.predictions = keptPredictions;
+  current.fieldStorylines = fieldStorylines;
 
   writeFileSync(CURRENT_PATH, JSON.stringify(current, null, 2) + '\n');
   console.log(`Wrote ${CURRENT_PATH}.`);

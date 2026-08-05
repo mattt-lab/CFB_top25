@@ -117,8 +117,23 @@ time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order be
         "homeAway": "home",     // "home" | "away" — is THIS team hosting or visiting
         "when": "2026-11-29T17:00:00Z",
         "network": "FOX"        // same source as games[].network; null if CFBD has no media entry yet
-      }                         // null (not present as an object) if this team has no game in
+      },                        // null (not present as an object) if this team has no game in
                                 // NEXT_WEEK's slate — bye week, or no games left on the schedule
+      "bubbleNote": {           // present ONLY for the 4 teams currently on the playoff bubble
+                                // (seeds 13-16, per computeField()) -- a "current state" fact like
+                                // `nextGame`, not a historical per-week series, so a past-week
+                                // time-travel view won't have this for whoever was on the bubble
+                                // then. null for every other team.
+        "seed": 13,             // 13-16, by bubble position -- NOT the same as raw poll rank,
+                                // since a conference-champion bye can absorb a higher-ranked team
+                                // out of the at-large pool
+        "spotsFromField": 1,    // seed - 12; 1 = just missed the field, 4 = furthest out
+        "movedUp": 2,           // rank spots gained since last week (negative = fell back)
+        "trendScore": 0.45,     // same signal as predictions[].score, for Stage 1 tuning
+        "nextOpponentRank": 23, // this team's next opponent's rank, or null if unranked/unknown
+        "blurb": "...",         // Stage 2 output
+        "blurbSource": "llm"    // "llm" | "fallback"
+      }
     }
   },
 
@@ -147,6 +162,33 @@ time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order be
       "score": 7.4,
       "blurb": "Vanderbilt is this week's fastest riser...",
       "blurbSource": "llm"
+    }
+  ],
+
+  // Playoff Watch's "Path scenarios" panel -- real, computed candidates for what could reshape
+  // the 12-team field, replacing what used to be hand-written mockup-era copy. Two `type`s, with
+  // different fact fields (both share id/score/blurb/blurbSource):
+  "fieldStorylines": [
+    {
+      "id": "conf-race-big-ten",
+      "type": "conf-race-gap",       // how tight a conference's auto-bid race is
+      "conf": "Big Ten",
+      "leaderId": "ohio-state", "leaderRank": 1,
+      "chaserId": "oregon", "chaserRank": 2,
+      "gap": 1,                      // chaserRank - leaderRank; smaller = tighter race
+      "score": 9,                    // Stage 1 selection score, max(0, 10 - gap)
+      "blurb": "...", "blurbSource": "llm"
+    },
+    {
+      "id": "matchup-2026-wk1-lsu-clemson",
+      "type": "bye-line-matchup",    // or "bubble-line-matchup" -- an upcoming game between two
+                                      // teams in the same playoff-contention band (both current
+                                      // bye seeds, or both current bubble seeds)
+      "gameId": "2026-wk1-lsu-clemson",
+      "awayId": "lsu", "awayRank": 13,
+      "homeId": "clemson", "homeRank": 15,
+      "score": 7,                    // 9 for bye-line, 7 for bubble-line (rarer/higher-stakes)
+      "blurb": "...", "blurbSource": "llm"
     }
   ]
 }
@@ -199,5 +241,5 @@ branding change doesn't break joins.
 |---|---|
 | `meta`, `rankingsByWeek`, `teams` (except `games[].tag`) | fetch script (task #5) |
 | `teams[].games[].tag` | fetch script, using that week's `rankings/wkNN.json` snapshot to know the opponent's point-in-time rank |
-| `games[].stakesScore`, `predictions[].score` | Stage 1 scoring (task #6) |
-| `games[].blurb`, `predictions[].blurb`, `blurbSource` | Stage 2 narration (task #7), with a deterministic-line fallback on failure |
+| `games[].stakesScore`, `predictions[].score`, `fieldStorylines`, `teams[].bubbleNote` (minus `blurb`/`blurbSource`) | Stage 1 scoring (task #6) |
+| `games[].blurb`, `predictions[].blurb`, `fieldStorylines[].blurb`, `teams[].bubbleNote.blurb`, all `blurbSource` fields | Stage 2 narration (task #7), with a deterministic-line fallback on failure |
