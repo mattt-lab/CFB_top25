@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
-import { WEEKS } from '../data/teams.js';
+import { WEEKS, HAS_TREND_HISTORY } from '../data/teams.js';
 
 const SERIES = [
   { key: 'ap', label: 'AP Poll', color: 'var(--series-ap)' },
@@ -45,16 +45,24 @@ export default function RankingChart({ team }) {
           <h2>Ranking history — AP, Coaches &amp; CFP Committee</h2>
           <p>Weekly poll position across the season. Committee rankings begin week 7.</p>
         </div>
-        <button
-          type="button"
-          className="toggle-btn"
-          aria-pressed={showTable}
-          onClick={() => setShowTable((v) => !v)}
-        >
-          {showTable ? 'View as chart' : 'View as table'}
-        </button>
+        {HAS_TREND_HISTORY && (
+          <button
+            type="button"
+            className="toggle-btn"
+            aria-pressed={showTable}
+            onClick={() => setShowTable((v) => !v)}
+          >
+            {showTable ? 'View as chart' : 'View as table'}
+          </button>
+        )}
       </div>
 
+      {!HAS_TREND_HISTORY ? (
+        <p style={{ fontSize: 13, color: 'var(--ink-2)', margin: 0 }}>
+          Ranking history builds up as the season progresses — check back after week 2.
+        </p>
+      ) : (
+      <>
       <div className="legend">
         {SERIES.map((s) => (
           <span className="item" key={s.key}>
@@ -120,6 +128,8 @@ export default function RankingChart({ team }) {
             </LineChart>
           </ResponsiveContainer>
         </div>
+      )}
+      </>
       )}
     </section>
   );

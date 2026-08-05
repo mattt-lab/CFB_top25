@@ -4,7 +4,47 @@
 import { describe, it, expect } from 'vitest';
 import {
   arrowGlyph, dirFor, trendColor, deltaLabel, computerRatingNote, byRankAsc, trendOf, formatKickoff,
+  americanOdds, nextGameParts,
 } from './teams.js';
+
+describe('americanOdds', () => {
+  it('formats a favorite as negative american odds', () => {
+    expect(americanOdds(75)).toBe('-300');
+  });
+  it('formats an underdog as positive american odds', () => {
+    expect(americanOdds(20)).toBe('+400');
+  });
+  it('caps absurd longshot odds at the display ceiling instead of the raw formula output', () => {
+    // Raw formula for a 1% chance would be +9900 already; 0.1% would be +99900 uncapped --
+    // exactly the "+99900" bottom-of-poll display bug this cap exists to fix.
+    expect(americanOdds(0.1)).toBe('+9900');
+  });
+});
+
+describe('nextGameParts', () => {
+  it('returns null parts for a bye week (no nextGame)', () => {
+    expect(nextGameParts(null)).toEqual({ opponent: null, kickoff: null });
+  });
+  it('formats a home game against a ranked opponent', () => {
+    const { opponent } = nextGameParts({
+      homeAway: 'home', opponent: 'Michigan', opponentRank: 8, when: null, network: null,
+    });
+    expect(opponent).toBe('vs #8 Michigan');
+  });
+  it('formats an away game against an unranked opponent (no rank prefix)', () => {
+    const { opponent } = nextGameParts({
+      homeAway: 'away', opponent: 'Ball State', opponentRank: null, when: null, network: null,
+    });
+    expect(opponent).toBe('at Ball State');
+  });
+  it('joins kickoff time and network with a middot, omitting either when absent', () => {
+    const { kickoff } = nextGameParts({
+      homeAway: 'home', opponent: 'X', opponentRank: null,
+      when: new Date(Date.now() + 2 * 86400000).toISOString(), network: 'FOX',
+    });
+    expect(kickoff).toMatch(/FOX$/);
+  });
+});
 
 describe('dirFor', () => {
   it('reports up for a positive delta', () => {

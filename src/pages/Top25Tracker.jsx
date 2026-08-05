@@ -24,6 +24,8 @@ export default function Top25Tracker() {
 
       <MyTeamsSection weekIdx={weekIdx} />
 
+      <div className="bracket-label">This week</div>
+
       <section>
         <div className="panel-title" style={{ marginBottom: 10 }}>
           <div>
@@ -37,17 +39,24 @@ export default function Top25Tracker() {
               <div className="game-meta">
                 {formatKickoff(g.when)}
                 {g.network && <span> · {g.network}</span>}
+                {g.rivalry && <span className="tag rivalry" style={{ marginLeft: 8 }}>Rivalry</span>}
               </div>
               <div className="game-teams">
-                <div className="game-team">
+                <Link className="game-team" to={`/team/${g.away}`}>
                   {g.awayRank != null && <span className="r">#{g.awayRank}</span>}
                   {g.awayTeam?.name ?? g.away}
-                </div>
+                  {g.awayTeam?.record && (
+                    <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({g.awayTeam.record})</span>
+                  )}
+                </Link>
                 <div className="game-at">at</div>
-                <div className="game-team">
+                <Link className="game-team" to={`/team/${g.home}`}>
                   {g.homeRank != null && <span className="r">#{g.homeRank}</span>}
                   {g.homeTeam?.name ?? g.home}
-                </div>
+                  {g.homeTeam?.record && (
+                    <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({g.homeTeam.record})</span>
+                  )}
+                </Link>
               </div>
               <div className="game-line">
                 {g.spread && <span className="spread">{g.spread}</span>}
@@ -68,11 +77,15 @@ export default function Top25Tracker() {
         </div>
         <ul className="pred-list">
           {predictions.map((p, i) => (
-            <li key={p.teamId ?? i}><span className="ic">{i + 1}</span><span>{p.blurb}</span></li>
+            <li key={p.teamId ?? i}>
+              <span className="ic">{i + 1}</span>
+              <Link to={`/team/${p.teamId}`}>{p.blurb}</Link>
+            </li>
           ))}
         </ul>
       </section>
 
+      <div className="bracket-label">Full season</div>
       <div className="section-header">
         <div>
           <h2>Top 25</h2>

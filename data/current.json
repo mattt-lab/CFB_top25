@@ -3,7 +3,7 @@
     "season": 2026,
     "currentWeek": 1,
     "currentPrimarySource": "coaches",
-    "lastUpdated": "2026-08-05T15:21:12.872Z",
+    "lastUpdated": "2026-08-05T16:46:08.831Z",
     "weeksAvailable": [
       1
     ]
@@ -94,7 +94,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:30:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "oregon": {
       "name": "Oregon",
@@ -120,7 +121,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "CBS"
-      }
+      },
+      "bubbleNote": null
     },
     "georgia": {
       "name": "Georgia",
@@ -146,7 +148,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:00:00.000Z",
         "network": "SECN+"
-      }
+      },
+      "bubbleNote": null
     },
     "texas": {
       "name": "Texas",
@@ -172,7 +175,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "notre-dame": {
       "name": "Notre Dame",
@@ -198,7 +202,8 @@
         "homeAway": "home",
         "when": "2026-09-06T23:30:00.000Z",
         "network": "NBC"
-      }
+      },
+      "bubbleNote": null
     },
     "indiana": {
       "name": "Indiana",
@@ -224,7 +229,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "FOX"
-      }
+      },
+      "bubbleNote": null
     },
     "miami": {
       "name": "Miami",
@@ -250,7 +256,8 @@
         "homeAway": "away",
         "when": "2026-09-05T01:00:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "texas-a-m": {
       "name": "Texas A&M",
@@ -276,7 +283,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "oklahoma": {
       "name": "Oklahoma",
@@ -302,7 +310,8 @@
         "homeAway": "home",
         "when": "2026-09-05T00:00:00.000Z",
         "network": "SECN+"
-      }
+      },
+      "bubbleNote": null
     },
     "ole-miss": {
       "name": "Ole Miss",
@@ -328,7 +337,8 @@
         "homeAway": "home",
         "when": "2026-09-06T23:30:00.000Z",
         "network": "ABC"
-      }
+      },
+      "bubbleNote": null
     },
     "alabama": {
       "name": "Alabama",
@@ -354,6 +364,15 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "ABC"
+      },
+      "bubbleNote": {
+        "seed": 13,
+        "spotsFromField": 1,
+        "movedUp": 0,
+        "trendScore": 0.45,
+        "nextOpponentRank": null,
+        "blurb": "Alabama is the first team out at No. 13, one spot from the field. The Tide are close enough that a single result above them changes everything.",
+        "blurbSource": "llm"
       }
     },
     "texas-tech": {
@@ -380,7 +399,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "FS1"
-      }
+      },
+      "bubbleNote": null
     },
     "lsu": {
       "name": "LSU",
@@ -406,6 +426,15 @@
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
         "network": "ABC"
+      },
+      "bubbleNote": {
+        "seed": 14,
+        "spotsFromField": 2,
+        "movedUp": 0,
+        "trendScore": 0.6,
+        "nextOpponentRank": 23,
+        "blurb": "LSU sits 14th, two spots outside the bracket, and gets an immediate chance to fix it against No. 23 Clemson. Win that and the bubble math looks very different.",
+        "blurbSource": "llm"
       }
     },
     "usc": {
@@ -432,6 +461,15 @@
         "homeAway": "home",
         "when": "2026-09-05T01:00:00.000Z",
         "network": "FOX"
+      },
+      "bubbleNote": {
+        "seed": 15,
+        "spotsFromField": 3,
+        "movedUp": 0,
+        "trendScore": 0.15,
+        "nextOpponentRank": null,
+        "blurb": "USC holds the No. 15 spot, three back of the cut line. The Trojans need help and results, in that order.",
+        "blurbSource": "llm"
       }
     },
     "byu": {
@@ -458,6 +496,15 @@
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
         "network": "ESPN+"
+      },
+      "bubbleNote": {
+        "seed": 16,
+        "spotsFromField": 4,
+        "movedUp": 0,
+        "trendScore": 0.75,
+        "nextOpponentRank": null,
+        "blurb": "BYU is the last team on the board at No. 16, four spots from the field. The Cougars have the longest climb of anyone on the bubble.",
+        "blurbSource": "llm"
       }
     },
     "michigan": {
@@ -484,7 +531,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
         "network": "NBC"
-      }
+      },
+      "bubbleNote": null
     },
     "penn-state": {
       "name": "Penn State",
@@ -510,7 +558,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "FS1"
-      }
+      },
+      "bubbleNote": null
     },
     "tennessee": {
       "name": "Tennessee",
@@ -536,7 +585,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "SECN+"
-      }
+      },
+      "bubbleNote": null
     },
     "washington": {
       "name": "Washington",
@@ -562,7 +612,8 @@
         "homeAway": "home",
         "when": "2026-09-06T20:00:00.000Z",
         "network": "NBC"
-      }
+      },
+      "bubbleNote": null
     },
     "smu": {
       "name": "SMU",
@@ -588,7 +639,8 @@
         "homeAway": "away",
         "when": "2026-09-07T23:30:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "utah": {
       "name": "Utah",
@@ -614,7 +666,8 @@
         "homeAway": "home",
         "when": "2026-09-04T01:00:00.000Z",
         "network": "ESPNU"
-      }
+      },
+      "bubbleNote": null
     },
     "iowa": {
       "name": "Iowa",
@@ -640,7 +693,8 @@
         "homeAway": "home",
         "when": "2026-09-05T20:15:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "clemson": {
       "name": "Clemson",
@@ -666,7 +720,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
         "network": "ABC"
-      }
+      },
+      "bubbleNote": null
     },
     "houston": {
       "name": "Houston",
@@ -692,7 +747,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "missouri": {
       "name": "Missouri",
@@ -718,7 +774,8 @@
         "homeAway": "home",
         "when": "2026-09-04T00:00:00.000Z",
         "network": "SEC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "north-carolina": {
       "name": "North Carolina",
@@ -744,7 +801,8 @@
         "homeAway": "away",
         "when": "2026-08-29T16:00:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "tcu": {
       "name": "TCU",
@@ -770,7 +828,8 @@
         "homeAway": "home",
         "when": "2026-08-29T16:00:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "san-jose-state": {
       "name": "San José State",
@@ -796,7 +855,8 @@
         "homeAway": "away",
         "when": "2026-09-04T22:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "nc-state": {
       "name": "NC State",
@@ -822,7 +882,8 @@
         "homeAway": "away",
         "when": "2026-08-29T19:30:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "virginia": {
       "name": "Virginia",
@@ -848,7 +909,8 @@
         "homeAway": "home",
         "when": "2026-08-29T19:30:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "jacksonville-state": {
       "name": "Jacksonville State",
@@ -874,7 +936,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "north-dakota-state": {
       "name": "North Dakota State",
@@ -900,7 +963,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "The CW Network"
-      }
+      },
+      "bubbleNote": null
     },
     "sacramento-state": {
       "name": "Sacramento State",
@@ -926,7 +990,8 @@
         "homeAway": "home",
         "when": "2026-09-06T02:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "eastern-michigan": {
       "name": "Eastern Michigan",
@@ -952,7 +1017,8 @@
         "homeAway": "home",
         "when": "2026-09-04T22:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "hawai-i": {
       "name": "Hawai'i",
@@ -978,7 +1044,8 @@
         "homeAway": "home",
         "when": "2026-09-06T02:00:00.000Z",
         "network": "The CW Network"
-      }
+      },
+      "bubbleNote": null
     },
     "stanford": {
       "name": "Stanford",
@@ -1004,7 +1071,8 @@
         "homeAway": "home",
         "when": "2026-09-05T01:00:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "new-mexico-state": {
       "name": "New Mexico State",
@@ -1030,7 +1098,8 @@
         "homeAway": "home",
         "when": "2026-09-06T01:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "florida-state": {
       "name": "Florida State",
@@ -1056,7 +1125,8 @@
         "homeAway": "home",
         "when": "2026-09-07T23:30:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "memphis": {
       "name": "Memphis",
@@ -1082,7 +1152,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "unlv": {
       "name": "UNLV",
@@ -1108,7 +1179,8 @@
         "homeAway": "away",
         "when": "2026-09-06T02:00:00.000Z",
         "network": "The CW Network"
-      }
+      },
+      "bubbleNote": null
     },
     "massachusetts": {
       "name": "Massachusetts",
@@ -1134,7 +1206,8 @@
         "homeAway": "away",
         "when": "2026-09-03T22:00:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "rutgers": {
       "name": "Rutgers",
@@ -1160,7 +1233,8 @@
         "homeAway": "home",
         "when": "2026-09-03T22:00:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "merrimack": {
       "name": "Merrimack",
@@ -1186,7 +1260,8 @@
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "delaware": {
       "name": "Delaware",
@@ -1212,7 +1287,8 @@
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "akron": {
       "name": "Akron",
@@ -1238,7 +1314,8 @@
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
         "network": "ACC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "wake-forest": {
       "name": "Wake Forest",
@@ -1264,7 +1341,8 @@
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
         "network": "ACC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "ualbany": {
       "name": "UAlbany",
@@ -1290,7 +1368,8 @@
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "buffalo": {
       "name": "Buffalo",
@@ -1316,7 +1395,8 @@
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "bethune-cookman": {
       "name": "Bethune-Cookman",
@@ -1342,7 +1422,8 @@
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "ucf": {
       "name": "UCF",
@@ -1368,7 +1449,8 @@
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "west-georgia": {
       "name": "West Georgia",
@@ -1394,7 +1476,8 @@
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "kennesaw-state": {
       "name": "Kennesaw State",
@@ -1420,7 +1503,8 @@
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "colorado": {
       "name": "Colorado",
@@ -1446,7 +1530,8 @@
         "homeAway": "away",
         "when": "2026-09-04T00:00:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "georgia-tech": {
       "name": "Georgia Tech",
@@ -1472,7 +1557,8 @@
         "homeAway": "home",
         "when": "2026-09-04T00:00:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "arkansas-pine-bluff": {
       "name": "Arkansas-Pine Bluff",
@@ -1498,7 +1584,8 @@
         "homeAway": "away",
         "when": "2026-09-04T00:00:00.000Z",
         "network": "SEC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "eastern-illinois": {
       "name": "Eastern Illinois",
@@ -1524,7 +1611,8 @@
         "homeAway": "away",
         "when": "2026-09-04T00:00:00.000Z",
         "network": "Peacock"
-      }
+      },
+      "bubbleNote": null
     },
     "minnesota": {
       "name": "Minnesota",
@@ -1550,7 +1638,8 @@
         "homeAway": "home",
         "when": "2026-09-04T00:00:00.000Z",
         "network": "Peacock"
-      }
+      },
+      "bubbleNote": null
     },
     "uab": {
       "name": "UAB",
@@ -1576,7 +1665,8 @@
         "homeAway": "away",
         "when": "2026-09-04T01:00:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "illinois": {
       "name": "Illinois",
@@ -1602,7 +1692,8 @@
         "homeAway": "home",
         "when": "2026-09-04T01:00:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "idaho": {
       "name": "Idaho",
@@ -1628,7 +1719,8 @@
         "homeAway": "away",
         "when": "2026-09-04T01:00:00.000Z",
         "network": "ESPNU"
-      }
+      },
+      "bubbleNote": null
     },
     "north-carolina-a-t": {
       "name": "North Carolina A&T",
@@ -1654,7 +1746,8 @@
         "homeAway": "away",
         "when": "2026-09-04T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "georgia-state": {
       "name": "Georgia State",
@@ -1680,7 +1773,8 @@
         "homeAway": "home",
         "when": "2026-09-04T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "indiana-state": {
       "name": "Indiana State",
@@ -1706,7 +1800,8 @@
         "homeAway": "away",
         "when": "2026-09-04T23:00:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "purdue": {
       "name": "Purdue",
@@ -1732,7 +1827,8 @@
         "homeAway": "home",
         "when": "2026-09-04T23:00:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "long-island-university": {
       "name": "Long Island University",
@@ -1758,7 +1854,8 @@
         "homeAway": "away",
         "when": "2026-09-05T00:00:00.000Z",
         "network": "ESPNU"
-      }
+      },
+      "bubbleNote": null
     },
     "kansas": {
       "name": "Kansas",
@@ -1784,7 +1881,8 @@
         "homeAway": "home",
         "when": "2026-09-05T00:00:00.000Z",
         "network": "ESPNU"
-      }
+      },
+      "bubbleNote": null
     },
     "utep": {
       "name": "UTEP",
@@ -1810,7 +1908,8 @@
         "homeAway": "away",
         "when": "2026-09-05T00:00:00.000Z",
         "network": "SECN+"
-      }
+      },
+      "bubbleNote": null
     },
     "toledo": {
       "name": "Toledo",
@@ -1836,7 +1935,8 @@
         "homeAway": "away",
         "when": "2026-09-05T00:00:00.000Z",
         "network": "FS1"
-      }
+      },
+      "bubbleNote": null
     },
     "michigan-state": {
       "name": "Michigan State",
@@ -1862,7 +1962,8 @@
         "homeAway": "home",
         "when": "2026-09-05T00:00:00.000Z",
         "network": "FS1"
-      }
+      },
+      "bubbleNote": null
     },
     "fresno-state": {
       "name": "Fresno State",
@@ -1888,7 +1989,8 @@
         "homeAway": "away",
         "when": "2026-09-05T01:00:00.000Z",
         "network": "FOX"
-      }
+      },
+      "bubbleNote": null
     },
     "oregon-state": {
       "name": "Oregon State",
@@ -1914,7 +2016,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "tarleton-state": {
       "name": "Tarleton State",
@@ -1940,7 +2043,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "bowling-green": {
       "name": "Bowling Green",
@@ -1966,7 +2070,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "north-texas": {
       "name": "North Texas",
@@ -1992,7 +2097,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "FOX"
-      }
+      },
+      "bubbleNote": null
     },
     "miami-oh": {
       "name": "Miami (OH)",
@@ -2018,7 +2124,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "The CW Network"
-      }
+      },
+      "bubbleNote": null
     },
     "pittsburgh": {
       "name": "Pittsburgh",
@@ -2044,7 +2151,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "The CW Network"
-      }
+      },
+      "bubbleNote": null
     },
     "liberty": {
       "name": "Liberty",
@@ -2070,7 +2178,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "ESPNU"
-      }
+      },
+      "bubbleNote": null
     },
     "james-madison": {
       "name": "James Madison",
@@ -2096,7 +2205,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "ESPNU"
-      }
+      },
+      "bubbleNote": null
     },
     "bryant": {
       "name": "Bryant",
@@ -2122,7 +2232,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "CBSSN"
-      }
+      },
+      "bubbleNote": null
     },
     "army": {
       "name": "Army",
@@ -2148,7 +2259,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "CBSSN"
-      }
+      },
+      "bubbleNote": null
     },
     "new-hampshire": {
       "name": "New Hampshire",
@@ -2174,7 +2286,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "ACC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "syracuse": {
       "name": "Syracuse",
@@ -2200,7 +2313,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "ACC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "ohio": {
       "name": "Ohio",
@@ -2226,7 +2340,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "FS1"
-      }
+      },
+      "bubbleNote": null
     },
     "nebraska": {
       "name": "Nebraska",
@@ -2252,7 +2367,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "FS1"
-      }
+      },
+      "bubbleNote": null
     },
     "coastal-carolina": {
       "name": "Coastal Carolina",
@@ -2278,7 +2394,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "TNT"
-      }
+      },
+      "bubbleNote": null
     },
     "west-virginia": {
       "name": "West Virginia",
@@ -2304,7 +2421,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "TNT"
-      }
+      },
+      "bubbleNote": null
     },
     "east-carolina": {
       "name": "East Carolina",
@@ -2330,7 +2448,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": "ABC"
-      }
+      },
+      "bubbleNote": null
     },
     "lafayette": {
       "name": "Lafayette",
@@ -2356,7 +2475,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
         "network": null
-      }
+      },
+      "bubbleNote": null
     },
     "uconn": {
       "name": "UConn",
@@ -2382,7 +2502,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
         "network": null
-      }
+      },
+      "bubbleNote": null
     },
     "ball-state": {
       "name": "Ball State",
@@ -2408,7 +2529,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:30:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "kent-state": {
       "name": "Kent State",
@@ -2434,7 +2556,8 @@
         "homeAway": "away",
         "when": "2026-09-05T16:45:00.000Z",
         "network": "SEC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "south-carolina": {
       "name": "South Carolina",
@@ -2460,7 +2583,8 @@
         "homeAway": "home",
         "when": "2026-09-05T16:45:00.000Z",
         "network": "SEC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "youngstown-state": {
       "name": "Youngstown State",
@@ -2486,7 +2610,8 @@
         "homeAway": "away",
         "when": "2026-09-05T17:00:00.000Z",
         "network": "SECN+"
-      }
+      },
+      "bubbleNote": null
     },
     "kentucky": {
       "name": "Kentucky",
@@ -2512,7 +2637,8 @@
         "homeAway": "home",
         "when": "2026-09-05T17:00:00.000Z",
         "network": "SECN+"
-      }
+      },
+      "bubbleNote": null
     },
     "duquesne": {
       "name": "Duquesne",
@@ -2538,7 +2664,8 @@
         "homeAway": "away",
         "when": "2026-09-05T17:00:00.000Z",
         "network": "MW+"
-      }
+      },
+      "bubbleNote": null
     },
     "air-force": {
       "name": "Air Force",
@@ -2564,7 +2691,8 @@
         "homeAway": "home",
         "when": "2026-09-05T17:00:00.000Z",
         "network": "MW+"
-      }
+      },
+      "bubbleNote": null
     },
     "southeast-missouri-state": {
       "name": "Southeast Missouri State",
@@ -2590,7 +2718,8 @@
         "homeAway": "away",
         "when": "2026-09-05T17:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "iowa-state": {
       "name": "Iowa State",
@@ -2616,7 +2745,8 @@
         "homeAway": "home",
         "when": "2026-09-05T17:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "rhode-island": {
       "name": "Rhode Island",
@@ -2642,7 +2772,8 @@
         "homeAway": "away",
         "when": "2026-09-05T18:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "temple": {
       "name": "Temple",
@@ -2668,7 +2799,8 @@
         "homeAway": "home",
         "when": "2026-09-05T18:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "tennessee-state": {
       "name": "Tennessee State",
@@ -2694,7 +2826,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:00:00.000Z",
         "network": "SECN+"
-      }
+      },
+      "bubbleNote": null
     },
     "boston-college": {
       "name": "Boston College",
@@ -2720,7 +2853,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "FOX"
-      }
+      },
+      "bubbleNote": null
     },
     "cincinnati": {
       "name": "Cincinnati",
@@ -2746,7 +2880,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "FOX"
-      }
+      },
+      "bubbleNote": null
     },
     "maine": {
       "name": "Maine",
@@ -2772,7 +2907,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "app-state": {
       "name": "App State",
@@ -2798,7 +2934,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "boise-state": {
       "name": "Boise State",
@@ -2824,7 +2961,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "CBS"
-      }
+      },
+      "bubbleNote": null
     },
     "furman": {
       "name": "Furman",
@@ -2850,7 +2988,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "SECN+"
-      }
+      },
+      "bubbleNote": null
     },
     "ut-rio-grande-valley": {
       "name": "UT Rio Grande Valley",
@@ -2876,7 +3015,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "utsa": {
       "name": "UTSA",
@@ -2902,7 +3042,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "marshall": {
       "name": "Marshall",
@@ -2928,7 +3069,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "FS1"
-      }
+      },
+      "bubbleNote": null
     },
     "baylor": {
       "name": "Baylor",
@@ -2954,7 +3096,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ABC"
-      }
+      },
+      "bubbleNote": null
     },
     "auburn": {
       "name": "Auburn",
@@ -2980,7 +3123,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ABC"
-      }
+      },
+      "bubbleNote": null
     },
     "the-citadel": {
       "name": "The Citadel",
@@ -3006,7 +3150,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "charlotte": {
       "name": "Charlotte",
@@ -3032,7 +3177,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "tulane": {
       "name": "Tulane",
@@ -3058,7 +3204,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ACC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "duke": {
       "name": "Duke",
@@ -3084,7 +3231,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ACC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "fordham": {
       "name": "Fordham",
@@ -3110,7 +3258,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "The CW Network"
-      }
+      },
+      "bubbleNote": null
     },
     "texas-state": {
       "name": "Texas State",
@@ -3136,7 +3285,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "towson": {
       "name": "Towson",
@@ -3162,7 +3312,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "CBSSN"
-      }
+      },
+      "bubbleNote": null
     },
     "navy": {
       "name": "Navy",
@@ -3188,7 +3339,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
         "network": "CBSSN"
-      }
+      },
+      "bubbleNote": null
     },
     "oklahoma-state": {
       "name": "Oklahoma State",
@@ -3214,7 +3366,8 @@
         "homeAway": "away",
         "when": "2026-09-05T19:45:00.000Z",
         "network": "ESPNU"
-      }
+      },
+      "bubbleNote": null
     },
     "tulsa": {
       "name": "Tulsa",
@@ -3240,7 +3393,8 @@
         "homeAway": "home",
         "when": "2026-09-05T19:45:00.000Z",
         "network": "ESPNU"
-      }
+      },
+      "bubbleNote": null
     },
     "northern-illinois": {
       "name": "Northern Illinois",
@@ -3266,7 +3420,8 @@
         "homeAway": "away",
         "when": "2026-09-05T20:15:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "north-alabama": {
       "name": "North Alabama",
@@ -3292,7 +3447,8 @@
         "homeAway": "away",
         "when": "2026-09-05T20:15:00.000Z",
         "network": "SEC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "arkansas": {
       "name": "Arkansas",
@@ -3318,7 +3474,8 @@
         "homeAway": "home",
         "when": "2026-09-05T20:15:00.000Z",
         "network": "SEC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "alcorn-state": {
       "name": "Alcorn State",
@@ -3344,7 +3501,8 @@
         "homeAway": "away",
         "when": "2026-09-05T21:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "southern-miss": {
       "name": "Southern Miss",
@@ -3370,7 +3528,8 @@
         "homeAway": "home",
         "when": "2026-09-05T21:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "wyoming": {
       "name": "Wyoming",
@@ -3396,7 +3555,8 @@
         "homeAway": "away",
         "when": "2026-09-05T22:00:00.000Z",
         "network": "USA Net"
-      }
+      },
+      "bubbleNote": null
     },
     "colorado-state": {
       "name": "Colorado State",
@@ -3422,7 +3582,8 @@
         "homeAway": "home",
         "when": "2026-09-05T22:00:00.000Z",
         "network": "USA Net"
-      }
+      },
+      "bubbleNote": null
     },
     "norfolk-state": {
       "name": "Norfolk State",
@@ -3448,7 +3609,8 @@
         "homeAway": "away",
         "when": "2026-09-05T22:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "old-dominion": {
       "name": "Old Dominion",
@@ -3474,7 +3636,8 @@
         "homeAway": "home",
         "when": "2026-09-05T22:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "sam-houston": {
       "name": "Sam Houston",
@@ -3500,7 +3663,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "troy": {
       "name": "Troy",
@@ -3526,7 +3690,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "charleston-southern": {
       "name": "Charleston Southern",
@@ -3552,7 +3717,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "georgia-southern": {
       "name": "Georgia Southern",
@@ -3578,7 +3744,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "se-louisiana": {
       "name": "SE Louisiana",
@@ -3604,7 +3771,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "south-alabama": {
       "name": "South Alabama",
@@ -3630,7 +3798,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "murray-state": {
       "name": "Murray State",
@@ -3656,7 +3825,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "middle-tennessee": {
       "name": "Middle Tennessee",
@@ -3682,7 +3852,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "arkansas-state": {
       "name": "Arkansas State",
@@ -3708,7 +3879,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "eastern-kentucky": {
       "name": "Eastern Kentucky",
@@ -3734,7 +3906,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "abilene-christian": {
       "name": "Abilene Christian",
@@ -3760,7 +3933,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "FS1"
-      }
+      },
+      "bubbleNote": null
     },
     "houston-christian": {
       "name": "Houston Christian",
@@ -3786,7 +3960,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "rice": {
       "name": "Rice",
@@ -3812,7 +3987,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "florida-international": {
       "name": "Florida International",
@@ -3838,7 +4014,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "south-florida": {
       "name": "South Florida",
@@ -3864,7 +4041,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "idaho-state": {
       "name": "Idaho State",
@@ -3890,7 +4068,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "CBSSN"
-      }
+      },
+      "bubbleNote": null
     },
     "utah-state": {
       "name": "Utah State",
@@ -3916,7 +4095,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "CBSSN"
-      }
+      },
+      "bubbleNote": null
     },
     "nicholls": {
       "name": "Nicholls",
@@ -3942,7 +4122,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "kansas-state": {
       "name": "Kansas State",
@@ -3968,7 +4149,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "austin-peay": {
       "name": "Austin Peay",
@@ -3994,7 +4176,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "SECN+"
-      }
+      },
+      "bubbleNote": null
     },
     "vanderbilt": {
       "name": "Vanderbilt",
@@ -4020,7 +4203,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "SECN+"
-      }
+      },
+      "bubbleNote": null
     },
     "missouri-state": {
       "name": "Missouri State",
@@ -4046,7 +4230,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "vmi": {
       "name": "VMI",
@@ -4072,7 +4257,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
         "network": "ACC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "virginia-tech": {
       "name": "Virginia Tech",
@@ -4098,7 +4284,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
         "network": "ACC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "western-michigan": {
       "name": "Western Michigan",
@@ -4124,7 +4311,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
         "network": "NBC"
-      }
+      },
+      "bubbleNote": null
     },
     "ul-monroe": {
       "name": "UL Monroe",
@@ -4150,7 +4338,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
         "network": "ESPNU"
-      }
+      },
+      "bubbleNote": null
     },
     "mississippi-state": {
       "name": "Mississippi State",
@@ -4176,7 +4365,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
         "network": "ESPNU"
-      }
+      },
+      "bubbleNote": null
     },
     "northwestern-state": {
       "name": "Northwestern State",
@@ -4202,7 +4392,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "louisiana-tech": {
       "name": "Louisiana Tech",
@@ -4228,7 +4419,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "florida-atlantic": {
       "name": "Florida Atlantic",
@@ -4254,7 +4446,8 @@
         "homeAway": "away",
         "when": "2026-09-05T23:45:00.000Z",
         "network": "SEC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "florida": {
       "name": "Florida",
@@ -4280,7 +4473,8 @@
         "homeAway": "home",
         "when": "2026-09-05T23:45:00.000Z",
         "network": "SEC Network"
-      }
+      },
+      "bubbleNote": null
     },
     "lamar": {
       "name": "Lamar",
@@ -4306,7 +4500,8 @@
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "louisiana": {
       "name": "Louisiana",
@@ -4332,7 +4527,8 @@
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "south-dakota-state": {
       "name": "South Dakota State",
@@ -4358,7 +4554,8 @@
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "northwestern": {
       "name": "Northwestern",
@@ -4384,7 +4581,8 @@
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "utah-tech": {
       "name": "Utah Tech",
@@ -4410,7 +4608,8 @@
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "hampton": {
       "name": "Hampton",
@@ -4436,7 +4635,8 @@
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "maryland": {
       "name": "Maryland",
@@ -4462,7 +4662,8 @@
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
         "network": "BTN"
-      }
+      },
+      "bubbleNote": null
     },
     "mercyhurst": {
       "name": "Mercyhurst",
@@ -4488,7 +4689,8 @@
         "homeAway": "away",
         "when": "2026-09-06T01:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "morgan-state": {
       "name": "Morgan State",
@@ -4514,7 +4716,8 @@
         "homeAway": "away",
         "when": "2026-09-06T01:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "arizona-state": {
       "name": "Arizona State",
@@ -4540,7 +4743,8 @@
         "homeAway": "home",
         "when": "2026-09-06T01:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "portland-state": {
       "name": "Portland State",
@@ -4566,7 +4770,8 @@
         "homeAway": "away",
         "when": "2026-09-06T01:30:00.000Z",
         "network": "USA Net"
-      }
+      },
+      "bubbleNote": null
     },
     "san-diego-state": {
       "name": "San Diego State",
@@ -4592,7 +4797,8 @@
         "homeAway": "home",
         "when": "2026-09-06T01:30:00.000Z",
         "network": "USA Net"
-      }
+      },
+      "bubbleNote": null
     },
     "northern-arizona": {
       "name": "Northern Arizona",
@@ -4618,7 +4824,8 @@
         "homeAway": "away",
         "when": "2026-09-06T01:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "arizona": {
       "name": "Arizona",
@@ -4644,7 +4851,8 @@
         "homeAway": "home",
         "when": "2026-09-06T01:30:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "mississippi-valley-state": {
       "name": "Mississippi Valley State",
@@ -4670,7 +4878,8 @@
         "homeAway": "away",
         "when": "2026-09-06T02:00:00.000Z",
         "network": "ESPN+"
-      }
+      },
+      "bubbleNote": null
     },
     "central-michigan": {
       "name": "Central Michigan",
@@ -4696,7 +4905,8 @@
         "homeAway": "away",
         "when": "2026-09-06T02:00:00.000Z",
         "network": "FS1"
-      }
+      },
+      "bubbleNote": null
     },
     "new-mexico": {
       "name": "New Mexico",
@@ -4722,7 +4932,8 @@
         "homeAway": "home",
         "when": "2026-09-06T02:00:00.000Z",
         "network": "FS1"
-      }
+      },
+      "bubbleNote": null
     },
     "western-kentucky": {
       "name": "Western Kentucky",
@@ -4748,7 +4959,8 @@
         "homeAway": "away",
         "when": "2026-09-06T02:30:00.000Z",
         "network": "CBSSN"
-      }
+      },
+      "bubbleNote": null
     },
     "nevada": {
       "name": "Nevada",
@@ -4774,7 +4986,8 @@
         "homeAway": "home",
         "when": "2026-09-06T02:30:00.000Z",
         "network": "CBSSN"
-      }
+      },
+      "bubbleNote": null
     },
     "ucla": {
       "name": "UCLA",
@@ -4800,7 +5013,8 @@
         "homeAway": "away",
         "when": "2026-09-06T02:30:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "california": {
       "name": "California",
@@ -4826,7 +5040,8 @@
         "homeAway": "home",
         "when": "2026-09-06T02:30:00.000Z",
         "network": "ESPN"
-      }
+      },
+      "bubbleNote": null
     },
     "washington-state": {
       "name": "Washington State",
@@ -4852,7 +5067,8 @@
         "homeAway": "away",
         "when": "2026-09-06T20:00:00.000Z",
         "network": "NBC"
-      }
+      },
+      "bubbleNote": null
     },
     "wisconsin": {
       "name": "Wisconsin",
@@ -4878,7 +5094,8 @@
         "homeAway": "away",
         "when": "2026-09-06T23:30:00.000Z",
         "network": "NBC"
-      }
+      },
+      "bubbleNote": null
     },
     "louisville": {
       "name": "Louisville",
@@ -4904,7 +5121,8 @@
         "homeAway": "away",
         "when": "2026-09-06T23:30:00.000Z",
         "network": "ABC"
-      }
+      },
+      "bubbleNote": null
     }
   },
   "games": [
@@ -4920,7 +5138,7 @@
       "network": "ABC",
       "rivalry": false,
       "stakesScore": 6.2,
-      "blurb": "A top-25 opener in Baton Rouge, where No. 13 LSU is a 10.5-point favorite over No. 23 Clemson. The 50.5 total says oddsmakers expect defense and field position to decide it.",
+      "blurb": "No. 13 LSU hosts No. 23 Clemson in the marquee opener, and Vegas isn't treating it like a coin flip: the Tigers of Baton Rouge are favored by 10.5 with a modest 50.5 total. A top-25 scalp in Week 1 is on the table for whoever survives Death Valley.",
       "blurbSource": "llm"
     },
     {
@@ -4935,7 +5153,7 @@
       "network": "NBC",
       "rivalry": true,
       "stakesScore": 4.87,
-      "blurb": "The Apple Cup returns with No. 19 Washington favored by 21.5 at home. Rivalry or not, the Cougars are being asked to keep it within four scores.",
+      "blurb": "The Apple Cup kicks off the season with No. 19 Washington laying 21.5 on Washington State. Rivalry emotion is one thing; a three-touchdown line says the Huskies are supposed to make this a formality.",
       "blurbSource": "llm"
     },
     {
@@ -4950,7 +5168,7 @@
       "network": "ABC",
       "rivalry": false,
       "stakesScore": 4.27,
-      "blurb": "Louisville heads to Oxford as just a 6.5-point underdog against No. 10 Ole Miss, the tightest line of the weekend's ranked-vs-unranked slate. A 55.5 total hints at points from both sides.",
+      "blurb": "Louisville heads to Oxford as a 6.5-point underdog against No. 10 Ole Miss, with the total up at 55.5. Points should be plentiful, and the Rebels have very little margin for a Week 1 stumble at home.",
       "blurbSource": "llm"
     },
     {
@@ -4965,7 +5183,7 @@
       "network": "NBC",
       "rivalry": false,
       "stakesScore": 3.07,
-      "blurb": "No. 5 Notre Dame opens as a 20.5-point favorite over Wisconsin, with the total sitting at just 47.5. The Irish are expected to win comfortably without needing a shootout.",
+      "blurb": "No. 5 Notre Dame opens with Wisconsin and a 20.5-point spread, but the 47.5 total hints at a grinder rather than a shootout. The Irish need style points more than they need drama.",
       "blurbSource": "llm"
     },
     {
@@ -4980,7 +5198,7 @@
       "network": "USA Net",
       "rivalry": true,
       "stakesScore": 3,
-      "blurb": "The Border War kicks off the weekend with Colorado State favored by just four at home. Four points in a rivalry game is close to a coin flip.",
+      "blurb": "The Border War opens the year with Colorado State a 4-point favorite at home over Wyoming. Neither is ranked, but nobody in this rivalry needs a poll to care.",
       "blurbSource": "llm"
     },
     {
@@ -4995,7 +5213,7 @@
       "network": "NBC",
       "rivalry": false,
       "stakesScore": 2.58,
-      "blurb": "No. 16 Michigan hosts Western Michigan as a 26.5-point favorite in an in-state tune-up. The only real question is how early the backups get work.",
+      "blurb": "No. 16 Michigan is a 26.5-point favorite over Western Michigan in an in-state tune-up. This is about getting through it cleanly and moving on.",
       "blurbSource": "llm"
     }
   ],
@@ -5003,31 +5221,72 @@
     {
       "teamId": "texas",
       "score": 5.45,
-      "blurb": "Texas checks in at No. 4, and FPI likes the Longhorns even more, slotting them second nationally.",
+      "blurb": "Texas checks in at No. 4 in the SEC, and FPI is even higher on the Longhorns at No. 2 nationally. The metrics see a team built to be in the title conversation.",
       "blurbSource": "llm"
     },
     {
       "teamId": "texas-tech",
       "score": 5.45,
-      "blurb": "Texas Tech opens at No. 12 with FPI a touch higher at No. 10 -- the metrics see a legitimate Big 12 frontrunner.",
+      "blurb": "Texas Tech sits at No. 12 with FPI slightly more bullish at No. 10. The Red Raiders are the Big 12's ranking leader heading in.",
       "blurbSource": "llm"
     },
     {
       "teamId": "michigan",
       "score": 5.23,
-      "blurb": "Michigan starts at No. 16 with FPI essentially in agreement at No. 15, a rare case of poll and computer seeing the same team.",
+      "blurb": "Michigan opens at No. 16 with FPI nearly in lockstep at No. 15. No real disagreement between the poll and the numbers on the Wolverines.",
       "blurbSource": "llm"
     },
     {
       "teamId": "byu",
       "score": 5.13,
-      "blurb": "BYU sits at No. 15 in the poll but only 20th in FPI, making the Cougars one of the more overrated teams in the rankings by the numbers.",
+      "blurb": "BYU is No. 15 in the rankings but only No. 20 by FPI, making the Cougars one of the more skeptically viewed teams in the Big 12 race.",
       "blurbSource": "llm"
     },
     {
       "teamId": "lsu",
       "score": 4.9,
-      "blurb": "LSU enters at No. 13 while FPI has the Tigers ninth, suggesting the poll is still underselling them.",
+      "blurb": "LSU begins at No. 13 while FPI slots the Tigers at No. 9 — a rare case of the metrics arguing a ranked SEC team is being underrated.",
+      "blurbSource": "llm"
+    }
+  ],
+  "fieldStorylines": [
+    {
+      "id": "conf-race-big-ten",
+      "type": "conf-race-gap",
+      "conf": "Big Ten",
+      "leaderId": "ohio-state",
+      "leaderRank": 1,
+      "chaserId": "oregon",
+      "chaserRank": 2,
+      "gap": 1,
+      "score": 9,
+      "blurb": "The Big Ten's automatic bid is a two-horse sprint: No. 1 Ohio State leads with No. 2 Oregon a single spot behind. There's no separation here at all, and one loss flips the order.",
+      "blurbSource": "llm"
+    },
+    {
+      "id": "conf-race-sec",
+      "type": "conf-race-gap",
+      "conf": "SEC",
+      "leaderId": "georgia",
+      "leaderRank": 3,
+      "chaserId": "texas",
+      "chaserRank": 4,
+      "gap": 1,
+      "score": 9,
+      "blurb": "Georgia at No. 3 and Texas at No. 4 are separated by exactly one spot atop the SEC. The league's auto bid may come down to a head-to-head result rather than any resume gap.",
+      "blurbSource": "llm"
+    },
+    {
+      "id": "conf-race-big-12",
+      "type": "conf-race-gap",
+      "conf": "Big 12",
+      "leaderId": "texas-tech",
+      "leaderRank": 12,
+      "chaserId": "byu",
+      "chaserRank": 15,
+      "gap": 3,
+      "score": 7,
+      "blurb": "Texas Tech (No. 12) holds the Big 12 lead with BYU (No. 15) three spots back — a little breathing room, but hardly a comfortable cushion. The Red Raiders control the auto bid for now.",
       "blurbSource": "llm"
     }
   ]

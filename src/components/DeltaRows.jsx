@@ -1,3 +1,5 @@
+import { HAS_SP_RATINGS, HAS_FPI_RATINGS, HAS_ELO_RATINGS } from '../data/teams.js';
+
 export default function DeltaRows({ team }) {
   const rows = [
     { label: 'SP+', modelRank: team.sp },
@@ -11,7 +13,14 @@ export default function DeltaRows({ team }) {
   // a missing number.
   const primaryRank = team.cfpRank;
 
+  // Site-wide "not published yet this season" reasons, not this team's own unranked status --
+  // that's a different (per-team) situation, already explained elsewhere on the page.
+  const missing = [
+    !HAS_SP_RATINGS && 'SP+', !HAS_FPI_RATINGS && 'FPI', !HAS_ELO_RATINGS && 'Elo',
+  ].filter(Boolean);
+
   return (
+    <>
     <div className="delta-rows">
       {rows.map((r) => {
         if (primaryRank == null || r.modelRank == null) {
@@ -41,5 +50,11 @@ export default function DeltaRows({ team }) {
         );
       })}
     </div>
+    {missing.length > 0 && (
+      <p style={{ fontSize: 11.5, color: 'var(--muted)', margin: '10px 0 0' }}>
+        {missing.join(', ')} {missing.length === 1 ? "hasn't" : "haven't"} been published yet this season.
+      </p>
+    )}
+    </>
   );
 }

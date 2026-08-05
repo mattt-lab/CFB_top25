@@ -50,6 +50,12 @@ body {
 }
 .tabnum { font-variant-numeric: tabular-nums; }
 
+/* Base focus ring for every link/button on the site -- previously only .chip (the team-detail
+   ladder strip) had one, so keyboard users got no visible feedback anywhere else (.bubble-row,
+   .seed-card, .matchup-row, .cta-btn, .toggle-btn, .pin-btn, the table's .row-link). Specific
+   rules below (e.g. .chip, .row-link) can still override this where a tighter fit is wanted. */
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 .header {
   background: var(--panel-2);
   border-bottom: 1px solid var(--border);
@@ -94,6 +100,7 @@ body {
 .tag { font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
 .tag.quality { color: var(--good); background: color-mix(in srgb, var(--good) 15%, transparent); }
 .tag.bad { color: var(--critical); background: color-mix(in srgb, var(--critical) 15%, transparent); }
+.tag.rivalry { color: var(--accent); background: color-mix(in srgb, var(--accent) 15%, transparent); }
 .result { font-weight: 800; font-size: 11.5px; padding: 2px 8px; border-radius: 5px; }
 .result.W { color: var(--good); background: color-mix(in srgb, var(--good) 15%, transparent); }
 .result.L { color: var(--critical); background: color-mix(in srgb, var(--critical) 15%, transparent); }
@@ -119,8 +126,17 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 table.data-table caption { text-align: left; font-size: 11.5px; color: var(--muted); margin-bottom: 6px; }
 table.data-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; padding: 6px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
 table.data-table td { padding: 7px 8px; border-bottom: 1px solid var(--grid); }
-table.data-table tbody tr.row-click { cursor: pointer; }
+table.data-table tbody tr.row-click { cursor: pointer; position: relative; }
 table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
+/* Whole-row-clickable via a real, natively-focusable <Link> stretched over the row -- rather than
+   a bare onClick on the <tr> (not focusable, not operable by keyboard at all). Every other
+   clickable row/card on the site (.bubble-row, .seed-card, .matchup-row) is already a real link;
+   this brings the table in line with that instead of hand-rolling tabIndex/keydown on a <tr>. */
+.row-link { position: static; color: inherit; text-decoration: none; }
+.row-link::after { content: ''; position: absolute; inset: 0; }
+/* The link's own focus ring (from the generic a:focus-visible rule above) only outlines its small
+   text box; also highlight the full row so keyboard focus is obvious across the whole click target. */
+table.data-table tbody tr.row-click:has(.row-link:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
 
 .delta-rows { display: flex; flex-direction: column; gap: 12px; }
 .delta-row { display: grid; grid-template-columns: 78px 1fr 46px; align-items: center; gap: 10px; }
@@ -187,7 +203,8 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 .game-card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
 .game-meta { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; margin-bottom: 8px; }
 .game-teams { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.game-team { font-size: 14.5px; font-weight: 700; }
+.game-team { font-size: 14.5px; font-weight: 700; color: inherit; text-decoration: none; }
+.game-team:hover { color: var(--accent); }
 .game-team .r { color: var(--muted); font-weight: 700; margin-right: 5px; }
 .game-at { font-size: 11px; color: var(--muted); padding: 0 6px; }
 .game-line { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 12px; }
@@ -196,6 +213,8 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 
 .pred-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .pred-list li { display: flex; gap: 10px; font-size: 13px; line-height: 1.5; align-items: flex-start; }
+.pred-list a { color: inherit; text-decoration: none; }
+.pred-list a:hover { color: var(--accent); }
 .pred-list .ic { flex: none; width: 20px; height: 20px; border-radius: 6px; background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; margin-top: 1px; }
 
 .section-header { display: flex; align-items: baseline; justify-content: space-between; margin: 30px 0 14px; flex-wrap: wrap; gap: 8px; }
@@ -208,8 +227,6 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 .cta-card .txt span { font-size: 12.5px; color: var(--ink-2); }
 .cta-btn { flex: none; font: inherit; font-weight: 700; font-size: 13px; background: var(--accent); color: var(--accent-ink); border: none; border-radius: 999px; padding: 9px 18px; cursor: pointer; text-decoration: none; display: inline-block; }
 .cta-btn:hover { filter: brightness(1.08); }
-
-.myteams-empty { font-size: 13px; color: var(--ink-2); margin: 0; }
 
 /* Bracket / playoff watch */
 .bracket-label { font-size: 11.5px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin: 22px 0 10px; }

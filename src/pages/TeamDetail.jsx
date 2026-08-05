@@ -1,7 +1,7 @@
 import { useParams, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import {
   teamById, WEEK_IDX_MAX, trendOf, playoffOddsFor, nattyOddsFor, americanOdds,
-  deltaAt, primaryLabel, PRIMARY_SOURCE_BY_WEEK, dirFor, arrowGlyph, computerRatingNote,
+  deltaAt, primaryLabel, PRIMARY_SOURCE_BY_WEEK, dirFor, arrowGlyph, computerRatingNote, nextGameParts,
 } from '../data/teams.js';
 import { usePinnedStore } from '../store/usePinnedStore.js';
 import { downloadShareCard } from '../utils/shareCard.js';
@@ -39,6 +39,7 @@ export default function TeamDetail() {
   const po = rank != null ? playoffOddsFor(rank, team.record, team.sp) : null;
   const no = rank != null ? nattyOddsFor(rank, team.record, team.sp, team.fpi) : null;
   const currentWeekNumber = WEEK_IDX_MAX + 1;
+  const { opponent: nextOpponent, kickoff: nextKickoff } = nextGameParts(team.nextGame);
 
   return (
     <div>
@@ -84,6 +85,19 @@ export default function TeamDetail() {
               <div className="lbl">FPI Rank</div>
               <div className="val tabnum">{team.fpi != null ? `#${team.fpi}` : '—'}</div>
               <div className="sub">{computerRatingNote(team.fpi, rank, sourceLabel)}</div>
+            </div>
+          </div>
+          <div style={{ marginTop: 14 }}>
+            <div className="eyebrow-lbl">Next Game</div>
+            <div style={{ fontSize: 13.5, marginTop: 4 }}>
+              {nextOpponent ? (
+                <>
+                  <b>{nextOpponent}</b>
+                  {nextKickoff && <span style={{ color: 'var(--ink-2)' }}> · {nextKickoff}</span>}
+                </>
+              ) : (
+                <span style={{ color: 'var(--ink-2)' }}>Bye week</span>
+              )}
             </div>
           </div>
           <div style={{ marginTop: 14, display: 'flex', gap: 8, flexWrap: 'wrap' }}>

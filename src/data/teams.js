@@ -55,6 +55,14 @@ Object.keys(raw.teams).forEach((id) => {
 export const teams = byIdMap;
 export function teamById(id) { return byIdMap[id]; }
 
+// ---- Data-availability flags -- early in a season (or just after the Aug 1 changeover), several
+// columns/panels have nothing real to show yet. Used to render an explanatory note instead of a
+// silent wall of dashes/empty visuals (Top25Table's caption, RankingChart, DeltaRows).
+export const HAS_TREND_HISTORY = WEEK_IDX_MAX > WEEK_IDX_MIN; // need 2+ weeks for a week-over-week delta
+export const HAS_SP_RATINGS = Object.values(byIdMap).some((t) => t.sp != null);
+export const HAS_FPI_RATINGS = Object.values(byIdMap).some((t) => t.fpi != null);
+export const HAS_ELO_RATINGS = Object.values(byIdMap).some((t) => t.elo != null);
+
 // Null-safe ascending-rank comparator factory: unranked items (rank === null, e.g. a team pinned
 // from a direct team-page visit, or one that fell out of the poll) sort to the end, not the front
 // -- plain `a.rank - b.rank` coerces null to 0 and would put them first instead. `rankOf` extracts
@@ -72,6 +80,7 @@ export const games = raw.games.map((g) => ({
   homeTeam: teamById(g.home),
 }));
 export const predictions = raw.predictions;
+export const fieldStorylines = raw.fieldStorylines ?? [];
 
 export function rankAt(teamId, wIdx) {
   const order = WEEKLY_ORDER[wIdx] || [];
@@ -103,10 +112,14 @@ export function nattyOddsFor(rank, record, spRank, fpiRank) {
   const raw = (po / 100) * condWin;
   return Math.max(0.1, Math.min(45, raw));
 }
+// Display cap on longshot odds -- the raw formula can spiral into an absurd number like "+99900"
+// for the bottom of the poll (correct arithmetic, but it reads as a display bug); real sportsbooks
+// cap displayed longshot prices well below that range too.
+const MAX_DISPLAYED_ODDS = 9900;
 export function americanOdds(pct) {
   const p = pct / 100;
   if (p >= 0.5) return '-' + Math.round((p / (1 - p)) * 100);
-  return '+' + Math.round(((1 - p) / p) * 100);
+  return '+' + Math.min(MAX_DISPLAYED_ODDS, Math.round(((1 - p) / p) * 100));
 }
 export function arrowGlyph(delta) { return delta > 0 ? '▲' : delta < 0 ? '▼' : '–'; }
 
@@ -150,6 +163,19 @@ export function formatKickoff(iso) {
   } catch {
     return iso;
   }
+}
+
+// Opponent label (e.g. "vs #8 Michigan" / "at Alabama" for an unranked opponent) and kickoff/
+// network text (e.g. "Sat, Sep 5, 3:30 PM PDT · FOX"), split so the caller can style the opponent
+// distinctly (bold, so it stands out from the surrounding record/kickoff text). Both null for a
+// bye week (no nextGame) or a team with no games left on CFBD's schedule. Shared by "Your Teams"
+// and the team-detail hero card.
+export function nextGameParts(nextGame) {
+  if (!nextGame) return { opponent: null, kickoff: null };
+  const vsAt = nextGame.homeAway === 'home' ? 'vs' : 'at';
+  const oppLabel = nextGame.opponentRank != null ? `#${nextGame.opponentRank} ${nextGame.opponent}` : nextGame.opponent;
+  const kickoff = [formatKickoff(nextGame.when), nextGame.network].filter(Boolean).join(' · ');
+  return { opponent: `${vsAt} ${oppLabel}`, kickoff: kickoff || null };
 }
 
 // Last-two-non-null-values trend for a team's own authored poll array (AP/Coaches/CFP).

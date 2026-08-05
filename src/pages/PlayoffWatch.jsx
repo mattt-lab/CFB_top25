@@ -1,24 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useWeekStore } from '../store/useWeekStore.js';
-import { WEEK_IDX_MAX, computeField, primaryLabel, PRIMARY_SOURCE_BY_WEEK } from '../data/teams.js';
+import {
+  WEEK_IDX_MAX, computeField, primaryLabel, PRIMARY_SOURCE_BY_WEEK, fieldStorylines,
+} from '../data/teams.js';
 import ConfDot from '../components/ConfDot.jsx';
-
-// Hand-authored editorial copy — not part of the data schema (docs/data-schema.md has no
-// per-seed bubble commentary or path-scenario fields), so it stays local UI copy rather than
-// data. TODO(schema): once Stage 2 narration exists, these could become generated blurbs.
-const PATH_SCENARIOS = [
-  'Texas at Alabama (Sat) is the only game this week involving two current bye-line teams — the loser has the most to lose in seeding.',
-  "If Ole Miss and Iowa State both win, seeds 10–13 could reshuffle entirely by Tuesday's reveal.",
-  'Notre Dame and USC are playing each other on the bubble line — one of them is likely out of the top 16 by Sunday regardless of anything else.',
-  "No one-loss Group of Five team (Memphis included) projects into the field under this model — the ceiling for an undefeated G5 run is a New Year's Six at-large.",
-];
-
-const BUBBLE_NOTES = {
-  13: 'Needs a win and help — a top-12 loss above them opens the door.',
-  14: 'Controls its own fate with one more quality win.',
-  15: "Fastest riser on the board — one more week like this and they're in.",
-  16: 'Trending the wrong way; needs chaos above to stay relevant.',
-};
 
 function TeamRow({ o, seedNum }) {
   return (
@@ -114,7 +99,7 @@ export default function PlayoffWatch() {
               <span className="rk tabnum">{seedNum}</span>
               <ConfDot conf={o.team.conf} />
               <span className="nm">{o.team.name}</span>
-              <span className="needs">{BUBBLE_NOTES[seedNum] || ''}</span>
+              <span className="needs">{o.team.bubbleNote?.blurb ?? ''}</span>
             </Link>
           );
         })}
@@ -127,11 +112,17 @@ export default function PlayoffWatch() {
             <p>What has to happen for the picture to change.</p>
           </div>
         </div>
-        <ul className="pred-list">
-          {PATH_SCENARIOS.map((p, i) => (
-            <li key={i}><span className="ic">{i + 1}</span><span>{p}</span></li>
-          ))}
-        </ul>
+        {fieldStorylines.length ? (
+          <ul className="pred-list">
+            {fieldStorylines.map((s, i) => (
+              <li key={s.id}><span className="ic">{i + 1}</span><span>{s.blurb}</span></li>
+            ))}
+          </ul>
+        ) : (
+          <p style={{ fontSize: 12.5, color: 'var(--ink-2)', margin: 0 }}>
+            No standout race gaps or bye/bubble-line collisions this week.
+          </p>
+        )}
       </section>
 
       <p className="footnote">
