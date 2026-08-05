@@ -18,8 +18,10 @@ export default function PlayoffWatch() {
   const weekIdx = useWeekStore((s) => s.weekIdx);
   const field = computeField(weekIdx);
   const weekSource = primaryLabel(PRIMARY_SOURCE_BY_WEEK[weekIdx]);
+  // Same reasoning as Top25Tracker's eyebrow: the current-week poll source is already in the
+  // sticky header, so only repeat it here when the snapshot is historical (source may differ).
   const eyebrow = weekIdx === WEEK_IDX_MAX
-    ? `Week ${weekIdx + 1} Projection (by ${weekSource})`
+    ? `Week ${weekIdx + 1} Projection`
     : `Week ${weekIdx + 1} Projection (historical, by ${weekSource})`;
 
   const confs = Object.keys(field.champsByConf).sort(
@@ -33,10 +35,7 @@ export default function PlayoffWatch() {
       <div className="page-title">
         <div className="eyebrow">{eyebrow}</div>
         <h1>Playoff Watch</h1>
-        <p>
-          If the 12-team field were set today: four byes to the top conference champions, a 5th
-          auto-bid, seven at-large, and who's still fighting for the last spots.
-        </p>
+        <p>Who's in, who's got a bye, and who's still fighting for the last spot — if the field were set today.</p>
       </div>
 
       <div className="bracket-label">Conference championship races</div>
