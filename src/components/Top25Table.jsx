@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import {
   WEEKLY_ORDER, teamById, deltaAt, sparkPoints,
-  playoffOddsFor, nattyOddsFor, americanOdds, arrowGlyph,
+  playoffOddsFor, nattyOddsFor, americanOdds, trendColor, deltaLabel,
 } from '../data/teams.js';
 import ConfDot from './ConfDot.jsx';
 import Sparkline from './Sparkline.jsx';
@@ -27,7 +27,7 @@ export default function Top25Table({ weekIdx }) {
             const delta = deltaAt(id, weekIdx);
             const po = playoffOddsFor(rank, t.record, t.sp);
             const no = nattyOddsFor(rank, t.record, t.sp, t.fpi);
-            const color = delta > 0 ? 'var(--good)' : delta < 0 ? 'var(--critical)' : 'var(--muted)';
+            const color = trendColor(delta);
 
             return (
               <tr
@@ -42,7 +42,7 @@ export default function Top25Table({ weekIdx }) {
                   <span style={{ color: 'var(--muted)', fontSize: 11 }}>{t.conf}</span>
                 </td>
                 <td className="tabnum">{t.record}</td>
-                <td style={{ color, fontWeight: 700 }}>{arrowGlyph(delta)}{delta !== 0 ? Math.abs(delta) : ''}</td>
+                <td style={{ color, fontWeight: 700 }}>{deltaLabel(delta)}</td>
                 <td><Sparkline points={sparkPoints(id, weekIdx)} /></td>
                 <td className="tabnum">{t.sp != null ? `#${t.sp}` : '—'}</td>
                 <td className="tabnum">{po}%</td>

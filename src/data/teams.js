@@ -55,7 +55,14 @@ Object.keys(raw.teams).forEach((id) => {
 export const teams = byIdMap;
 export function teamById(id) { return byIdMap[id]; }
 
-export const FULL25 = Object.values(byIdMap).sort((a, b) => a.cfpRank - b.cfpRank);
+// Null-safe ascending-rank comparator factory: unranked items (rank === null, e.g. a team pinned
+// from a direct team-page visit, or one that fell out of the poll) sort to the end, not the front
+// -- plain `a.rank - b.rank` coerces null to 0 and would put them first instead. `rankOf` extracts
+// the rank from whatever shape the list holds: `.sort(byRankAsc((x) => x.cfpRank))`,
+// `.sort(byRankAsc((x) => x.rank))`, etc.
+export function byRankAsc(rankOf) {
+  return (a, b) => (rankOf(a) ?? Infinity) - (rankOf(b) ?? Infinity);
+}
 
 // ---- this week's slate + storylines, from current.json's own `games`/`predictions` arrays ----
 // (replaces the hand-authored src/data/content.js, which is deleted).
@@ -103,6 +110,30 @@ export function americanOdds(pct) {
 }
 export function arrowGlyph(delta) { return delta > 0 ? '▲' : delta < 0 ? '▼' : '–'; }
 
+// ---- Rank-delta helpers -- shared "which way did the rank move, and how should it look" logic.
+// Convention throughout this module: positive delta = rank improved (moved toward #1); negative =
+// got worse; 0 = unchanged (see deltaAt() above). Used for week-over-week movement, poll-vs-poll
+// trend, and poll-vs-computer-rating differentials alike, so the direction/color/label always
+// mean the same thing no matter which of those a given delta came from.
+export function dirFor(delta) { return delta > 0 ? 'up' : delta < 0 ? 'down' : 'flat'; }
+export function trendColor(delta) {
+  return delta > 0 ? 'var(--good)' : delta < 0 ? 'var(--critical)' : 'var(--muted)';
+}
+// Ready-to-render "▲3" / "▼2" / "–" -- arrowGlyph's flat glyph already reads fine on its own, so
+// only a nonzero delta gets a trailing number.
+export function deltaLabel(delta) { return `${arrowGlyph(delta)}${delta !== 0 ? Math.abs(delta) : ''}`; }
+
+// "Model likes them more" / "ranks them lower" / "matches" -- comparing a computer rating's rank
+// (SP+, FPI, Elo) against the resolved primary poll rank. Both inputs can be null (a rating not
+// published yet, or the team itself unranked) -- degrades to "Not yet available" rather than
+// computing a comparison against a missing number.
+export function computerRatingNote(computerRank, primaryRank, sourceLabel) {
+  if (computerRank == null || primaryRank == null) return 'Not yet available';
+  if (computerRank < primaryRank) return 'Model likes them more';
+  if (computerRank > primaryRank) return 'Model ranks them lower';
+  return `Matches ${sourceLabel}`;
+}
+
 // `when` is ISO 8601 in the real schema (e.g. "2026-09-05T23:30:00Z") -- format it for display
 // rather than rendering the raw string. Shared by the "biggest games" panel and "Your Teams".
 // A bare weekday ("Sat, 4:30 PM PDT") is only unambiguous if the game is actually within the next
@@ -132,7 +163,7 @@ export function trendOf(series) {
   }
   if (last == null || prev == null) return { dir: 'flat', diff: 0 };
   const diff = prev - last;
-  return { dir: diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat', diff: Math.abs(diff) };
+  return { dir: dirFor(diff), diff: Math.abs(diff) };
 }
 
 export function confSlug(conf) { return conf.toLowerCase().replace(/[^a-z0-9]+/g, ''); }

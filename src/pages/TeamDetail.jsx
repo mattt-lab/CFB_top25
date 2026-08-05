@@ -1,7 +1,7 @@
 import { useParams, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import {
   teamById, WEEK_IDX_MAX, trendOf, playoffOddsFor, nattyOddsFor, americanOdds,
-  deltaAt, primaryLabel, PRIMARY_SOURCE_BY_WEEK,
+  deltaAt, primaryLabel, PRIMARY_SOURCE_BY_WEEK, dirFor, arrowGlyph, computerRatingNote,
 } from '../data/teams.js';
 import { usePinnedStore } from '../store/usePinnedStore.js';
 import { downloadShareCard } from '../utils/shareCard.js';
@@ -31,7 +31,7 @@ export default function TeamDetail() {
   const rank = team.cfpRank;
   const sourceLabel = primaryLabel(PRIMARY_SOURCE_BY_WEEK[WEEK_IDX_MAX]);
   const rankDelta = deltaAt(team.id, WEEK_IDX_MAX);
-  const rankDeltaDir = rankDelta > 0 ? 'up' : rankDelta < 0 ? 'down' : 'flat';
+  const rankDeltaDir = dirFor(rankDelta);
   const apTrend = trendOf(team.ap);
   // Unranked teams (fell out of the poll, or never ranked) have rank === null -- the odds
   // formulas assume a real rank, so skip them rather than let `null` silently coerce to 0 and
@@ -61,7 +61,7 @@ export default function TeamDetail() {
           <div className="rank-block">
             <div>
               <div className={`delta-badge ${rankDeltaDir}`}>
-                {rankDeltaDir === 'flat' ? 'No change' : `${rankDeltaDir === 'up' ? '▲' : '▼'} ${Math.abs(rankDelta)} this week`}
+                {rankDeltaDir === 'flat' ? 'No change' : `${arrowGlyph(rankDelta)} ${Math.abs(rankDelta)} this week`}
               </div>
             </div>
             <div className="rank-figure tabnum">{rank ?? '—'}</div>
@@ -78,16 +78,12 @@ export default function TeamDetail() {
             <div className="stat">
               <div className="lbl">SP+ Rank</div>
               <div className="val tabnum">{team.sp != null ? `#${team.sp}` : '—'}</div>
-              <div className="sub">
-                {team.sp == null || rank == null ? 'Not yet available' : team.sp < rank ? 'Model likes them more' : team.sp > rank ? 'Model ranks them lower' : `Matches ${sourceLabel}`}
-              </div>
+              <div className="sub">{computerRatingNote(team.sp, rank, sourceLabel)}</div>
             </div>
             <div className="stat">
               <div className="lbl">FPI Rank</div>
               <div className="val tabnum">{team.fpi != null ? `#${team.fpi}` : '—'}</div>
-              <div className="sub">
-                {team.fpi == null || rank == null ? 'Not yet available' : team.fpi < rank ? 'Model likes them more' : team.fpi > rank ? 'Model ranks them lower' : `Matches ${sourceLabel}`}
-              </div>
+              <div className="sub">{computerRatingNote(team.fpi, rank, sourceLabel)}</div>
             </div>
           </div>
           <div style={{ marginTop: 14, display: 'flex', gap: 8, flexWrap: 'wrap' }}>

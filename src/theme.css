@@ -237,7 +237,13 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 .bubble-row:hover { border-color: var(--accent); }
 .bubble-row .rk { font-weight: 800; font-size: 14px; width: 22px; }
 .bubble-row .nm { font-weight: 700; font-size: 13.5px; flex: 1; }
-.bubble-row .needs { font-size: 12px; color: var(--ink-2); flex: 2; }
+.bubble-row .needs { font-size: 12px; color: var(--ink-2); flex: 2; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+/* "Your Teams" row content: record left, opponent bold in the middle, kickoff/network pushed
+   right. PlayoffWatch's bubble rows reuse .needs for a single plain note -- justify-content has
+   no visible effect on a lone text node, so this is safe for both. */
+.bubble-row .needs .record { font-weight: 700; color: var(--ink-1); flex: none; }
+.bubble-row .needs .opp { font-weight: 700; color: var(--ink-1); }
+.bubble-row .needs .kickoff { flex: none; text-align: right; }
 
 .conf-race-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 @media (max-width: 780px) { .conf-race-grid { grid-template-columns: 1fr; } }

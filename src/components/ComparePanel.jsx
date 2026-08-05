@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
-import { teams, teamById } from '../data/teams.js';
+import { teams, teamById, byRankAsc } from '../data/teams.js';
 
 export default function ComparePanel({ team }) {
   // Every team is fully detailed now (no DETAILED/SUMMARY split), so every other team is a
-  // valid compare target — not just the old hand-authored 7.
+  // valid compare target — not just the old hand-authored 7. Unranked teams (cfpRank === null)
+  // sort to the end, not the front.
   const others = Object.values(teams)
     .filter((t) => t.id !== team.id)
-    // Unranked teams have cfpRank === null -- sort them to the end, not the front (plain
-    // `a.cfpRank - b.cfpRank` would coerce null to 0 and put unranked teams first).
-    .sort((a, b) => (a.cfpRank ?? Infinity) - (b.cfpRank ?? Infinity));
+    .sort(byRankAsc((t) => t.cfpRank));
   const [otherId, setOtherId] = useState(others[0]?.id);
 
   // If the current team changes (navigated to a different team page), reset the comparison target.

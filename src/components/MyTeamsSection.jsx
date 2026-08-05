@@ -1,20 +1,19 @@
 import { Link } from 'react-router-dom';
 import { usePinnedStore } from '../store/usePinnedStore.js';
-import { teamById, rankAt, formatKickoff } from '../data/teams.js';
+import { teamById, rankAt, byRankAsc, formatKickoff } from '../data/teams.js';
 import ConfDot from './ConfDot.jsx';
 import PinButton from './PinButton.jsx';
 
-// e.g. "vs #8 Michigan · Sat, 3:30 PM PDT · FOX" / "at Alabama · ..." (opponent unranked).
-// null nextGame (bye week, or no games left on CFBD's schedule) renders as "Bye week".
-function nextMatchupText(nextGame) {
-  if (!nextGame) return 'Bye week';
+// Opponent label (e.g. "vs #8 Michigan" / "at Alabama" for an unranked opponent) and kickoff/
+// network text (e.g. "Sat, Sep 5, 3:30 PM PDT · FOX"), split so the caller can style the opponent
+// distinctly (bold, so it stands out from the surrounding record/kickoff text). Both null for a
+// bye week (no nextGame) or a team with no games left on CFBD's schedule.
+function nextGameParts(nextGame) {
+  if (!nextGame) return { opponent: null, kickoff: null };
   const vsAt = nextGame.homeAway === 'home' ? 'vs' : 'at';
-  const opp = nextGame.opponentRank != null ? `#${nextGame.opponentRank} ${nextGame.opponent}` : nextGame.opponent;
-  const parts = [`${vsAt} ${opp}`];
-  const kickoff = formatKickoff(nextGame.when);
-  if (kickoff) parts.push(kickoff);
-  if (nextGame.network) parts.push(nextGame.network);
-  return parts.join(' · ');
+  const oppLabel = nextGame.opponentRank != null ? `#${nextGame.opponentRank} ${nextGame.opponent}` : nextGame.opponent;
+  const kickoff = [formatKickoff(nextGame.when), nextGame.network].filter(Boolean).join(' · ');
+  return { opponent: `${vsAt} ${oppLabel}`, kickoff: kickoff || null };
 }
 
 export default function MyTeamsSection({ weekIdx }) {
@@ -38,19 +37,20 @@ export default function MyTeamsSection({ weekIdx }) {
             .filter((id) => teamById(id))
             .map((id) => ({ id, rank: rankAt(id, weekIdx) }))
             // Unranked (rank === null -- e.g. pinned from a direct team-page visit rather than
-            // the Top 25 table) sorts to the end, not the front (plain a.rank - b.rank would
-            // coerce null to 0 and put unranked teams first).
-            .sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity))
+            // the Top 25 table) sorts to the end, not the front.
+            .sort(byRankAsc((x) => x.rank))
             .map(({ id, rank }) => {
               const t = teamById(id);
+              const { opponent, kickoff } = nextGameParts(t.nextGame);
               return (
                 <Link key={id} className="bubble-row" to={`/team/${id}`} state={{ from: 'top25' }}>
                   <span className="rk tabnum">{rank ?? '—'}</span>
                   <ConfDot conf={t.conf} />
                   <span className="nm">{t.name}</span>
                   <span className="needs">
-                    <span className="tabnum" style={{ fontWeight: 700 }}>{t.record}</span>
-                    {' · '}{nextMatchupText(t.nextGame)}
+                    <span className="tabnum record">{t.record}</span>
+                    <span className="opp">{opponent ?? 'Bye week'}</span>
+                    {kickoff && <span className="kickoff">{kickoff}</span>}
                   </span>
                   <PinButton teamId={id} />
                 </Link>
