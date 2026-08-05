@@ -3,7 +3,7 @@
     "season": 2026,
     "currentWeek": 1,
     "currentPrimarySource": "coaches",
-    "lastUpdated": "2026-08-04T21:55:00.472Z",
+    "lastUpdated": "2026-08-05T15:21:12.872Z",
     "weeksAvailable": [
       1
     ]
@@ -4920,7 +4920,7 @@
       "network": "ABC",
       "rivalry": false,
       "stakesScore": 6.2,
-      "blurb": "A top-25 opener with real weight: No. 23 Clemson heads to Death Valley as a 10.5-point underdog to No. 13 LSU. The 50.5 total says oddsmakers expect defense and field position to decide it.",
+      "blurb": "A top-25 opener in Baton Rouge, where No. 13 LSU is a 10.5-point favorite over No. 23 Clemson. The 50.5 total says oddsmakers expect defense and field position to decide it.",
       "blurbSource": "llm"
     },
     {
@@ -4935,7 +4935,7 @@
       "network": "NBC",
       "rivalry": true,
       "stakesScore": 4.87,
-      "blurb": "The Apple Cup returns with No. 19 Washington favored by 21.5 at home. Washington State gets the rivalry emotion, but the number suggests little else.",
+      "blurb": "The Apple Cup returns with No. 19 Washington favored by 21.5 at home. Rivalry or not, the Cougars are being asked to keep it within four scores.",
       "blurbSource": "llm"
     },
     {
@@ -4950,7 +4950,7 @@
       "network": "ABC",
       "rivalry": false,
       "stakesScore": 4.27,
-      "blurb": "Louisville draws the toughest Week 1 road trip of the group at No. 10 Ole Miss, where the Rebels are only 6.5-point favorites. A 55.5 total hints this one could get loose in a hurry.",
+      "blurb": "Louisville heads to Oxford as just a 6.5-point underdog against No. 10 Ole Miss, the tightest line of the weekend's ranked-vs-unranked slate. A 55.5 total hints at points from both sides.",
       "blurbSource": "llm"
     },
     {
@@ -4965,7 +4965,7 @@
       "network": "NBC",
       "rivalry": false,
       "stakesScore": 3.07,
-      "blurb": "Wisconsin visits No. 5 Notre Dame as a 20.5-point underdog with the total set at just 47.5. The market isn't giving the Badgers much room to hang around.",
+      "blurb": "No. 5 Notre Dame opens as a 20.5-point favorite over Wisconsin, with the total sitting at just 47.5. The Irish are expected to win comfortably without needing a shootout.",
       "blurbSource": "llm"
     },
     {
@@ -4980,7 +4980,7 @@
       "network": "USA Net",
       "rivalry": true,
       "stakesScore": 3,
-      "blurb": "The Border War kicks off the weekend with Colorado State favored by just four at home. Unranked, but the closest line on the board.",
+      "blurb": "The Border War kicks off the weekend with Colorado State favored by just four at home. Four points in a rivalry game is close to a coin flip.",
       "blurbSource": "llm"
     },
     {
@@ -4995,7 +4995,7 @@
       "network": "NBC",
       "rivalry": false,
       "stakesScore": 2.58,
-      "blurb": "No. 16 Michigan opens at home as a 26.5-point favorite over Western Michigan. Tune-up football, with the Wolverines' new-look season starting on cruise control.",
+      "blurb": "No. 16 Michigan hosts Western Michigan as a 26.5-point favorite in an in-state tune-up. The only real question is how early the backups get work.",
       "blurbSource": "llm"
     }
   ],
@@ -5003,31 +5003,31 @@
     {
       "teamId": "texas",
       "score": 5.45,
-      "blurb": "Texas checks in at No. 4 in the poll, and FPI is even higher on the Longhorns at No. 2 -- one of the few teams the metrics like more than the voters.",
+      "blurb": "Texas checks in at No. 4, and FPI likes the Longhorns even more, slotting them second nationally.",
       "blurbSource": "llm"
     },
     {
       "teamId": "texas-tech",
       "score": 5.45,
-      "blurb": "Texas Tech sits 12th in the rankings with FPI slotting the Red Raiders at No. 10, a rare case of Big 12 hype and the numbers lining up.",
+      "blurb": "Texas Tech opens at No. 12 with FPI a touch higher at No. 10 -- the metrics see a legitimate Big 12 frontrunner.",
       "blurbSource": "llm"
     },
     {
       "teamId": "michigan",
       "score": 5.23,
-      "blurb": "Michigan lands at No. 16 with FPI a tick higher at No. 15 -- essentially a consensus on the Wolverines entering the year.",
+      "blurb": "Michigan starts at No. 16 with FPI essentially in agreement at No. 15, a rare case of poll and computer seeing the same team.",
       "blurbSource": "llm"
     },
     {
       "teamId": "byu",
       "score": 5.13,
-      "blurb": "BYU is the poll's No. 15 team but only 20th by FPI, making the Cougars one of the more likely candidates for early-season regression.",
+      "blurb": "BYU sits at No. 15 in the poll but only 20th in FPI, making the Cougars one of the more overrated teams in the rankings by the numbers.",
       "blurbSource": "llm"
     },
     {
       "teamId": "lsu",
       "score": 4.9,
-      "blurb": "LSU opens 13th in the poll while FPI has the Tigers ninth, a sign the metrics see more in Baton Rouge than the voters do.",
+      "blurb": "LSU enters at No. 13 while FPI has the Tigers ninth, suggesting the poll is still underselling them.",
       "blurbSource": "llm"
     }
   ]
