@@ -1,0 +1,28 @@
+{
+  "name": "CFB HQ — Top 25 Tracker",
+  "short_name": "CFB HQ",
+  "description": "Live college football Top 25 tracker — rankings, biggest games, and CFP playoff projections.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0E1712",
+  "theme_color": "#122018",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
