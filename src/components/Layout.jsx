@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation, matchPath } from 'react-router-dom';
-import { teamById, WEEK_IDX_MIN, WEEK_IDX_MAX, SEASON, LAST_UPDATED } from '../data/teams.js';
+import {
+  teamById, WEEK_IDX_MIN, WEEK_IDX_MAX, SEASON, LAST_UPDATED, confByRouteSlug,
+} from '../data/teams.js';
 import { useWeekStore } from '../store/useWeekStore.js';
 import { trackPageview } from '../utils/analytics.js';
+import { version as APP_VERSION } from '../../package.json';
 
 const WEEK_OPTIONS = [];
 for (let w = WEEK_IDX_MIN; w <= WEEK_IDX_MAX; w++) WEEK_OPTIONS.push(w);
 
-// The week-travel control only affects the Top 25 table and the Playoff Watch bracket -- team
-// pages always show the full season regardless -- so it's only shown (and only meaningful) on
-// those two routes.
-const WEEK_TRAVEL_ROUTES = ['/', '/playoff-watch'];
+// The week-travel control only affects the Top 25 table, the Playoff Watch bracket, and a
+// conference's standings table -- team pages always show the full season regardless, and the
+// Conferences hub is a "right now" directory, not a data view -- so it's only shown (and only
+// meaningful) on these routes. Patterns, not exact paths, since /conference/:confSlug is dynamic --
+// a plain array-includes check (which worked fine for the two static routes) can't match it.
+const WEEK_TRAVEL_PATTERNS = ['/', '/playoff-watch', '/conference/:confSlug'];
 
 function formatLastUpdated(iso) {
   try {
@@ -25,10 +30,16 @@ function formatLastUpdated(iso) {
 function titleFor(pathname) {
   if (pathname === '/') return 'Top 25 Tracker';
   if (pathname === '/playoff-watch') return 'Playoff Watch';
+  if (pathname === '/conferences') return 'Conferences';
   const teamMatch = matchPath('/team/:teamId', pathname);
   if (teamMatch) {
     const team = teamById(teamMatch.params.teamId);
     return team ? team.name : 'Team';
+  }
+  const confMatch = matchPath('/conference/:confSlug', pathname);
+  if (confMatch) {
+    const conf = confByRouteSlug(confMatch.params.confSlug);
+    return conf ?? 'Conference';
   }
   return pathname;
 }
@@ -38,7 +49,7 @@ export default function Layout() {
   const weekIdx = useWeekStore((s) => s.weekIdx);
   const setWeekIdx = useWeekStore((s) => s.setWeekIdx);
   const jumpToCurrent = useWeekStore((s) => s.jumpToCurrent);
-  const showWeekTravel = WEEK_TRAVEL_ROUTES.includes(location.pathname);
+  const showWeekTravel = WEEK_TRAVEL_PATTERNS.some((p) => matchPath(p, location.pathname));
 
   useEffect(() => {
     const pageTitle = `CFB HQ — ${titleFor(location.pathname)}`;
@@ -79,6 +90,9 @@ export default function Layout() {
         <NavLink to="/playoff-watch" className={({ isActive }) => (isActive ? 'active' : '')}>
           Playoff Watch
         </NavLink>
+        <NavLink to="/conferences" className={({ isActive }) => (isActive ? 'active' : '')}>
+          Conferences
+        </NavLink>
       </nav>
       <div className="wrap">
         {showWeekTravel && weekIdx !== WEEK_IDX_MAX && (
@@ -96,6 +110,12 @@ export default function Layout() {
           </a>. "Make the playoff" / "win it all" are an in-house estimate blending rank, record,
           and computer ratings (SP+/FPI/Elo).
         </p>
+
+        {/* Sourced from package.json (not hand-typed) so it can't drift from the real shipped
+            version -- same visible-version convention as the Tour de France app's page footers. */}
+        <footer style={{ textAlign: 'center', padding: '20px 0 4px', fontSize: 11, color: 'var(--muted)', letterSpacing: '1px' }}>
+          v{APP_VERSION}
+        </footer>
       </div>
     </div>
   );
