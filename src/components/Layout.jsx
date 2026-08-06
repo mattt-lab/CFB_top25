@@ -87,11 +87,11 @@ export default function Layout() {
         <NavLink to="/" end className={({ isActive }) => (isActive ? 'active' : '')}>
           Top 25 Tracker
         </NavLink>
-        <NavLink to="/playoff-watch" className={({ isActive }) => (isActive ? 'active' : '')}>
-          Playoff Watch
-        </NavLink>
         <NavLink to="/conferences" className={({ isActive }) => (isActive ? 'active' : '')}>
           Conferences
+        </NavLink>
+        <NavLink to="/playoff-watch" className={({ isActive }) => (isActive ? 'active' : '')}>
+          Playoff Watch
         </NavLink>
       </nav>
       <div className="wrap">
