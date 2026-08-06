@@ -121,6 +121,18 @@ export default function Top25Tracker() {
         </div>
         <Link className="cta-btn" to="/playoff-watch">Open Playoff Watch →</Link>
       </div>
+
+      {/* Only shown here, not sitewide -- this is what the Top 25 table's .odds-hint ("see note
+          below") points at, and this is the only page that surfaces the "Make CFP"/"win it all"
+          odds columns directly (Team Detail's gauges and Conference standings' Make-CFP column
+          derive from the same model, but don't need their own copy of this disclosure). */}
+      <p className="footnote warn" style={{ marginTop: 30 }}>
+        <b>On odds:</b> spreads/totals are sourced live from{' '}
+        <a href="https://collegefootballdata.com/key" style={{ color: 'inherit' }} target="_blank" rel="noopener noreferrer">
+          CollegeFootballData.com
+        </a>. "Make the playoff" / "win it all" are an in-house estimate blending rank, record,
+        and computer ratings (SP+/FPI/Elo).
+      </p>
     </div>
   );
 }

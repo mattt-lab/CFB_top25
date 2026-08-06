@@ -103,14 +103,6 @@ export default function Layout() {
         )}
         <Outlet />
 
-        <p className="footnote warn" style={{ marginTop: 30 }}>
-          <b>On odds:</b> spreads/totals are sourced live from{' '}
-          <a href="https://collegefootballdata.com/key" style={{ color: 'inherit' }} target="_blank" rel="noopener noreferrer">
-            CollegeFootballData.com
-          </a>. "Make the playoff" / "win it all" are an in-house estimate blending rank, record,
-          and computer ratings (SP+/FPI/Elo).
-        </p>
-
         {/* Sourced from package.json (not hand-typed) so it can't drift from the real shipped
             version -- same visible-version convention as the Tour de France app's page footers. */}
         <footer style={{ textAlign: 'center', padding: '20px 0 4px', fontSize: 11, color: 'var(--muted)', letterSpacing: '1px' }}>
