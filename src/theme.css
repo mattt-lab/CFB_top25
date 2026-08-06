@@ -97,7 +97,12 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .hist-banner button { flex: none; font: inherit; font-weight: 700; font-size: 12px; background: var(--accent); color: var(--accent-ink); border: none; border-radius: 999px; padding: 6px 13px; cursor: pointer; }
 
 /* Pins & conference dots */
-.pin-btn { background: none; border: none; cursor: pointer; font-size: 15px; line-height: 1; color: var(--accent); padding: 2px 4px; }
+/* position+z-index: the "whole row/card clickable" stretched-link trick (.row-link::after,
+   further down) covers the entire row with an absolutely-positioned overlay. Without this, that
+   overlay -- a later, positioned element -- paints ABOVE the pin button (a plain, non-positioned
+   button), silently swallowing every click/tap meant for the star. Confirmed live: the star was
+   completely unresponsive in the Top 25 table and Conference standings. */
+.pin-btn { background: none; border: none; cursor: pointer; font-size: 15px; line-height: 1; color: var(--accent); padding: 2px 4px; position: relative; z-index: 2; }
 .conf-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 3px; vertical-align: middle; flex: none; }
 
 /* Result / tag chips */
@@ -272,7 +277,9 @@ table.data-table tbody tr.row-click:has(.row-link:focus-visible) { outline: 2px 
 .matchup-vs { font-size: 10px; color: var(--muted); text-align: center; padding: 2px 0; letter-spacing: .06em; }
 
 .bubble-list { display: flex; flex-direction: column; gap: 8px; }
-.bubble-row { display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; cursor: pointer; text-decoration: none; color: inherit; }
+/* position:relative -- anchors .row-link::after (see MyTeamsSection.jsx) so the stretched click
+   target covers just this row, not the whole list or page. */
+.bubble-row { display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; cursor: pointer; text-decoration: none; color: inherit; position: relative; }
 .bubble-row:hover { border-color: var(--accent); }
 .bubble-row .rk { font-weight: 800; font-size: 14px; width: 22px; }
 .bubble-row .nm { font-weight: 700; font-size: 13.5px; flex: 1; }

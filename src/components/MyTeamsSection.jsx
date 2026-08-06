@@ -36,10 +36,18 @@ export default function MyTeamsSection({ weekIdx }) {
           const mine = homeAway === 'home' ? homeScore : awayScore;
           const theirs = homeAway === 'home' ? awayScore : homeScore;
           return (
-            <Link key={id} className="bubble-row" to={`/team/${id}`} state={{ from: 'top25' }}>
+            // A plain div, not itself a <Link> -- PinButton used to be nested INSIDE the row's
+            // <Link>, which is invalid HTML (interactive content inside an <a>) and meant tapping
+            // the star also triggered the anchor's native navigation (stopPropagation alone
+            // doesn't stop that; only preventDefault would, and simplicity here beat fighting the
+            // browser's default-action handling). Same stretched-link pattern as Top25Table.jsx
+            // instead: a real, independently-clickable Link around just the team name, stretched
+            // via .row-link::after to cover the whole row, with the pin button as a sibling that
+            // sits above it (see .pin-btn's z-index in theme.css).
+            <div key={id} className="bubble-row">
               <span className="rk tabnum">{rank ?? '—'}</span>
               <ConfDot conf={t.conf} />
-              <span className="nm">{t.name}</span>
+              <Link className="nm row-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
               <span className="needs">
                 <span className="tabnum record">{t.record}</span>
                 <span className="opp">{opponent ?? 'Bye week'}</span>
@@ -53,7 +61,7 @@ export default function MyTeamsSection({ weekIdx }) {
                 )}
               </span>
               <PinButton teamId={id} />
-            </Link>
+            </div>
           );
         })}
       </div>
