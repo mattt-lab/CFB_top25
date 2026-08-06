@@ -13,28 +13,32 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --page: #0E1712; --panel: #16211A; --panel-2: #131D17;
-    --ink-1: #F1EEE1; --ink-2: #B9BEAE; --muted: #838B7C;
-    --grid: #26332A; --border: rgba(241,238,225,0.12);
-    --accent: #F0B04E; --accent-ink: #17130A;
-    --series-ap: #3987e5; --series-coaches: #d95926; --series-cfp: #199e70;
-    --good: #24c224; --critical: #ff6b6b; --warning: #fab219;
-    --div-pos: #3987e5; --div-neg: #e66767; --div-mid: #383835;
-    --tier-lock: #199e70; --tier-in: #3987e5; --tier-bubble: #fab219; --tier-long: #838B7C;
+    /* "Stadium Lights" -- deep navy under a Friday-night sky, floodlight-gold accent. Chosen from
+       a 6-option palette review to replace the old dark-green/black + orange scheme. */
+    --page: #0B1220; --panel: #141C30; --panel-2: #10182A;
+    --ink-1: #EDEFF5; --ink-2: #A9B2C6; --muted: #6E7893;
+    --grid: #1E2A42; --border: rgba(237,239,245,0.14);
+    --accent: #F2B705; --accent-ink: #14110A;
+    --series-ap: #5B9EF2; --series-coaches: #FF7A45; --series-cfp: #34D399;
+    --good: #2ECC71; --critical: #FF6B6B; --warning: #F2B705;
+    --div-pos: #5B9EF2; --div-neg: #FF7A72; --div-mid: #22314A;
+    --tier-lock: #2ECC71; --tier-in: #5B9EF2; --tier-bubble: #F2B705; --tier-long: #6E7893;
     --conf-bigten: #8AA0C7; --conf-sec: #C9A464; --conf-acc: #7BB3A8;
     --conf-big12: #B08FB4; --conf-independent: #A6A296; --conf-american: #9AAE72;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --page: #0E1712; --panel: #16211A; --panel-2: #131D17;
-  --ink-1: #F1EEE1; --ink-2: #B9BEAE; --muted: #838B7C;
-  --grid: #26332A; --border: rgba(241,238,225,0.12);
-  --accent: #F0B04E; --accent-ink: #17130A;
-  --series-ap: #3987e5; --series-coaches: #d95926; --series-cfp: #199e70;
-  --good: #24c224; --critical: #ff6b6b; --warning: #fab219;
-  --div-pos: #3987e5; --div-neg: #e66767; --div-mid: #383835;
-  --tier-lock: #199e70; --tier-in: #3987e5; --tier-bubble: #fab219; --tier-long: #838B7C;
+  /* Kept in sync by hand with the @media block above -- this is the explicit user-toggle override,
+     same "Stadium Lights" palette. */
+  --page: #0B1220; --panel: #141C30; --panel-2: #10182A;
+  --ink-1: #EDEFF5; --ink-2: #A9B2C6; --muted: #6E7893;
+  --grid: #1E2A42; --border: rgba(237,239,245,0.14);
+  --accent: #F2B705; --accent-ink: #14110A;
+  --series-ap: #5B9EF2; --series-coaches: #FF7A45; --series-cfp: #34D399;
+  --good: #2ECC71; --critical: #FF6B6B; --warning: #F2B705;
+  --div-pos: #5B9EF2; --div-neg: #FF7A72; --div-mid: #22314A;
+  --tier-lock: #2ECC71; --tier-in: #5B9EF2; --tier-bubble: #F2B705; --tier-long: #6E7893;
   --conf-bigten: #8AA0C7; --conf-sec: #C9A464; --conf-acc: #7BB3A8;
   --conf-big12: #B08FB4; --conf-independent: #A6A296; --conf-american: #9AAE72;
   color-scheme: dark;
