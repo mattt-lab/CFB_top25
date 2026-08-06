@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useWeekStore } from '../store/useWeekStore.js';
 import {
   WEEK_IDX_MAX, computeField, primaryLabel, PRIMARY_SOURCE_BY_WEEK, fieldStorylines,
+  confRaceInfo, confSlugFor,
 } from '../data/teams.js';
 import ConfDot from '../components/ConfDot.jsx';
 
@@ -41,14 +42,9 @@ export default function PlayoffWatch() {
       <div className="bracket-label">Conference championship races</div>
       <div className="conf-race-grid">
         {confs.map((conf) => {
-          const leader = field.champsByConf[conf];
-          const inConf = field.allTeams
-            .filter((o) => o.team.conf === conf)
-            .sort((a, b) => a.rank - b.rank);
-          const chaser = inConf.length > 1 ? inConf[1] : null;
-          const gap = chaser ? chaser.rank - leader.rank : null;
+          const { leader, chaser, gap } = confRaceInfo(conf, weekIdx);
           return (
-            <div className="conf-race-card" key={conf}>
+            <Link className="conf-race-card" key={conf} to={`/conference/${confSlugFor(conf)}`}>
               <div className="cf">{conf}</div>
               <div className="ld"><ConfDot conf={conf} />#{leader.rank} {leader.team.name}</div>
               {chaser && <div className="ch">Chasing: #{chaser.rank} {chaser.team.name}</div>}
@@ -57,7 +53,7 @@ export default function PlayoffWatch() {
                   ? `Leads #${chaser.rank} ${chaser.team.name} by ${gap} spot${gap === 1 ? '' : 's'} for the auto-bid.`
                   : `${leader.team.name} is the only ranked ${conf} team.`}
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

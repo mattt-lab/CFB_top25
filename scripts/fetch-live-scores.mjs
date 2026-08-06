@@ -1,7 +1,9 @@
 // Lightweight game-day companion to fetch-cfb-data.mjs -- runs frequently (every ~15 min, only
 // during real game windows -- see .github/workflows/fetch-live-scores.yml) to patch live/final
 // score, status, period, and clock into data/current.json between the heavy pipeline's once-daily
-// runs. Never calls Claude, never re-scores or re-selects anything Stage 1 already picked -- it
+// runs. Patches BOTH the marquee `games[]` panel and the full weekly `allGames[]` slate (so a
+// Conference Tracker page's schedule section shows live state too), plus every team's `nextGame`.
+// Never calls Claude, never re-scores or re-selects anything Stage 1 already picked -- it
 // only patches chrome onto games the heavy pipeline already knows about, plus a one-time
 // deterministic settle (win/loss, game-log entry, a plain recap sentence) the moment a game first
 // goes final. The nicer LLM recap arrives later, whenever narrate.mjs (now status-aware) next runs.
@@ -123,12 +125,15 @@ export function applyScoreboardPatch(current, scoreboardGames) {
       const { home: homeRes, away: awayRes } = resultFor(newHomeScore, newAwayScore);
       if (homeRes === 'W') { homeTeam.wins += 1; awayTeam.losses += 1; }
       else { awayTeam.wins += 1; homeTeam.losses += 1; }
+      // oppConf here (not re-derived) matches fetch-cfb-data.mjs's game-log entries exactly --
+      // without it, a game settled by this script would carry a temporary gap in confRecord()
+      // (src/data/teams.js) until the next daily pipeline run overwrites teams{} from scratch.
       homeTeam.games.push({
-        wk: patched.meta.currentWeek, opp: awayTeam.name, oppRank: entry.awayRank,
+        wk: patched.meta.currentWeek, opp: awayTeam.name, oppConf: awayTeam.conf, oppRank: entry.awayRank,
         res: homeRes, tag: tagFor(homeRes, entry.awayRank),
       });
       awayTeam.games.push({
-        wk: patched.meta.currentWeek, opp: homeTeam.name, oppRank: entry.homeRank,
+        wk: patched.meta.currentWeek, opp: homeTeam.name, oppConf: homeTeam.conf, oppRank: entry.homeRank,
         res: awayRes, tag: tagFor(awayRes, entry.homeRank),
       });
       const awayLabel = teamLabel(patched, entry.awayId, entry.awayRank);
@@ -149,6 +154,21 @@ export function applyScoreboardPatch(current, scoreboardGames) {
   if (!changed) return { current: patched, changed: false, summary };
 
   patched.games = patched.games.map((g) => {
+    const u = updates.get(g.cfbdId);
+    if (!u) return g;
+    return {
+      ...g,
+      status: u.status, awayScore: u.awayScore, homeScore: u.homeScore, period: u.period, clock: u.clock,
+      blurb: u.settledBlurb ?? g.blurb,
+      blurbSource: u.settledBlurb ? 'fallback' : g.blurbSource,
+    };
+  });
+
+  // Same patch, applied to the full weekly slate (not just the marquee 6) so a Conference Tracker
+  // page's schedule section shows live/final state too. `?? []` guards a stray snapshot predating
+  // this field -- matches this file's existing defensiveness elsewhere (e.g. the `ng.cfbdId == null`
+  // guards below).
+  patched.allGames = (patched.allGames ?? []).map((g) => {
     const u = updates.get(g.cfbdId);
     if (!u) return g;
     return {

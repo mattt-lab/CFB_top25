@@ -4,7 +4,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   arrowGlyph, dirFor, trendColor, deltaLabel, computerRatingNote, byRankAsc, trendOf, formatKickoff,
-  americanOdds, nextGameParts, gameStatusBadge,
+  americanOdds, nextGameParts, gameStatusBadge, confSlugFor, confByRouteSlug, confRecord,
 } from './teams.js';
 
 describe('americanOdds', () => {
@@ -74,6 +74,60 @@ describe('gameStatusBadge', () => {
   });
   it('shows a final badge with no detail (period/clock are moot once the game is over)', () => {
     expect(gameStatusBadge('final', 4, '0:00')).toEqual({ text: 'FINAL', live: false, detail: null });
+  });
+});
+
+// confRaceInfo isn't unit-tested here -- like computeField (which it wraps), it reads module-level
+// state derived from the real imported data/current.json at import time rather than taking data as
+// an argument, so it can't be exercised against a hand-built fixture without a larger dependency-
+// injection refactor this feature doesn't need. Covered instead by the manual/visual verification
+// pass and the live pipeline runs (see the live-score and conference-tracker architecture plans).
+
+describe('confSlugFor', () => {
+  it('hyphenates on spaces, unlike confSlug (which strips them)', () => {
+    expect(confSlugFor('Big Ten')).toBe('big-ten');
+  });
+  it('hyphenates on other non-alphanumeric runs too', () => {
+    expect(confSlugFor('Big 12')).toBe('big-12');
+  });
+  it('matches the id format already baked into fieldStorylines ids (conf-race-big-ten)', () => {
+    expect(`conf-race-${confSlugFor('Big Ten')}`).toBe('conf-race-big-ten');
+  });
+});
+
+describe('confByRouteSlug', () => {
+  it('round-trips every Power 4 conference through confSlugFor', () => {
+    for (const conf of ['Big Ten', 'SEC', 'ACC', 'Big 12']) {
+      expect(confByRouteSlug(confSlugFor(conf))).toBe(conf);
+    }
+  });
+  it('returns null for an unknown or invalid slug', () => {
+    expect(confByRouteSlug('mid-american')).toBeNull();
+    expect(confByRouteSlug('not-a-real-conf')).toBeNull();
+  });
+});
+
+describe('confRecord', () => {
+  it('counts only games where the opponent shared the team\'s own conference', () => {
+    const team = {
+      conf: 'Big Ten',
+      games: [
+        { res: 'W', oppConf: 'Big Ten' },   // in-conference win
+        { res: 'L', oppConf: 'Big Ten' },   // in-conference loss
+        { res: 'W', oppConf: 'SEC' },       // out-of-conference, doesn't count
+        { res: 'W', oppConf: null },        // FCS opponent (no conf on file), doesn't count
+      ],
+    };
+    expect(confRecord(team)).toEqual({ wins: 1, losses: 1, record: '1-1' });
+  });
+  it('is realignment-safe -- compares against the team\'s CURRENT conf, not a stored relationship', () => {
+    // A team that changed conferences mid-history: an old game tagged with the FORMER conf no
+    // longer counts once team.conf reflects the new one, without needing to touch the game log.
+    const team = { conf: 'Big Ten', games: [{ res: 'W', oppConf: 'Pac-12' }] };
+    expect(confRecord(team)).toEqual({ wins: 0, losses: 0, record: '0-0' });
+  });
+  it('returns 0-0 for a team with no games yet', () => {
+    expect(confRecord({ conf: 'SEC', games: [] })).toEqual({ wins: 0, losses: 0, record: '0-0' });
   });
 });
 

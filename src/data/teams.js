@@ -79,6 +79,14 @@ export const games = raw.games.map((g) => ({
   awayTeam: teamById(g.away),
   homeTeam: teamById(g.home),
 }));
+// The FULL current-week slate (~90-100 games) games[] above is a top-6-by-stakesScore subset of --
+// Conference Tracker pages read this instead, so a conference's own schedule section shows every
+// one of its games this week, not just whichever made the sitewide marquee panel.
+export const allGames = (raw.allGames ?? []).map((g) => ({
+  ...g,
+  awayTeam: teamById(g.away),
+  homeTeam: teamById(g.home),
+}));
 export const predictions = raw.predictions;
 export const fieldStorylines = raw.fieldStorylines ?? [];
 
@@ -226,6 +234,36 @@ export function trendOf(series) {
 
 export function confSlug(conf) { return conf.toLowerCase().replace(/[^a-z0-9]+/g, ''); }
 
+// Hyphenated conference slug for routing (/conference/big-ten) -- deliberately a SEPARATE function
+// from confSlug() above (no hyphens, used only for --conf-* CSS var lookups by ConfDot -- "Big Ten"
+// -> "bigten"). Mirrors scripts/score.mjs's confSlugFor exactly (same name, same algorithm, kept in
+// sync by hand per the scripts/src runtime split documented in scripts/lib/ranking.mjs) -- this is
+// also the id format already baked into fieldStorylines[].id strings in current.json (e.g.
+// "conf-race-big-ten").
+export function confSlugFor(conf) { return conf.toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+
+// Conference Tracker pages cover these 4 only -- the only conferences with a real --conf-* brand
+// color today (everything else renders a grey ConfDot) and genuine multi-team auto-bid races.
+export const POWER4_CONFS = ['Big Ten', 'SEC', 'ACC', 'Big 12'];
+
+export function confByRouteSlug(slug) {
+  return POWER4_CONFS.find((c) => confSlugFor(c) === slug) ?? null;
+}
+
+// Every member of a conference, ranked or not -- Top25Table/computeField only ever surface
+// currently-ranked teams, which isn't what a standings page needs (a bye-week team belongs on the
+// page too). Relies on fetch-cfb-data.mjs's Power-4 roster-completeness exception (see its Step 10
+// comment) to guarantee every member has a teams{} entry regardless of ranked/bye status.
+export function teamsInConf(conf) {
+  return Object.values(teams).filter((t) => t.conf === conf);
+}
+
+// Every game this week involving at least one member of `conf`, from the FULL weekly slate (not
+// just the sitewide marquee 6) -- what a conference page's schedule section renders.
+export function gamesInConf(conf) {
+  return allGames.filter((g) => g.awayTeam?.conf === conf || g.homeTeam?.conf === conf);
+}
+
 // ---- Auto-bid-aware 12-team field: top-4 conference champs get byes, 5th champ auto-bids, 7 at-large ----
 export function computeField(wIdx) {
   const order = WEEKLY_ORDER[wIdx];
@@ -250,4 +288,38 @@ export function computeField(wIdx) {
   const usedIds = {}; byes.concat(seeds5to12).forEach((o) => { usedIds[o.id] = true; });
   const bubble = teams.filter((o) => !usedIds[o.id]).slice(0, 4);
   return { byes, seeds5to12, bubble, champsByConf, allTeams: teams };
+}
+
+// Leader/chaser/gap for a single conference's auto-bid race -- extracted from what PlayoffWatch.jsx
+// used to compute inline for every conference's card. Deliberately has NO score threshold, unlike
+// fieldStorylines' conf-race-gap storylines (Stage 1 drops any conference whose gap is >=10 --
+// confirmed live: this leaves whichever Power-4 conference has the widest gap that week with no
+// storyline at all). This always returns the real leader/chaser for any conference with 1+ ranked
+// teams, so a conference page can always show a race line even in a week its storyline got cut.
+export function confRaceInfo(conf, wIdx) {
+  const field = computeField(wIdx);
+  const inConf = field.allTeams
+    .filter((o) => o.team.conf === conf)
+    .sort((a, b) => a.rank - b.rank);
+  if (!inConf.length) return null;
+  const leader = inConf[0];
+  const chaser = inConf.length > 1 ? inConf[1] : null;
+  const gap = chaser ? chaser.rank - leader.rank : null;
+  return { leader, chaser, gap };
+}
+
+// In-conference win-loss record, derived from the same games[] log already used for overall
+// record/resume -- filters to games where the opponent shared this team's OWN *current* conference
+// (realignment-safe: a past game against a since-departed conference mate stops counting once that
+// mate has moved, since it compares against team.conf now, not a hardcoded conference name).
+// Requires teams[id].games[].oppConf (fetch-cfb-data.mjs Step 3 / fetch-live-scores.mjs's settle
+// block) -- absent on any game logged before that field existed, which just won't match either way.
+export function confRecord(team) {
+  let wins = 0, losses = 0;
+  for (const g of team.games) {
+    if (g.oppConf !== team.conf) continue;
+    if (g.res === 'W') wins += 1;
+    else if (g.res === 'L') losses += 1;
+  }
+  return { wins, losses, record: `${wins}-${losses}` };
 }

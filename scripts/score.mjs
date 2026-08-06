@@ -1,9 +1,11 @@
 // Stage 1 of the two-stage games/predictions pipeline: deterministic SELECTION, never narration.
-// Reads data/current.json (written by fetch-cfb-data.mjs), scores every upcoming game and every
-// ranked team, and reduces `games` down to the top handful worth surfacing on the "biggest games"
-// panel and populates `predictions` with the top team storylines. Stage 2 (scripts/narrate.mjs)
-// turns the survivors into prose -- it never gets to pick which ones matter, only how to phrase
-// them, which is the whole point of keeping these two stages separate.
+// Reads data/current.json (written by fetch-cfb-data.mjs), scores every game in the full weekly
+// slate (`allGames`) and every ranked team, and writes `games` as the top handful worth surfacing
+// on the "biggest games" panel -- a SUBSET of allGames, which is left untouched here so a
+// Conference Tracker page can still show every game of the week, not just the marquee picks. Also
+// populates `predictions` with the top team storylines. Stage 2 (scripts/narrate.mjs) turns the
+// survivors into prose -- it never gets to pick which ones matter, only how to phrase them, which
+// is the whole point of keeping these two stages separate.
 //
 // Run with: node scripts/score.mjs   (after scripts/fetch-cfb-data.mjs has already run)
 
@@ -111,8 +113,9 @@ function confSlugFor(conf) { return conf.toLowerCase().replace(/[^a-z0-9]+/g, '-
 //   1. Conference-race gap -- how close the auto-bid chaser is to the leader (tighter = higher).
 //   2. Bye-line / bubble-line head-to-head -- an upcoming game between two teams in the same
 //      contention band (both bye contenders, or both on the bubble) is high-stakes by definition.
-// `current.games` must still be the FULL upcoming-week slate here, not yet trimmed to the top-6
-// "biggest games" list main() reduces it to below.
+// Reads `current.allGames` (the full upcoming-week slate) rather than `current.games`, which
+// main() below only populates as a top-6 subset -- this needs every game to find bye/bubble-line
+// collisions that a marquee-only view could easily miss.
 function scoreFieldStorylines(current, field) {
   const storylines = [];
 
@@ -144,7 +147,7 @@ function scoreFieldStorylines(current, field) {
 
   const byeIds = new Set(field.byes.map((o) => o.id));
   const bubbleIds = new Set(field.bubble.map((o) => o.id));
-  for (const g of current.games) {
+  for (const g of current.allGames) {
     if (g.awayRank == null || g.homeRank == null) continue;
     const bothBye = byeIds.has(g.away) && byeIds.has(g.home);
     const bothBubble = bubbleIds.has(g.away) && bubbleIds.has(g.home);
@@ -197,8 +200,8 @@ function scoreBubbleNotes(current, field) {
 function main() {
   const current = JSON.parse(readFileSync(CURRENT_PATH, 'utf8'));
 
-  const totalGames = current.games.length;
-  const scoredGames = current.games
+  const totalGames = current.allGames.length;
+  const scoredGames = current.allGames
     .map((g) => ({ ...g, stakesScore: Math.round(scoreGame(g, current) * 100) / 100 }))
     .sort((a, b) => b.stakesScore - a.stakesScore);
   const keptGames = scoredGames.slice(0, GAMES_KEPT);

@@ -2,7 +2,7 @@ import { useParams, useNavigate, useLocation, Navigate } from 'react-router-dom'
 import {
   teamById, WEEK_IDX_MAX, trendOf, playoffOddsFor, nattyOddsFor, americanOdds,
   deltaAt, primaryLabel, PRIMARY_SOURCE_BY_WEEK, dirFor, arrowGlyph, computerRatingNote, nextGameParts,
-  gameStatusBadge,
+  gameStatusBadge, confByRouteSlug, confSlugFor,
 } from '../data/teams.js';
 import { usePinnedStore } from '../store/usePinnedStore.js';
 import { downloadShareCard } from '../utils/shareCard.js';
@@ -23,9 +23,16 @@ export default function TeamDetail() {
   const team = teamById(teamId);
   if (!team) return <Navigate to="/" replace />;
 
-  const cameFrom = location.state?.from === 'playoff' ? 'playoff' : 'top25';
-  const backLabel = cameFrom === 'playoff' ? '← Back to Playoff Watch' : '← Back to Top 25 Tracker';
-  const backPath = cameFrom === 'playoff' ? '/playoff-watch' : '/';
+  // A bare `from: 'conference'` flag wouldn't be enough to build a back link -- resolving through
+  // confByRouteSlug() (rather than also stashing a redundant name string in every row's state)
+  // means a stale bookmark or manually-crafted URL with a bad/missing confSlug just falls through
+  // to the top25 default below, instead of rendering a broken link.
+  const stateConf = location.state?.from === 'conference' ? confByRouteSlug(location.state?.confSlug) : null;
+  const cameFrom = location.state?.from === 'playoff' ? 'playoff' : stateConf ? 'conference' : 'top25';
+  const backLabel = cameFrom === 'playoff' ? '← Back to Playoff Watch'
+    : cameFrom === 'conference' ? `← Back to ${stateConf}` : '← Back to Top 25 Tracker';
+  const backPath = cameFrom === 'playoff' ? '/playoff-watch'
+    : cameFrom === 'conference' ? `/conference/${confSlugFor(stateConf)}` : '/';
 
   // cfpRank is the resolved PRIMARY rank (CFP once the committee exists, else Coaches, else AP —
   // see docs/data-schema.md) -- never the raw team.cfp[] array, which is null pre-committee.

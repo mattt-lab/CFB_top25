@@ -72,9 +72,12 @@ because CFBD splits the data across two endpoints with very different freshness:
 - **`fetch-live-scores.mjs`** (every ~15 min during game windows — see
   `.github/workflows/fetch-live-scores.yml`) is the **only** writer of `"in_progress"`, `period`,
   and `clock`, via CFBD's separate `/scoreboard` endpoint (one call returns every currently-live
-  game at once). It can also confirm `"final"` well before the next day's heavy pipeline run gets
+  game at once). It patches both `games[]` and `allGames[]` (so a Conference Tracker page's
+  schedule section shows live state too, not just the marquee panel), plus every team's
+  `nextGame`. It can also confirm `"final"` well before the next day's heavy pipeline run gets
   to it — the moment it first sees a game go final, it bumps both teams' `wins`/`losses`, appends a
-  `teams[id].games[]` entry, and writes a deterministic recap sentence directly into `blurb`
+  `teams[id].games[]` entry (with `oppConf`, so `confRecord()` stays correct even for a game this
+  script settled mid-week), and writes a deterministic recap sentence directly into `blurb`
   (`blurbSource: "fallback"`) so the result shows up immediately, not whenever Claude next runs.
 
 `blurbSource: "fallback"` on a **`final`** game therefore doesn't necessarily mean the LLM call
@@ -112,6 +115,11 @@ nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postga
 
   // Keyed by team id (lowercase, hyphenated: slugify(name)) for O(1) lookup.
   // Every currently-ranked-or-recently-ranked team gets a full entry — no lightweight variant.
+  // EXCEPTION: every team in one of the 4 Conference Tracker conferences (Big Ten, SEC, ACC, Big
+  // 12) gets an entry regardless of ranked/recently-ranked status, so a standings table doesn't
+  // silently drop an unranked member sitting a bye week. Free (reads teamMeta, already populated
+  // from the full-season /games fetch) and deliberately asymmetric -- every other conference's
+  // team universe is exactly the ranked-or-this-week's-slate rule above, unchanged.
   "teams": {
     "ohio-state": {
       "name": "Ohio State",
@@ -128,6 +136,7 @@ nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postga
         {
           "wk": 7,
           "opp": "Penn State",
+          "oppConf": "Big Ten",  // opponent's conference (from the same /games response, not re-looked-up) -- lets confRecord() derive an in-conference W-L without fragile opponent-name matching; realignment-safe since it's compared against the team's own CURRENT conf, not stored as a fixed relationship
           "oppRank": 4,          // opponent's rank IN THAT WEEK, looked up from rankings/2026-wk07.json — this is why the snapshot files exist
           "res": "W",
           "tag": "quality"       // "quality" | "bad" | "" — computed once at derive time, not in the browser
@@ -170,9 +179,16 @@ nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postga
     }
   },
 
-  // This week's scored + narrated matchup slate. Populated by Stage 1 (scoring, task #6) and
-  // Stage 2 (narration, task #7) — the frontend just renders what's here, no client-side scoring.
-  "games": [
+  // The FULL current-week slate (~90-100 games) -- written once by the fetch script and never
+  // trimmed. `games` below is a pure SUBSET of this array (the top 6 by stakesScore), not an
+  // independently-fetched list -- Conference Tracker pages read allGames directly so a
+  // conference's schedule section shows every one of its games this week, not just whichever made
+  // the sitewide marquee panel. Entries here only ever get an LLM/fallback blurb if Stage 1 also
+  // selected them into `games` (see that array's own comment) -- narrating the full weekly slate
+  // for every conference would meaningfully multiply Claude calls for text that mostly restates
+  // what's already on the card (rank, record, spread), so non-marquee entries keep
+  // `stakesScore`/`blurb`/`blurbSource` at their fetch-time null/unset values forever.
+  "allGames": [
     {
       "id": "2026-wk12-osu-mich",
       "cfbdId": 401628383,          // CFBD's own numeric game id -- how fetch-live-scores.mjs matches this game against a /scoreboard response
@@ -186,6 +202,29 @@ nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postga
       "status": "scheduled",         // "scheduled" | "in_progress" | "final" -- see "Game status lifecycle" below
       "awayScore": null, "homeScore": null,  // null until the game has started
       "period": null, "clock": null, // e.g. period 3, clock "8:42" -- only ever set while status is "in_progress"
+      "stakesScore": null,           // Stage 1 output IF this game was selected into `games` below -- null otherwise
+      "blurb": null,
+      "blurbSource": null
+    }
+  ],
+
+  // This week's "biggest games" marquee panel -- the top 6 of `allGames` above by stakesScore,
+  // populated by Stage 1 (scoring, task #6) and Stage 2 (narration, task #7). Same per-game shape
+  // as allGames, just narrated. The frontend just renders what's here, no client-side scoring.
+  "games": [
+    {
+      "id": "2026-wk12-osu-mich",
+      "cfbdId": 401628383,
+      "away": "ohio-state", "awayRank": 1,
+      "home": "michigan", "homeRank": 8,
+      "when": "2026-11-29T17:00:00Z",
+      "spread": "Ohio State -6.5",
+      "ou": 44.5,
+      "network": "FOX",
+      "rivalry": true,
+      "status": "scheduled",
+      "awayScore": null, "homeScore": null,
+      "period": null, "clock": null,
       "stakesScore": 9.1,            // Stage 1 output, for debugging/tuning — not rendered directly
       "blurb": "The Game. A Michigan win puts real pressure on the committee's #1 seed.",
       "blurbSource": "llm"           // "llm" | "fallback" | "manual" — which path produced `blurb` ("manual" only appears in current.sample.json, for the hand-written mockup-era blurbs)
@@ -276,9 +315,10 @@ branding change doesn't break joins.
 
 | Field | Populated by |
 |---|---|
-| `meta`, `rankingsByWeek`, `teams` (except `games[].tag`) | fetch script (task #5) |
-| `teams[].games[].tag` | fetch script, using that week's `rankings/wkNN.json` snapshot to know the opponent's point-in-time rank |
-| `games[].stakesScore`, `predictions[].score`, `fieldStorylines`, `teams[].bubbleNote` (minus `blurb`/`blurbSource`) | Stage 1 scoring (task #6) |
+| `meta`, `rankingsByWeek`, `teams` (except `games[].tag`/`oppConf`) | fetch script (task #5) |
+| `allGames` (full weekly slate) | fetch script (task #5) -- `games` is a Stage 1-derived subset, not independently fetched |
+| `teams[].games[].tag`/`oppConf` | fetch script, using that week's `rankings/wkNN.json` snapshot for the opponent's point-in-time rank (`tag`) and the same `/games` response's `awayConference`/`homeConference` (`oppConf`) |
+| `games[].stakesScore`, `predictions[].score`, `fieldStorylines`, `teams[].bubbleNote` (minus `blurb`/`blurbSource`) | Stage 1 scoring (task #6) -- also where `games` itself is derived from `allGames` |
 | `games[].blurb`, `predictions[].blurb`, `fieldStorylines[].blurb`, `teams[].bubbleNote.blurb`, all `blurbSource` fields | Stage 2 narration (task #7), with a deterministic-line fallback on failure -- status-aware since the live-score work: a pregame preview for scheduled/in_progress games, a postgame recap for final ones |
-| `games[].cfbdId`/`status`/`awayScore`/`homeScore`, `teams[].nextGame.cfbdId`/`status`/`awayScore`/`homeScore` | fetch script (`"scheduled"`/`"final"` only, from `/games`) -- see "Game status lifecycle" above |
-| `games[].period`/`clock`, `teams[].nextGame.period`/`clock`, and confirming `"final"` sooner than the next daily run | `scripts/fetch-live-scores.mjs`, from CFBD's `/scoreboard` endpoint -- the only writer of `"in_progress"` |
+| `games[]`/`allGames[].cfbdId`/`status`/`awayScore`/`homeScore`, `teams[].nextGame.cfbdId`/`status`/`awayScore`/`homeScore` | fetch script (`"scheduled"`/`"final"` only, from `/games`) -- see "Game status lifecycle" above |
+| `games[]`/`allGames[].period`/`clock`, `teams[].nextGame.period`/`clock`, and confirming `"final"` sooner than the next daily run | `scripts/fetch-live-scores.mjs`, from CFBD's `/scoreboard` endpoint -- the only writer of `"in_progress"` |

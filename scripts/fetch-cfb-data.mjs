@@ -18,6 +18,11 @@
 // the new season starting Aug 1 even though that new season won't have committee rankings for
 // another couple months.
 //
+// allGames vs games: this script writes the FULL current-week slate to `allGames`; `games` starts
+// empty and is populated downstream by scripts/score.mjs as the top-6-by-stakesScore SUBSET of
+// allGames, in place -- not a separate list. Everything that needs "every game this week" (e.g. a
+// Conference Tracker page) reads allGames; the sitewide "biggest games" marquee panel reads games.
+//
 // PRE-COMMITTEE POLL FALLBACK: the CFP committee's first reveal is ~week 7-11 depending on the
 // season -- for every week before that (which, right after the Aug 1 changeover, is EVERY week
 // until the committee starts), there's no CFP data to rank/tier/seed teams by. Confirmed live:
@@ -261,11 +266,18 @@ async function main() {
         const awayOppRank = opponentRankAtWeek(g.week, homeId);
         const homeRes = homeWon ? 'W' : 'L';
         const awayRes = homeWon ? 'L' : 'W';
+        // oppConf lets the frontend derive an in-conference win-loss record (confRecord() in
+        // src/data/teams.js) without fragile opponent-name matching -- captured here from the same
+        // /games response already in hand, not re-looked-up. Filtered against the team's OWN
+        // *current* conf at read time, so a past game against a since-realigned former conference
+        // mate correctly stops counting once that mate has moved (see confRecord's comment).
         (teamGameLog[homeId] = teamGameLog[homeId] || []).push({
-          wk: g.week, opp: g.awayTeam, oppRank: homeOppRank, res: homeRes, tag: tagFor(homeRes, homeOppRank),
+          wk: g.week, opp: g.awayTeam, oppConf: g.awayConference, oppRank: homeOppRank,
+          res: homeRes, tag: tagFor(homeRes, homeOppRank),
         });
         (teamGameLog[awayId] = teamGameLog[awayId] || []).push({
-          wk: g.week, opp: g.homeTeam, oppRank: awayOppRank, res: awayRes, tag: tagFor(awayRes, awayOppRank),
+          wk: g.week, opp: g.homeTeam, oppConf: g.homeConference, oppRank: awayOppRank,
+          res: awayRes, tag: tagFor(awayRes, awayOppRank),
         });
       }
     }
@@ -488,6 +500,19 @@ async function main() {
   }
   for (const g of gamesOut) { teamIds.add(g.away); teamIds.add(g.home); }
 
+  // Exception to the "ranked or playing this week" rule above, for the 4 conferences the
+  // Conference Tracker pages cover: a standings table needs every member team's entry, including
+  // an unranked team sitting a bye week -- which the rules above would otherwise silently drop
+  // from `teams{}` entirely (confirmed: this doesn't show up in week-1 data, where nearly every
+  // FBS team has a game, but would in a later bye week). Free -- teamMeta already has name/conf
+  // for virtually every FBS team from the full-season /games fetch (Step 3), no new API call.
+  // Deliberately asymmetric: only guarantees full rosters for these 4 conferences, leaving every
+  // other conference's team universe exactly as the rule above already defines it.
+  const POWER4_CONFS = new Set(['Big Ten', 'SEC', 'ACC', 'Big 12']);
+  for (const [id, meta] of Object.entries(teamMeta)) {
+    if (meta.conf && POWER4_CONFS.has(meta.conf)) teamIds.add(id);
+  }
+
   const teams = {};
   for (const id of teamIds) {
     const meta = teamMeta[id] || { name: id, conf: null }; // edge case: ranked team with zero recorded games
@@ -549,14 +574,20 @@ async function main() {
     },
     rankingsByWeek,
     teams,
-    games: gamesOut,
-    // populated by downstream Stage 1 scoring script (task #6), which doesn't exist yet
+    // Full current-week slate (~90-100 games), not just the marquee panel -- games[] below is a
+    // pure SUBSET of this, selected by Stage 1 scoring. Kept here rather than discarded so a
+    // Conference Tracker page can show every one of a conference's games this week, not just
+    // whichever happened to make the sitewide top 6.
+    allGames: gamesOut,
+    // populated by downstream Stage 1 scoring script (task #6), which doesn't exist yet -- becomes
+    // the top-6-by-stakesScore subset of allGames above, in place, not a separate fetch.
+    games: [],
     predictions: [],
   };
 
   const outPath = join(DATA_DIR, 'current.json');
   writeFileSync(outPath, JSON.stringify(out, null, 2) + '\n');
-  console.log(`Wrote ${outPath} (${Object.keys(teams).length} teams, ${gamesOut.length} games this week).`);
+  console.log(`Wrote ${outPath} (${Object.keys(teams).length} teams, ${gamesOut.length} games in the full weekly slate).`);
 }
 
 main().catch((err) => {
