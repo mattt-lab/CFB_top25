@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { usePinnedStore } from '../store/usePinnedStore.js';
-import { teamById, rankAt, byRankAsc, nextGameParts } from '../data/teams.js';
+import { teamById, rankAt, byRankAsc, nextGameParts, gameStatusBadge } from '../data/teams.js';
 import ConfDot from './ConfDot.jsx';
 import PinButton from './PinButton.jsx';
 
@@ -31,7 +31,10 @@ export default function MyTeamsSection({ weekIdx }) {
       <div className="bubble-list">
         {visible.map(({ id, rank }) => {
           const t = teamById(id);
-          const { opponent, kickoff } = nextGameParts(t.nextGame);
+          const { opponent, kickoff, homeAway, status, awayScore, homeScore, period, clock } = nextGameParts(t.nextGame);
+          const badge = gameStatusBadge(status, period, clock);
+          const mine = homeAway === 'home' ? homeScore : awayScore;
+          const theirs = homeAway === 'home' ? awayScore : homeScore;
           return (
             <Link key={id} className="bubble-row" to={`/team/${id}`} state={{ from: 'top25' }}>
               <span className="rk tabnum">{rank ?? '—'}</span>
@@ -40,7 +43,14 @@ export default function MyTeamsSection({ weekIdx }) {
               <span className="needs">
                 <span className="tabnum record">{t.record}</span>
                 <span className="opp">{opponent ?? 'Bye week'}</span>
-                {kickoff && <span className="kickoff">{kickoff}</span>}
+                {badge.text ? (
+                  <span className={`kickoff badge-status${badge.live ? ' badge-live' : ' badge-final'}`}>
+                    {badge.live && <span className="pulse-dot" aria-hidden="true" />}
+                    {mine != null && theirs != null ? `${mine}–${theirs} · ` : ''}{badge.text}
+                  </span>
+                ) : (
+                  kickoff && <span className="kickoff">{kickoff}</span>
+                )}
               </span>
               <PinButton teamId={id} />
             </Link>

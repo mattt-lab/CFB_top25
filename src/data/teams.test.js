@@ -4,7 +4,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   arrowGlyph, dirFor, trendColor, deltaLabel, computerRatingNote, byRankAsc, trendOf, formatKickoff,
-  americanOdds, nextGameParts,
+  americanOdds, nextGameParts, gameStatusBadge,
 } from './teams.js';
 
 describe('americanOdds', () => {
@@ -23,7 +23,10 @@ describe('americanOdds', () => {
 
 describe('nextGameParts', () => {
   it('returns null parts for a bye week (no nextGame)', () => {
-    expect(nextGameParts(null)).toEqual({ opponent: null, kickoff: null });
+    expect(nextGameParts(null)).toEqual({
+      opponent: null, kickoff: null, homeAway: null,
+      status: null, awayScore: null, homeScore: null, period: null, clock: null,
+    });
   });
   it('formats a home game against a ranked opponent', () => {
     const { opponent } = nextGameParts({
@@ -43,6 +46,34 @@ describe('nextGameParts', () => {
       when: new Date(Date.now() + 2 * 86400000).toISOString(), network: 'FOX',
     });
     expect(kickoff).toMatch(/FOX$/);
+  });
+  it('defaults status to scheduled and passes through nulls when a game has no live data yet', () => {
+    const parts = nextGameParts({ homeAway: 'home', opponent: 'X', opponentRank: null, when: null, network: null });
+    expect(parts.status).toBe('scheduled');
+    expect(parts.awayScore).toBeNull();
+    expect(parts.homeScore).toBeNull();
+  });
+  it('passes through live score/status/period/clock once fetch-live-scores.mjs has patched them', () => {
+    const parts = nextGameParts({
+      homeAway: 'away', opponent: 'Michigan', opponentRank: 8, when: null, network: null,
+      status: 'in_progress', awayScore: 14, homeScore: 21, period: 3, clock: '8:42',
+    });
+    expect(parts).toMatchObject({ status: 'in_progress', awayScore: 14, homeScore: 21, period: 3, clock: '8:42' });
+  });
+});
+
+describe('gameStatusBadge', () => {
+  it('shows nothing for a scheduled game -- callers fall back to the kickoff time', () => {
+    expect(gameStatusBadge('scheduled', null, null)).toEqual({ text: null, live: false, detail: null });
+  });
+  it('shows a live badge with the period/clock as detail', () => {
+    expect(gameStatusBadge('in_progress', 3, '8:42')).toEqual({ text: 'LIVE', live: true, detail: 'Q3 · 8:42' });
+  });
+  it('shows a live badge with no detail when period is unknown', () => {
+    expect(gameStatusBadge('in_progress', null, null)).toEqual({ text: 'LIVE', live: true, detail: null });
+  });
+  it('shows a final badge with no detail (period/clock are moot once the game is over)', () => {
+    expect(gameStatusBadge('final', 4, '0:00')).toEqual({ text: 'FINAL', live: false, detail: null });
   });
 });
 

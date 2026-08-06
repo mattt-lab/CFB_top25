@@ -58,6 +58,30 @@ Everything that needs "the" cross-team ranking (Top 25 order, tiers, the Playoff
 time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order below, **never**
 `cfp` directly — `cfp` alone would be empty for a real stretch of every season.
 
+## Game status lifecycle
+
+`games[].status` / `teams[id].nextGame.status` move through exactly three states: `"scheduled"` →
+`"in_progress"` → `"final"`. Two different scripts write this field, at two different cadences,
+because CFBD splits the data across two endpoints with very different freshness:
+
+- **`fetch-cfb-data.mjs`** (once daily) reads CFBD's plain `/games` endpoint, which only ever
+  reports a boolean `completed` flag plus final points — no true mid-game state. It writes
+  `"scheduled"` or `"final"` (never `"in_progress"`) directly from that, for free, with zero extra
+  API calls. This is also what stops a game from ever regressing from `"final"` back to
+  `"scheduled"` the next time this script rebuilds `games[]` from scratch.
+- **`fetch-live-scores.mjs`** (every ~15 min during game windows — see
+  `.github/workflows/fetch-live-scores.yml`) is the **only** writer of `"in_progress"`, `period`,
+  and `clock`, via CFBD's separate `/scoreboard` endpoint (one call returns every currently-live
+  game at once). It can also confirm `"final"` well before the next day's heavy pipeline run gets
+  to it — the moment it first sees a game go final, it bumps both teams' `wins`/`losses`, appends a
+  `teams[id].games[]` entry, and writes a deterministic recap sentence directly into `blurb`
+  (`blurbSource: "fallback"`) so the result shows up immediately, not whenever Claude next runs.
+
+`blurbSource: "fallback"` on a **`final`** game therefore doesn't necessarily mean the LLM call
+failed — it may just mean the light poller's instant recap hasn't been replaced by narrate.mjs's
+nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postgame recap for
+`"final"` games and a pregame preview for everything else, replacing whatever was there before).
+
 ## `data/current.json`
 
 ```jsonc
@@ -109,16 +133,25 @@ time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order be
           "tag": "quality"       // "quality" | "bad" | "" — computed once at derive time, not in the browser
         }
       ],
-      "nextGame": {            // this team's own upcoming matchup, from the FULL NEXT_WEEK slate —
-                                // survives Stage 1 trimming `games` (top-level) down to the top 6,
-                                // so every team has this, not just the ones in "biggest games"
+      "nextGame": {            // this team's own current-week matchup, from the FULL currentWeek
+                                // slate — survives Stage 1 trimming `games` (top-level) down to
+                                // the top 6, so every team has this, not just the ones in
+                                // "biggest games". See "Game status lifecycle" below for who
+                                // writes status/score/period/clock and when.
         "opponent": "Michigan",
         "opponentRank": 8,      // null if the opponent is unranked
         "homeAway": "home",     // "home" | "away" — is THIS team hosting or visiting
         "when": "2026-11-29T17:00:00Z",
-        "network": "FOX"        // same source as games[].network; null if CFBD has no media entry yet
+        "network": "FOX",       // same source as games[].network; null if CFBD has no media entry yet
+        "cfbdId": 401628383,    // CFBD's own numeric game id -- how fetch-live-scores.mjs matches
+                                // this game against a /scoreboard response
+        "status": "scheduled",  // "scheduled" | "in_progress" | "final"
+        "awayScore": null,      // null until the game has started
+        "homeScore": null,
+        "period": null,         // current quarter -- only ever set while status is "in_progress"
+        "clock": null           // e.g. "8:42" -- only ever set while status is "in_progress"
       },                        // null (not present as an object) if this team has no game in
-                                // NEXT_WEEK's slate — bye week, or no games left on the schedule
+                                // currentWeek's slate — bye week, or no games left on the schedule
       "bubbleNote": {           // present ONLY for the 4 teams currently on the playoff bubble
                                 // (seeds 13-16, per computeField()) -- a "current state" fact like
                                 // `nextGame`, not a historical per-week series, so a past-week
@@ -142,6 +175,7 @@ time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order be
   "games": [
     {
       "id": "2026-wk12-osu-mich",
+      "cfbdId": 401628383,          // CFBD's own numeric game id -- how fetch-live-scores.mjs matches this game against a /scoreboard response
       "away": "ohio-state", "awayRank": 1,
       "home": "michigan", "homeRank": 8,
       "when": "2026-11-29T17:00:00Z",
@@ -149,6 +183,9 @@ time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order be
       "ou": 44.5,
       "network": "FOX",              // TV network or streaming outlet from CFBD's /games/media endpoint; null if CFBD has no media entry yet (common for games far in advance)
       "rivalry": true,               // from data/rivalries.json
+      "status": "scheduled",         // "scheduled" | "in_progress" | "final" -- see "Game status lifecycle" below
+      "awayScore": null, "homeScore": null,  // null until the game has started
+      "period": null, "clock": null, // e.g. period 3, clock "8:42" -- only ever set while status is "in_progress"
       "stakesScore": 9.1,            // Stage 1 output, for debugging/tuning — not rendered directly
       "blurb": "The Game. A Michigan win puts real pressure on the committee's #1 seed.",
       "blurbSource": "llm"           // "llm" | "fallback" | "manual" — which path produced `blurb` ("manual" only appears in current.sample.json, for the hand-written mockup-era blurbs)
@@ -242,4 +279,6 @@ branding change doesn't break joins.
 | `meta`, `rankingsByWeek`, `teams` (except `games[].tag`) | fetch script (task #5) |
 | `teams[].games[].tag` | fetch script, using that week's `rankings/wkNN.json` snapshot to know the opponent's point-in-time rank |
 | `games[].stakesScore`, `predictions[].score`, `fieldStorylines`, `teams[].bubbleNote` (minus `blurb`/`blurbSource`) | Stage 1 scoring (task #6) |
-| `games[].blurb`, `predictions[].blurb`, `fieldStorylines[].blurb`, `teams[].bubbleNote.blurb`, all `blurbSource` fields | Stage 2 narration (task #7), with a deterministic-line fallback on failure |
+| `games[].blurb`, `predictions[].blurb`, `fieldStorylines[].blurb`, `teams[].bubbleNote.blurb`, all `blurbSource` fields | Stage 2 narration (task #7), with a deterministic-line fallback on failure -- status-aware since the live-score work: a pregame preview for scheduled/in_progress games, a postgame recap for final ones |
+| `games[].cfbdId`/`status`/`awayScore`/`homeScore`, `teams[].nextGame.cfbdId`/`status`/`awayScore`/`homeScore` | fetch script (`"scheduled"`/`"final"` only, from `/games`) -- see "Game status lifecycle" above |
+| `games[].period`/`clock`, `teams[].nextGame.period`/`clock`, and confirming `"final"` sooner than the next daily run | `scripts/fetch-live-scores.mjs`, from CFBD's `/scoreboard` endpoint -- the only writer of `"in_progress"` |

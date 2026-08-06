@@ -169,13 +169,45 @@ export function formatKickoff(iso) {
 // network text (e.g. "Sat, Sep 5, 3:30 PM PDT · FOX"), split so the caller can style the opponent
 // distinctly (bold, so it stands out from the surrounding record/kickoff text). Both null for a
 // bye week (no nextGame) or a team with no games left on CFBD's schedule. Shared by "Your Teams"
-// and the team-detail hero card.
+// and the team-detail hero card. Also passes through the live/final fields fetch-live-scores.mjs
+// patches onto nextGame (status/scores/period/clock) using the same away/home-relative naming as
+// games[] itself -- callers resolve "my score" vs. "their score" from `homeAway`, same as they
+// already do for the opponent label above, rather than this helper guessing which side is "mine".
 export function nextGameParts(nextGame) {
-  if (!nextGame) return { opponent: null, kickoff: null };
+  if (!nextGame) {
+    return {
+      opponent: null, kickoff: null, homeAway: null,
+      status: null, awayScore: null, homeScore: null, period: null, clock: null,
+    };
+  }
   const vsAt = nextGame.homeAway === 'home' ? 'vs' : 'at';
   const oppLabel = nextGame.opponentRank != null ? `#${nextGame.opponentRank} ${nextGame.opponent}` : nextGame.opponent;
   const kickoff = [formatKickoff(nextGame.when), nextGame.network].filter(Boolean).join(' · ');
-  return { opponent: `${vsAt} ${oppLabel}`, kickoff: kickoff || null };
+  return {
+    opponent: `${vsAt} ${oppLabel}`,
+    kickoff: kickoff || null,
+    homeAway: nextGame.homeAway,
+    status: nextGame.status ?? 'scheduled',
+    awayScore: nextGame.awayScore ?? null,
+    homeScore: nextGame.homeScore ?? null,
+    period: nextGame.period ?? null,
+    clock: nextGame.clock ?? null,
+  };
+}
+
+// Badge chrome for a game's current status -- shared by the "biggest games" cards, "Your Teams",
+// and the team-detail "Next Game" block, so LIVE/FINAL always look and read the same everywhere.
+// `detail` is the period/clock text for a live game (e.g. "Q3 · 8:42"); null otherwise. This is a
+// static site with no live client connection by design (see docs/data-schema.md) -- the clock is
+// only ever as fresh as the last ~15-minute poll/deploy, so callers should treat `detail` as a
+// rough "as of last check" indicator, not a ticking real-time clock.
+export function gameStatusBadge(status, period, clock) {
+  if (status === 'final') return { text: 'FINAL', live: false, detail: null };
+  if (status === 'in_progress') {
+    const detail = period != null ? `Q${period}${clock ? ` · ${clock}` : ''}` : null;
+    return { text: 'LIVE', live: true, detail };
+  }
+  return { text: null, live: false, detail: null };
 }
 
 // Last-two-non-null-values trend for a team's own authored poll array (AP/Coaches/CFP).

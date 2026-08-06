@@ -46,25 +46,13 @@ import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { resolveSeasonYear } from './lib/season.mjs';
+import { tagFor } from './lib/game-log.mjs';
+import { cfbdGet } from './lib/cfbd.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const DATA_DIR = join(ROOT, 'data');
 const RANKINGS_DIR = join(DATA_DIR, 'rankings');
-
-const CFBD_BASE = 'https://api.collegefootballdata.com';
-
-// ---- config -------------------------------------------------------------------------------
-
-const API_KEY = process.env.CFBD_API_KEY;
-if (!API_KEY) {
-  console.error(
-    'ERROR: CFBD_API_KEY environment variable is not set.\n' +
-    'Get a free key at https://collegefootballdata.com/key, then run:\n' +
-    '  CFBD_API_KEY=xxxxxxxx node scripts/fetch-cfb-data.mjs',
-  );
-  process.exit(1);
-}
 
 const SEASON = Number(process.env.CFBD_SEASON) || resolveSeasonYear();
 
@@ -72,17 +60,6 @@ const SEASON = Number(process.env.CFBD_SEASON) || resolveSeasonYear();
 // are "postseason"). Confirmed live for 2024: SEC/Big Ten/ACC/etc. championship games are all
 // seasonType "regular" -- see the games-slate fix in git history for the investigation.
 const SEASON_TYPE = 'regular';
-
-// Point-in-time "quality win" / "bad loss" thresholds for teams[].games[].tag. Formalizes the
-// informal pattern in src/data/teams.js's hand-authored DETAILED array (roughly: beating a team
-// ranked ~20-or-better reads as "quality"; losing to a team that wasn't ranked at all reads as
-// "bad"). The mockup data isn't perfectly consistent with a single rule (e.g. a loss to a
-// still-elite #5 team is tagged "bad" in one spot) -- that's flavor text from illustrative mock
-// data, not a spec. This is the formalized, symmetric version:
-//   - "quality": a WIN over a team ranked <= QUALITY_WIN_MAX_RANK in that week's committee poll
-//   - "bad":     a LOSS to a team that was unranked (not in that week's committee top 25 at all)
-//   - "":        everything else (unranked win, ranked loss, bye)
-const QUALITY_WIN_MAX_RANK = 20;
 
 // ---- small helpers --------------------------------------------------------------------------
 
@@ -97,30 +74,6 @@ function slugify(name) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-}
-
-async function cfbdGet(path, params = {}) {
-  const url = new URL(path, CFBD_BASE);
-  for (const [k, v] of Object.entries(params)) {
-    if (v !== undefined && v !== null) url.searchParams.set(k, String(v));
-  }
-  let res;
-  try {
-    res = await fetch(url, {
-      headers: { Authorization: `Bearer ${API_KEY}`, Accept: 'application/json' },
-    });
-  } catch (err) {
-    throw new Error(`CFBD ${path} -- network error: ${err.message}`);
-  }
-  if (!res.ok) {
-    const body = await res.text().catch(() => '');
-    throw new Error(`CFBD ${path} -> HTTP ${res.status} ${res.statusText}: ${body.slice(0, 500)}`);
-  }
-  const json = await res.json();
-  if (!Array.isArray(json)) {
-    throw new Error(`CFBD ${path} -- expected a JSON array, got ${typeof json}`);
-  }
-  return json;
 }
 
 // CFBD's /rankings response types `poll` as a bare string, not an enum (confirmed against the
@@ -274,12 +227,6 @@ async function main() {
     return idx === -1 ? null : idx + 1;
   }
 
-  function tagFor(res, oppRank) {
-    if (res === 'W' && oppRank != null && oppRank <= QUALITY_WIN_MAX_RANK) return 'quality';
-    if (res === 'L' && oppRank == null) return 'bad';
-    return '';
-  }
-
   // ---- Step 3: games (full season -- records, per-team game logs, and this week's slate) ------
   console.log(`Fetching games for ${SEASON}...`);
   // ASSUMPTION: classification=fbs returns every game involving at least one FBS team (including
@@ -325,30 +272,23 @@ async function main() {
   }
   for (const id of Object.keys(teamGameLog)) teamGameLog[id].sort((a, b) => a.wk - b.wk);
 
-  // The week of the *next* slate of games still to be played -- derived from which games are
-  // actually incomplete, not assumed as `currentWeek + 1`. That assumption breaks specifically
-  // for the preseason poll: CFBD tags it "week 1" as a labeling convention (there's no "week 0"),
-  // but unlike every later week's poll it does NOT mean "built from week 1's results" -- confirmed
-  // live for 2026, where every week-1 game is still `completed: false` in early August. Taking the
-  // earliest incomplete week handles both cases uniformly: mid-season, that's naturally
-  // currentWeek + 1 (this week's games are done, next week's aren't yet); preseason, it correctly
-  // resolves to week 1 itself instead of skipping straight to week 2.
-  //
-  // Bounded to weeks >= currentWeek -- a stray incomplete game from a WEEK ALREADY PASSED (e.g. a
-  // postponed/cancelled game CFBD never marked final) would otherwise get picked up as "next".
-  // Confirmed live: 2024's App State-Liberty game (week 5, likely hurricane-related) is still
-  // `completed: false` in CFBD's data even though that season ended in January 2025 -- without
-  // this lower bound, a query against the completed 2024 season resolved NEXT_WEEK to 5 instead
-  // of correctly finding no more games left to preview.
-  const incompleteWeeks = games
-    .filter((g) => g && g.seasonType === SEASON_TYPE && typeof g.week === 'number'
-      && g.week >= currentWeek && g.completed !== true)
-    .map((g) => g.week);
-  const NEXT_WEEK = incompleteWeeks.length ? Math.min(...incompleteWeeks) : currentWeek + 1;
+  // NOTE: this used to compute a separately-derived `NEXT_WEEK` (first week >= currentWeek with
+  // an incomplete game), on the theory that mid-season `NEXT_WEEK` naturally lands on
+  // `currentWeek + 1` (this week's games done, next week's not yet). That theory was wrong: an AP/
+  // Coaches "Week N" poll previews week N's games (built from week N-1's results), so the week
+  // whose games are being previewed IS `currentWeek`, every week -- not just the preseason special
+  // case this comment used to carve out. Confirmed against docs/data-schema.md's own example
+  // (`currentWeek: 12`, `games[].id: "2026-wk12-osu-mich"`) and data/current.sample.json (same
+  // pattern). The old NEXT_WEEK logic raced ahead of `currentWeek` in the real gap between "all of
+  // this week's games finished" (Saturday night) and "next week's poll actually publishes" (Sunday/
+  // Monday) -- during that gap it would start previewing next week's slate under this week's
+  // still-active rankings, with zero trace of this week's just-finished results anywhere. Using
+  // `currentWeek` directly ties the previewed slate to the same signal (poll availability) that
+  // already gates everything else, so there's no separate week to keep in sync.
 
   // ---- Step 4: betting lines for the upcoming slate ----------------------------------------------
-  console.log(`Fetching betting lines for week ${NEXT_WEEK}...`);
-  const lines = await cfbdGet('/lines', { year: SEASON, seasonType: SEASON_TYPE, week: NEXT_WEEK });
+  console.log(`Fetching betting lines for week ${currentWeek}...`);
+  const lines = await cfbdGet('/lines', { year: SEASON, seasonType: SEASON_TYPE, week: currentWeek });
   const linesByGameId = new Map();
   for (const bg of lines) {
     if (bg && bg.id != null) linesByGameId.set(bg.id, bg);
@@ -373,8 +313,8 @@ async function main() {
   // regional/alt TV feed alongside a streaming simulcast) -- prefer mediaType "tv" over "web" since
   // "what channel is it on" is the question being asked; fall back to whatever's first (usually a
   // streaming-only outlet, e.g. "SECN+") when there's no over-the-air/cable feed at all.
-  console.log(`Fetching broadcast info for week ${NEXT_WEEK}...`);
-  const media = await cfbdGet('/games/media', { year: SEASON, seasonType: SEASON_TYPE, week: NEXT_WEEK, classification: 'fbs' });
+  console.log(`Fetching broadcast info for week ${currentWeek}...`);
+  const media = await cfbdGet('/games/media', { year: SEASON, seasonType: SEASON_TYPE, week: currentWeek, classification: 'fbs' });
   const mediaByGameId = new Map();
   for (const m of media) {
     if (!m || m.id == null) continue;
@@ -405,24 +345,21 @@ async function main() {
   }
   function isRivalry(a, b) { return rivalryPairs.has([a, b].sort().join('|')); }
 
-  // ---- Step 6: the UPCOMING slate (the games that will shape the *next* ranking) ---------------
-  // NEXT_WEEK is computed above from actual game-completion state, not assumed -- see that
-  // comment for why `currentWeek + 1` isn't reliable (conference championship games all land in
-  // the week before their ranking is dated, and the preseason poll's "week 1" label doesn't mean
-  // week 1 already happened). This panel previews upcoming games, matching the site's own framing
-  // ("What the model expects -- Week N -> N+1"), not a recap of games already baked into the rank.
+  // ---- Step 6: this week's slate (games under currentWeek's poll -- preview through final) ------
   const currentPrimaryOrder = rankingsByWeek[currentWeek].primary;
   function currentRank(id) {
     const i = currentPrimaryOrder.indexOf(id);
     return i === -1 ? null : i + 1;
   }
 
-  const weekGames = games.filter((g) => g && g.week === NEXT_WEEK && g.seasonType === SEASON_TYPE);
+  const weekGames = games.filter((g) => g && g.week === currentWeek && g.seasonType === SEASON_TYPE);
 
   // Per-team "next matchup" -- built from the FULL weekGames list, not the top-6 slate Stage 1
   // trims `games` down to (score.mjs overwrites current.games, but teams[id].nextGame lives on
   // the team object and survives that trim). This is what lets "Your Teams" show every pinned
-  // team's next opponent/kickoff/network, not just the handful in the "biggest games" panel.
+  // team's next opponent/kickoff/network, not just the handful in the "biggest games" panel -- and
+  // it's also the canonical map fetch-live-scores.mjs walks to find every team's game, not just
+  // the ones that made the top-6 (see that script for why the wider set matters there).
   const nextGameByTeam = {};
 
   const gamesOut = weekGames.map((g) => {
@@ -435,12 +372,27 @@ async function main() {
     const homeRank = currentRank(homeId);
     const when = g.startDate || null;
     const network = pickNetwork(g.id);
+    // `/games` only ever reports `completed`/final points -- never a true mid-game "in_progress"
+    // state (that only exists on CFBD's separate /scoreboard endpoint, which fetch-live-scores.mjs
+    // polls during actual game windows). Setting status/score here from data already in hand means
+    // a game the light poller already progressed to 'final' doesn't flicker back to blank
+    // 'scheduled' the next time this (once-daily) script rebuilds gamesOut from scratch.
+    const status = g.completed ? 'final' : 'scheduled';
+    const awayScore = g.completed ? g.awayPoints : null;
+    const homeScore = g.completed ? g.homePoints : null;
 
-    nextGameByTeam[awayId] = { opponent: g.homeTeam, opponentRank: homeRank, homeAway: 'away', when, network };
-    nextGameByTeam[homeId] = { opponent: g.awayTeam, opponentRank: awayRank, homeAway: 'home', when, network };
+    nextGameByTeam[awayId] = {
+      opponent: g.homeTeam, opponentRank: homeRank, homeAway: 'away', when, network,
+      cfbdId: g.id, status, awayScore, homeScore,
+    };
+    nextGameByTeam[homeId] = {
+      opponent: g.awayTeam, opponentRank: awayRank, homeAway: 'home', when, network,
+      cfbdId: g.id, status, awayScore, homeScore,
+    };
 
     return {
-      id: `${SEASON}-wk${NEXT_WEEK}-${awayId}-${homeId}`,
+      id: `${SEASON}-wk${currentWeek}-${awayId}-${homeId}`,
+      cfbdId: g.id,
       away: awayId,
       awayRank,
       home: homeId,
@@ -452,6 +404,13 @@ async function main() {
       ou: line && line.overUnder != null ? line.overUnder : null,
       network,
       rivalry: isRivalry(awayId, homeId),
+      // 'scheduled' | 'in_progress' | 'final' -- only ever 'scheduled'/'final' here (see above);
+      // fetch-live-scores.mjs is the only writer of 'in_progress', during the actual game window.
+      status,
+      awayScore,
+      homeScore,
+      period: null,
+      clock: null,
       // populated by downstream scripts that don't exist yet (Stage 1 scoring / Stage 2 narration)
       stakesScore: null,
       blurb: null,
@@ -569,7 +528,7 @@ async function main() {
       coaches: coachesArr,
       cfp: cfpArr,
       games: teamGameLog[id] || [],
-      // null when this team has no game in NEXT_WEEK's slate (bye week, or a team with no more
+      // null when this team has no game in currentWeek's slate (bye week, or a team with no more
       // games left on CFBD's schedule for the season).
       nextGame: nextGameByTeam[id] || null,
     };

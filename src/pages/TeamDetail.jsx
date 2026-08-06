@@ -2,6 +2,7 @@ import { useParams, useNavigate, useLocation, Navigate } from 'react-router-dom'
 import {
   teamById, WEEK_IDX_MAX, trendOf, playoffOddsFor, nattyOddsFor, americanOdds,
   deltaAt, primaryLabel, PRIMARY_SOURCE_BY_WEEK, dirFor, arrowGlyph, computerRatingNote, nextGameParts,
+  gameStatusBadge,
 } from '../data/teams.js';
 import { usePinnedStore } from '../store/usePinnedStore.js';
 import { downloadShareCard } from '../utils/shareCard.js';
@@ -39,7 +40,13 @@ export default function TeamDetail() {
   const po = rank != null ? playoffOddsFor(rank, team.record, team.sp) : null;
   const no = rank != null ? nattyOddsFor(rank, team.record, team.sp, team.fpi) : null;
   const currentWeekNumber = WEEK_IDX_MAX + 1;
-  const { opponent: nextOpponent, kickoff: nextKickoff } = nextGameParts(team.nextGame);
+  const {
+    opponent: nextOpponent, kickoff: nextKickoff, homeAway: nextHomeAway,
+    status: nextStatus, awayScore: nextAwayScore, homeScore: nextHomeScore, period: nextPeriod, clock: nextClock,
+  } = nextGameParts(team.nextGame);
+  const nextBadge = gameStatusBadge(nextStatus, nextPeriod, nextClock);
+  const myScore = nextHomeAway === 'home' ? nextHomeScore : nextAwayScore;
+  const theirScore = nextHomeAway === 'home' ? nextAwayScore : nextHomeScore;
 
   return (
     <div>
@@ -93,7 +100,14 @@ export default function TeamDetail() {
               {nextOpponent ? (
                 <>
                   <b>{nextOpponent}</b>
-                  {nextKickoff && <span style={{ color: 'var(--ink-2)' }}> · {nextKickoff}</span>}
+                  {nextBadge.text ? (
+                    <span className={`badge-status${nextBadge.live ? ' badge-live' : ' badge-final'}`} style={{ marginLeft: 8 }}>
+                      {nextBadge.live && <span className="pulse-dot" aria-hidden="true" />}
+                      {myScore != null && theirScore != null ? `${myScore}–${theirScore} · ` : ''}{nextBadge.text}
+                    </span>
+                  ) : (
+                    nextKickoff && <span style={{ color: 'var(--ink-2)' }}> · {nextKickoff}</span>
+                  )}
                 </>
               ) : (
                 <span style={{ color: 'var(--ink-2)' }}>Bye week</span>

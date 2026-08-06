@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useWeekStore } from '../store/useWeekStore.js';
 import {
   WEEK_IDX_MAX, games, predictions, primaryLabel, PRIMARY_SOURCE_BY_WEEK, formatKickoff,
+  gameStatusBadge,
 } from '../data/teams.js';
 import MyTeamsSection from '../components/MyTeamsSection.jsx';
 import Top25Table from '../components/Top25Table.jsx';
@@ -33,37 +34,56 @@ export default function Top25Tracker() {
           </div>
         </div>
         <div className="games-grid">
-          {games.map((g) => (
-            <div className="game-card" key={g.id}>
-              <div className="game-meta">
-                {formatKickoff(g.when)}
-                {g.network && <span> · {g.network}</span>}
-                {g.rivalry && <span className="tag rivalry" style={{ marginLeft: 8 }}>Rivalry</span>}
-              </div>
-              <div className="game-teams">
-                <Link className="game-team" to={`/team/${g.away}`}>
-                  {g.awayRank != null && <span className="r">#{g.awayRank}</span>}
-                  {g.awayTeam?.name ?? g.away}
-                  {g.awayTeam?.record && (
-                    <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({g.awayTeam.record})</span>
+          {games.map((g) => {
+            const badge = gameStatusBadge(g.status, g.period, g.clock);
+            const decided = g.status === 'in_progress' || g.status === 'final';
+            return (
+              <div className="game-card" key={g.id}>
+                <div className="game-meta">
+                  {badge.text ? (
+                    <span className={`badge-status${badge.live ? ' badge-live' : ' badge-final'}`}>
+                      {badge.live && <span className="pulse-dot" aria-hidden="true" />}
+                      {badge.text}{badge.detail && ` · ${badge.detail}`}
+                    </span>
+                  ) : (
+                    formatKickoff(g.when)
                   )}
-                </Link>
-                <div className="game-at">at</div>
-                <Link className="game-team" to={`/team/${g.home}`}>
-                  {g.homeRank != null && <span className="r">#{g.homeRank}</span>}
-                  {g.homeTeam?.name ?? g.home}
-                  {g.homeTeam?.record && (
-                    <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({g.homeTeam.record})</span>
+                  {g.network && <span> · {g.network}</span>}
+                  {g.rivalry && <span className="tag rivalry" style={{ marginLeft: 8 }}>Rivalry</span>}
+                </div>
+                <div className="game-teams">
+                  <Link className="game-team" to={`/team/${g.away}`}>
+                    {g.awayRank != null && <span className="r">#{g.awayRank}</span>}
+                    {g.awayTeam?.name ?? g.away}
+                    {g.awayTeam?.record && (
+                      <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({g.awayTeam.record})</span>
+                    )}
+                  </Link>
+                  <div className="game-at">at</div>
+                  <Link className="game-team" to={`/team/${g.home}`}>
+                    {g.homeRank != null && <span className="r">#{g.homeRank}</span>}
+                    {g.homeTeam?.name ?? g.home}
+                    {g.homeTeam?.record && (
+                      <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({g.homeTeam.record})</span>
+                    )}
+                  </Link>
+                </div>
+                <div className="game-line">
+                  {decided ? (
+                    <span className="score">
+                      {g.awayTeam?.name ?? g.away} {g.awayScore} – {g.homeTeam?.name ?? g.home} {g.homeScore}
+                    </span>
+                  ) : (
+                    <>
+                      {g.spread && <span className="spread">{g.spread}</span>}
+                      {g.ou != null && <span style={{ color: 'var(--muted)' }}>O/U {g.ou}</span>}
+                    </>
                   )}
-                </Link>
+                </div>
+                <div className="game-impl">{g.blurb}</div>
               </div>
-              <div className="game-line">
-                {g.spread && <span className="spread">{g.spread}</span>}
-                {g.ou != null && <span style={{ color: 'var(--muted)' }}>O/U {g.ou}</span>}
-              </div>
-              <div className="game-impl">{g.blurb}</div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

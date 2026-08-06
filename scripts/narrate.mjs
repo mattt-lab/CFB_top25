@@ -26,12 +26,19 @@ function teamName(current, teamId) {
 }
 
 // Deterministic one-line fallback -- used when the API call fails outright or returns a
-// malformed/missing blurb for a given id, so a bad API day never ships blank text.
+// malformed/missing blurb for a given id, so a bad API day never ships blank text. A game that's
+// gone final needs a recap sentence, not a pregame preview -- the same branch fetch-live-scores.mjs
+// uses for its own instant deterministic recap the moment a game ends (see docs/data-schema.md's
+// "Game status lifecycle"), so the two independently-produced fallback sentences read consistently
+// with each other regardless of which script happened to write the last one.
 function fallbackGameBlurb(g, current) {
   const away = teamName(current, g.away);
   const home = teamName(current, g.home);
   const awayLabel = g.awayRank ? `#${g.awayRank} ${away}` : away;
   const homeLabel = g.homeRank ? `#${g.homeRank} ${home}` : home;
+  if (g.status === 'final' && g.awayScore != null && g.homeScore != null) {
+    return `Final: ${awayLabel} ${g.awayScore}, ${homeLabel} ${g.homeScore}.`;
+  }
   return g.spread ? `${awayLabel} at ${homeLabel} — ${g.spread}.` : `${awayLabel} at ${homeLabel}.`;
 }
 
@@ -72,6 +79,14 @@ function buildFacts(current) {
     spread: g.spread,
     ou: g.ou,
     rivalry: g.rivalry,
+    // 'scheduled' | 'in_progress' | 'final' -- most days every kept game is still 'scheduled'
+    // (this pipeline runs once daily, well before kickoff most weeks); 'final' shows up once a
+    // game this script's own once-a-day cadence eventually catches up to has actually been played.
+    // 'in_progress' is possible in principle but very unlikely to ever be what this batched call
+    // sees -- games are transient for only a few hours and this script doesn't run during them.
+    status: g.status,
+    awayScore: g.awayScore,
+    homeScore: g.homeScore,
   }));
 
   const predictions = current.predictions.map((p) => {
@@ -128,6 +143,14 @@ that have already been selected by a separate process -- your only job is to phr
 judge which ones matter. Use ONLY the facts provided. Do not invent stats, injuries, records, or
 history not given to you. Each blurb should be 1-2 sentences, written for a knowledgeable college
 football fan, no hashtags or emoji.
+
+Each game has a "status" field: "scheduled" means the game hasn't been played yet -- write a
+pregame preview (spread, stakes, what's at stake), same as always. "final" means the game already
+happened and you're given the actual awayScore/homeScore -- write a brief POSTGAME RECAP mentioning
+the real final score instead, not a preview of a game that's already over. Don't reference the
+pregame spread as a prediction for a final game; if you mention it at all, frame it as whether the
+result matched expectations. "in_progress" means the game is live right now -- treat it the same as
+"final" but describe it as still unfolding rather than decided (you won't usually see this state).
 
 Field storylines come in two flavors: "conf-race-gap" (how tight a conference's race for the
 automatic playoff bid is between the leader and the chaser right behind them) and

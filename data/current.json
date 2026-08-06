@@ -3,7 +3,7 @@
     "season": 2026,
     "currentWeek": 1,
     "currentPrimarySource": "coaches",
-    "lastUpdated": "2026-08-06T15:23:29.134Z",
+    "lastUpdated": "2026-08-06T15:34:24.685Z",
     "weeksAvailable": [
       1
     ]
@@ -93,7 +93,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:30:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858432,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -120,7 +124,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "CBS"
+        "network": "CBS",
+        "cfbdId": 401858433,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -147,7 +155,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:00:00.000Z",
-        "network": "SECN+"
+        "network": "SECN+",
+        "cfbdId": 401856658,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -174,7 +186,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401856667,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -201,7 +217,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T23:30:00.000Z",
-        "network": "NBC"
+        "network": "NBC",
+        "cfbdId": 401858438,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -228,7 +248,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "FOX"
+        "network": "FOX",
+        "cfbdId": 401858425,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -255,7 +279,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T01:00:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401858206,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -282,7 +310,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401856668,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -309,7 +341,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T00:00:00.000Z",
-        "network": "SECN+"
+        "network": "SECN+",
+        "cfbdId": 401856664,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -336,7 +372,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T23:30:00.000Z",
-        "network": "ABC"
+        "network": "ABC",
+        "cfbdId": 401856661,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -363,7 +403,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ABC"
+        "network": "ABC",
+        "cfbdId": 401856634,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": {
         "seed": 13,
@@ -371,7 +415,7 @@
         "movedUp": 0,
         "trendScore": 0.45,
         "nextOpponentRank": null,
-        "blurb": "Alabama is the first team out at the 13 seed, one spot from the field. The Tide are close enough that a single result above them could do the work for them.",
+        "blurb": "Alabama sits on the 13 line, one spot outside the field -- the closest team to the cut and the first in line if anyone above stumbles.",
         "blurbSource": "llm"
       }
     },
@@ -398,7 +442,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "FS1"
+        "network": "FS1",
+        "cfbdId": 401856770,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -425,7 +473,11 @@
         "opponentRank": 23,
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
-        "network": "ABC"
+        "network": "ABC",
+        "cfbdId": 401856660,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": {
         "seed": 14,
@@ -433,7 +485,7 @@
         "movedUp": 0,
         "trendScore": 0.6,
         "nextOpponentRank": 23,
-        "blurb": "LSU sits 14th, two spots off the field, and gets an immediate opportunity: No. 23 Clemson comes to Baton Rouge next. Win that and the bubble talk gets a lot quieter.",
+        "blurb": "LSU holds the 14 seed, two spots from the field, and gets an immediate chance to move: No. 23 Clemson comes to Baton Rouge next.",
         "blurbSource": "llm"
       }
     },
@@ -460,7 +512,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T01:00:00.000Z",
-        "network": "FOX"
+        "network": "FOX",
+        "cfbdId": 401858436,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": {
         "seed": 15,
@@ -468,7 +524,7 @@
         "movedUp": 0,
         "trendScore": 0.15,
         "nextOpponentRank": null,
-        "blurb": "USC holds the 15 seed, three spots from the field. The Trojans need help and results, in that order.",
+        "blurb": "USC is the No. 15 team in the bubble picture, three spots out, and needs results rather than reputation to close that gap.",
         "blurbSource": "llm"
       }
     },
@@ -495,7 +551,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856775,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": {
         "seed": 16,
@@ -503,7 +563,7 @@
         "movedUp": 0,
         "trendScore": 0.75,
         "nextOpponentRank": null,
-        "blurb": "BYU is the last team on the bubble at No. 16, four spots from the field. With the Big 12 auto bid still in play, the path exists -- it's just narrow.",
+        "blurb": "BYU occupies the last bubble spot at No. 16, four spots from the field -- the Cougars have the most ground to make up of anyone still in the conversation.",
         "blurbSource": "llm"
       }
     },
@@ -530,7 +590,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
-        "network": "NBC"
+        "network": "NBC",
+        "cfbdId": 401858428,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -557,7 +621,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "FS1"
+        "network": "FS1",
+        "cfbdId": 401858434,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -584,7 +652,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "SECN+"
+        "network": "SECN+",
+        "cfbdId": 401856666,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -611,7 +683,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T20:00:00.000Z",
-        "network": "NBC"
+        "network": "NBC",
+        "cfbdId": 401858437,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -638,7 +714,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-07T23:30:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401858212,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -665,7 +745,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T01:00:00.000Z",
-        "network": "ESPNU"
+        "network": "ESPNU",
+        "cfbdId": 401856768,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -692,7 +776,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T20:15:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858426,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -719,7 +807,11 @@
         "opponentRank": 13,
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
-        "network": "ABC"
+        "network": "ABC",
+        "cfbdId": 401856660,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -746,7 +838,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401856778,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -773,7 +869,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T00:00:00.000Z",
-        "network": "SEC Network"
+        "network": "SEC Network",
+        "cfbdId": 401856663,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -800,7 +900,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-08-29T16:00:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401856766,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -827,7 +931,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-08-29T16:00:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401856766,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -854,7 +962,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T22:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401864495,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -881,7 +993,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-08-29T19:30:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401858202,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -908,7 +1024,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-08-29T19:30:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401858202,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -935,7 +1055,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401868140,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -962,7 +1086,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "The CW Network"
+        "network": "The CW Network",
+        "cfbdId": 401864499,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -989,7 +1117,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T02:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401866411,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1016,7 +1148,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T22:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401864495,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1043,7 +1179,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T02:00:00.000Z",
-        "network": "The CW Network"
+        "network": "The CW Network",
+        "cfbdId": 401864497,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1070,7 +1210,11 @@
         "opponentRank": 7,
         "homeAway": "home",
         "when": "2026-09-05T01:00:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401858206,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1097,7 +1241,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T01:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401870790,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1124,7 +1272,11 @@
         "opponentRank": 20,
         "homeAway": "home",
         "when": "2026-09-07T23:30:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401858212,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1151,7 +1303,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862695,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1178,7 +1334,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T02:00:00.000Z",
-        "network": "The CW Network"
+        "network": "The CW Network",
+        "cfbdId": 401864497,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1205,7 +1365,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T22:00:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858423,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1232,7 +1396,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T22:00:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858423,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1259,7 +1427,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401864424,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1286,7 +1458,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401864424,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1313,7 +1489,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
-        "network": "ACC Network"
+        "network": "ACC Network",
+        "cfbdId": 401858204,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1340,7 +1520,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
-        "network": "ACC Network"
+        "network": "ACC Network",
+        "cfbdId": 401858204,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1367,7 +1551,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401866409,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1394,7 +1582,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401866409,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1421,7 +1613,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856767,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1448,7 +1644,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856767,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1475,7 +1675,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401864425,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1502,7 +1706,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401864425,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1529,7 +1737,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T00:00:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401856776,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1556,7 +1768,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T00:00:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401856776,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1583,7 +1799,11 @@
         "opponentRank": 25,
         "homeAway": "away",
         "when": "2026-09-04T00:00:00.000Z",
-        "network": "SEC Network"
+        "network": "SEC Network",
+        "cfbdId": 401856663,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1610,7 +1830,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T00:00:00.000Z",
-        "network": "Peacock"
+        "network": "Peacock",
+        "cfbdId": 401858422,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1637,7 +1861,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T00:00:00.000Z",
-        "network": "Peacock"
+        "network": "Peacock",
+        "cfbdId": 401858422,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1664,7 +1892,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T01:00:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858424,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1691,7 +1923,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T01:00:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858424,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1718,7 +1954,11 @@
         "opponentRank": 21,
         "homeAway": "away",
         "when": "2026-09-04T01:00:00.000Z",
-        "network": "ESPNU"
+        "network": "ESPNU",
+        "cfbdId": 401856768,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1745,7 +1985,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401866623,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1772,7 +2016,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401866623,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1799,7 +2047,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T23:00:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858435,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1826,7 +2078,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T23:00:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858435,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1853,7 +2109,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T00:00:00.000Z",
-        "network": "ESPNU"
+        "network": "ESPNU",
+        "cfbdId": 401856769,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1880,7 +2140,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T00:00:00.000Z",
-        "network": "ESPNU"
+        "network": "ESPNU",
+        "cfbdId": 401856769,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1907,7 +2171,11 @@
         "opponentRank": 9,
         "homeAway": "away",
         "when": "2026-09-05T00:00:00.000Z",
-        "network": "SECN+"
+        "network": "SECN+",
+        "cfbdId": 401856664,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1934,7 +2202,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T00:00:00.000Z",
-        "network": "FS1"
+        "network": "FS1",
+        "cfbdId": 401858429,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1961,7 +2233,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T00:00:00.000Z",
-        "network": "FS1"
+        "network": "FS1",
+        "cfbdId": 401858429,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -1988,7 +2264,11 @@
         "opponentRank": 14,
         "homeAway": "away",
         "when": "2026-09-05T01:00:00.000Z",
-        "network": "FOX"
+        "network": "FOX",
+        "cfbdId": 401858436,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2015,7 +2295,11 @@
         "opponentRank": 24,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401856778,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2042,7 +2326,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401866410,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2069,7 +2357,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401866410,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2096,7 +2388,11 @@
         "opponentRank": 6,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "FOX"
+        "network": "FOX",
+        "cfbdId": 401858425,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2123,7 +2419,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "The CW Network"
+        "network": "The CW Network",
+        "cfbdId": 401858207,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2150,7 +2450,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "The CW Network"
+        "network": "The CW Network",
+        "cfbdId": 401858207,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2177,7 +2481,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ESPNU"
+        "network": "ESPNU",
+        "cfbdId": 401869960,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2204,7 +2512,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ESPNU"
+        "network": "ESPNU",
+        "cfbdId": 401869960,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2231,7 +2543,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "CBSSN"
+        "network": "CBSSN",
+        "cfbdId": 401862701,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2258,7 +2574,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "CBSSN"
+        "network": "CBSSN",
+        "cfbdId": 401862701,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2285,7 +2605,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ACC Network"
+        "network": "ACC Network",
+        "cfbdId": 401858208,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2312,7 +2636,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ACC Network"
+        "network": "ACC Network",
+        "cfbdId": 401858208,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2339,7 +2667,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "FS1"
+        "network": "FS1",
+        "cfbdId": 401858430,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2366,7 +2698,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "FS1"
+        "network": "FS1",
+        "cfbdId": 401858430,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2393,7 +2729,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "TNT"
+        "network": "TNT",
+        "cfbdId": 401856780,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2420,7 +2760,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "TNT"
+        "network": "TNT",
+        "cfbdId": 401856780,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2447,7 +2791,11 @@
         "opponentRank": 11,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ABC"
+        "network": "ABC",
+        "cfbdId": 401856634,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2474,7 +2822,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": null
+        "network": null,
+        "cfbdId": 401861962,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2501,7 +2853,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": null
+        "network": null,
+        "cfbdId": 401861962,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2528,7 +2884,11 @@
         "opponentRank": 1,
         "homeAway": "away",
         "when": "2026-09-05T16:30:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858432,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2555,7 +2915,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:45:00.000Z",
-        "network": "SEC Network"
+        "network": "SEC Network",
+        "cfbdId": 401856665,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2582,7 +2946,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:45:00.000Z",
-        "network": "SEC Network"
+        "network": "SEC Network",
+        "cfbdId": 401856665,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2609,7 +2977,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T17:00:00.000Z",
-        "network": "SECN+"
+        "network": "SECN+",
+        "cfbdId": 401856659,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2636,7 +3008,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T17:00:00.000Z",
-        "network": "SECN+"
+        "network": "SECN+",
+        "cfbdId": 401856659,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2663,7 +3039,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T17:00:00.000Z",
-        "network": "MW+"
+        "network": "MW+",
+        "cfbdId": 401864496,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2690,7 +3070,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T17:00:00.000Z",
-        "network": "MW+"
+        "network": "MW+",
+        "cfbdId": 401864496,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2717,7 +3101,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T17:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856779,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2744,7 +3132,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T17:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856779,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2771,7 +3163,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T18:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862698,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2798,7 +3194,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T18:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862698,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2825,7 +3225,11 @@
         "opponentRank": 3,
         "homeAway": "away",
         "when": "2026-09-05T19:00:00.000Z",
-        "network": "SECN+"
+        "network": "SECN+",
+        "cfbdId": 401856658,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2852,7 +3256,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "FOX"
+        "network": "FOX",
+        "cfbdId": 401856777,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2879,7 +3287,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "FOX"
+        "network": "FOX",
+        "cfbdId": 401856777,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2906,7 +3318,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401866627,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2933,7 +3349,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401866627,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2960,7 +3380,11 @@
         "opponentRank": 2,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "CBS"
+        "network": "CBS",
+        "cfbdId": 401858433,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -2987,7 +3411,11 @@
         "opponentRank": 18,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "SECN+"
+        "network": "SECN+",
+        "cfbdId": 401856666,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3014,7 +3442,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862700,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3041,7 +3473,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862700,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3068,7 +3504,11 @@
         "opponentRank": 17,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "FS1"
+        "network": "FS1",
+        "cfbdId": 401858434,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3095,7 +3535,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ABC"
+        "network": "ABC",
+        "cfbdId": 401856636,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3122,7 +3566,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ABC"
+        "network": "ABC",
+        "cfbdId": 401856636,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3149,7 +3597,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862694,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3176,7 +3628,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862694,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3203,7 +3659,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ACC Network"
+        "network": "ACC Network",
+        "cfbdId": 401858209,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3230,7 +3690,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ACC Network"
+        "network": "ACC Network",
+        "cfbdId": 401858209,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3257,7 +3721,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "The CW Network"
+        "network": "The CW Network",
+        "cfbdId": 401864499,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3284,7 +3752,11 @@
         "opponentRank": 4,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401856667,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3311,7 +3783,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "CBSSN"
+        "network": "CBSSN",
+        "cfbdId": 401862696,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3338,7 +3814,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
-        "network": "CBSSN"
+        "network": "CBSSN",
+        "cfbdId": 401862696,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3365,7 +3845,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:45:00.000Z",
-        "network": "ESPNU"
+        "network": "ESPNU",
+        "cfbdId": 401856772,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3392,7 +3876,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:45:00.000Z",
-        "network": "ESPNU"
+        "network": "ESPNU",
+        "cfbdId": 401856772,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3419,7 +3907,11 @@
         "opponentRank": 22,
         "homeAway": "away",
         "when": "2026-09-05T20:15:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858426,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3446,7 +3938,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T20:15:00.000Z",
-        "network": "SEC Network"
+        "network": "SEC Network",
+        "cfbdId": 401856635,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3473,7 +3969,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T20:15:00.000Z",
-        "network": "SEC Network"
+        "network": "SEC Network",
+        "cfbdId": 401856635,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3500,7 +4000,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T21:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401868356,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3527,7 +4031,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T21:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401868356,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3554,7 +4062,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T22:00:00.000Z",
-        "network": "USA Net"
+        "network": "USA Net",
+        "cfbdId": 401860878,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3581,7 +4093,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T22:00:00.000Z",
-        "network": "USA Net"
+        "network": "USA Net",
+        "cfbdId": 401860878,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3608,7 +4124,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T22:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401867973,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3635,7 +4155,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T22:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401867973,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3662,7 +4186,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401870763,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3689,7 +4217,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401870763,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3716,7 +4248,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401868170,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3743,7 +4279,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401868170,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3770,7 +4310,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401868316,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3797,7 +4341,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401868316,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3824,7 +4372,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401867866,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3851,7 +4403,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401867866,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3878,7 +4434,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862695,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3905,7 +4465,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401868140,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3932,7 +4496,11 @@
         "opponentRank": 12,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "FS1"
+        "network": "FS1",
+        "cfbdId": 401856770,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3959,7 +4527,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862697,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -3986,7 +4558,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862697,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4013,7 +4589,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862699,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4040,7 +4620,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401862699,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4067,7 +4651,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "CBSSN"
+        "network": "CBSSN",
+        "cfbdId": 401860880,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4094,7 +4682,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "CBSSN"
+        "network": "CBSSN",
+        "cfbdId": 401860880,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4121,7 +4713,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856771,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4148,7 +4744,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856771,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4175,7 +4775,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "SECN+"
+        "network": "SECN+",
+        "cfbdId": 401856669,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4202,7 +4806,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "SECN+"
+        "network": "SECN+",
+        "cfbdId": 401856669,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4229,7 +4837,11 @@
         "opponentRank": 8,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401856668,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4256,7 +4868,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
-        "network": "ACC Network"
+        "network": "ACC Network",
+        "cfbdId": 401858211,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4283,7 +4899,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
-        "network": "ACC Network"
+        "network": "ACC Network",
+        "cfbdId": 401858211,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4310,7 +4930,11 @@
         "opponentRank": 16,
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
-        "network": "NBC"
+        "network": "NBC",
+        "cfbdId": 401858428,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4337,7 +4961,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
-        "network": "ESPNU"
+        "network": "ESPNU",
+        "cfbdId": 401856662,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4364,7 +4992,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
-        "network": "ESPNU"
+        "network": "ESPNU",
+        "cfbdId": 401856662,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4391,7 +5023,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401869129,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4418,7 +5054,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401869129,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4445,7 +5085,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:45:00.000Z",
-        "network": "SEC Network"
+        "network": "SEC Network",
+        "cfbdId": 401856637,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4472,7 +5116,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:45:00.000Z",
-        "network": "SEC Network"
+        "network": "SEC Network",
+        "cfbdId": 401856637,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4499,7 +5147,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401869142,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4526,7 +5178,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401869142,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4553,7 +5209,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858431,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4580,7 +5240,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858431,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4607,7 +5271,11 @@
         "opponentRank": 15,
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856775,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4634,7 +5302,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858427,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4661,7 +5333,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
-        "network": "BTN"
+        "network": "BTN",
+        "cfbdId": 401858427,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4688,7 +5364,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T01:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401870790,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4715,7 +5395,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T01:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856774,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4742,7 +5426,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T01:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856774,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4769,7 +5457,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T01:30:00.000Z",
-        "network": "USA Net"
+        "network": "USA Net",
+        "cfbdId": 401860879,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4796,7 +5488,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T01:30:00.000Z",
-        "network": "USA Net"
+        "network": "USA Net",
+        "cfbdId": 401860879,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4823,7 +5519,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T01:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856773,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4850,7 +5550,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T01:30:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401856773,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4877,7 +5581,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T02:00:00.000Z",
-        "network": "ESPN+"
+        "network": "ESPN+",
+        "cfbdId": 401866411,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4904,7 +5612,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T02:00:00.000Z",
-        "network": "FS1"
+        "network": "FS1",
+        "cfbdId": 401864498,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4931,7 +5643,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T02:00:00.000Z",
-        "network": "FS1"
+        "network": "FS1",
+        "cfbdId": 401864498,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4958,7 +5674,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T02:30:00.000Z",
-        "network": "CBSSN"
+        "network": "CBSSN",
+        "cfbdId": 401864432,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -4985,7 +5705,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T02:30:00.000Z",
-        "network": "CBSSN"
+        "network": "CBSSN",
+        "cfbdId": 401864432,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -5012,7 +5736,11 @@
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T02:30:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401858210,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -5039,7 +5767,11 @@
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T02:30:00.000Z",
-        "network": "ESPN"
+        "network": "ESPN",
+        "cfbdId": 401858210,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -5066,7 +5798,11 @@
         "opponentRank": 19,
         "homeAway": "away",
         "when": "2026-09-06T20:00:00.000Z",
-        "network": "NBC"
+        "network": "NBC",
+        "cfbdId": 401858437,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -5093,7 +5829,11 @@
         "opponentRank": 5,
         "homeAway": "away",
         "when": "2026-09-06T23:30:00.000Z",
-        "network": "NBC"
+        "network": "NBC",
+        "cfbdId": 401858438,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     },
@@ -5120,7 +5860,11 @@
         "opponentRank": 10,
         "homeAway": "away",
         "when": "2026-09-06T23:30:00.000Z",
-        "network": "ABC"
+        "network": "ABC",
+        "cfbdId": 401856661,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
       },
       "bubbleNote": null
     }
@@ -5128,6 +5872,7 @@
   "games": [
     {
       "id": "2026-wk1-clemson-lsu",
+      "cfbdId": 401856660,
       "away": "clemson",
       "awayRank": 23,
       "home": "lsu",
@@ -5137,12 +5882,18 @@
       "ou": 50.5,
       "network": "ABC",
       "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
       "stakesScore": 6.2,
-      "blurb": "A top-25 opener in Baton Rouge, and the oddsmakers aren't treating it like a coin flip: No. 13 LSU is a 10.5-point favorite over No. 23 Clemson with the total sitting at a modest 50.5. Points may be at a premium in a game that could shape both playoff cases in September.",
+      "blurb": "No. 13 LSU opens with a heavyweight, laying 10.5 on No. 23 Clemson in a Week 1 matchup with a 50.5 total that suggests points will be at a premium. The loser starts the year with a résumé dent it can't fix in September.",
       "blurbSource": "llm"
     },
     {
       "id": "2026-wk1-washington-state-washington",
+      "cfbdId": 401858437,
       "away": "washington-state",
       "awayRank": null,
       "home": "washington",
@@ -5152,12 +5903,18 @@
       "ou": null,
       "network": "NBC",
       "rivalry": true,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
       "stakesScore": 4.87,
-      "blurb": "The Apple Cup is back on the Week 1 slate, but not as a toss-up: No. 19 Washington is favored by 21.5 at home. Washington State's job is to make the rivalry feel like one again.",
+      "blurb": "The Apple Cup returns with No. 19 Washington favored by 21.5 at home. Rivalry or not, the Huskies are being asked to look the part of a ranked team from the opening snap.",
       "blurbSource": "llm"
     },
     {
       "id": "2026-wk1-louisville-ole-miss",
+      "cfbdId": 401856661,
       "away": "louisville",
       "awayRank": null,
       "home": "ole-miss",
@@ -5167,12 +5924,18 @@
       "ou": 55.5,
       "network": "ABC",
       "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
       "stakesScore": 4.27,
-      "blurb": "Louisville heads to Oxford as a 6.5-point underdog against No. 10 Ole Miss, the tightest spread on any ranked-team opener here. With a total of 55.5, expect this one to be decided by whoever gets the last possession.",
+      "blurb": "Louisville heads to Oxford as a 6.5-point underdog against No. 10 Ole Miss, with a 55.5 total pointing to a shootout. A tighter spread than most top-10 openers, and the Rebels know it.",
       "blurbSource": "llm"
     },
     {
       "id": "2026-wk1-wisconsin-notre-dame",
+      "cfbdId": 401858438,
       "away": "wisconsin",
       "awayRank": null,
       "home": "notre-dame",
@@ -5182,12 +5945,18 @@
       "ou": 47.5,
       "network": "NBC",
       "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
       "stakesScore": 3.07,
-      "blurb": "No. 5 Notre Dame opens with a 20.5-point cushion over Wisconsin and a total of just 47.5 -- the market sees a grinder that the Irish still control. Style points matter for a team with playoff ambitions and no conference title to fall back on.",
+      "blurb": "No. 5 Notre Dame is a 20.5-point favorite over Wisconsin with the total sitting at just 47.5. The Irish are expected to win comfortably; the question is whether they do it with style points.",
       "blurbSource": "llm"
     },
     {
       "id": "2026-wk1-wyoming-colorado-state",
+      "cfbdId": 401860878,
       "away": "wyoming",
       "awayRank": null,
       "home": "colorado-state",
@@ -5197,12 +5966,18 @@
       "ou": null,
       "network": "USA Net",
       "rivalry": true,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
       "stakesScore": 3,
-      "blurb": "The Border War kicks off the weekend with Colorado State favored by just four at home. Neither side is ranked, but four points between rivals means bragging rights are genuinely up for grabs.",
+      "blurb": "The Border War kicks off the weekend with Colorado State favored by four at home. Four points in a rivalry game means nobody should be surprised by anything.",
       "blurbSource": "llm"
     },
     {
       "id": "2026-wk1-western-michigan-michigan",
+      "cfbdId": 401858428,
       "away": "western-michigan",
       "awayRank": null,
       "home": "michigan",
@@ -5212,8 +5987,13 @@
       "ou": null,
       "network": "NBC",
       "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
       "stakesScore": 2.58,
-      "blurb": "No. 16 Michigan is a 26.5-point favorite over Western Michigan in the Big House. This is a tune-up, and the only real question is how quickly the Wolverines put it away.",
+      "blurb": "No. 16 Michigan opens as a 26.5-point favorite over in-state visitor Western Michigan. A tune-up on paper, and the Wolverines will take it that way.",
       "blurbSource": "llm"
     }
   ],
@@ -5221,31 +6001,31 @@
     {
       "teamId": "texas",
       "score": 5.45,
-      "blurb": "Texas sits fourth in the poll while FPI slots the Longhorns at No. 2 -- the metrics think this SEC contender is being underrated at the top of the board.",
+      "blurb": "Texas checks in at No. 4 with FPI slotting the Longhorns even higher at No. 2 -- the metrics see a legitimate SEC and national title contender.",
       "blurbSource": "llm"
     },
     {
       "teamId": "texas-tech",
       "score": 5.45,
-      "blurb": "Texas Tech checks in at No. 12 with FPI a touch higher at No. 10, a rare case of poll and computer broadly agreeing on the Big 12 favorite.",
+      "blurb": "Texas Tech sits No. 12 in the poll and No. 10 in FPI, the rare Big 12 team the numbers and the voters largely agree on.",
       "blurbSource": "llm"
     },
     {
       "teamId": "michigan",
       "score": 5.23,
-      "blurb": "Michigan is No. 16 in the poll and No. 15 in FPI. Nobody's arguing about the Wolverines' place in the Big Ten pecking order just yet.",
+      "blurb": "Michigan lands at No. 16 with FPI a tick more bullish at No. 15 -- essentially a consensus read on the Wolverines as a solid but unproven Big Ten piece.",
       "blurbSource": "llm"
     },
     {
       "teamId": "byu",
       "score": 5.13,
-      "blurb": "BYU is the poll's No. 15 team but only 20th by FPI, the widest disconnect in this group. The Cougars will need results to settle the argument.",
+      "blurb": "BYU is No. 15 in the poll but only 20th in FPI, making the Cougars one of the more skeptically viewed ranked teams in the Big 12.",
       "blurbSource": "llm"
     },
     {
       "teamId": "lsu",
       "score": 4.9,
-      "blurb": "LSU ranks 13th in the poll and ninth in FPI, and a Week 1 date with Clemson is a fast chance to prove the computers right.",
+      "blurb": "LSU opens at No. 13 while FPI has the Tigers up at No. 9 -- the analytics think there's room to climb, starting Week 1.",
       "blurbSource": "llm"
     }
   ],
@@ -5260,7 +6040,7 @@
       "chaserRank": 2,
       "gap": 1,
       "score": 9,
-      "blurb": "The Big Ten's automatic bid is a two-team argument: No. 1 Ohio State and No. 2 Oregon are separated by a single spot in the field. There's no margin for either one.",
+      "blurb": "The Big Ten's automatic bid is a two-team argument: No. 1 Ohio State and No. 2 Oregon are separated by a single spot, so the league's playoff path likely runs through whichever of them blinks first.",
       "blurbSource": "llm"
     },
     {
@@ -5273,7 +6053,7 @@
       "chaserRank": 4,
       "gap": 1,
       "score": 9,
-      "blurb": "Georgia holds the SEC's auto bid at No. 3 with Texas breathing down its neck at No. 4. One slip from the Bulldogs flips the league's playoff pecking order.",
+      "blurb": "Georgia holds the SEC's auto-bid position at No. 3 with Texas breathing down its neck at No. 4. One slip from the Bulldogs and the Longhorns are ready to take it.",
       "blurbSource": "llm"
     },
     {
@@ -5286,7 +6066,7 @@
       "chaserRank": 15,
       "gap": 3,
       "score": 7,
-      "blurb": "Texas Tech leads the Big 12 at No. 12 with BYU three spots back at No. 15 -- the widest leader-chaser gap among the power leagues, but hardly a settled race.",
+      "blurb": "Texas Tech leads the Big 12 race at No. 12 with BYU three spots back at No. 15 -- a real gap, but not a comfortable one over a full season.",
       "blurbSource": "llm"
     }
   ]
