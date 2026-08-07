@@ -56,6 +56,10 @@ export default function Layout() {
     const pageTitle = `CFB HQ — ${titleFor(location.pathname)}`;
     document.title = pageTitle;
     trackPageview(location.pathname, pageTitle);
+    // React Router doesn't scroll on navigation the way a traditional multi-page site does --
+    // without this, landing on a new tab/page keeps whatever scroll position the previous page
+    // was left at.
+    window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return (
