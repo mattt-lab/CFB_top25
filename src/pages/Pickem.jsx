@@ -92,12 +92,14 @@ export default function Pickem() {
           const { opponent } = nextGameParts(t.nextGame);
           return (
             <div key={id} className="pickem-row">
-              <span className="rk tabnum">{i + 1}</span>
-              <span className={`delta-badge ${dirFor(move)}`}>{deltaLabel(move)}</span>
-              <span className="info">
-                {/* No logo yet -- TeamMark slots in right before this Link in a follow-up. */}
-                <Link className="nm" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
-                {opponent && <span className="opp">{opponent}</span>}
+              <span className="pickem-head">
+                <span className="rk tabnum">{i + 1}</span>
+                <span className={`delta-badge ${dirFor(move)}`}>{deltaLabel(move)}</span>
+                <span className="info">
+                  {/* No logo yet -- TeamMark slots in right before this Link in a follow-up. */}
+                  <Link className="nm" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
+                  {opponent && <span className="opp">{opponent}</span>}
+                </span>
               </span>
               {t.nextGame ? (
                 <span className="pick-chips" role="group" aria-label={`Call ${t.name}'s game`}>

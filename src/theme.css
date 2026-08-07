@@ -60,6 +60,15 @@ body {
    rules below (e.g. .chip, .row-link) can still override this where a tighter fit is wanted. */
 a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
+/* Header+nav are wrapped in this single sticky container (see Layout.jsx) rather than made
+   sticky independently -- .header's height varies (it wraps to 2 lines at some widths when the
+   week-select appears), so a hardcoded top offset on .nav would be fragile. Sticking wasn't just
+   a nice-to-have: on the longest page (Top25Tracker, which scrolls well past the fold to show
+   all 25 rows), reaching a non-sticky nav bar requires a scroll-back-to-top gesture before every
+   tap -- confirmed live as the exact trigger for a real iOS Safari mis-tap bug, where a fast
+   scroll-to-top-then-tap could register against page content still settling into place instead
+   of the nav link. Sticky removes that scroll-then-tap step entirely. */
+.site-header { position: sticky; top: 0; z-index: 20; }
 .header {
   background: var(--panel-2);
   border-bottom: 1px solid var(--border);
@@ -123,7 +132,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 
 /* Pick 'em (styled off the .toggle-btn small-pill convention; rows echo .bubble-row) */
 .pickem-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
-.pickem-row { display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; flex-wrap: wrap; }
+/* Column layout, not a single wrapping row: the head line (rank/badge/team/opponent) and the
+   chip row are deliberately separate lines, always -- not just a narrow-viewport fallback. That
+   keeps the badge glued to the team name (never orphaned onto its own line the way flex-wrap on
+   a single row could strand it) and puts real vertical distance before the tap targets, so a
+   thumb reaching for a chip doesn't land on the name link above it. */
+.pickem-row { display: flex; flex-direction: column; gap: 8px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; }
+.pickem-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .pickem-row .rk { font-weight: 800; font-size: 14px; width: 22px; flex: none; }
 /* .delta-badge's base margin-bottom (built for the team-detail hero) misaligns it in a flex row;
    fixed min-width so ▲10 vs — don't ragged-edge the team names below each other. */
@@ -134,14 +149,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .pickem-row .opp { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
 .pickem-row .bye { font-size: 11.5px; font-weight: 700; color: var(--muted); padding: 4px 9px; flex: none; }
 .pick-chips { display: flex; gap: 6px; flex-wrap: wrap; flex: none; }
-.pick-chip { font-size: 11px; font-weight: 700; color: var(--ink-2); background: none; border: 1px solid var(--border); border-radius: 999px; padding: 4px 9px; cursor: pointer; font-family: inherit; white-space: nowrap; }
+.pick-chip { font-size: 11px; font-weight: 700; color: var(--ink-2); background: none; border: 1px solid var(--border); border-radius: 999px; padding: 6px 10px; cursor: pointer; font-family: inherit; white-space: nowrap; }
 .pick-chip:hover { border-color: var(--accent); color: var(--ink-1); }
 .pick-chip.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .pick-chip .short { display: none; }
-/* Narrow phones: chips drop to their own full-width line under the team info, and the two
-   "Blowout" labels abbreviate so four chips fit a 375px viewport without horizontal overflow. */
+/* Narrow phones: the two "Blowout" labels abbreviate so four chips fit a 375px viewport without
+   horizontal overflow. */
 @media (max-width: 480px) {
-  .pickem-row .info { flex-basis: 100%; }
   .pick-chip .long { display: none; }
   .pick-chip .short { display: inline; }
 }

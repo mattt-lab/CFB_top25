@@ -60,45 +60,47 @@ export default function Layout() {
 
   return (
     <div>
-      <header className="header">
-        <NavLink to="/" className="wordmark">
-          <span className="dot" />CFB&nbsp;HQ
-        </NavLink>
-        <div className="week">
-          {SEASON} season
-          {LAST_UPDATED && <span> · Data as of {formatLastUpdated(LAST_UPDATED)}</span>}
-        </div>
-        {showWeekTravel && (
-          <select
-            className="week-select"
-            value={weekIdx}
-            onChange={(e) => setWeekIdx(+e.target.value)}
-            aria-label="Time travel: view a past week's Top 25 & bracket snapshot"
-            title="Time travel: view a past week's Top 25 & bracket snapshot (team pages always show the full season)"
-          >
-            {WEEK_OPTIONS.map((w) => (
-              <option key={w} value={w}>
-                Week {w + 1}{w === WEEK_IDX_MAX ? ' (latest)' : ''}
-              </option>
-            ))}
-          </select>
-        )}
-      </header>
-      <nav className="nav">
-        <NavLink to="/" end className={({ isActive }) => (isActive ? 'active' : '')}>
-          Top 25 Tracker
-        </NavLink>
-        <NavLink to="/conferences" className={({ isActive }) => (isActive ? 'active' : '')}>
-          Conferences
-        </NavLink>
-        <NavLink to="/pickem" className={({ isActive }) => (isActive ? 'active' : '')}>
-          Top 25 Pick 'em
-        </NavLink>
-        {/* Playoff Watch stays LAST in the nav (user rule) -- new tabs go before it. */}
-        <NavLink to="/playoff-watch" className={({ isActive }) => (isActive ? 'active' : '')}>
-          Playoff Watch
-        </NavLink>
-      </nav>
+      <div className="site-header">
+        <header className="header">
+          <NavLink to="/" className="wordmark">
+            <span className="dot" />CFB&nbsp;HQ
+          </NavLink>
+          <div className="week">
+            {SEASON} season
+            {LAST_UPDATED && <span> · Data as of {formatLastUpdated(LAST_UPDATED)}</span>}
+          </div>
+          {showWeekTravel && (
+            <select
+              className="week-select"
+              value={weekIdx}
+              onChange={(e) => setWeekIdx(+e.target.value)}
+              aria-label="Time travel: view a past week's Top 25 & bracket snapshot"
+              title="Time travel: view a past week's Top 25 & bracket snapshot (team pages always show the full season)"
+            >
+              {WEEK_OPTIONS.map((w) => (
+                <option key={w} value={w}>
+                  Week {w + 1}{w === WEEK_IDX_MAX ? ' (latest)' : ''}
+                </option>
+              ))}
+            </select>
+          )}
+        </header>
+        <nav className="nav">
+          <NavLink to="/" end className={({ isActive }) => (isActive ? 'active' : '')}>
+            Top 25 Tracker
+          </NavLink>
+          <NavLink to="/conferences" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Conferences
+          </NavLink>
+          <NavLink to="/pickem" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Top 25 Pick 'em
+          </NavLink>
+          {/* Playoff Watch stays LAST in the nav (user rule) -- new tabs go before it. */}
+          <NavLink to="/playoff-watch" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Playoff Watch
+          </NavLink>
+        </nav>
+      </div>
       <div className="wrap">
         {showWeekTravel && weekIdx !== WEEK_IDX_MAX && (
           <div className="hist-banner">
