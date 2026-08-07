@@ -99,7 +99,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "oregon": {
       "name": "Oregon",
@@ -130,7 +131,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "georgia": {
       "name": "Georgia",
@@ -161,7 +163,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "texas": {
       "name": "Texas",
@@ -192,7 +195,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "notre-dame": {
       "name": "Notre Dame",
@@ -223,7 +227,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "indiana": {
       "name": "Indiana",
@@ -254,7 +259,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "miami": {
       "name": "Miami",
@@ -285,7 +291,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "texas-a-m": {
       "name": "Texas A&M",
@@ -316,7 +323,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "oklahoma": {
       "name": "Oklahoma",
@@ -347,7 +355,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "ole-miss": {
       "name": "Ole Miss",
@@ -378,7 +387,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "alabama": {
       "name": "Alabama",
@@ -409,6 +419,15 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
+      },
+      "bubbleNote": {
+        "seed": 13,
+        "spotsFromField": 1,
+        "movedUp": 0,
+        "trendScore": 0.45,
+        "nextOpponentRank": null,
+        "blurb": "Alabama is the first team out at the 13 seed, one spot from the field. The Tide are close enough that a single result anywhere above them could change everything.",
+        "blurbSource": "llm"
       }
     },
     "texas-tech": {
@@ -440,7 +459,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "lsu": {
       "name": "LSU",
@@ -471,6 +491,15 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
+      },
+      "bubbleNote": {
+        "seed": 14,
+        "spotsFromField": 2,
+        "movedUp": 0,
+        "trendScore": 0.6,
+        "nextOpponentRank": 23,
+        "blurb": "LSU sits at 14, two spots from the bracket, and gets an immediate chance to move: No. 23 Clemson comes to Baton Rouge next. Beat a ranked team at home and the Tigers jump the line in a hurry.",
+        "blurbSource": "llm"
       }
     },
     "usc": {
@@ -502,6 +531,15 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
+      },
+      "bubbleNote": {
+        "seed": 15,
+        "spotsFromField": 3,
+        "movedUp": 0,
+        "trendScore": 0.15,
+        "nextOpponentRank": null,
+        "blurb": "USC holds the 15 seed, three spots outside the field. The Trojans need both results and help to climb into the picture.",
+        "blurbSource": "llm"
       }
     },
     "byu": {
@@ -533,6 +571,15 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
+      },
+      "bubbleNote": {
+        "seed": 16,
+        "spotsFromField": 4,
+        "movedUp": 0,
+        "trendScore": 0.75,
+        "nextOpponentRank": null,
+        "blurb": "BYU anchors the bubble at 16, four spots from the field and the furthest back of the four teams on the outside. There's ground to make up and not much room to slip.",
+        "blurbSource": "llm"
       }
     },
     "michigan": {
@@ -564,7 +611,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "penn-state": {
       "name": "Penn State",
@@ -595,7 +643,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "tennessee": {
       "name": "Tennessee",
@@ -626,7 +675,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "washington": {
       "name": "Washington",
@@ -657,7 +707,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "smu": {
       "name": "SMU",
@@ -688,7 +739,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "utah": {
       "name": "Utah",
@@ -719,7 +771,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "iowa": {
       "name": "Iowa",
@@ -750,7 +803,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "clemson": {
       "name": "Clemson",
@@ -781,7 +835,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "houston": {
       "name": "Houston",
@@ -812,7 +867,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "missouri": {
       "name": "Missouri",
@@ -843,7 +899,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "north-carolina": {
       "name": "North Carolina",
@@ -874,7 +931,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "tcu": {
       "name": "TCU",
@@ -905,7 +963,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "san-jose-state": {
       "name": "San José State",
@@ -936,7 +995,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "nc-state": {
       "name": "NC State",
@@ -967,7 +1027,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "virginia": {
       "name": "Virginia",
@@ -998,7 +1059,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "jacksonville-state": {
       "name": "Jacksonville State",
@@ -1029,7 +1091,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "north-dakota-state": {
       "name": "North Dakota State",
@@ -1060,7 +1123,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "sacramento-state": {
       "name": "Sacramento State",
@@ -1091,7 +1155,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "eastern-michigan": {
       "name": "Eastern Michigan",
@@ -1122,7 +1187,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "hawai-i": {
       "name": "Hawai'i",
@@ -1153,7 +1219,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "stanford": {
       "name": "Stanford",
@@ -1184,7 +1251,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "new-mexico-state": {
       "name": "New Mexico State",
@@ -1215,7 +1283,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "florida-state": {
       "name": "Florida State",
@@ -1246,7 +1315,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "memphis": {
       "name": "Memphis",
@@ -1277,7 +1347,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "unlv": {
       "name": "UNLV",
@@ -1308,7 +1379,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "massachusetts": {
       "name": "Massachusetts",
@@ -1339,7 +1411,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "rutgers": {
       "name": "Rutgers",
@@ -1370,7 +1443,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "ualbany": {
       "name": "UAlbany",
@@ -1401,7 +1475,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "buffalo": {
       "name": "Buffalo",
@@ -1432,7 +1507,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "west-georgia": {
       "name": "West Georgia",
@@ -1463,7 +1539,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "kennesaw-state": {
       "name": "Kennesaw State",
@@ -1494,7 +1571,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "bethune-cookman": {
       "name": "Bethune-Cookman",
@@ -1525,7 +1603,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "ucf": {
       "name": "UCF",
@@ -1556,7 +1635,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "merrimack": {
       "name": "Merrimack",
@@ -1587,7 +1667,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "delaware": {
       "name": "Delaware",
@@ -1618,7 +1699,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "akron": {
       "name": "Akron",
@@ -1649,7 +1731,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "wake-forest": {
       "name": "Wake Forest",
@@ -1680,7 +1763,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "arkansas-pine-bluff": {
       "name": "Arkansas-Pine Bluff",
@@ -1711,7 +1795,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "colorado": {
       "name": "Colorado",
@@ -1742,7 +1827,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "georgia-tech": {
       "name": "Georgia Tech",
@@ -1773,7 +1859,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "eastern-illinois": {
       "name": "Eastern Illinois",
@@ -1804,7 +1891,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "minnesota": {
       "name": "Minnesota",
@@ -1835,7 +1923,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "uab": {
       "name": "UAB",
@@ -1866,7 +1955,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "illinois": {
       "name": "Illinois",
@@ -1897,7 +1987,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "idaho": {
       "name": "Idaho",
@@ -1928,7 +2019,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "north-carolina-a-t": {
       "name": "North Carolina A&T",
@@ -1959,7 +2051,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "georgia-state": {
       "name": "Georgia State",
@@ -1990,7 +2083,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "indiana-state": {
       "name": "Indiana State",
@@ -2021,7 +2115,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "purdue": {
       "name": "Purdue",
@@ -2052,7 +2147,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "long-island-university": {
       "name": "Long Island University",
@@ -2083,7 +2179,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "kansas": {
       "name": "Kansas",
@@ -2114,7 +2211,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "utep": {
       "name": "UTEP",
@@ -2145,7 +2243,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "toledo": {
       "name": "Toledo",
@@ -2176,7 +2275,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "michigan-state": {
       "name": "Michigan State",
@@ -2207,7 +2307,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "fresno-state": {
       "name": "Fresno State",
@@ -2238,7 +2339,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "liberty": {
       "name": "Liberty",
@@ -2269,7 +2371,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "james-madison": {
       "name": "James Madison",
@@ -2300,7 +2403,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "coastal-carolina": {
       "name": "Coastal Carolina",
@@ -2331,7 +2435,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "west-virginia": {
       "name": "West Virginia",
@@ -2362,7 +2467,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "ohio": {
       "name": "Ohio",
@@ -2393,7 +2499,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "nebraska": {
       "name": "Nebraska",
@@ -2424,7 +2531,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "tarleton-state": {
       "name": "Tarleton State",
@@ -2455,7 +2563,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "bowling-green": {
       "name": "Bowling Green",
@@ -2486,7 +2595,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "oregon-state": {
       "name": "Oregon State",
@@ -2517,7 +2627,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "lafayette": {
       "name": "Lafayette",
@@ -2548,7 +2659,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "uconn": {
       "name": "UConn",
@@ -2579,7 +2691,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "miami-oh": {
       "name": "Miami (OH)",
@@ -2610,7 +2723,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "pittsburgh": {
       "name": "Pittsburgh",
@@ -2641,7 +2755,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "east-carolina": {
       "name": "East Carolina",
@@ -2672,7 +2787,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "north-texas": {
       "name": "North Texas",
@@ -2703,7 +2819,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "bryant": {
       "name": "Bryant",
@@ -2734,7 +2851,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "army": {
       "name": "Army",
@@ -2765,7 +2883,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "new-hampshire": {
       "name": "New Hampshire",
@@ -2796,7 +2915,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "syracuse": {
       "name": "Syracuse",
@@ -2827,7 +2947,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "ball-state": {
       "name": "Ball State",
@@ -2858,7 +2979,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "kent-state": {
       "name": "Kent State",
@@ -2889,7 +3011,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "south-carolina": {
       "name": "South Carolina",
@@ -2920,7 +3043,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "duquesne": {
       "name": "Duquesne",
@@ -2951,7 +3075,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "air-force": {
       "name": "Air Force",
@@ -2982,7 +3107,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "youngstown-state": {
       "name": "Youngstown State",
@@ -3013,7 +3139,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "kentucky": {
       "name": "Kentucky",
@@ -3044,7 +3171,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "southeast-missouri-state": {
       "name": "Southeast Missouri State",
@@ -3075,7 +3203,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "iowa-state": {
       "name": "Iowa State",
@@ -3106,7 +3235,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "rhode-island": {
       "name": "Rhode Island",
@@ -3137,7 +3267,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "temple": {
       "name": "Temple",
@@ -3168,7 +3299,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "tennessee-state": {
       "name": "Tennessee State",
@@ -3199,7 +3331,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "marshall": {
       "name": "Marshall",
@@ -3230,7 +3363,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "furman": {
       "name": "Furman",
@@ -3261,7 +3395,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "maine": {
       "name": "Maine",
@@ -3292,7 +3427,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "app-state": {
       "name": "App State",
@@ -3323,7 +3459,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "baylor": {
       "name": "Baylor",
@@ -3354,7 +3491,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "auburn": {
       "name": "Auburn",
@@ -3385,7 +3523,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "texas-state": {
       "name": "Texas State",
@@ -3416,7 +3555,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "fordham": {
       "name": "Fordham",
@@ -3447,7 +3587,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "tulane": {
       "name": "Tulane",
@@ -3478,7 +3619,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "duke": {
       "name": "Duke",
@@ -3509,7 +3651,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "towson": {
       "name": "Towson",
@@ -3540,7 +3683,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "navy": {
       "name": "Navy",
@@ -3571,7 +3715,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "boise-state": {
       "name": "Boise State",
@@ -3602,7 +3747,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "boston-college": {
       "name": "Boston College",
@@ -3633,7 +3779,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "cincinnati": {
       "name": "Cincinnati",
@@ -3664,7 +3811,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "ut-rio-grande-valley": {
       "name": "UT Rio Grande Valley",
@@ -3695,7 +3843,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "utsa": {
       "name": "UTSA",
@@ -3726,7 +3875,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "the-citadel": {
       "name": "The Citadel",
@@ -3757,7 +3907,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "charlotte": {
       "name": "Charlotte",
@@ -3788,7 +3939,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "oklahoma-state": {
       "name": "Oklahoma State",
@@ -3819,7 +3971,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "tulsa": {
       "name": "Tulsa",
@@ -3850,7 +4003,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "northern-illinois": {
       "name": "Northern Illinois",
@@ -3881,7 +4035,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "north-alabama": {
       "name": "North Alabama",
@@ -3912,7 +4067,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "arkansas": {
       "name": "Arkansas",
@@ -3943,7 +4099,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "alcorn-state": {
       "name": "Alcorn State",
@@ -3974,7 +4131,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "southern-miss": {
       "name": "Southern Miss",
@@ -4005,7 +4163,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "norfolk-state": {
       "name": "Norfolk State",
@@ -4036,7 +4195,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "old-dominion": {
       "name": "Old Dominion",
@@ -4067,7 +4227,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "wyoming": {
       "name": "Wyoming",
@@ -4098,7 +4259,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "colorado-state": {
       "name": "Colorado State",
@@ -4129,7 +4291,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "sam-houston": {
       "name": "Sam Houston",
@@ -4160,7 +4323,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "troy": {
       "name": "Troy",
@@ -4191,7 +4355,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "houston-christian": {
       "name": "Houston Christian",
@@ -4222,7 +4387,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "rice": {
       "name": "Rice",
@@ -4253,7 +4419,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "abilene-christian": {
       "name": "Abilene Christian",
@@ -4284,7 +4451,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "se-louisiana": {
       "name": "SE Louisiana",
@@ -4315,7 +4483,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "south-alabama": {
       "name": "South Alabama",
@@ -4346,7 +4515,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "missouri-state": {
       "name": "Missouri State",
@@ -4377,7 +4547,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "austin-peay": {
       "name": "Austin Peay",
@@ -4408,7 +4579,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "vanderbilt": {
       "name": "Vanderbilt",
@@ -4439,7 +4611,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "nicholls": {
       "name": "Nicholls",
@@ -4470,7 +4643,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "kansas-state": {
       "name": "Kansas State",
@@ -4501,7 +4675,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "idaho-state": {
       "name": "Idaho State",
@@ -4532,7 +4707,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "utah-state": {
       "name": "Utah State",
@@ -4563,7 +4739,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "arkansas-state": {
       "name": "Arkansas State",
@@ -4594,7 +4771,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "florida-international": {
       "name": "Florida International",
@@ -4625,7 +4803,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "south-florida": {
       "name": "South Florida",
@@ -4656,7 +4835,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "eastern-kentucky": {
       "name": "Eastern Kentucky",
@@ -4687,7 +4867,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "charleston-southern": {
       "name": "Charleston Southern",
@@ -4718,7 +4899,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "georgia-southern": {
       "name": "Georgia Southern",
@@ -4749,7 +4931,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "murray-state": {
       "name": "Murray State",
@@ -4780,7 +4963,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "middle-tennessee": {
       "name": "Middle Tennessee",
@@ -4811,7 +4995,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "western-michigan": {
       "name": "Western Michigan",
@@ -4842,7 +5027,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "northwestern-state": {
       "name": "Northwestern State",
@@ -4873,7 +5059,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "louisiana-tech": {
       "name": "Louisiana Tech",
@@ -4904,7 +5091,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "vmi": {
       "name": "VMI",
@@ -4935,7 +5123,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "virginia-tech": {
       "name": "Virginia Tech",
@@ -4966,7 +5155,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "ul-monroe": {
       "name": "UL Monroe",
@@ -4997,7 +5187,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "mississippi-state": {
       "name": "Mississippi State",
@@ -5028,7 +5219,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "florida-atlantic": {
       "name": "Florida Atlantic",
@@ -5059,7 +5251,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "florida": {
       "name": "Florida",
@@ -5090,7 +5283,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "hampton": {
       "name": "Hampton",
@@ -5121,7 +5315,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "maryland": {
       "name": "Maryland",
@@ -5152,7 +5347,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "south-dakota-state": {
       "name": "South Dakota State",
@@ -5183,7 +5379,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "northwestern": {
       "name": "Northwestern",
@@ -5214,7 +5411,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "utah-tech": {
       "name": "Utah Tech",
@@ -5245,7 +5443,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "lamar": {
       "name": "Lamar",
@@ -5276,7 +5475,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "louisiana": {
       "name": "Louisiana",
@@ -5307,7 +5507,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "mercyhurst": {
       "name": "Mercyhurst",
@@ -5338,7 +5539,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "morgan-state": {
       "name": "Morgan State",
@@ -5369,7 +5571,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "arizona-state": {
       "name": "Arizona State",
@@ -5400,7 +5603,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "northern-arizona": {
       "name": "Northern Arizona",
@@ -5431,7 +5635,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "arizona": {
       "name": "Arizona",
@@ -5462,7 +5667,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "portland-state": {
       "name": "Portland State",
@@ -5493,7 +5699,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "san-diego-state": {
       "name": "San Diego State",
@@ -5524,7 +5731,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "mississippi-valley-state": {
       "name": "Mississippi Valley State",
@@ -5555,7 +5763,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "central-michigan": {
       "name": "Central Michigan",
@@ -5586,7 +5795,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "new-mexico": {
       "name": "New Mexico",
@@ -5617,7 +5827,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "western-kentucky": {
       "name": "Western Kentucky",
@@ -5648,7 +5859,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "nevada": {
       "name": "Nevada",
@@ -5679,7 +5891,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "ucla": {
       "name": "UCLA",
@@ -5710,7 +5923,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "california": {
       "name": "California",
@@ -5741,7 +5955,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "washington-state": {
       "name": "Washington State",
@@ -5772,7 +5987,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "louisville": {
       "name": "Louisville",
@@ -5803,7 +6019,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     },
     "wisconsin": {
       "name": "Wisconsin",
@@ -5834,7 +6051,8 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      }
+      },
+      "bubbleNote": null
     }
   },
   "allGames": [
@@ -7918,6 +8136,205 @@
       "blurbSource": null
     }
   ],
-  "games": [],
-  "predictions": []
+  "games": [
+    {
+      "id": "2026-wk1-clemson-lsu",
+      "cfbdId": 401856660,
+      "away": "clemson",
+      "awayRank": 23,
+      "home": "lsu",
+      "homeRank": 13,
+      "when": "2026-09-05T23:30:00.000Z",
+      "spread": "LSU -10.5",
+      "ou": 50.5,
+      "network": "ABC",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": 6.2,
+      "blurb": "No. 23 Clemson opens the season in Baton Rouge as a 10.5-point underdog to No. 13 LSU, with a 50.5 total suggesting the sportsbooks expect defenses and field position to decide it. A Week 1 win here would immediately reshape both teams' at-large math.",
+      "blurbSource": "llm"
+    },
+    {
+      "id": "2026-wk1-washington-state-washington",
+      "cfbdId": 401858437,
+      "away": "washington-state",
+      "awayRank": null,
+      "home": "washington",
+      "homeRank": 19,
+      "when": "2026-09-06T20:00:00.000Z",
+      "spread": "Washington -21.5",
+      "ou": null,
+      "network": "NBC",
+      "rivalry": true,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": 4.87,
+      "blurb": "The Apple Cup returns with No. 19 Washington a 21.5-point favorite at home. Rivalry games rarely respect the number, but the Huskies can't afford a Week 1 stumble against an unranked Washington State.",
+      "blurbSource": "llm"
+    },
+    {
+      "id": "2026-wk1-louisville-ole-miss",
+      "cfbdId": 401856661,
+      "away": "louisville",
+      "awayRank": null,
+      "home": "ole-miss",
+      "homeRank": 10,
+      "when": "2026-09-06T23:30:00.000Z",
+      "spread": "Ole Miss -6.5",
+      "ou": 55.5,
+      "network": "ABC",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": 4.27,
+      "blurb": "Louisville heads to Oxford as a 6.5-point underdog against No. 10 Ole Miss, and the 55.5 total says points shouldn't be hard to come by. It's the kind of quality non-conference test that either validates the Rebels' ranking or dents it right away.",
+      "blurbSource": "llm"
+    },
+    {
+      "id": "2026-wk1-wisconsin-notre-dame",
+      "cfbdId": 401858438,
+      "away": "wisconsin",
+      "awayRank": null,
+      "home": "notre-dame",
+      "homeRank": 5,
+      "when": "2026-09-06T23:30:00.000Z",
+      "spread": "Notre Dame -20.5",
+      "ou": 47.5,
+      "network": "NBC",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": 3.07,
+      "blurb": "No. 5 Notre Dame hosts Wisconsin as a 20.5-point favorite with a modest 47.5 total. The Irish have no margin for error in a playoff résumé built without a conference title, so style points matter.",
+      "blurbSource": "llm"
+    },
+    {
+      "id": "2026-wk1-wyoming-colorado-state",
+      "cfbdId": 401860878,
+      "away": "wyoming",
+      "awayRank": null,
+      "home": "colorado-state",
+      "homeRank": null,
+      "when": "2026-09-05T22:00:00.000Z",
+      "spread": "Colorado State -4",
+      "ou": null,
+      "network": "USA Net",
+      "rivalry": true,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": 3,
+      "blurb": "The Border War kicks off the season with Colorado State favored by just four at home. A four-point line in a rivalry game is another way of saying nobody has any idea.",
+      "blurbSource": "llm"
+    },
+    {
+      "id": "2026-wk1-western-michigan-michigan",
+      "cfbdId": 401858428,
+      "away": "western-michigan",
+      "awayRank": null,
+      "home": "michigan",
+      "homeRank": 16,
+      "when": "2026-09-05T23:30:00.000Z",
+      "spread": "Michigan -26.5",
+      "ou": null,
+      "network": "NBC",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": 2.58,
+      "blurb": "No. 16 Michigan opens at home as a 26.5-point favorite over Western Michigan. This is a tune-up, but the Wolverines are close enough to the bubble that how they look matters as much as whether they win.",
+      "blurbSource": "llm"
+    }
+  ],
+  "predictions": [
+    {
+      "teamId": "texas",
+      "score": 5.45,
+      "blurb": "Texas checks in at No. 4 and FPI is even higher on the Longhorns, slotting them second nationally. In a loaded SEC, the metrics say the ceiling is a title.",
+      "blurbSource": "llm"
+    },
+    {
+      "teamId": "texas-tech",
+      "score": 5.45,
+      "blurb": "Texas Tech sits 12th in the rankings and 10th in FPI, a rare case of the numbers and the voters more or less agreeing. The Red Raiders are the Big 12's front-runner heading in.",
+      "blurbSource": "llm"
+    },
+    {
+      "teamId": "michigan",
+      "score": 5.23,
+      "blurb": "Michigan opens 16th with FPI a tick more optimistic at 15th. Nothing about that profile is settled — the Wolverines' season will be decided by what they do in Big Ten play.",
+      "blurbSource": "llm"
+    },
+    {
+      "teamId": "byu",
+      "score": 5.13,
+      "blurb": "BYU is ranked 15th but FPI is more skeptical at 20th, the widest gap in this group. The Cougars will have to prove the ranking is the honest number.",
+      "blurbSource": "llm"
+    },
+    {
+      "teamId": "lsu",
+      "score": 4.9,
+      "blurb": "LSU comes in 13th while FPI likes the Tigers at ninth. If the metrics are right, LSU is undervalued heading into a Week 1 opener with real stakes.",
+      "blurbSource": "llm"
+    }
+  ],
+  "fieldStorylines": [
+    {
+      "id": "conf-race-big-ten",
+      "type": "conf-race-gap",
+      "conf": "Big Ten",
+      "leaderId": "ohio-state",
+      "leaderRank": 1,
+      "chaserId": "oregon",
+      "chaserRank": 2,
+      "gap": 1,
+      "score": 9,
+      "blurb": "The Big Ten's automatic bid is a two-horse race in the tightest possible terms: No. 1 Ohio State leads with No. 2 Oregon a single spot behind. One loss by either flips the entire league picture.",
+      "blurbSource": "llm"
+    },
+    {
+      "id": "conf-race-sec",
+      "type": "conf-race-gap",
+      "conf": "SEC",
+      "leaderId": "georgia",
+      "leaderRank": 3,
+      "chaserId": "texas",
+      "chaserRank": 4,
+      "gap": 1,
+      "score": 9,
+      "blurb": "Georgia holds the SEC's auto-bid position at No. 3 with Texas breathing down its neck at No. 4. A one-spot gap means the Bulldogs have zero cushion.",
+      "blurbSource": "llm"
+    },
+    {
+      "id": "conf-race-big-12",
+      "type": "conf-race-gap",
+      "conf": "Big 12",
+      "leaderId": "texas-tech",
+      "leaderRank": 12,
+      "chaserId": "byu",
+      "chaserRank": 15,
+      "gap": 3,
+      "score": 7,
+      "blurb": "Texas Tech (No. 12) leads the Big 12 race with BYU (No. 15) three spots back — the widest of the three major-conference gaps. The Cougars need help, or a head-to-head chance, to close it.",
+      "blurbSource": "llm"
+    }
+  ]
 }
