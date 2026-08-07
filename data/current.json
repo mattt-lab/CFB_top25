@@ -3,7 +3,7 @@
     "season": 2026,
     "currentWeek": 1,
     "currentPrimarySource": "coaches",
-    "lastUpdated": "2026-08-06T17:39:42.976Z",
+    "lastUpdated": "2026-08-07T14:15:40.287Z",
     "weeksAvailable": [
       1
     ]
@@ -415,7 +415,7 @@
         "movedUp": 0,
         "trendScore": 0.45,
         "nextOpponentRank": null,
-        "blurb": "Alabama sits at the 13 seed, one spot from being inside the field — the closest of the four bubble teams. The Tide are essentially one result from bracket position.",
+        "blurb": "Alabama is the first team out at the 13 seed, one spot from the field. The Tide don't need much -- just someone ahead of them to blink.",
         "blurbSource": "llm"
       }
     },
@@ -485,7 +485,7 @@
         "movedUp": 0,
         "trendScore": 0.6,
         "nextOpponentRank": 23,
-        "blurb": "LSU holds the 14 seed, two spots outside the field, and draws No. 23 Clemson next. Beating a ranked team in Week 1 is exactly the kind of push a team on the bubble needs.",
+        "blurb": "LSU sits 14th, two spots outside the field, and gets an immediate chance to move: No. 23 Clemson comes to Baton Rouge. Win that and the bubble talk quiets in a hurry.",
         "blurbSource": "llm"
       }
     },
@@ -524,7 +524,7 @@
         "movedUp": 0,
         "trendScore": 0.15,
         "nextOpponentRank": null,
-        "blurb": "USC checks in at the 15 seed, three spots from the field. The Trojans have ground to make up and no cushion to lose.",
+        "blurb": "USC holds the 15 seed, three spots from the cut line. The Trojans have work to do and no signature win yet to lean on.",
         "blurbSource": "llm"
       }
     },
@@ -563,7 +563,7 @@
         "movedUp": 0,
         "trendScore": 0.75,
         "nextOpponentRank": null,
-        "blurb": "BYU is the last team on the board at the 16 seed, four spots outside the field. The Cougars are hanging on and will need help — or a signature win — to climb.",
+        "blurb": "BYU is last among the bubble four at the 16 seed, four spots from the field. The Cougars are in the conversation but firmly at the back of it.",
         "blurbSource": "llm"
       }
     },
@@ -7969,7 +7969,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 6.2,
-      "blurb": "No. 13 LSU opens as a 10.5-point favorite over No. 23 Clemson in Baton Rouge, with a 50.5 total pointing to a defensive night. A top-25 win in Week 1 is the kind of résumé line either side can lean on all season.",
+      "blurb": "No. 13 LSU opens as a 10.5-point favorite over No. 23 Clemson in the marquee game of the weekend, with a 50.5 total pointing to a defensive slugfest. A ranked non-conference win here is the kind of résumé line that survives all the way to December.",
       "blurbSource": "llm"
     },
     {
@@ -7990,7 +7990,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 4.87,
-      "blurb": "The Apple Cup returns with No. 19 Washington installed as a 21.5-point favorite at home. Rivalry math says close, the number says otherwise, and the Huskies can't afford a slip in their opener.",
+      "blurb": "The Apple Cup returns with No. 19 Washington favored by 21.5 at home over Washington State. Rivalry games rarely respect the number, but the Huskies are being asked to look the part of a ranked team from the jump.",
       "blurbSource": "llm"
     },
     {
@@ -8011,7 +8011,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 4.27,
-      "blurb": "No. 10 Ole Miss is only a 6.5-point favorite against Louisville, a modest number for a top-10 team hosting a non-conference opponent. With the total at 55.5, the Rebels may need to trade scores to get out of Week 1 clean.",
+      "blurb": "No. 10 Ole Miss is only a 6.5-point favorite against unranked Louisville, and a 55.5 total says points should come in bunches in Oxford. A slip in the opener would be an expensive one for a top-10 team.",
       "blurbSource": "llm"
     },
     {
@@ -8032,7 +8032,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 3.07,
-      "blurb": "No. 5 Notre Dame hosts Wisconsin as a 20.5-point favorite with the total sitting at just 47.5. The Irish are expected to win big and win ugly, and anything less will get picked apart.",
+      "blurb": "No. 5 Notre Dame hosts Wisconsin as a 20.5-point favorite with the total sitting at just 47.5. For a playoff hopeful without a conference title path, style points in games like this actually matter.",
       "blurbSource": "llm"
     },
     {
@@ -8053,7 +8053,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 3,
-      "blurb": "The Border War kicks off the season with Colorado State favored by four at home. A four-point line in a rivalry game is another way of saying nobody has any idea.",
+      "blurb": "The Border War kicks off the weekend with Colorado State a 4-point home favorite over Wyoming. Neither side is ranked, but this one has never needed the polls to get nasty.",
       "blurbSource": "llm"
     },
     {
@@ -8074,7 +8074,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 2.58,
-      "blurb": "No. 16 Michigan is a 26.5-point favorite over Western Michigan in the opener. The scoreboard isn't the story here; how the Wolverines look while covering is.",
+      "blurb": "No. 16 Michigan is a 26.5-point favorite over Western Michigan in the Big House. This is a tune-up, and the only real question is how quickly the Wolverines make it one.",
       "blurbSource": "llm"
     }
   ],
@@ -8082,31 +8082,31 @@
     {
       "teamId": "texas",
       "score": 5.45,
-      "blurb": "Texas checks in at No. 4 in the poll while FPI slots the Longhorns second, meaning the metrics see a team with a real claim to being the best in the country. In the SEC, they'll get every chance to prove it.",
+      "blurb": "Texas checks in at No. 4 and FPI is even more bullish, slotting the Longhorns second nationally. In a loaded SEC, that gap suggests the metrics see a team capable of running the table.",
       "blurbSource": "llm"
     },
     {
       "teamId": "texas-tech",
       "score": 5.45,
-      "blurb": "Texas Tech sits 12th in the rankings with FPI a touch higher at No. 10 — the model likes the Red Raiders as a legitimate Big 12 front-runner rather than a fringe top-15 team.",
+      "blurb": "Texas Tech sits 12th in the rankings with FPI close behind at 10, a rare case of poll and computer basically agreeing. The Red Raiders are the Big 12's designated frontrunner.",
       "blurbSource": "llm"
     },
     {
       "teamId": "michigan",
       "score": 5.23,
-      "blurb": "Michigan is ranked 16th and FPI has the Wolverines 15th, about as close to consensus as it gets. Nobody's overrating them; nobody's writing them off either.",
+      "blurb": "Michigan is ranked 16th and FPI has the Wolverines 15th, about as tight a consensus as you'll find. Nobody's arguing about where this team belongs yet.",
       "blurbSource": "llm"
     },
     {
       "teamId": "byu",
       "score": 5.13,
-      "blurb": "BYU is 15th in the poll but only 20th in FPI, the widest skepticism gap of the group. The Cougars will need Big 12 results to keep the ranking from drifting toward the model's number.",
+      "blurb": "BYU is 15th in the rankings but only 20th in FPI, making the Cougars one of the bigger poll-versus-metrics disagreements in the top 25. The schedule will settle it.",
       "blurbSource": "llm"
     },
     {
       "teamId": "lsu",
       "score": 4.9,
-      "blurb": "LSU opens 13th while FPI sees a top-10 team at No. 9. If the metrics are right, the Tigers are undervalued heading into a September that starts with Clemson.",
+      "blurb": "LSU is ranked 13th while FPI has the Tigers up at ninth. The computers think this roster is better than its seed line, starting with Week 1.",
       "blurbSource": "llm"
     }
   ],
@@ -8121,7 +8121,7 @@
       "chaserRank": 2,
       "gap": 1,
       "score": 9,
-      "blurb": "Ohio State and Oregon are ranked first and second, separated by a single spot in the chase for the Big Ten's automatic bid. One stumble by the Buckeyes and the Ducks take the league lead outright.",
+      "blurb": "The Big Ten's automatic bid is a two-team knife fight: No. 1 Ohio State leads with No. 2 Oregon one spot behind. There's no daylight here, and one bad Saturday flips the order.",
       "blurbSource": "llm"
     },
     {
@@ -8134,7 +8134,7 @@
       "chaserRank": 4,
       "gap": 1,
       "score": 9,
-      "blurb": "Georgia leads the SEC race at No. 3 with Texas one rung behind at No. 4 — the tightest possible margin for a league whose auto bid may decide seeding at the top of the field. Neither has any room to give one away.",
+      "blurb": "Georgia holds the SEC's top spot at No. 3 with Texas breathing down its neck at No. 4. A one-spot gap this early means the league's auto bid is effectively a coin flip.",
       "blurbSource": "llm"
     },
     {
@@ -8147,7 +8147,7 @@
       "chaserRank": 15,
       "gap": 3,
       "score": 7,
-      "blurb": "Texas Tech holds the Big 12's automatic bid position at No. 12 with BYU three spots back at No. 15. It's a workable cushion, but a single head-to-head-adjacent result could erase it.",
+      "blurb": "Texas Tech is the Big 12's leader at No. 12, with BYU the nearest challenger three spots back at No. 15. It's a real gap, but not one that survives a single Red Raider stumble.",
       "blurbSource": "llm"
     }
   ]
