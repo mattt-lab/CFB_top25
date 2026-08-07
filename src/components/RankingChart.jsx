@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  LineChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 import { WEEKS, HAS_TREND_HISTORY } from '../data/teams.js';
+import { pollSpread } from '../utils/pollSpread.js';
 
 const SERIES = [
   { key: 'ap', label: 'AP Poll', color: 'var(--series-ap)' },
@@ -36,6 +37,9 @@ export default function RankingChart({ team }) {
     ap: team.ap[i] ?? null,
     coaches: team.coaches[i] ?? null,
     cfp: team.cfp[i] ?? null,
+    // [min, max] of whichever polls rank the team this week (null = unranked everywhere) --
+    // recharts v3 draws an <Area> with an array dataKey as a range band between the two values.
+    spread: pollSpread(team, i),
   }));
 
   return (
@@ -43,7 +47,10 @@ export default function RankingChart({ team }) {
       <div className="panel-title">
         <div>
           <h2>Ranking history — AP, Coaches &amp; CFP Committee</h2>
-          <p>Weekly poll position across the season. Committee rankings begin week 7.</p>
+          <p>
+            Weekly poll position across the season. Committee rankings begin week 7. Shaded band
+            shows the spread between the highest and lowest poll.
+          </p>
         </div>
         {HAS_TREND_HISTORY && (
           <button
@@ -69,6 +76,11 @@ export default function RankingChart({ team }) {
             <span className="sw" style={{ background: s.color }} />{s.label}
           </span>
         ))}
+        {/* Swatch opacity sits above the band's 0.15 fill so it's legible at legend size,
+            while still reading as "the faint one" next to the three solid line swatches. */}
+        <span className="item">
+          <span className="sw" style={{ background: 'var(--muted)', opacity: 0.4 }} />Poll spread
+        </span>
       </div>
 
       {showTable ? (
@@ -113,6 +125,20 @@ export default function RankingChart({ team }) {
                 width={22}
               />
               <Tooltip content={<CustomTooltip />} />
+              {/* Range band spanning min->max of whichever polls rank the team each week --
+                  first in JSX order so it renders UNDER the three lines. The reversed [1, 25]
+                  YAxis handles the [min, max] pair fine (recharts just fills between the two
+                  scaled positions -- range mode is triggered by the array value itself, no
+                  extra prop); connectNulls matches the Lines' own gap behavior, and
+                  CustomTooltip ignores this series (it only looks up SERIES dataKeys). */}
+              <Area
+                dataKey="spread"
+                fill="var(--muted)"
+                fillOpacity={0.15}
+                stroke="none"
+                activeDot={false}
+                connectNulls
+              />
               {SERIES.map((s) => (
                 <Line
                   key={s.key}

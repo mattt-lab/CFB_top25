@@ -4,13 +4,13 @@ import {
   WEEK_IDX_MAX, computeField, primaryLabel, PRIMARY_SOURCE_BY_WEEK, fieldStorylines,
   confRaceInfo, confSlugFor,
 } from '../data/teams.js';
-import ConfDot from '../components/ConfDot.jsx';
+import TeamMark from '../components/TeamMark.jsx';
 
 function TeamRow({ o, seedNum }) {
   return (
     <Link className="matchup-row" to={`/team/${o.id}`} state={{ from: 'playoff' }}>
       <span className="n tabnum">{seedNum}</span>
-      <span className="t"><ConfDot conf={o.team.conf} />{o.team.name}</span>
+      <span className="t"><TeamMark team={o.team} />{o.team.name}</span>
     </Link>
   );
 }
@@ -46,7 +46,7 @@ export default function PlayoffWatch() {
           return (
             <Link className="conf-race-card" key={conf} to={`/conference/${confSlugFor(conf)}`}>
               <div className="cf">{conf}</div>
-              <div className="ld"><ConfDot conf={conf} />#{leader.rank} {leader.team.name}</div>
+              <div className="ld"><TeamMark team={leader.team} />#{leader.rank} {leader.team.name}</div>
               {chaser && <div className="ch">Chasing: #{chaser.rank} {chaser.team.name}</div>}
               <div className="nt">
                 {chaser
@@ -63,7 +63,7 @@ export default function PlayoffWatch() {
         {field.byes.map((o, i) => (
           <Link className="seed-card" key={o.id} to={`/team/${o.id}`} state={{ from: 'playoff' }}>
             <div className="n">Seed {i + 1}</div>
-            <div className="t"><ConfDot conf={o.team.conf} />{o.team.name}</div>
+            <div className="t"><TeamMark team={o.team} />{o.team.name}</div>
             <div className="c">{o.team.conf} champ · {o.team.record} · #{o.rank} overall</div>
             <div className="byetag">First-round bye · auto-bid</div>
           </Link>
@@ -92,7 +92,7 @@ export default function PlayoffWatch() {
           return (
             <Link className="bubble-row" key={o.id} to={`/team/${o.id}`} state={{ from: 'playoff' }}>
               <span className="rk tabnum">{seedNum}</span>
-              <ConfDot conf={o.team.conf} />
+              <TeamMark team={o.team} />
               <span className="nm">{o.team.name}</span>
               <span className="needs">{o.team.bubbleNote?.blurb ?? ''}</span>
             </Link>

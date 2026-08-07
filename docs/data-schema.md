@@ -16,6 +16,12 @@ data/
                           <- raw per-week poll snapshots as returned by CFBD, one file per week,
                              append-only (never overwritten). This is the audit trail / source of
                              truth. current.json's `rankingsByWeek` is a derived rollup of these.
+  ratings/
+    2026-wk07.json ... 2026-wk14.json
+                          <- per-week SP+/FPI/Elo rank snapshots, one file per week, append-only
+                             (never overwritten). Forward-only capture: CFBD's /ratings/* endpoints
+                             have no week parameter, so this is the ONLY historical record of the
+                             computer ranks. No UI consumes it yet.
 ```
 
 **Why the split:** `data/rankings/*.json` exists so a later week's fetch can never silently corrupt
@@ -288,6 +294,31 @@ as one entry of `rankingsByWeek` above:
     "primary": ["georgia", "ohio-state", "..."],  // CFP -> Coaches -> AP fallback, resolved once here
     "primarySource": "coaches"
   }
+}
+```
+
+## `data/ratings/2026-wkNN.json`
+
+Per-week computer-ratings snapshot, written once by the fetch script (right after the Elo fetch)
+and never overwritten — same append-only convention as `data/rankings/*.json` above. Each of
+`sp`/`fpi`/`elo` maps team id → integer rank (1 = best), straight from the maps the fetch script
+already builds for `teams[id].sp`/`fpi`/`elo` — zero extra API calls.
+
+**Why it exists:** unlike `/rankings`, CFBD's `/ratings/sp|fpi|elo` endpoints have **no `week`
+parameter** (verified against the live OpenAPI spec) — they only return the current season-to-date
+snapshot, so past weeks' computer ranks can never be backfilled the way poll history can. The only
+way to have them later is to capture them forward, week by week, which is what these files do.
+
+**No UI consumes this yet.** It's accumulating raw material for a future poll-vs-computers
+differential-trend chart, which becomes worthwhile once ~4+ weeks of history exist.
+
+```jsonc
+{
+  "week": 9,
+  "fetchedAt": "2026-10-28T13:02:00Z",
+  "sp":  { "ohio-state": 1, "georgia": 2, "...": 3 },   // SP+ rank per team id (1 = best)
+  "fpi": { "ohio-state": 2, "georgia": 1, "...": 3 },   // FPI rank (derived by sorting the raw rating -- see the fetch script's TODO)
+  "elo": { "ohio-state": 1, "georgia": 3, "...": 2 }    // Elo rank (derived the same way)
 }
 ```
 

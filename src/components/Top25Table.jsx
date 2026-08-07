@@ -4,7 +4,7 @@ import {
   playoffOddsFor, nattyOddsFor, americanOdds, trendColor, deltaLabel,
   HAS_TREND_HISTORY, HAS_SP_RATINGS,
 } from '../data/teams.js';
-import ConfDot from './ConfDot.jsx';
+import TeamMark from './TeamMark.jsx';
 import Sparkline from './Sparkline.jsx';
 import PinButton from './PinButton.jsx';
 
@@ -45,7 +45,7 @@ export default function Top25Table({ weekIdx }) {
                 <td><PinButton teamId={id} /></td>
                 <td className="tabnum" style={{ fontWeight: 800 }}>{rank}</td>
                 <td>
-                  <ConfDot conf={t.conf} />
+                  <TeamMark team={t} />
                   <Link className="row-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>{' '}
                   <span style={{ color: 'var(--muted)', fontSize: 11 }}>{t.conf}</span>
                 </td>

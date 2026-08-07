@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { usePinnedStore } from '../store/usePinnedStore.js';
 import { teamById, rankAt, byRankAsc, nextGameParts, gameStatusBadge } from '../data/teams.js';
-import ConfDot from './ConfDot.jsx';
+import TeamMark from './TeamMark.jsx';
 import PinButton from './PinButton.jsx';
 
 export default function MyTeamsSection({ weekIdx }) {
@@ -46,7 +46,7 @@ export default function MyTeamsSection({ weekIdx }) {
             // sits above it (see .pin-btn's z-index in theme.css).
             <div key={id} className="bubble-row">
               <span className="rk tabnum">{rank ?? '—'}</span>
-              <ConfDot conf={t.conf} />
+              <TeamMark team={t} />
               <Link className="nm row-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
               <span className="needs">
                 <span className="tabnum record">{t.record}</span>

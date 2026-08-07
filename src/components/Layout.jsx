@@ -31,6 +31,7 @@ function titleFor(pathname) {
   if (pathname === '/') return 'Top 25 Tracker';
   if (pathname === '/playoff-watch') return 'Playoff Watch';
   if (pathname === '/conferences') return 'Conferences';
+  if (pathname === '/pickem') return "Top 25 Pick 'em";
   const teamMatch = matchPath('/team/:teamId', pathname);
   if (teamMatch) {
     const team = teamById(teamMatch.params.teamId);
@@ -90,6 +91,10 @@ export default function Layout() {
         <NavLink to="/conferences" className={({ isActive }) => (isActive ? 'active' : '')}>
           Conferences
         </NavLink>
+        <NavLink to="/pickem" className={({ isActive }) => (isActive ? 'active' : '')}>
+          Top 25 Pick 'em
+        </NavLink>
+        {/* Playoff Watch stays LAST in the nav (user rule) -- new tabs go before it. */}
         <NavLink to="/playoff-watch" className={({ isActive }) => (isActive ? 'active' : '')}>
           Playoff Watch
         </NavLink>

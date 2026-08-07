@@ -114,12 +114,13 @@ export default function Top25Tracker() {
       </div>
       <Top25Table weekIdx={weekIdx} />
 
+      {/* Playoff Watch keeps its nav tab -- this callout slot now belongs to Pick 'em. */}
       <div className="cta-card">
         <div className="txt">
-          <b>How's the 12-team field actually shaping up?</b>
-          <span>Projected byes, first-round matchups, and who's on the bubble.</span>
+          <b>Top 25 Pick 'em</b>
+          <span>Call this week's games and watch the rankings shake out.</span>
         </div>
-        <Link className="cta-btn" to="/playoff-watch">Open Playoff Watch →</Link>
+        <Link className="cta-btn" to="/pickem">Play Pick 'em →</Link>
       </div>
 
       {/* Only shown here, not sitewide -- this is what the Top 25 table's .odds-hint ("see note

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import {
   teamsInConf, confRecord, confSlugFor, rankAt, trendColor, deltaLabel, playoffOddsFor,
 } from '../data/teams.js';
-import ConfDot from './ConfDot.jsx';
+import TeamMark from './TeamMark.jsx';
 import PinButton from './PinButton.jsx';
 
 export default function ConferenceStandingsTable({ conf, weekIdx }) {
@@ -45,7 +45,7 @@ export default function ConferenceStandingsTable({ conf, weekIdx }) {
                 <td><PinButton teamId={t.id} /></td>
                 <td className="tabnum" style={{ fontWeight: 800 }}>{natRank ?? '—'}</td>
                 <td>
-                  <ConfDot conf={t.conf} />
+                  <TeamMark team={t} />
                   <Link
                     className="row-link"
                     to={`/team/${t.id}`}

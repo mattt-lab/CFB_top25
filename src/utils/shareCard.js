@@ -1,10 +1,10 @@
 import { playoffOddsFor, nattyOddsFor, americanOdds } from '../data/teams.js';
 
-// Portrait 4:5 card (not a naive "stack more content below" of the old 1200x630 landscape card) --
-// chosen specifically because 4:5 is the aspect ratio most chat/social apps (iMessage, Slack,
-// X, Instagram) preview without cropping, so the whole card stays visible in a link/image preview.
+// Square 1:1 card -- the safest cross-platform preview shape: every major chat/social app
+// (iMessage, Slack, X, Instagram) shows a 1:1 image uncropped, and the tighter height keeps the
+// layout dense with no dead background below the content.
 const CARD_W = 1200;
-const CARD_H = 1500;
+const CARD_H = 1200;
 const MARGIN_L = 60;
 const MARGIN_R = 60;
 const CONTENT_R = CARD_W - MARGIN_R; // 1140
@@ -145,7 +145,7 @@ export async function downloadShareCard(team) {
   ctx.fillStyle = accent;
   ctx.fillRect(0, 0, CARD_W, 10);
 
-  // ---------------- Masthead (y = 0 - 650) ----------------
+  // ---------------- Masthead (y = 0 - 590) ----------------
 
   const LOGO_SIZE = 170;
   const LOGO_X = CONTENT_R - LOGO_SIZE; // 970
@@ -170,15 +170,15 @@ export async function downloadShareCard(team) {
   const rank = team.cfpRank;
   ctx.fillStyle = accent;
   ctx.font = (rank != null ? '800 150px' : '800 70px') + ' ' + FONT;
-  ctx.fillText(rank != null ? `#${rank}` : 'Unranked', MARGIN_L, 372);
+  ctx.fillText(rank != null ? `#${rank}` : 'Unranked', MARGIN_L, 340);
 
   if (rank != null) {
     const po = playoffOddsFor(rank, team.record, team.sp);
     const no = nattyOddsFor(rank, team.record, team.sp, team.fpi);
 
-    const GAUGE_CY = 560;
-    const GAUGE_R = 108;
-    const GAUGE_LW = 24;
+    const GAUGE_CY = 500;
+    const GAUGE_R = 100;
+    const GAUGE_LW = 22;
 
     drawGauge(ctx, {
       cx: 330, cy: GAUGE_CY, r: GAUGE_R, lineWidth: GAUGE_LW,
@@ -199,7 +199,7 @@ export async function downloadShareCard(team) {
   } else {
     ctx.fillStyle = ink1;
     ctx.font = '700 32px ' + FONT;
-    ctx.fillText('Not currently ranked', MARGIN_L, 460);
+    ctx.fillText('Not currently ranked', MARGIN_L, 430);
   }
 
   // ---------------- Divider ----------------
@@ -207,11 +207,11 @@ export async function downloadShareCard(team) {
   ctx.strokeStyle = border;
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.moveTo(MARGIN_L, 650);
-  ctx.lineTo(CONTENT_R, 650);
+  ctx.moveTo(MARGIN_L, 590);
+  ctx.lineTo(CONTENT_R, 590);
   ctx.stroke();
 
-  // ---------------- Body (y = 692 - 1122): two columns ----------------
+  // ---------------- Body (y = 625 - 1010): two columns ----------------
 
   const LEFT_X = MARGIN_L; // 60
   const LEFT_R = 580;
@@ -220,8 +220,23 @@ export async function downloadShareCard(team) {
 
   ctx.fillStyle = muted;
   ctx.font = '700 15px ' + FONT;
-  ctx.fillText('RANK DIFFERENTIAL', LEFT_X, 692);
-  ctx.fillText('LAST 6 GAMES', RIGHT_X, 692);
+  ctx.fillText('RANK DIFFERENTIAL', LEFT_X, 625);
+  ctx.fillText('LAST 6 GAMES', RIGHT_X, 625);
+
+  // One-line explanatory captions -- the shared image is seen by people who've never opened the
+  // site, so each section header gets the same kind of subtitle the live site's sections have.
+  ctx.fillStyle = ink2;
+  ctx.font = '400 14px ' + FONT;
+  ctx.fillText(
+    truncateToWidth(ctx, 'Positive = computers rate them better than the poll', LEFT_R - LEFT_X),
+    LEFT_X,
+    648
+  );
+  ctx.fillText(
+    truncateToWidth(ctx, 'Result and what it did for the case', RIGHT_R - RIGHT_X),
+    RIGHT_X,
+    648
+  );
 
   // LEFT: DeltaRows.jsx reproduction -- SP+/FPI/Elo diverging bars off a center line.
   const deltaRows = [
@@ -233,14 +248,14 @@ export async function downloadShareCard(team) {
   const TRACK_X = LEFT_X + 90; // 150
   const TRACK_W = 280; // ends at 430
   const TRACK_MID = TRACK_X + TRACK_W / 2; // 290
-  const ROW_H = 88;
+  const ROW_H = 76;
 
   deltaRows.forEach((row, i) => {
-    const rowTop = 722 + i * ROW_H;
-    const trackY = rowTop + 26;
+    const rowTop = 660 + i * ROW_H; // rows: 660, 736, 812; last row ends at 888
+    const trackY = rowTop + 22;
     const trackH = 22;
-    const labelBaseline = rowTop + 40;
-    const numBaseline = rowTop + 42;
+    const labelBaseline = rowTop + 39; // visually centered on the 22px track (22-44)
+    const numBaseline = rowTop + 40;
 
     ctx.fillStyle = ink2;
     ctx.font = '700 16px ' + FONT;
@@ -288,7 +303,7 @@ export async function downloadShareCard(team) {
   if (!team.games || team.games.length === 0) {
     ctx.fillStyle = ink2;
     ctx.font = '400 16px ' + FONT;
-    ctx.fillText(`No game-by-game data available for ${team.name} yet.`, RIGHT_X, 760);
+    ctx.fillText(`No game-by-game data available for ${team.name} yet.`, RIGHT_X, 700);
   } else {
     const recentGames = team.games.slice(-6);
     const COL_WK = RIGHT_X;
@@ -298,15 +313,15 @@ export async function downloadShareCard(team) {
 
     ctx.fillStyle = muted;
     ctx.font = '700 12px ' + FONT;
-    ctx.fillText('WK', COL_WK, 722);
-    ctx.fillText('OPPONENT', COL_OPP, 722);
-    ctx.fillText('RESULT', COL_RESULT, 722);
-    ctx.fillText('NOTE', COL_NOTE, 722);
+    ctx.fillText('WK', COL_WK, 678);
+    ctx.fillText('OPPONENT', COL_OPP, 678);
+    ctx.fillText('RESULT', COL_RESULT, 678);
+    ctx.fillText('NOTE', COL_NOTE, 678);
 
-    const G_ROW_H = 62;
+    const G_ROW_H = 54;
     recentGames.forEach((g, i) => {
-      const rowTop = 750 + i * G_ROW_H;
-      const baseline = rowTop + 30;
+      const rowTop = 686 + i * G_ROW_H; // rows: 686..956; last row ends at 1010
+      const baseline = rowTop + 29; // visually centered above the row divider at rowTop + 48
 
       ctx.fillStyle = ink1;
       ctx.font = '700 15px ' + FONT;
@@ -338,24 +353,24 @@ export async function downloadShareCard(team) {
       ctx.strokeStyle = border;
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(RIGHT_X, rowTop + 58);
-      ctx.lineTo(RIGHT_R, rowTop + 58);
+      ctx.moveTo(RIGHT_X, rowTop + 48);
+      ctx.lineTo(RIGHT_R, rowTop + 48);
       ctx.stroke();
     });
   }
 
-  // ---------------- Footer (y = 1400 - 1500) ----------------
+  // ---------------- Footer (y = 1090 - 1200) ----------------
 
   ctx.strokeStyle = border;
   ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.moveTo(MARGIN_L, 1400);
-  ctx.lineTo(CONTENT_R, 1400);
+  ctx.moveTo(MARGIN_L, 1090);
+  ctx.lineTo(CONTENT_R, 1090);
   ctx.stroke();
 
   ctx.fillStyle = ink2;
   ctx.font = '400 18px ' + FONT;
-  ctx.fillText('Playoff & title odds are a simplified model, not sportsbook prices', MARGIN_L, 1445);
+  ctx.fillText('Playoff & title odds are a simplified model, not sportsbook prices', MARGIN_L, 1135);
 
   // toBlob + object URL rather than toDataURL -- large base64 data URIs are handled unreliably by
   // mobile Safari's download flow; a blob URL is the more robust pattern there.

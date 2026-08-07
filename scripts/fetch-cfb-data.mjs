@@ -1,7 +1,8 @@
 // Fetches AP/Coaches/CFP rankings, game results, betting lines, SP+ and FPI ratings from
 // CollegeFootballData.com (CFBD) and reshapes them into data/current.json, per the LOCKED schema
 // documented in docs/data-schema.md. Also writes/append-only-updates the current week's raw poll
-// snapshot at data/rankings/<season>-wkNN.json.
+// snapshot at data/rankings/<season>-wkNN.json and the current week's computer-ratings snapshot
+// at data/ratings/<season>-wkNN.json.
 //
 // Endpoints hit (base https://api.collegefootballdata.com, exact paths/params verified against
 // the live OpenAPI spec at https://api.collegefootballdata.com/api-docs.json -- not guessed from
@@ -12,6 +13,15 @@
 //   GET /games/media  ?year, seasonType, week, classification -> TV/streaming outlet per game
 //   GET /ratings/sp   ?year                     -> SP+ ratings (has a `ranking` field directly)
 //   GET /ratings/fpi  ?year                     -> FPI ratings (rating only, no rank -- see TODO below)
+//   GET /ratings/elo  ?year                     -> Elo ratings (rating only, no rank -- ranked like FPI)
+//
+// RATINGS SNAPSHOTS: unlike /rankings, the three /ratings/* endpoints have NO `week` parameter
+// (verified against the live OpenAPI spec) -- they only ever return the CURRENT season-to-date
+// snapshot, so historical rating data can't be backfilled the way poll history can. The only way
+// to get a week-by-week record is to capture it forward as it happens: each run writes this
+// week's SP+/FPI/Elo ranks to data/ratings/<season>-wkNN.json (append-only, same convention as
+// the poll snapshots above), accumulating the history a future poll-vs-computers trend chart
+// will need. Zero extra API calls -- it reuses the Step 7-9 responses already in hand.
 //
 // SEASON CHANGEOVER: which year is "the season" flips Aug 1 (scripts/lib/season.mjs) -- the
 // previous season's final data stays the target through the off-season, then the site points at
@@ -58,6 +68,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const DATA_DIR = join(ROOT, 'data');
 const RANKINGS_DIR = join(DATA_DIR, 'rankings');
+const RATINGS_DIR = join(DATA_DIR, 'ratings');
 
 const SEASON = Number(process.env.CFBD_SEASON) || resolveSeasonYear();
 
@@ -99,6 +110,7 @@ function classifyPoll(pollName) {
 
 async function main() {
   mkdirSync(RANKINGS_DIR, { recursive: true });
+  mkdirSync(RATINGS_DIR, { recursive: true });
 
   // name/conference lookup, populated as we see teams across every endpoint below
   const teamMeta = {}; // id -> { name, conf }
@@ -480,6 +492,25 @@ async function main() {
     touchTeam(id, t.team, t.conference);
     eloById[id] = i + 1;
   });
+
+  // ---- Step 9b: write this week's ratings snapshot file (append-only -- never overwrite) --------
+  // The /ratings/* endpoints have no `week` parameter (see the RATINGS SNAPSHOTS note up top) --
+  // this forward-only capture is the ONLY record of what the computers said in week N once week
+  // N+1's fetch overwrites the live snapshot. Same write-once convention as Step 2's poll files.
+  const ratingsSnapshotPath = join(RATINGS_DIR, `${SEASON}-wk${String(currentWeek).padStart(2, '0')}.json`);
+  if (existsSync(ratingsSnapshotPath)) {
+    console.log(`${ratingsSnapshotPath} already exists -- leaving it untouched (append-only historical record).`);
+  } else {
+    const ratingsSnapshot = {
+      week: currentWeek,
+      fetchedAt: new Date().toISOString(),
+      sp: spById,
+      fpi: fpiById,
+      elo: eloById,
+    };
+    writeFileSync(ratingsSnapshotPath, JSON.stringify(ratingsSnapshot, null, 2) + '\n');
+    console.log(`Wrote ${ratingsSnapshotPath}`);
+  }
 
   // ---- Step 10: assemble teams{} -----------------------------------------------------------------
   // Universe = every team that appeared in any AP/Coaches/CFP poll this season, plus every team

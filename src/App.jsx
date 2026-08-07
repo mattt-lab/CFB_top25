@@ -5,6 +5,7 @@ import PlayoffWatch from './pages/PlayoffWatch.jsx';
 import TeamDetail from './pages/TeamDetail.jsx';
 import Conferences from './pages/Conferences.jsx';
 import ConferenceDetail from './pages/ConferenceDetail.jsx';
+import Pickem from './pages/Pickem.jsx';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/team/:teamId" element={<TeamDetail />} />
         <Route path="/conferences" element={<Conferences />} />
         <Route path="/conference/:confSlug" element={<ConferenceDetail />} />
+        <Route path="/pickem" element={<Pickem />} />
       </Route>
     </Routes>
   );
