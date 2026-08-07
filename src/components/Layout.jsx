@@ -67,7 +67,9 @@ export default function Layout() {
           </NavLink>
           <div className="week">
             {SEASON} season
-            {LAST_UPDATED && <span> · Data as of {formatLastUpdated(LAST_UPDATED)}</span>}
+            {/* Hidden below .data-as-of's breakpoint -- this line is long enough on its own to
+                push the header onto 2 lines on narrow phones; the season label alone doesn't. */}
+            {LAST_UPDATED && <span className="data-as-of"> · Data as of {formatLastUpdated(LAST_UPDATED)}</span>}
           </div>
           {showWeekTravel && (
             <select

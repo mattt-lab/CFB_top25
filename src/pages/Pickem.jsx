@@ -4,6 +4,7 @@ import {
   WEEK_IDX_MAX, WEEKLY_ORDER, teams, teamById, allGames, nextGameParts, deltaLabel, dirFor,
 } from '../data/teams.js';
 import { projectOrder, MIRROR } from '../utils/projectTop25.js';
+import TeamMark from '../components/TeamMark.jsx';
 
 const OUTCOMES = [
   { value: 'blowoutWin', long: 'Blowout W', short: 'Blw W' },
@@ -96,7 +97,7 @@ export default function Pickem() {
                 <span className="rk tabnum">{i + 1}</span>
                 <span className={`delta-badge ${dirFor(move)}`}>{deltaLabel(move)}</span>
                 <span className="info">
-                  {/* No logo yet -- TeamMark slots in right before this Link in a follow-up. */}
+                  <TeamMark team={t} />
                   <Link className="nm" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
                   {opponent && <span className="opp">{opponent}</span>}
                 </span>

@@ -6,6 +6,7 @@ import {
 } from '../data/teams.js';
 import MyTeamsSection from '../components/MyTeamsSection.jsx';
 import Top25Table from '../components/Top25Table.jsx';
+import TeamMark from '../components/TeamMark.jsx';
 
 export default function Top25Tracker() {
   const weekIdx = useWeekStore((s) => s.weekIdx);
@@ -53,6 +54,7 @@ export default function Top25Tracker() {
                 </div>
                 <div className="game-teams">
                   <Link className="game-team" to={`/team/${g.away}`}>
+                    {g.awayTeam && <TeamMark team={g.awayTeam} />}
                     {g.awayRank != null && <span className="r">#{g.awayRank}</span>}
                     {g.awayTeam?.name ?? g.away}
                     {g.awayTeam?.record && (
@@ -61,6 +63,7 @@ export default function Top25Tracker() {
                   </Link>
                   <div className="game-at">at</div>
                   <Link className="game-team" to={`/team/${g.home}`}>
+                    {g.homeTeam && <TeamMark team={g.homeTeam} />}
                     {g.homeRank != null && <span className="r">#{g.homeRank}</span>}
                     {g.homeTeam?.name ?? g.home}
                     {g.homeTeam?.record && (
