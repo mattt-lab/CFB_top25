@@ -549,6 +549,10 @@ async function main() {
       sp: spById[id] != null ? spById[id] : null,
       fpi: fpiById[id] != null ? fpiById[id] : null,
       elo: eloById[id] != null ? eloById[id] : null,
+      // Pure filesystem check, no network call -- true if scripts/fetch-team-logos.mjs (a separate,
+      // manually-triggered script) has already dropped a logo for this team at public/logos/{id}.png.
+      // That script may or may not have run yet, so this just reflects whatever's on disk right now.
+      hasLogo: existsSync(join(ROOT, 'public', 'logos', `${id}.png`)),
       ap: apArr,
       coaches: coachesArr,
       cfp: cfpArr,

@@ -64,6 +64,12 @@ export default function TeamDetail() {
       <section className="hero-grid">
         <div className="card">
           <div className="team-row">
+            {team.hasLogo && (
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcSet={`${import.meta.env.BASE_URL}logos/${team.id}-dark.png`} />
+                <img src={`${import.meta.env.BASE_URL}logos/${team.id}.png`} alt="" className="team-logo" width={56} height={56} />
+              </picture>
+            )}
             <div>
               <div className="team-name">{team.name}</div>
               <div className="team-conf">{team.conf}</div>
@@ -125,7 +131,11 @@ export default function TeamDetail() {
             <button type="button" className="toggle-btn" onClick={() => togglePin(team.id)}>
               {isPinned ? '★ Pinned' : '☆ Pin team'}
             </button>
-            <button type="button" className="toggle-btn" onClick={() => downloadShareCard(team)}>
+            <button
+              type="button"
+              className="toggle-btn"
+              onClick={() => { downloadShareCard(team).catch((err) => console.error('Failed to generate share card', err)); }}
+            >
               ⬇ Download share card
             </button>
           </div>

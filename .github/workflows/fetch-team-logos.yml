@@ -1,0 +1,45 @@
+name: Fetch team logos
+
+# Standalone, MANUALLY-triggered refresh of public/logos/*.png (scripts/fetch-team-logos.mjs).
+# Unlike fetch-data.yml/fetch-live-scores.yml, this has NO schedule trigger -- team logos
+# essentially never change mid-season, so there's no reason to burn a CFBD call on a cron. Run it
+# by hand (Actions tab -> Fetch team logos -> Run workflow) whenever a team rebrands, a new FBS
+# team joins, or a logo asset otherwise needs refreshing.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-team-logos
+  cancel-in-progress: false
+
+jobs:
+  fetch-logos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+
+      - name: Fetch team logos
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+        run: node scripts/fetch-team-logos.mjs
+
+      - name: Commit and push if logos changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/logos/
+          if git diff --cached --quiet; then
+            echo "No logo changes -- skipping commit."
+          else
+            git commit -m "Update team logos ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+            git push
+          fi

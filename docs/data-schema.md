@@ -129,6 +129,8 @@ nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postga
       "sp": 1,          // SP+ rank (integer, 1 = best)
       "fpi": 2,          // ESPN FPI rank
       "elo": 1,          // Elo rank
+      "hasLogo": true,   // true if public/logos/ohio-state.png exists on disk (a plain filesystem
+                          // check, no network call) -- see "public/logos/*.png" below
       "ap": [3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1],           // one entry per week 1-12+, null before the team is first ranked
       "coaches": [3, 3, 2, 2, 2, 3, 2, 2, 2, 1, 1, 1],
       "cfp": [null, null, null, null, null, null, 2, 2, 2, 1, 1, 1], // null before the committee's first reveal that season -- this varies year to year (confirmed live: week 7 in some seasons, week 11 in 2024), it isn't a fixed week number
@@ -301,6 +303,19 @@ above.
   { "a": "texas", "b": "oklahoma", "name": "Red River Rivalry" }
 ]
 ```
+
+## `public/logos/*.png`
+
+Static assets, same-origin team logo images -- `public/logos/{id}.png` (light/default) plus a
+`public/logos/{id}-dark.png` variant for dark-mode display, keyed by the same `slugify(name)` team
+id used everywhere else. Fetched by a separate, manually-triggered script,
+`scripts/fetch-team-logos.mjs`, run via the `fetch-team-logos.yml` GitHub Actions workflow's
+`workflow_dispatch` trigger -- **not** on any automatic schedule, and **not** part of
+`fetch-cfb-data.mjs`'s regular daily pipeline run. This keeps it off the CollegeFootballData.com
+API call budget on an ongoing basis: it's a one-off backfill, re-run by hand only when new logos
+are needed, not a recurring cost like the daily fetch. `teams[id].hasLogo` above is just a plain
+filesystem existence check for `public/logos/{id}.png` -- it's `true` regardless of whether that
+file arrived today or was fetched months ago.
 
 ## Team id convention
 

@@ -3,7 +3,7 @@
     "season": 2026,
     "currentWeek": 1,
     "currentPrimarySource": "coaches",
-    "lastUpdated": "2026-08-06T17:39:42.976Z",
+    "lastUpdated": "2026-08-07T16:11:09.732Z",
     "weeksAvailable": [
       1
     ]
@@ -78,6 +78,7 @@
       "sp": null,
       "fpi": 1,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -98,8 +99,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "oregon": {
       "name": "Oregon",
@@ -109,6 +109,7 @@
       "sp": null,
       "fpi": 4,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -129,8 +130,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "georgia": {
       "name": "Georgia",
@@ -140,6 +140,7 @@
       "sp": null,
       "fpi": 5,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -160,8 +161,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "texas": {
       "name": "Texas",
@@ -171,6 +171,7 @@
       "sp": null,
       "fpi": 2,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -191,8 +192,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "notre-dame": {
       "name": "Notre Dame",
@@ -202,6 +202,7 @@
       "sp": null,
       "fpi": 3,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -222,8 +223,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "indiana": {
       "name": "Indiana",
@@ -233,6 +233,7 @@
       "sp": null,
       "fpi": 6,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -253,8 +254,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "miami": {
       "name": "Miami",
@@ -264,6 +264,7 @@
       "sp": null,
       "fpi": 7,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -284,8 +285,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "texas-a-m": {
       "name": "Texas A&M",
@@ -295,6 +295,7 @@
       "sp": null,
       "fpi": 11,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -315,8 +316,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "oklahoma": {
       "name": "Oklahoma",
@@ -326,6 +326,7 @@
       "sp": null,
       "fpi": 12,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -346,8 +347,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "ole-miss": {
       "name": "Ole Miss",
@@ -357,6 +357,7 @@
       "sp": null,
       "fpi": 14,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -377,8 +378,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "alabama": {
       "name": "Alabama",
@@ -388,6 +388,7 @@
       "sp": null,
       "fpi": 8,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -408,15 +409,6 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": {
-        "seed": 13,
-        "spotsFromField": 1,
-        "movedUp": 0,
-        "trendScore": 0.45,
-        "nextOpponentRank": null,
-        "blurb": "Alabama sits at the 13 seed, one spot from being inside the field — the closest of the four bubble teams. The Tide are essentially one result from bracket position.",
-        "blurbSource": "llm"
       }
     },
     "texas-tech": {
@@ -427,6 +419,7 @@
       "sp": null,
       "fpi": 10,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -447,8 +440,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "lsu": {
       "name": "LSU",
@@ -458,6 +450,7 @@
       "sp": null,
       "fpi": 9,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -478,15 +471,6 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": {
-        "seed": 14,
-        "spotsFromField": 2,
-        "movedUp": 0,
-        "trendScore": 0.6,
-        "nextOpponentRank": 23,
-        "blurb": "LSU holds the 14 seed, two spots outside the field, and draws No. 23 Clemson next. Beating a ranked team in Week 1 is exactly the kind of push a team on the bubble needs.",
-        "blurbSource": "llm"
       }
     },
     "usc": {
@@ -497,6 +481,7 @@
       "sp": null,
       "fpi": 13,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -517,15 +502,6 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": {
-        "seed": 15,
-        "spotsFromField": 3,
-        "movedUp": 0,
-        "trendScore": 0.15,
-        "nextOpponentRank": null,
-        "blurb": "USC checks in at the 15 seed, three spots from the field. The Trojans have ground to make up and no cushion to lose.",
-        "blurbSource": "llm"
       }
     },
     "byu": {
@@ -536,6 +512,7 @@
       "sp": null,
       "fpi": 20,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -556,15 +533,6 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": {
-        "seed": 16,
-        "spotsFromField": 4,
-        "movedUp": 0,
-        "trendScore": 0.75,
-        "nextOpponentRank": null,
-        "blurb": "BYU is the last team on the board at the 16 seed, four spots outside the field. The Cougars are hanging on and will need help — or a signature win — to climb.",
-        "blurbSource": "llm"
       }
     },
     "michigan": {
@@ -575,6 +543,7 @@
       "sp": null,
       "fpi": 15,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -595,8 +564,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "penn-state": {
       "name": "Penn State",
@@ -606,6 +574,7 @@
       "sp": null,
       "fpi": 17,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -626,8 +595,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "tennessee": {
       "name": "Tennessee",
@@ -637,6 +605,7 @@
       "sp": null,
       "fpi": 16,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -657,8 +626,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "washington": {
       "name": "Washington",
@@ -668,6 +636,7 @@
       "sp": null,
       "fpi": 26,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -688,8 +657,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "smu": {
       "name": "SMU",
@@ -699,6 +667,7 @@
       "sp": null,
       "fpi": 24,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -719,8 +688,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "utah": {
       "name": "Utah",
@@ -730,6 +698,7 @@
       "sp": null,
       "fpi": 31,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -750,8 +719,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "iowa": {
       "name": "Iowa",
@@ -761,6 +729,7 @@
       "sp": null,
       "fpi": 25,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -781,8 +750,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "clemson": {
       "name": "Clemson",
@@ -792,6 +760,7 @@
       "sp": null,
       "fpi": 19,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -812,8 +781,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "houston": {
       "name": "Houston",
@@ -823,6 +791,7 @@
       "sp": null,
       "fpi": 35,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -843,8 +812,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "missouri": {
       "name": "Missouri",
@@ -854,6 +822,7 @@
       "sp": null,
       "fpi": 21,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -874,8 +843,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "north-carolina": {
       "name": "North Carolina",
@@ -885,6 +853,7 @@
       "sp": null,
       "fpi": 42,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -905,8 +874,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "tcu": {
       "name": "TCU",
@@ -916,6 +884,7 @@
       "sp": null,
       "fpi": 38,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -936,8 +905,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "san-jose-state": {
       "name": "San José State",
@@ -947,6 +915,7 @@
       "sp": null,
       "fpi": 124,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -967,8 +936,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "nc-state": {
       "name": "NC State",
@@ -978,6 +946,7 @@
       "sp": null,
       "fpi": 51,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -998,8 +967,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "virginia": {
       "name": "Virginia",
@@ -1009,6 +977,7 @@
       "sp": null,
       "fpi": 32,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1029,8 +998,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "jacksonville-state": {
       "name": "Jacksonville State",
@@ -1040,6 +1008,7 @@
       "sp": null,
       "fpi": 101,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1060,8 +1029,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "north-dakota-state": {
       "name": "North Dakota State",
@@ -1071,6 +1039,7 @@
       "sp": null,
       "fpi": 100,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1091,8 +1060,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "sacramento-state": {
       "name": "Sacramento State",
@@ -1102,6 +1070,7 @@
       "sp": null,
       "fpi": 111,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1122,8 +1091,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "eastern-michigan": {
       "name": "Eastern Michigan",
@@ -1133,6 +1101,7 @@
       "sp": null,
       "fpi": 131,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1153,8 +1122,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "hawai-i": {
       "name": "Hawai'i",
@@ -1164,6 +1132,7 @@
       "sp": null,
       "fpi": 76,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1184,8 +1153,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "stanford": {
       "name": "Stanford",
@@ -1195,6 +1163,7 @@
       "sp": null,
       "fpi": 80,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1215,8 +1184,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "new-mexico-state": {
       "name": "New Mexico State",
@@ -1226,6 +1194,7 @@
       "sp": null,
       "fpi": 129,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1246,8 +1215,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "florida-state": {
       "name": "Florida State",
@@ -1257,6 +1225,7 @@
       "sp": null,
       "fpi": 28,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1277,8 +1246,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "memphis": {
       "name": "Memphis",
@@ -1288,6 +1256,7 @@
       "sp": null,
       "fpi": 74,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1308,8 +1277,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "unlv": {
       "name": "UNLV",
@@ -1319,6 +1287,7 @@
       "sp": null,
       "fpi": 58,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1339,8 +1308,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "massachusetts": {
       "name": "Massachusetts",
@@ -1350,6 +1318,7 @@
       "sp": null,
       "fpi": 137,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1370,8 +1339,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "rutgers": {
       "name": "Rutgers",
@@ -1381,6 +1349,7 @@
       "sp": null,
       "fpi": 67,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1401,132 +1370,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "merrimack": {
-      "name": "Merrimack",
-      "conf": "FCS Independents",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Delaware",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401864424,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "delaware": {
-      "name": "Delaware",
-      "conf": "Conference USA",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 91,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Merrimack",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401864424,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "akron": {
-      "name": "Akron",
-      "conf": "Mid-American",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 133,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Wake Forest",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-03T23:00:00.000Z",
-        "network": "ACC Network",
-        "cfbdId": 401858204,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "wake-forest": {
-      "name": "Wake Forest",
-      "conf": "ACC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 53,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Akron",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-03T23:00:00.000Z",
-        "network": "ACC Network",
-        "cfbdId": 401858204,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "ualbany": {
       "name": "UAlbany",
@@ -1536,6 +1380,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -1556,8 +1401,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "buffalo": {
       "name": "Buffalo",
@@ -1567,6 +1411,7 @@
       "sp": null,
       "fpi": 113,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1587,70 +1432,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "bethune-cookman": {
-      "name": "Bethune-Cookman",
-      "conf": "SWAC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "UCF",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401856767,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "ucf": {
-      "name": "UCF",
-      "conf": "Big 12",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 57,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Bethune-Cookman",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-03T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401856767,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "west-georgia": {
       "name": "West Georgia",
@@ -1660,6 +1442,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -1680,8 +1463,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "kennesaw-state": {
       "name": "Kennesaw State",
@@ -1691,6 +1473,7 @@
       "sp": null,
       "fpi": 106,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1711,17 +1494,48 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
-    "colorado": {
-      "name": "Colorado",
+    "bethune-cookman": {
+      "name": "Bethune-Cookman",
+      "conf": "SWAC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "UCF",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-03T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401856767,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "ucf": {
+      "name": "UCF",
       "conf": "Big 12",
       "wins": 0,
       "losses": 0,
       "sp": null,
-      "fpi": 45,
+      "fpi": 57,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1733,26 +1547,119 @@
       ],
       "games": [],
       "nextGame": {
-        "opponent": "Georgia Tech",
+        "opponent": "Bethune-Cookman",
         "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-04T00:00:00.000Z",
-        "network": "ESPN",
-        "cfbdId": 401856776,
+        "homeAway": "home",
+        "when": "2026-09-03T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401856767,
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
-    "georgia-tech": {
-      "name": "Georgia Tech",
+    "merrimack": {
+      "name": "Merrimack",
+      "conf": "FCS Independents",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Delaware",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-03T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401864424,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "delaware": {
+      "name": "Delaware",
+      "conf": "Conference USA",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 91,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Merrimack",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-03T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401864424,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "akron": {
+      "name": "Akron",
+      "conf": "Mid-American",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 133,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Wake Forest",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-03T23:00:00.000Z",
+        "network": "ACC Network",
+        "cfbdId": 401858204,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "wake-forest": {
+      "name": "Wake Forest",
       "conf": "ACC",
       "wins": 0,
       "losses": 0,
       "sp": null,
-      "fpi": 48,
+      "fpi": 53,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1764,17 +1671,16 @@
       ],
       "games": [],
       "nextGame": {
-        "opponent": "Colorado",
+        "opponent": "Akron",
         "opponentRank": null,
         "homeAway": "home",
-        "when": "2026-09-04T00:00:00.000Z",
-        "network": "ESPN",
-        "cfbdId": 401856776,
+        "when": "2026-09-03T23:00:00.000Z",
+        "network": "ACC Network",
+        "cfbdId": 401858204,
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "arkansas-pine-bluff": {
       "name": "Arkansas-Pine Bluff",
@@ -1784,6 +1690,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -1804,8 +1711,69 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "colorado": {
+      "name": "Colorado",
+      "conf": "Big 12",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 45,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Georgia Tech",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-04T00:00:00.000Z",
+        "network": "ESPN",
+        "cfbdId": 401856776,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "georgia-tech": {
+      "name": "Georgia Tech",
+      "conf": "ACC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 48,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Colorado",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-04T00:00:00.000Z",
+        "network": "ESPN",
+        "cfbdId": 401856776,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "eastern-illinois": {
       "name": "Eastern Illinois",
@@ -1815,6 +1783,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -1835,8 +1804,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "minnesota": {
       "name": "Minnesota",
@@ -1846,6 +1814,7 @@
       "sp": null,
       "fpi": 63,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1866,8 +1835,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "uab": {
       "name": "UAB",
@@ -1877,6 +1845,7 @@
       "sp": null,
       "fpi": 128,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1897,8 +1866,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "illinois": {
       "name": "Illinois",
@@ -1908,6 +1876,7 @@
       "sp": null,
       "fpi": 39,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -1928,8 +1897,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "idaho": {
       "name": "Idaho",
@@ -1939,6 +1907,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -1959,8 +1928,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "north-carolina-a-t": {
       "name": "North Carolina A&T",
@@ -1970,6 +1938,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -1990,8 +1959,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "georgia-state": {
       "name": "Georgia State",
@@ -2001,6 +1969,7 @@
       "sp": null,
       "fpi": 127,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2021,8 +1990,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "indiana-state": {
       "name": "Indiana State",
@@ -2032,6 +2000,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -2052,8 +2021,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "purdue": {
       "name": "Purdue",
@@ -2063,6 +2031,7 @@
       "sp": null,
       "fpi": 71,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2083,8 +2052,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "long-island-university": {
       "name": "Long Island University",
@@ -2094,6 +2062,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -2114,8 +2083,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "kansas": {
       "name": "Kansas",
@@ -2125,6 +2093,7 @@
       "sp": null,
       "fpi": 55,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2145,8 +2114,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "utep": {
       "name": "UTEP",
@@ -2156,6 +2124,7 @@
       "sp": null,
       "fpi": 132,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2176,8 +2145,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "toledo": {
       "name": "Toledo",
@@ -2187,6 +2155,7 @@
       "sp": null,
       "fpi": 79,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2207,8 +2176,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "michigan-state": {
       "name": "Michigan State",
@@ -2218,6 +2186,7 @@
       "sp": null,
       "fpi": 65,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2238,8 +2207,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "fresno-state": {
       "name": "Fresno State",
@@ -2249,6 +2217,7 @@
       "sp": null,
       "fpi": 77,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2269,194 +2238,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "oregon-state": {
-      "name": "Oregon State",
-      "conf": "Pac-12",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 98,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Houston",
-        "opponentRank": 24,
-        "homeAway": "away",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "ESPN",
-        "cfbdId": 401856778,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "tarleton-state": {
-      "name": "Tarleton State",
-      "conf": "UAC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Bowling Green",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401866410,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "bowling-green": {
-      "name": "Bowling Green",
-      "conf": "Mid-American",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 123,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Tarleton State",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401866410,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "north-texas": {
-      "name": "North Texas",
-      "conf": "American Athletic",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 90,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Indiana",
-        "opponentRank": 6,
-        "homeAway": "away",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "FOX",
-        "cfbdId": 401858425,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "miami-oh": {
-      "name": "Miami (OH)",
-      "conf": "Mid-American",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 94,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Pittsburgh",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "The CW Network",
-        "cfbdId": 401858207,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "pittsburgh": {
-      "name": "Pittsburgh",
-      "conf": "ACC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 36,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Miami (OH)",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "The CW Network",
-        "cfbdId": 401858207,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "liberty": {
       "name": "Liberty",
@@ -2466,6 +2248,7 @@
       "sp": null,
       "fpi": 96,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2486,8 +2269,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "james-madison": {
       "name": "James Madison",
@@ -2497,6 +2279,7 @@
       "sp": null,
       "fpi": 75,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2517,194 +2300,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "bryant": {
-      "name": "Bryant",
-      "conf": "CAA",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Army",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "CBSSN",
-        "cfbdId": 401862701,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "army": {
-      "name": "Army",
-      "conf": "American Athletic",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 89,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Bryant",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "CBSSN",
-        "cfbdId": 401862701,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "new-hampshire": {
-      "name": "New Hampshire",
-      "conf": "CAA",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Syracuse",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "ACC Network",
-        "cfbdId": 401858208,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "syracuse": {
-      "name": "Syracuse",
-      "conf": "ACC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 70,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "New Hampshire",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "ACC Network",
-        "cfbdId": 401858208,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "ohio": {
-      "name": "Ohio",
-      "conf": "Mid-American",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 97,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Nebraska",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "FS1",
-        "cfbdId": 401858430,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "nebraska": {
-      "name": "Nebraska",
-      "conf": "Big Ten",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 30,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Ohio",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T16:00:00.000Z",
-        "network": "FS1",
-        "cfbdId": 401858430,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "coastal-carolina": {
       "name": "Coastal Carolina",
@@ -2714,6 +2310,7 @@
       "sp": null,
       "fpi": 117,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2734,8 +2331,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "west-virginia": {
       "name": "West Virginia",
@@ -2745,6 +2341,7 @@
       "sp": null,
       "fpi": 66,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2765,17 +2362,17 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
-    "east-carolina": {
-      "name": "East Carolina",
-      "conf": "American Athletic",
+    "ohio": {
+      "name": "Ohio",
+      "conf": "Mid-American",
       "wins": 0,
       "losses": 0,
       "sp": null,
-      "fpi": 68,
+      "fpi": 97,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2787,17 +2384,140 @@
       ],
       "games": [],
       "nextGame": {
-        "opponent": "Alabama",
-        "opponentRank": 11,
+        "opponent": "Nebraska",
+        "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
-        "network": "ABC",
-        "cfbdId": 401856634,
+        "network": "FS1",
+        "cfbdId": 401858430,
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "nebraska": {
+      "name": "Nebraska",
+      "conf": "Big Ten",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 30,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Ohio",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "FS1",
+        "cfbdId": 401858430,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "tarleton-state": {
+      "name": "Tarleton State",
+      "conf": "UAC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Bowling Green",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401866410,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "bowling-green": {
+      "name": "Bowling Green",
+      "conf": "Mid-American",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 123,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Tarleton State",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401866410,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "oregon-state": {
+      "name": "Oregon State",
+      "conf": "Pac-12",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 98,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Houston",
+        "opponentRank": 24,
+        "homeAway": "away",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "ESPN",
+        "cfbdId": 401856778,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "lafayette": {
       "name": "Lafayette",
@@ -2807,6 +2527,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -2827,8 +2548,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "uconn": {
       "name": "UConn",
@@ -2838,6 +2558,7 @@
       "sp": null,
       "fpi": 114,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2858,8 +2579,255 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "miami-oh": {
+      "name": "Miami (OH)",
+      "conf": "Mid-American",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 94,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Pittsburgh",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "The CW Network",
+        "cfbdId": 401858207,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "pittsburgh": {
+      "name": "Pittsburgh",
+      "conf": "ACC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 36,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Miami (OH)",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "The CW Network",
+        "cfbdId": 401858207,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "east-carolina": {
+      "name": "East Carolina",
+      "conf": "American Athletic",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 68,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Alabama",
+        "opponentRank": 11,
+        "homeAway": "away",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "ABC",
+        "cfbdId": 401856634,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "north-texas": {
+      "name": "North Texas",
+      "conf": "American Athletic",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 90,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Indiana",
+        "opponentRank": 6,
+        "homeAway": "away",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "FOX",
+        "cfbdId": 401858425,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "bryant": {
+      "name": "Bryant",
+      "conf": "CAA",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Army",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "CBSSN",
+        "cfbdId": 401862701,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "army": {
+      "name": "Army",
+      "conf": "American Athletic",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 89,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Bryant",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "CBSSN",
+        "cfbdId": 401862701,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "new-hampshire": {
+      "name": "New Hampshire",
+      "conf": "CAA",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Syracuse",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "ACC Network",
+        "cfbdId": 401858208,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "syracuse": {
+      "name": "Syracuse",
+      "conf": "ACC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 70,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "New Hampshire",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T16:00:00.000Z",
+        "network": "ACC Network",
+        "cfbdId": 401858208,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "ball-state": {
       "name": "Ball State",
@@ -2869,6 +2837,7 @@
       "sp": null,
       "fpi": 134,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2889,8 +2858,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "kent-state": {
       "name": "Kent State",
@@ -2900,6 +2868,7 @@
       "sp": null,
       "fpi": 135,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2920,8 +2889,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "south-carolina": {
       "name": "South Carolina",
@@ -2931,6 +2899,7 @@
       "sp": null,
       "fpi": 23,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -2951,70 +2920,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "youngstown-state": {
-      "name": "Youngstown State",
-      "conf": "MVFC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Kentucky",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T17:00:00.000Z",
-        "network": "SECN+",
-        "cfbdId": 401856659,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "kentucky": {
-      "name": "Kentucky",
-      "conf": "SEC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 40,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Youngstown State",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T17:00:00.000Z",
-        "network": "SECN+",
-        "cfbdId": 401856659,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "duquesne": {
       "name": "Duquesne",
@@ -3024,6 +2930,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -3044,8 +2951,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "air-force": {
       "name": "Air Force",
@@ -3055,6 +2961,7 @@
       "sp": null,
       "fpi": 93,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3075,8 +2982,69 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "youngstown-state": {
+      "name": "Youngstown State",
+      "conf": "MVFC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Kentucky",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T17:00:00.000Z",
+        "network": "SECN+",
+        "cfbdId": 401856659,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "kentucky": {
+      "name": "Kentucky",
+      "conf": "SEC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 40,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Youngstown State",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T17:00:00.000Z",
+        "network": "SECN+",
+        "cfbdId": 401856659,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "southeast-missouri-state": {
       "name": "Southeast Missouri State",
@@ -3086,6 +3054,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -3106,8 +3075,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "iowa-state": {
       "name": "Iowa State",
@@ -3117,6 +3085,7 @@
       "sp": null,
       "fpi": 72,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3137,8 +3106,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "rhode-island": {
       "name": "Rhode Island",
@@ -3148,6 +3116,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -3168,8 +3137,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "temple": {
       "name": "Temple",
@@ -3179,6 +3147,7 @@
       "sp": null,
       "fpi": 102,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3199,8 +3168,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "tennessee-state": {
       "name": "Tennessee State",
@@ -3210,6 +3178,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -3230,256 +3199,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "boston-college": {
-      "name": "Boston College",
-      "conf": "ACC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 78,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Cincinnati",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "FOX",
-        "cfbdId": 401856777,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "cincinnati": {
-      "name": "Cincinnati",
-      "conf": "Big 12",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 46,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Boston College",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "FOX",
-        "cfbdId": 401856777,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "maine": {
-      "name": "Maine",
-      "conf": "CAA",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "App State",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401866627,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "app-state": {
-      "name": "App State",
-      "conf": "Sun Belt",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 109,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Maine",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401866627,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "boise-state": {
-      "name": "Boise State",
-      "conf": "Pac-12",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 50,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Oregon",
-        "opponentRank": 2,
-        "homeAway": "away",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "CBS",
-        "cfbdId": 401858433,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "furman": {
-      "name": "Furman",
-      "conf": "Southern",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Tennessee",
-        "opponentRank": 18,
-        "homeAway": "away",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "SECN+",
-        "cfbdId": 401856666,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "ut-rio-grande-valley": {
-      "name": "UT Rio Grande Valley",
-      "conf": "Southland",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "UTSA",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401862700,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "utsa": {
-      "name": "UTSA",
-      "conf": "American Athletic",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 88,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "UT Rio Grande Valley",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401862700,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "marshall": {
       "name": "Marshall",
@@ -3489,6 +3209,7 @@
       "sp": null,
       "fpi": 104,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3509,8 +3230,100 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "furman": {
+      "name": "Furman",
+      "conf": "Southern",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Tennessee",
+        "opponentRank": 18,
+        "homeAway": "away",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "SECN+",
+        "cfbdId": 401856666,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "maine": {
+      "name": "Maine",
+      "conf": "CAA",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "App State",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401866627,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "app-state": {
+      "name": "App State",
+      "conf": "Sun Belt",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 109,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Maine",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401866627,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "baylor": {
       "name": "Baylor",
@@ -3520,6 +3333,7 @@
       "sp": null,
       "fpi": 37,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3540,8 +3354,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "auburn": {
       "name": "Auburn",
@@ -3551,6 +3364,7 @@
       "sp": null,
       "fpi": 22,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3571,163 +3385,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "the-citadel": {
-      "name": "The Citadel",
-      "conf": "Southern",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Charlotte",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401862694,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "charlotte": {
-      "name": "Charlotte",
-      "conf": "American Athletic",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 126,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "The Citadel",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401862694,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "tulane": {
-      "name": "Tulane",
-      "conf": "American Athletic",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 56,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Duke",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "ACC Network",
-        "cfbdId": 401858209,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "duke": {
-      "name": "Duke",
-      "conf": "ACC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 52,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Tulane",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "ACC Network",
-        "cfbdId": 401858209,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "fordham": {
-      "name": "Fordham",
-      "conf": "Patriot",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "North Dakota State",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T19:30:00.000Z",
-        "network": "The CW Network",
-        "cfbdId": 401864499,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "texas-state": {
       "name": "Texas State",
@@ -3737,6 +3395,7 @@
       "sp": null,
       "fpi": 84,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3757,8 +3416,100 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "fordham": {
+      "name": "Fordham",
+      "conf": "Patriot",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "North Dakota State",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "The CW Network",
+        "cfbdId": 401864499,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "tulane": {
+      "name": "Tulane",
+      "conf": "American Athletic",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 56,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Duke",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "ACC Network",
+        "cfbdId": 401858209,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "duke": {
+      "name": "Duke",
+      "conf": "ACC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 52,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Tulane",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "ACC Network",
+        "cfbdId": 401858209,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "towson": {
       "name": "Towson",
@@ -3768,6 +3519,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -3788,8 +3540,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "navy": {
       "name": "Navy",
@@ -3799,6 +3550,7 @@
       "sp": null,
       "fpi": 69,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3819,8 +3571,224 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "boise-state": {
+      "name": "Boise State",
+      "conf": "Pac-12",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 50,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Oregon",
+        "opponentRank": 2,
+        "homeAway": "away",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "CBS",
+        "cfbdId": 401858433,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "boston-college": {
+      "name": "Boston College",
+      "conf": "ACC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 78,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Cincinnati",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "FOX",
+        "cfbdId": 401856777,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "cincinnati": {
+      "name": "Cincinnati",
+      "conf": "Big 12",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 46,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Boston College",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "FOX",
+        "cfbdId": 401856777,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "ut-rio-grande-valley": {
+      "name": "UT Rio Grande Valley",
+      "conf": "Southland",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "UTSA",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401862700,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "utsa": {
+      "name": "UTSA",
+      "conf": "American Athletic",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 88,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "UT Rio Grande Valley",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401862700,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "the-citadel": {
+      "name": "The Citadel",
+      "conf": "Southern",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Charlotte",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401862694,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "charlotte": {
+      "name": "Charlotte",
+      "conf": "American Athletic",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 126,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "The Citadel",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T19:30:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401862694,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "oklahoma-state": {
       "name": "Oklahoma State",
@@ -3830,6 +3798,7 @@
       "sp": null,
       "fpi": 54,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3850,8 +3819,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "tulsa": {
       "name": "Tulsa",
@@ -3861,6 +3829,7 @@
       "sp": null,
       "fpi": 105,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3881,8 +3850,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "northern-illinois": {
       "name": "Northern Illinois",
@@ -3892,6 +3860,7 @@
       "sp": null,
       "fpi": 125,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3912,8 +3881,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "north-alabama": {
       "name": "North Alabama",
@@ -3923,6 +3891,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -3943,8 +3912,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "arkansas": {
       "name": "Arkansas",
@@ -3954,6 +3922,7 @@
       "sp": null,
       "fpi": 47,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -3974,8 +3943,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "alcorn-state": {
       "name": "Alcorn State",
@@ -3985,6 +3953,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -4005,8 +3974,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "southern-miss": {
       "name": "Southern Miss",
@@ -4016,6 +3984,7 @@
       "sp": null,
       "fpi": 87,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -4036,70 +4005,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "wyoming": {
-      "name": "Wyoming",
-      "conf": "Mountain West",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 121,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Colorado State",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T22:00:00.000Z",
-        "network": "USA Net",
-        "cfbdId": 401860878,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "colorado-state": {
-      "name": "Colorado State",
-      "conf": "Pac-12",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 118,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Wyoming",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T22:00:00.000Z",
-        "network": "USA Net",
-        "cfbdId": 401860878,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "norfolk-state": {
       "name": "Norfolk State",
@@ -4109,6 +4015,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -4129,8 +4036,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "old-dominion": {
       "name": "Old Dominion",
@@ -4140,6 +4046,7 @@
       "sp": null,
       "fpi": 85,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -4160,8 +4067,69 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "wyoming": {
+      "name": "Wyoming",
+      "conf": "Mountain West",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 121,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Colorado State",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T22:00:00.000Z",
+        "network": "USA Net",
+        "cfbdId": 401860878,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "colorado-state": {
+      "name": "Colorado State",
+      "conf": "Pac-12",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 118,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Wyoming",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T22:00:00.000Z",
+        "network": "USA Net",
+        "cfbdId": 401860878,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "sam-houston": {
       "name": "Sam Houston",
@@ -4171,6 +4139,7 @@
       "sp": null,
       "fpi": 136,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -4191,8 +4160,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "troy": {
       "name": "Troy",
@@ -4202,6 +4170,7 @@
       "sp": null,
       "fpi": 95,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -4222,287 +4191,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "charleston-southern": {
-      "name": "Charleston Southern",
-      "conf": "Big South-OVC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Georgia Southern",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401868170,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "georgia-southern": {
-      "name": "Georgia Southern",
-      "conf": "Sun Belt",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 103,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Charleston Southern",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401868170,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "se-louisiana": {
-      "name": "SE Louisiana",
-      "conf": "Southland",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "South Alabama",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401868316,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "south-alabama": {
-      "name": "South Alabama",
-      "conf": "Sun Belt",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 112,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "SE Louisiana",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401868316,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "murray-state": {
-      "name": "Murray State",
-      "conf": "MVFC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Middle Tennessee",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401867866,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "middle-tennessee": {
-      "name": "Middle Tennessee",
-      "conf": "Conference USA",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 130,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Murray State",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401867866,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "arkansas-state": {
-      "name": "Arkansas State",
-      "conf": "Sun Belt",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 107,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Memphis",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401862695,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "eastern-kentucky": {
-      "name": "Eastern Kentucky",
-      "conf": "UAC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Jacksonville State",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401868140,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "abilene-christian": {
-      "name": "Abilene Christian",
-      "conf": "UAC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Texas Tech",
-        "opponentRank": 12,
-        "homeAway": "away",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "FS1",
-        "cfbdId": 401856770,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "houston-christian": {
       "name": "Houston Christian",
@@ -4512,6 +4201,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -4532,8 +4222,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "rice": {
       "name": "Rice",
@@ -4543,6 +4232,7 @@
       "sp": null,
       "fpi": 122,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -4563,203 +4253,17 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
-    "florida-international": {
-      "name": "Florida International",
-      "conf": "Conference USA",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 119,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "South Florida",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401862699,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "south-florida": {
-      "name": "South Florida",
-      "conf": "American Athletic",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 73,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Florida International",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401862699,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "idaho-state": {
-      "name": "Idaho State",
-      "conf": "Big Sky",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Utah State",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "CBSSN",
-        "cfbdId": 401860880,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "utah-state": {
-      "name": "Utah State",
-      "conf": "Pac-12",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 92,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Idaho State",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "CBSSN",
-        "cfbdId": 401860880,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "nicholls": {
-      "name": "Nicholls",
-      "conf": "Southland",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Kansas State",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401856771,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "kansas-state": {
-      "name": "Kansas State",
-      "conf": "Big 12",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 41,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Nicholls",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T23:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401856771,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "austin-peay": {
-      "name": "Austin Peay",
+    "abilene-christian": {
+      "name": "Abilene Christian",
       "conf": "UAC",
       "wins": 0,
       "losses": 0,
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -4771,26 +4275,26 @@
       ],
       "games": [],
       "nextGame": {
-        "opponent": "Vanderbilt",
-        "opponentRank": null,
+        "opponent": "Texas Tech",
+        "opponentRank": 12,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "SECN+",
-        "cfbdId": 401856669,
+        "network": "FS1",
+        "cfbdId": 401856770,
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
-    "vanderbilt": {
-      "name": "Vanderbilt",
-      "conf": "SEC",
+    "se-louisiana": {
+      "name": "SE Louisiana",
+      "conf": "Southland",
       "wins": 0,
       "losses": 0,
       "sp": null,
-      "fpi": 29,
+      "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -4802,17 +4306,47 @@
       ],
       "games": [],
       "nextGame": {
-        "opponent": "Austin Peay",
+        "opponent": "South Alabama",
         "opponentRank": null,
-        "homeAway": "home",
+        "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
-        "network": "SECN+",
-        "cfbdId": 401856669,
+        "network": "ESPN+",
+        "cfbdId": 401868316,
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "south-alabama": {
+      "name": "South Alabama",
+      "conf": "Sun Belt",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 112,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "SE Louisiana",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401868316,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "missouri-state": {
       "name": "Missouri State",
@@ -4822,6 +4356,7 @@
       "sp": null,
       "fpi": 110,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -4842,17 +4377,17 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
-    "vmi": {
-      "name": "VMI",
-      "conf": "Southern",
+    "austin-peay": {
+      "name": "Austin Peay",
+      "conf": "UAC",
       "wins": 0,
       "losses": 0,
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -4864,26 +4399,26 @@
       ],
       "games": [],
       "nextGame": {
-        "opponent": "Virginia Tech",
+        "opponent": "Vanderbilt",
         "opponentRank": null,
         "homeAway": "away",
-        "when": "2026-09-05T23:30:00.000Z",
-        "network": "ACC Network",
-        "cfbdId": 401858211,
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "SECN+",
+        "cfbdId": 401856669,
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
-    "virginia-tech": {
-      "name": "Virginia Tech",
-      "conf": "ACC",
+    "vanderbilt": {
+      "name": "Vanderbilt",
+      "conf": "SEC",
       "wins": 0,
       "losses": 0,
       "sp": null,
-      "fpi": 33,
+      "fpi": 29,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -4895,17 +4430,388 @@
       ],
       "games": [],
       "nextGame": {
-        "opponent": "VMI",
+        "opponent": "Austin Peay",
         "opponentRank": null,
         "homeAway": "home",
-        "when": "2026-09-05T23:30:00.000Z",
-        "network": "ACC Network",
-        "cfbdId": 401858211,
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "SECN+",
+        "cfbdId": 401856669,
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "nicholls": {
+      "name": "Nicholls",
+      "conf": "Southland",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Kansas State",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401856771,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "kansas-state": {
+      "name": "Kansas State",
+      "conf": "Big 12",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 41,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Nicholls",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401856771,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "idaho-state": {
+      "name": "Idaho State",
+      "conf": "Big Sky",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Utah State",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "CBSSN",
+        "cfbdId": 401860880,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "utah-state": {
+      "name": "Utah State",
+      "conf": "Pac-12",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 92,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Idaho State",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "CBSSN",
+        "cfbdId": 401860880,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "arkansas-state": {
+      "name": "Arkansas State",
+      "conf": "Sun Belt",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 107,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Memphis",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401862695,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "florida-international": {
+      "name": "Florida International",
+      "conf": "Conference USA",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 119,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "South Florida",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401862699,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "south-florida": {
+      "name": "South Florida",
+      "conf": "American Athletic",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 73,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Florida International",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401862699,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "eastern-kentucky": {
+      "name": "Eastern Kentucky",
+      "conf": "UAC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Jacksonville State",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401868140,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "charleston-southern": {
+      "name": "Charleston Southern",
+      "conf": "Big South-OVC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Georgia Southern",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401868170,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "georgia-southern": {
+      "name": "Georgia Southern",
+      "conf": "Sun Belt",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 103,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Charleston Southern",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401868170,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "murray-state": {
+      "name": "Murray State",
+      "conf": "MVFC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Middle Tennessee",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401867866,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "middle-tennessee": {
+      "name": "Middle Tennessee",
+      "conf": "Conference USA",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 130,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Murray State",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T23:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401867866,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "western-michigan": {
       "name": "Western Michigan",
@@ -4915,6 +4821,7 @@
       "sp": null,
       "fpi": 82,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -4935,70 +4842,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "ul-monroe": {
-      "name": "UL Monroe",
-      "conf": "Sun Belt",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 138,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Mississippi State",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-05T23:30:00.000Z",
-        "network": "ESPNU",
-        "cfbdId": 401856662,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "mississippi-state": {
-      "name": "Mississippi State",
-      "conf": "SEC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 49,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "UL Monroe",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-05T23:30:00.000Z",
-        "network": "ESPNU",
-        "cfbdId": 401856662,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "northwestern-state": {
       "name": "Northwestern State",
@@ -5008,6 +4852,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -5028,8 +4873,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "louisiana-tech": {
       "name": "Louisiana Tech",
@@ -5039,6 +4883,7 @@
       "sp": null,
       "fpi": 108,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5059,8 +4904,131 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "vmi": {
+      "name": "VMI",
+      "conf": "Southern",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Virginia Tech",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T23:30:00.000Z",
+        "network": "ACC Network",
+        "cfbdId": 401858211,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "virginia-tech": {
+      "name": "Virginia Tech",
+      "conf": "ACC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 33,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "VMI",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T23:30:00.000Z",
+        "network": "ACC Network",
+        "cfbdId": 401858211,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "ul-monroe": {
+      "name": "UL Monroe",
+      "conf": "Sun Belt",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 138,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Mississippi State",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-05T23:30:00.000Z",
+        "network": "ESPNU",
+        "cfbdId": 401856662,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "mississippi-state": {
+      "name": "Mississippi State",
+      "conf": "SEC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 49,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "UL Monroe",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-05T23:30:00.000Z",
+        "network": "ESPNU",
+        "cfbdId": 401856662,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "florida-atlantic": {
       "name": "Florida Atlantic",
@@ -5070,6 +5038,7 @@
       "sp": null,
       "fpi": 115,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5090,8 +5059,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "florida": {
       "name": "Florida",
@@ -5101,6 +5069,7 @@
       "sp": null,
       "fpi": 18,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5121,163 +5090,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "lamar": {
-      "name": "Lamar",
-      "conf": "Southland",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Louisiana",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-06T00:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401869142,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "louisiana": {
-      "name": "Louisiana",
-      "conf": "Sun Belt",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 99,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Lamar",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-06T00:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401869142,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "south-dakota-state": {
-      "name": "South Dakota State",
-      "conf": "MVFC",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Northwestern",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-06T00:00:00.000Z",
-        "network": "BTN",
-        "cfbdId": 401858431,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "northwestern": {
-      "name": "Northwestern",
-      "conf": "Big Ten",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 60,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "South Dakota State",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-06T00:00:00.000Z",
-        "network": "BTN",
-        "cfbdId": 401858431,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "utah-tech": {
-      "name": "Utah Tech",
-      "conf": "Big Sky",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "BYU",
-        "opponentRank": 15,
-        "homeAway": "away",
-        "when": "2026-09-06T00:00:00.000Z",
-        "network": "ESPN+",
-        "cfbdId": 401856775,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "hampton": {
       "name": "Hampton",
@@ -5287,6 +5100,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -5307,8 +5121,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "maryland": {
       "name": "Maryland",
@@ -5318,6 +5131,7 @@
       "sp": null,
       "fpi": 61,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5338,8 +5152,162 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "south-dakota-state": {
+      "name": "South Dakota State",
+      "conf": "MVFC",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Northwestern",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-06T00:00:00.000Z",
+        "network": "BTN",
+        "cfbdId": 401858431,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "northwestern": {
+      "name": "Northwestern",
+      "conf": "Big Ten",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 60,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "South Dakota State",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-06T00:00:00.000Z",
+        "network": "BTN",
+        "cfbdId": 401858431,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "utah-tech": {
+      "name": "Utah Tech",
+      "conf": "Big Sky",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "BYU",
+        "opponentRank": 15,
+        "homeAway": "away",
+        "when": "2026-09-06T00:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401856775,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "lamar": {
+      "name": "Lamar",
+      "conf": "Southland",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Louisiana",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-06T00:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401869142,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "louisiana": {
+      "name": "Louisiana",
+      "conf": "Sun Belt",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 99,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Lamar",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-06T00:00:00.000Z",
+        "network": "ESPN+",
+        "cfbdId": 401869142,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "mercyhurst": {
       "name": "Mercyhurst",
@@ -5349,6 +5317,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -5369,8 +5338,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "morgan-state": {
       "name": "Morgan State",
@@ -5380,6 +5348,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -5400,8 +5369,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "arizona-state": {
       "name": "Arizona State",
@@ -5411,6 +5379,7 @@
       "sp": null,
       "fpi": 44,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5431,70 +5400,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "portland-state": {
-      "name": "Portland State",
-      "conf": "Big Sky",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": null,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "San Diego State",
-        "opponentRank": null,
-        "homeAway": "away",
-        "when": "2026-09-06T01:30:00.000Z",
-        "network": "USA Net",
-        "cfbdId": 401860879,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "san-diego-state": {
-      "name": "San Diego State",
-      "conf": "Pac-12",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 59,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Portland State",
-        "opponentRank": null,
-        "homeAway": "home",
-        "when": "2026-09-06T01:30:00.000Z",
-        "network": "USA Net",
-        "cfbdId": 401860879,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "northern-arizona": {
       "name": "Northern Arizona",
@@ -5504,6 +5410,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -5524,8 +5431,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "arizona": {
       "name": "Arizona",
@@ -5535,6 +5441,7 @@
       "sp": null,
       "fpi": 34,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5555,8 +5462,69 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "portland-state": {
+      "name": "Portland State",
+      "conf": "Big Sky",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": null,
+      "elo": null,
+      "hasLogo": false,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "San Diego State",
+        "opponentRank": null,
+        "homeAway": "away",
+        "when": "2026-09-06T01:30:00.000Z",
+        "network": "USA Net",
+        "cfbdId": 401860879,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
+    },
+    "san-diego-state": {
+      "name": "San Diego State",
+      "conf": "Pac-12",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 59,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Portland State",
+        "opponentRank": null,
+        "homeAway": "home",
+        "when": "2026-09-06T01:30:00.000Z",
+        "network": "USA Net",
+        "cfbdId": 401860879,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     },
     "mississippi-valley-state": {
       "name": "Mississippi Valley State",
@@ -5566,6 +5534,7 @@
       "sp": null,
       "fpi": null,
       "elo": null,
+      "hasLogo": false,
       "ap": [
         null
       ],
@@ -5586,8 +5555,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "central-michigan": {
       "name": "Central Michigan",
@@ -5597,6 +5565,7 @@
       "sp": null,
       "fpi": 120,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5617,8 +5586,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "new-mexico": {
       "name": "New Mexico",
@@ -5628,6 +5596,7 @@
       "sp": null,
       "fpi": 81,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5648,8 +5617,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "western-kentucky": {
       "name": "Western Kentucky",
@@ -5659,6 +5627,7 @@
       "sp": null,
       "fpi": 86,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5679,8 +5648,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "nevada": {
       "name": "Nevada",
@@ -5690,6 +5658,7 @@
       "sp": null,
       "fpi": 116,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5710,8 +5679,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "ucla": {
       "name": "UCLA",
@@ -5721,6 +5689,7 @@
       "sp": null,
       "fpi": 64,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5741,8 +5710,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "california": {
       "name": "California",
@@ -5752,6 +5720,7 @@
       "sp": null,
       "fpi": 62,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5772,8 +5741,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "washington-state": {
       "name": "Washington State",
@@ -5783,6 +5751,7 @@
       "sp": null,
       "fpi": 83,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5803,39 +5772,7 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
-    },
-    "wisconsin": {
-      "name": "Wisconsin",
-      "conf": "Big Ten",
-      "wins": 0,
-      "losses": 0,
-      "sp": null,
-      "fpi": 43,
-      "elo": null,
-      "ap": [
-        null
-      ],
-      "coaches": [
-        null
-      ],
-      "cfp": [
-        null
-      ],
-      "games": [],
-      "nextGame": {
-        "opponent": "Notre Dame",
-        "opponentRank": 5,
-        "homeAway": "away",
-        "when": "2026-09-06T23:30:00.000Z",
-        "network": "NBC",
-        "cfbdId": 401858438,
-        "status": "scheduled",
-        "awayScore": null,
-        "homeScore": null
-      },
-      "bubbleNote": null
+      }
     },
     "louisville": {
       "name": "Louisville",
@@ -5845,6 +5782,7 @@
       "sp": null,
       "fpi": 27,
       "elo": null,
+      "hasLogo": true,
       "ap": [
         null
       ],
@@ -5865,8 +5803,38 @@
         "status": "scheduled",
         "awayScore": null,
         "homeScore": null
-      },
-      "bubbleNote": null
+      }
+    },
+    "wisconsin": {
+      "name": "Wisconsin",
+      "conf": "Big Ten",
+      "wins": 0,
+      "losses": 0,
+      "sp": null,
+      "fpi": 43,
+      "elo": null,
+      "hasLogo": true,
+      "ap": [
+        null
+      ],
+      "coaches": [
+        null
+      ],
+      "cfp": [
+        null
+      ],
+      "games": [],
+      "nextGame": {
+        "opponent": "Notre Dame",
+        "opponentRank": 5,
+        "homeAway": "away",
+        "when": "2026-09-06T23:30:00.000Z",
+        "network": "NBC",
+        "cfbdId": 401858438,
+        "status": "scheduled",
+        "awayScore": null,
+        "homeScore": null
+      }
     }
   },
   "allGames": [
@@ -6060,6 +6028,69 @@
       "blurbSource": null
     },
     {
+      "id": "2026-wk1-ualbany-buffalo",
+      "cfbdId": 401866409,
+      "away": "ualbany",
+      "awayRank": null,
+      "home": "buffalo",
+      "homeRank": null,
+      "when": "2026-09-03T23:00:00.000Z",
+      "spread": null,
+      "ou": null,
+      "network": "ESPN+",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-west-georgia-kennesaw-state",
+      "cfbdId": 401864425,
+      "away": "west-georgia",
+      "awayRank": null,
+      "home": "kennesaw-state",
+      "homeRank": null,
+      "when": "2026-09-03T23:00:00.000Z",
+      "spread": null,
+      "ou": null,
+      "network": "ESPN+",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-bethune-cookman-ucf",
+      "cfbdId": 401856767,
+      "away": "bethune-cookman",
+      "awayRank": null,
+      "home": "ucf",
+      "homeRank": null,
+      "when": "2026-09-03T23:00:00.000Z",
+      "spread": null,
+      "ou": null,
+      "network": "ESPN+",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
       "id": "2026-wk1-merrimack-delaware",
       "cfbdId": 401864424,
       "away": "merrimack",
@@ -6102,58 +6133,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-ualbany-buffalo",
-      "cfbdId": 401866409,
-      "away": "ualbany",
+      "id": "2026-wk1-arkansas-pine-bluff-missouri",
+      "cfbdId": 401856663,
+      "away": "arkansas-pine-bluff",
       "awayRank": null,
-      "home": "buffalo",
-      "homeRank": null,
-      "when": "2026-09-03T23:00:00.000Z",
+      "home": "missouri",
+      "homeRank": 25,
+      "when": "2026-09-04T00:00:00.000Z",
       "spread": null,
       "ou": null,
-      "network": "ESPN+",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-bethune-cookman-ucf",
-      "cfbdId": 401856767,
-      "away": "bethune-cookman",
-      "awayRank": null,
-      "home": "ucf",
-      "homeRank": null,
-      "when": "2026-09-03T23:00:00.000Z",
-      "spread": null,
-      "ou": null,
-      "network": "ESPN+",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-west-georgia-kennesaw-state",
-      "cfbdId": 401864425,
-      "away": "west-georgia",
-      "awayRank": null,
-      "home": "kennesaw-state",
-      "homeRank": null,
-      "when": "2026-09-03T23:00:00.000Z",
-      "spread": null,
-      "ou": null,
-      "network": "ESPN+",
+      "network": "SEC Network",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -6175,27 +6164,6 @@
       "spread": "Georgia Tech -7",
       "ou": null,
       "network": "ESPN",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-arkansas-pine-bluff-missouri",
-      "cfbdId": 401856663,
-      "away": "arkansas-pine-bluff",
-      "awayRank": null,
-      "home": "missouri",
-      "homeRank": 25,
-      "when": "2026-09-04T00:00:00.000Z",
-      "spread": null,
-      "ou": null,
-      "network": "SEC Network",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -6396,27 +6364,6 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-miami-stanford",
-      "cfbdId": 401858206,
-      "away": "miami",
-      "awayRank": 7,
-      "home": "stanford",
-      "homeRank": null,
-      "when": "2026-09-05T01:00:00.000Z",
-      "spread": "Miami -21.5",
-      "ou": null,
-      "network": "ESPN",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
       "id": "2026-wk1-fresno-state-usc",
       "cfbdId": 401858436,
       "away": "fresno-state",
@@ -6438,16 +6385,79 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-oregon-state-houston",
-      "cfbdId": 401856778,
-      "away": "oregon-state",
-      "awayRank": null,
-      "home": "houston",
-      "homeRank": 24,
-      "when": "2026-09-05T16:00:00.000Z",
-      "spread": "Houston -18.5",
+      "id": "2026-wk1-miami-stanford",
+      "cfbdId": 401858206,
+      "away": "miami",
+      "awayRank": 7,
+      "home": "stanford",
+      "homeRank": null,
+      "when": "2026-09-05T01:00:00.000Z",
+      "spread": "Miami -21.5",
       "ou": null,
       "network": "ESPN",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-liberty-james-madison",
+      "cfbdId": 401869960,
+      "away": "liberty",
+      "awayRank": null,
+      "home": "james-madison",
+      "homeRank": null,
+      "when": "2026-09-05T16:00:00.000Z",
+      "spread": "James Madison -6",
+      "ou": null,
+      "network": "ESPNU",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-coastal-carolina-west-virginia",
+      "cfbdId": 401856780,
+      "away": "coastal-carolina",
+      "awayRank": null,
+      "home": "west-virginia",
+      "homeRank": null,
+      "when": "2026-09-05T16:00:00.000Z",
+      "spread": "West Virginia -17.5",
+      "ou": null,
+      "network": "TNT",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-ohio-nebraska",
+      "cfbdId": 401858430,
+      "away": "ohio",
+      "awayRank": null,
+      "home": "nebraska",
+      "homeRank": null,
+      "when": "2026-09-05T16:00:00.000Z",
+      "spread": "Nebraska -23.5",
+      "ou": null,
+      "network": "FS1",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -6480,16 +6490,37 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-north-texas-indiana",
-      "cfbdId": 401858425,
-      "away": "north-texas",
+      "id": "2026-wk1-oregon-state-houston",
+      "cfbdId": 401856778,
+      "away": "oregon-state",
       "awayRank": null,
-      "home": "indiana",
-      "homeRank": 6,
+      "home": "houston",
+      "homeRank": 24,
       "when": "2026-09-05T16:00:00.000Z",
-      "spread": "Indiana -40.5",
+      "spread": "Houston -18.5",
       "ou": null,
-      "network": "FOX",
+      "network": "ESPN",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-lafayette-uconn",
+      "cfbdId": 401861962,
+      "away": "lafayette",
+      "awayRank": null,
+      "home": "uconn",
+      "homeRank": null,
+      "when": "2026-09-05T16:00:00.000Z",
+      "spread": null,
+      "ou": null,
+      "network": null,
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -6522,16 +6553,37 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-liberty-james-madison",
-      "cfbdId": 401869960,
-      "away": "liberty",
+      "id": "2026-wk1-east-carolina-alabama",
+      "cfbdId": 401856634,
+      "away": "east-carolina",
       "awayRank": null,
-      "home": "james-madison",
-      "homeRank": null,
+      "home": "alabama",
+      "homeRank": 11,
       "when": "2026-09-05T16:00:00.000Z",
-      "spread": "James Madison -6",
+      "spread": "Alabama -25.5",
       "ou": null,
-      "network": "ESPNU",
+      "network": "ABC",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-north-texas-indiana",
+      "cfbdId": 401858425,
+      "away": "north-texas",
+      "awayRank": null,
+      "home": "indiana",
+      "homeRank": 6,
+      "when": "2026-09-05T16:00:00.000Z",
+      "spread": "Indiana -40.5",
+      "ou": null,
+      "network": "FOX",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -6585,90 +6637,6 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-ohio-nebraska",
-      "cfbdId": 401858430,
-      "away": "ohio",
-      "awayRank": null,
-      "home": "nebraska",
-      "homeRank": null,
-      "when": "2026-09-05T16:00:00.000Z",
-      "spread": "Nebraska -23.5",
-      "ou": null,
-      "network": "FS1",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-coastal-carolina-west-virginia",
-      "cfbdId": 401856780,
-      "away": "coastal-carolina",
-      "awayRank": null,
-      "home": "west-virginia",
-      "homeRank": null,
-      "when": "2026-09-05T16:00:00.000Z",
-      "spread": "West Virginia -17.5",
-      "ou": null,
-      "network": "TNT",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-east-carolina-alabama",
-      "cfbdId": 401856634,
-      "away": "east-carolina",
-      "awayRank": null,
-      "home": "alabama",
-      "homeRank": 11,
-      "when": "2026-09-05T16:00:00.000Z",
-      "spread": "Alabama -25.5",
-      "ou": null,
-      "network": "ABC",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-lafayette-uconn",
-      "cfbdId": 401861962,
-      "away": "lafayette",
-      "awayRank": null,
-      "home": "uconn",
-      "homeRank": null,
-      "when": "2026-09-05T16:00:00.000Z",
-      "spread": null,
-      "ou": null,
-      "network": null,
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
       "id": "2026-wk1-ball-state-ohio-state",
       "cfbdId": 401858432,
       "away": "ball-state",
@@ -6711,16 +6679,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-youngstown-state-kentucky",
-      "cfbdId": 401856659,
-      "away": "youngstown-state",
+      "id": "2026-wk1-duquesne-air-force",
+      "cfbdId": 401864496,
+      "away": "duquesne",
       "awayRank": null,
-      "home": "kentucky",
+      "home": "air-force",
       "homeRank": null,
       "when": "2026-09-05T17:00:00.000Z",
       "spread": null,
       "ou": null,
-      "network": "SECN+",
+      "network": "MW+",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -6732,16 +6700,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-duquesne-air-force",
-      "cfbdId": 401864496,
-      "away": "duquesne",
+      "id": "2026-wk1-youngstown-state-kentucky",
+      "cfbdId": 401856659,
+      "away": "youngstown-state",
       "awayRank": null,
-      "home": "air-force",
+      "home": "kentucky",
       "homeRank": null,
       "when": "2026-09-05T17:00:00.000Z",
       "spread": null,
       "ou": null,
-      "network": "MW+",
+      "network": "SECN+",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -6816,58 +6784,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-boston-college-cincinnati",
-      "cfbdId": 401856777,
-      "away": "boston-college",
+      "id": "2026-wk1-marshall-penn-state",
+      "cfbdId": 401858434,
+      "away": "marshall",
       "awayRank": null,
-      "home": "cincinnati",
-      "homeRank": null,
+      "home": "penn-state",
+      "homeRank": 17,
       "when": "2026-09-05T19:30:00.000Z",
-      "spread": "Cincinnati -9.5",
+      "spread": "Penn State -23.5",
       "ou": null,
-      "network": "FOX",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-maine-app-state",
-      "cfbdId": 401866627,
-      "away": "maine",
-      "awayRank": null,
-      "home": "app-state",
-      "homeRank": null,
-      "when": "2026-09-05T19:30:00.000Z",
-      "spread": null,
-      "ou": null,
-      "network": "ESPN+",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-boise-state-oregon",
-      "cfbdId": 401858433,
-      "away": "boise-state",
-      "awayRank": null,
-      "home": "oregon",
-      "homeRank": 2,
-      "when": "2026-09-05T19:30:00.000Z",
-      "spread": "Oregon -24.5",
-      "ou": null,
-      "network": "CBS",
+      "network": "FS1",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -6900,37 +6826,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-ut-rio-grande-valley-utsa",
-      "cfbdId": 401862700,
-      "away": "ut-rio-grande-valley",
+      "id": "2026-wk1-maine-app-state",
+      "cfbdId": 401866627,
+      "away": "maine",
       "awayRank": null,
-      "home": "utsa",
+      "home": "app-state",
       "homeRank": null,
       "when": "2026-09-05T19:30:00.000Z",
       "spread": null,
       "ou": null,
       "network": "ESPN+",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-marshall-penn-state",
-      "cfbdId": 401858434,
-      "away": "marshall",
-      "awayRank": null,
-      "home": "penn-state",
-      "homeRank": 17,
-      "when": "2026-09-05T19:30:00.000Z",
-      "spread": "Penn State -23.5",
-      "ou": null,
-      "network": "FS1",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -6963,37 +6868,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-the-citadel-charlotte",
-      "cfbdId": 401862694,
-      "away": "the-citadel",
+      "id": "2026-wk1-texas-state-texas",
+      "cfbdId": 401856667,
+      "away": "texas-state",
       "awayRank": null,
-      "home": "charlotte",
-      "homeRank": null,
+      "home": "texas",
+      "homeRank": 4,
       "when": "2026-09-05T19:30:00.000Z",
-      "spread": null,
+      "spread": "Texas -30.5",
       "ou": null,
-      "network": "ESPN+",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-tulane-duke",
-      "cfbdId": 401858209,
-      "away": "tulane",
-      "awayRank": null,
-      "home": "duke",
-      "homeRank": null,
-      "when": "2026-09-05T19:30:00.000Z",
-      "spread": "Duke -8.5",
-      "ou": null,
-      "network": "ACC Network",
+      "network": "ESPN",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7026,16 +6910,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-texas-state-texas",
-      "cfbdId": 401856667,
-      "away": "texas-state",
+      "id": "2026-wk1-tulane-duke",
+      "cfbdId": 401858209,
+      "away": "tulane",
       "awayRank": null,
-      "home": "texas",
-      "homeRank": 4,
+      "home": "duke",
+      "homeRank": null,
       "when": "2026-09-05T19:30:00.000Z",
-      "spread": "Texas -30.5",
+      "spread": "Duke -8.5",
       "ou": null,
-      "network": "ESPN",
+      "network": "ACC Network",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7057,6 +6941,90 @@
       "spread": null,
       "ou": null,
       "network": "CBSSN",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-boise-state-oregon",
+      "cfbdId": 401858433,
+      "away": "boise-state",
+      "awayRank": null,
+      "home": "oregon",
+      "homeRank": 2,
+      "when": "2026-09-05T19:30:00.000Z",
+      "spread": "Oregon -24.5",
+      "ou": null,
+      "network": "CBS",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-boston-college-cincinnati",
+      "cfbdId": 401856777,
+      "away": "boston-college",
+      "awayRank": null,
+      "home": "cincinnati",
+      "homeRank": null,
+      "when": "2026-09-05T19:30:00.000Z",
+      "spread": "Cincinnati -9.5",
+      "ou": null,
+      "network": "FOX",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-ut-rio-grande-valley-utsa",
+      "cfbdId": 401862700,
+      "away": "ut-rio-grande-valley",
+      "awayRank": null,
+      "home": "utsa",
+      "homeRank": null,
+      "when": "2026-09-05T19:30:00.000Z",
+      "spread": null,
+      "ou": null,
+      "network": "ESPN+",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-the-citadel-charlotte",
+      "cfbdId": 401862694,
+      "away": "the-citadel",
+      "awayRank": null,
+      "home": "charlotte",
+      "homeRank": null,
+      "when": "2026-09-05T19:30:00.000Z",
+      "spread": null,
+      "ou": null,
+      "network": "ESPN+",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7152,27 +7120,6 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-wyoming-colorado-state",
-      "cfbdId": 401860878,
-      "away": "wyoming",
-      "awayRank": null,
-      "home": "colorado-state",
-      "homeRank": null,
-      "when": "2026-09-05T22:00:00.000Z",
-      "spread": "Colorado State -4",
-      "ou": null,
-      "network": "USA Net",
-      "rivalry": true,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
       "id": "2026-wk1-norfolk-state-old-dominion",
       "cfbdId": 401867973,
       "away": "norfolk-state",
@@ -7184,6 +7131,27 @@
       "ou": null,
       "network": "ESPN+",
       "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-wyoming-colorado-state",
+      "cfbdId": 401860878,
+      "away": "wyoming",
+      "awayRank": null,
+      "home": "colorado-state",
+      "homeRank": null,
+      "when": "2026-09-05T22:00:00.000Z",
+      "spread": "Colorado State -4",
+      "ou": null,
+      "network": "USA Net",
+      "rivalry": true,
       "status": "scheduled",
       "awayScore": null,
       "homeScore": null,
@@ -7215,95 +7183,11 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-charleston-southern-georgia-southern",
-      "cfbdId": 401868170,
-      "away": "charleston-southern",
+      "id": "2026-wk1-houston-christian-rice",
+      "cfbdId": 401862697,
+      "away": "houston-christian",
       "awayRank": null,
-      "home": "georgia-southern",
-      "homeRank": null,
-      "when": "2026-09-05T23:00:00.000Z",
-      "spread": null,
-      "ou": null,
-      "network": "ESPN+",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-se-louisiana-south-alabama",
-      "cfbdId": 401868316,
-      "away": "se-louisiana",
-      "awayRank": null,
-      "home": "south-alabama",
-      "homeRank": null,
-      "when": "2026-09-05T23:00:00.000Z",
-      "spread": null,
-      "ou": null,
-      "network": "ESPN+",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-murray-state-middle-tennessee",
-      "cfbdId": 401867866,
-      "away": "murray-state",
-      "awayRank": null,
-      "home": "middle-tennessee",
-      "homeRank": null,
-      "when": "2026-09-05T23:00:00.000Z",
-      "spread": null,
-      "ou": null,
-      "network": "ESPN+",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-arkansas-state-memphis",
-      "cfbdId": 401862695,
-      "away": "arkansas-state",
-      "awayRank": null,
-      "home": "memphis",
-      "homeRank": null,
-      "when": "2026-09-05T23:00:00.000Z",
-      "spread": "Memphis -10.5",
-      "ou": null,
-      "network": "ESPN+",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-eastern-kentucky-jacksonville-state",
-      "cfbdId": 401868140,
-      "away": "eastern-kentucky",
-      "awayRank": null,
-      "home": "jacksonville-state",
+      "home": "rice",
       "homeRank": null,
       "when": "2026-09-05T23:00:00.000Z",
       "spread": null,
@@ -7341,11 +7225,11 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-houston-christian-rice",
-      "cfbdId": 401862697,
-      "away": "houston-christian",
+      "id": "2026-wk1-se-louisiana-south-alabama",
+      "cfbdId": 401868316,
+      "away": "se-louisiana",
       "awayRank": null,
-      "home": "rice",
+      "home": "south-alabama",
       "homeRank": null,
       "when": "2026-09-05T23:00:00.000Z",
       "spread": null,
@@ -7362,14 +7246,56 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-florida-international-south-florida",
-      "cfbdId": 401862699,
-      "away": "florida-international",
+      "id": "2026-wk1-missouri-state-texas-a-m",
+      "cfbdId": 401856668,
+      "away": "missouri-state",
       "awayRank": null,
-      "home": "south-florida",
+      "home": "texas-a-m",
+      "homeRank": 8,
+      "when": "2026-09-05T23:00:00.000Z",
+      "spread": "Texas A&M -38.5",
+      "ou": null,
+      "network": "ESPN",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-austin-peay-vanderbilt",
+      "cfbdId": 401856669,
+      "away": "austin-peay",
+      "awayRank": null,
+      "home": "vanderbilt",
       "homeRank": null,
       "when": "2026-09-05T23:00:00.000Z",
-      "spread": "South Florida -12.5",
+      "spread": null,
+      "ou": null,
+      "network": "SECN+",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-nicholls-kansas-state",
+      "cfbdId": 401856771,
+      "away": "nicholls",
+      "awayRank": null,
+      "home": "kansas-state",
+      "homeRank": null,
+      "when": "2026-09-05T23:00:00.000Z",
+      "spread": null,
       "ou": null,
       "network": "ESPN+",
       "rivalry": false,
@@ -7404,11 +7330,53 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-nicholls-kansas-state",
-      "cfbdId": 401856771,
-      "away": "nicholls",
+      "id": "2026-wk1-arkansas-state-memphis",
+      "cfbdId": 401862695,
+      "away": "arkansas-state",
       "awayRank": null,
-      "home": "kansas-state",
+      "home": "memphis",
+      "homeRank": null,
+      "when": "2026-09-05T23:00:00.000Z",
+      "spread": "Memphis -10.5",
+      "ou": null,
+      "network": "ESPN+",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-florida-international-south-florida",
+      "cfbdId": 401862699,
+      "away": "florida-international",
+      "awayRank": null,
+      "home": "south-florida",
+      "homeRank": null,
+      "when": "2026-09-05T23:00:00.000Z",
+      "spread": "South Florida -12.5",
+      "ou": null,
+      "network": "ESPN+",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-eastern-kentucky-jacksonville-state",
+      "cfbdId": 401868140,
+      "away": "eastern-kentucky",
+      "awayRank": null,
+      "home": "jacksonville-state",
       "homeRank": null,
       "when": "2026-09-05T23:00:00.000Z",
       "spread": null,
@@ -7425,16 +7393,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-austin-peay-vanderbilt",
-      "cfbdId": 401856669,
-      "away": "austin-peay",
+      "id": "2026-wk1-charleston-southern-georgia-southern",
+      "cfbdId": 401868170,
+      "away": "charleston-southern",
       "awayRank": null,
-      "home": "vanderbilt",
+      "home": "georgia-southern",
       "homeRank": null,
       "when": "2026-09-05T23:00:00.000Z",
       "spread": null,
       "ou": null,
-      "network": "SECN+",
+      "network": "ESPN+",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7446,37 +7414,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-missouri-state-texas-a-m",
-      "cfbdId": 401856668,
-      "away": "missouri-state",
+      "id": "2026-wk1-murray-state-middle-tennessee",
+      "cfbdId": 401867866,
+      "away": "murray-state",
       "awayRank": null,
-      "home": "texas-a-m",
-      "homeRank": 8,
-      "when": "2026-09-05T23:00:00.000Z",
-      "spread": "Texas A&M -38.5",
-      "ou": null,
-      "network": "ESPN",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
-      "id": "2026-wk1-vmi-virginia-tech",
-      "cfbdId": 401858211,
-      "away": "vmi",
-      "awayRank": null,
-      "home": "virginia-tech",
+      "home": "middle-tennessee",
       "homeRank": null,
-      "when": "2026-09-05T23:30:00.000Z",
+      "when": "2026-09-05T23:00:00.000Z",
       "spread": null,
       "ou": null,
-      "network": "ACC Network",
+      "network": "ESPN+",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7530,16 +7477,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-ul-monroe-mississippi-state",
-      "cfbdId": 401856662,
-      "away": "ul-monroe",
+      "id": "2026-wk1-northwestern-state-louisiana-tech",
+      "cfbdId": 401869129,
+      "away": "northwestern-state",
       "awayRank": null,
-      "home": "mississippi-state",
+      "home": "louisiana-tech",
       "homeRank": null,
       "when": "2026-09-05T23:30:00.000Z",
-      "spread": "Mississippi State -28.5",
+      "spread": null,
       "ou": null,
-      "network": "ESPNU",
+      "network": "ESPN+",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7551,16 +7498,37 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-northwestern-state-louisiana-tech",
-      "cfbdId": 401869129,
-      "away": "northwestern-state",
+      "id": "2026-wk1-vmi-virginia-tech",
+      "cfbdId": 401858211,
+      "away": "vmi",
       "awayRank": null,
-      "home": "louisiana-tech",
+      "home": "virginia-tech",
       "homeRank": null,
       "when": "2026-09-05T23:30:00.000Z",
       "spread": null,
       "ou": null,
-      "network": "ESPN+",
+      "network": "ACC Network",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-ul-monroe-mississippi-state",
+      "cfbdId": 401856662,
+      "away": "ul-monroe",
+      "awayRank": null,
+      "home": "mississippi-state",
+      "homeRank": null,
+      "when": "2026-09-05T23:30:00.000Z",
+      "spread": "Mississippi State -28.5",
+      "ou": null,
+      "network": "ESPNU",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7593,16 +7561,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-lamar-louisiana",
-      "cfbdId": 401869142,
-      "away": "lamar",
+      "id": "2026-wk1-hampton-maryland",
+      "cfbdId": 401858427,
+      "away": "hampton",
       "awayRank": null,
-      "home": "louisiana",
+      "home": "maryland",
       "homeRank": null,
       "when": "2026-09-06T00:00:00.000Z",
       "spread": null,
       "ou": null,
-      "network": "ESPN+",
+      "network": "BTN",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7656,16 +7624,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-hampton-maryland",
-      "cfbdId": 401858427,
-      "away": "hampton",
+      "id": "2026-wk1-lamar-louisiana",
+      "cfbdId": 401869142,
+      "away": "lamar",
       "awayRank": null,
-      "home": "maryland",
+      "home": "louisiana",
       "homeRank": null,
       "when": "2026-09-06T00:00:00.000Z",
       "spread": null,
       "ou": null,
-      "network": "BTN",
+      "network": "ESPN+",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7719,27 +7687,6 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-portland-state-san-diego-state",
-      "cfbdId": 401860879,
-      "away": "portland-state",
-      "awayRank": null,
-      "home": "san-diego-state",
-      "homeRank": null,
-      "when": "2026-09-06T01:30:00.000Z",
-      "spread": null,
-      "ou": null,
-      "network": "USA Net",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": null,
-      "blurb": null,
-      "blurbSource": null
-    },
-    {
       "id": "2026-wk1-northern-arizona-arizona",
       "cfbdId": 401856773,
       "away": "northern-arizona",
@@ -7761,16 +7708,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-mississippi-valley-state-sacramento-state",
-      "cfbdId": 401866411,
-      "away": "mississippi-valley-state",
+      "id": "2026-wk1-portland-state-san-diego-state",
+      "cfbdId": 401860879,
+      "away": "portland-state",
       "awayRank": null,
-      "home": "sacramento-state",
+      "home": "san-diego-state",
       "homeRank": null,
-      "when": "2026-09-06T02:00:00.000Z",
+      "when": "2026-09-06T01:30:00.000Z",
       "spread": null,
       "ou": null,
-      "network": "ESPN+",
+      "network": "USA Net",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7792,6 +7739,27 @@
       "spread": "UNLV -1.5",
       "ou": null,
       "network": "The CW Network",
+      "rivalry": false,
+      "status": "scheduled",
+      "awayScore": null,
+      "homeScore": null,
+      "period": null,
+      "clock": null,
+      "stakesScore": null,
+      "blurb": null,
+      "blurbSource": null
+    },
+    {
+      "id": "2026-wk1-mississippi-valley-state-sacramento-state",
+      "cfbdId": 401866411,
+      "away": "mississippi-valley-state",
+      "awayRank": null,
+      "home": "sacramento-state",
+      "homeRank": null,
+      "when": "2026-09-06T02:00:00.000Z",
+      "spread": null,
+      "ou": null,
+      "network": "ESPN+",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7887,16 +7855,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-wisconsin-notre-dame",
-      "cfbdId": 401858438,
-      "away": "wisconsin",
+      "id": "2026-wk1-louisville-ole-miss",
+      "cfbdId": 401856661,
+      "away": "louisville",
       "awayRank": null,
-      "home": "notre-dame",
-      "homeRank": 5,
+      "home": "ole-miss",
+      "homeRank": 10,
       "when": "2026-09-06T23:30:00.000Z",
-      "spread": "Notre Dame -20.5",
-      "ou": 47.5,
-      "network": "NBC",
+      "spread": "Ole Miss -6.5",
+      "ou": 55.5,
+      "network": "ABC",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7908,16 +7876,16 @@
       "blurbSource": null
     },
     {
-      "id": "2026-wk1-louisville-ole-miss",
-      "cfbdId": 401856661,
-      "away": "louisville",
+      "id": "2026-wk1-wisconsin-notre-dame",
+      "cfbdId": 401858438,
+      "away": "wisconsin",
       "awayRank": null,
-      "home": "ole-miss",
-      "homeRank": 10,
+      "home": "notre-dame",
+      "homeRank": 5,
       "when": "2026-09-06T23:30:00.000Z",
-      "spread": "Ole Miss -6.5",
-      "ou": 55.5,
-      "network": "ABC",
+      "spread": "Notre Dame -20.5",
+      "ou": 47.5,
+      "network": "NBC",
       "rivalry": false,
       "status": "scheduled",
       "awayScore": null,
@@ -7950,205 +7918,6 @@
       "blurbSource": null
     }
   ],
-  "games": [
-    {
-      "id": "2026-wk1-clemson-lsu",
-      "cfbdId": 401856660,
-      "away": "clemson",
-      "awayRank": 23,
-      "home": "lsu",
-      "homeRank": 13,
-      "when": "2026-09-05T23:30:00.000Z",
-      "spread": "LSU -10.5",
-      "ou": 50.5,
-      "network": "ABC",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": 6.2,
-      "blurb": "No. 13 LSU opens as a 10.5-point favorite over No. 23 Clemson in Baton Rouge, with a 50.5 total pointing to a defensive night. A top-25 win in Week 1 is the kind of résumé line either side can lean on all season.",
-      "blurbSource": "llm"
-    },
-    {
-      "id": "2026-wk1-washington-state-washington",
-      "cfbdId": 401858437,
-      "away": "washington-state",
-      "awayRank": null,
-      "home": "washington",
-      "homeRank": 19,
-      "when": "2026-09-06T20:00:00.000Z",
-      "spread": "Washington -21.5",
-      "ou": null,
-      "network": "NBC",
-      "rivalry": true,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": 4.87,
-      "blurb": "The Apple Cup returns with No. 19 Washington installed as a 21.5-point favorite at home. Rivalry math says close, the number says otherwise, and the Huskies can't afford a slip in their opener.",
-      "blurbSource": "llm"
-    },
-    {
-      "id": "2026-wk1-louisville-ole-miss",
-      "cfbdId": 401856661,
-      "away": "louisville",
-      "awayRank": null,
-      "home": "ole-miss",
-      "homeRank": 10,
-      "when": "2026-09-06T23:30:00.000Z",
-      "spread": "Ole Miss -6.5",
-      "ou": 55.5,
-      "network": "ABC",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": 4.27,
-      "blurb": "No. 10 Ole Miss is only a 6.5-point favorite against Louisville, a modest number for a top-10 team hosting a non-conference opponent. With the total at 55.5, the Rebels may need to trade scores to get out of Week 1 clean.",
-      "blurbSource": "llm"
-    },
-    {
-      "id": "2026-wk1-wisconsin-notre-dame",
-      "cfbdId": 401858438,
-      "away": "wisconsin",
-      "awayRank": null,
-      "home": "notre-dame",
-      "homeRank": 5,
-      "when": "2026-09-06T23:30:00.000Z",
-      "spread": "Notre Dame -20.5",
-      "ou": 47.5,
-      "network": "NBC",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": 3.07,
-      "blurb": "No. 5 Notre Dame hosts Wisconsin as a 20.5-point favorite with the total sitting at just 47.5. The Irish are expected to win big and win ugly, and anything less will get picked apart.",
-      "blurbSource": "llm"
-    },
-    {
-      "id": "2026-wk1-wyoming-colorado-state",
-      "cfbdId": 401860878,
-      "away": "wyoming",
-      "awayRank": null,
-      "home": "colorado-state",
-      "homeRank": null,
-      "when": "2026-09-05T22:00:00.000Z",
-      "spread": "Colorado State -4",
-      "ou": null,
-      "network": "USA Net",
-      "rivalry": true,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": 3,
-      "blurb": "The Border War kicks off the season with Colorado State favored by four at home. A four-point line in a rivalry game is another way of saying nobody has any idea.",
-      "blurbSource": "llm"
-    },
-    {
-      "id": "2026-wk1-western-michigan-michigan",
-      "cfbdId": 401858428,
-      "away": "western-michigan",
-      "awayRank": null,
-      "home": "michigan",
-      "homeRank": 16,
-      "when": "2026-09-05T23:30:00.000Z",
-      "spread": "Michigan -26.5",
-      "ou": null,
-      "network": "NBC",
-      "rivalry": false,
-      "status": "scheduled",
-      "awayScore": null,
-      "homeScore": null,
-      "period": null,
-      "clock": null,
-      "stakesScore": 2.58,
-      "blurb": "No. 16 Michigan is a 26.5-point favorite over Western Michigan in the opener. The scoreboard isn't the story here; how the Wolverines look while covering is.",
-      "blurbSource": "llm"
-    }
-  ],
-  "predictions": [
-    {
-      "teamId": "texas",
-      "score": 5.45,
-      "blurb": "Texas checks in at No. 4 in the poll while FPI slots the Longhorns second, meaning the metrics see a team with a real claim to being the best in the country. In the SEC, they'll get every chance to prove it.",
-      "blurbSource": "llm"
-    },
-    {
-      "teamId": "texas-tech",
-      "score": 5.45,
-      "blurb": "Texas Tech sits 12th in the rankings with FPI a touch higher at No. 10 — the model likes the Red Raiders as a legitimate Big 12 front-runner rather than a fringe top-15 team.",
-      "blurbSource": "llm"
-    },
-    {
-      "teamId": "michigan",
-      "score": 5.23,
-      "blurb": "Michigan is ranked 16th and FPI has the Wolverines 15th, about as close to consensus as it gets. Nobody's overrating them; nobody's writing them off either.",
-      "blurbSource": "llm"
-    },
-    {
-      "teamId": "byu",
-      "score": 5.13,
-      "blurb": "BYU is 15th in the poll but only 20th in FPI, the widest skepticism gap of the group. The Cougars will need Big 12 results to keep the ranking from drifting toward the model's number.",
-      "blurbSource": "llm"
-    },
-    {
-      "teamId": "lsu",
-      "score": 4.9,
-      "blurb": "LSU opens 13th while FPI sees a top-10 team at No. 9. If the metrics are right, the Tigers are undervalued heading into a September that starts with Clemson.",
-      "blurbSource": "llm"
-    }
-  ],
-  "fieldStorylines": [
-    {
-      "id": "conf-race-big-ten",
-      "type": "conf-race-gap",
-      "conf": "Big Ten",
-      "leaderId": "ohio-state",
-      "leaderRank": 1,
-      "chaserId": "oregon",
-      "chaserRank": 2,
-      "gap": 1,
-      "score": 9,
-      "blurb": "Ohio State and Oregon are ranked first and second, separated by a single spot in the chase for the Big Ten's automatic bid. One stumble by the Buckeyes and the Ducks take the league lead outright.",
-      "blurbSource": "llm"
-    },
-    {
-      "id": "conf-race-sec",
-      "type": "conf-race-gap",
-      "conf": "SEC",
-      "leaderId": "georgia",
-      "leaderRank": 3,
-      "chaserId": "texas",
-      "chaserRank": 4,
-      "gap": 1,
-      "score": 9,
-      "blurb": "Georgia leads the SEC race at No. 3 with Texas one rung behind at No. 4 — the tightest possible margin for a league whose auto bid may decide seeding at the top of the field. Neither has any room to give one away.",
-      "blurbSource": "llm"
-    },
-    {
-      "id": "conf-race-big-12",
-      "type": "conf-race-gap",
-      "conf": "Big 12",
-      "leaderId": "texas-tech",
-      "leaderRank": 12,
-      "chaserId": "byu",
-      "chaserRank": 15,
-      "gap": 3,
-      "score": 7,
-      "blurb": "Texas Tech holds the Big 12's automatic bid position at No. 12 with BYU three spots back at No. 15. It's a workable cushion, but a single head-to-head-adjacent result could erase it.",
-      "blurbSource": "llm"
-    }
-  ]
+  "games": [],
+  "predictions": []
 }
