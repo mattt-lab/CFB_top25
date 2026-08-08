@@ -52,7 +52,9 @@ export default function MyTeamsSection({ weekIdx }) {
               <TeamMark team={t} />
               <Link className="nm row-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
               <span className="needs">
-                <span className="tabnum record">{t.record}</span>
+                {/* 0-0 just means the season hasn't started for this team yet -- not a stat
+                    worth a permanent slot on the card before it means anything. */}
+                {(t.wins > 0 || t.losses > 0) && <span className="tabnum record">{t.record}</span>}
                 <span className="opp">
                   {opponentName ? (
                     <>

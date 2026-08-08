@@ -135,18 +135,20 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 
 /* Pick 'em (styled off the .toggle-btn small-pill convention; rows echo .bubble-row) */
 .pickem-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
-/* Column layout, not a single wrapping row: the head line (rank/badge/team/opponent) and the
-   chip row are deliberately separate lines, always -- not just a narrow-viewport fallback. That
-   keeps the badge glued to the team name (never orphaned onto its own line the way flex-wrap on
-   a single row could strand it) and puts real vertical distance before the tap targets, so a
-   thumb reaching for a chip doesn't land on the name link above it. */
-.pickem-row { display: flex; flex-direction: column; gap: 8px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; }
-.pickem-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+/* Row layout: chips sit to the right of the head line (rank/badge/team/opponent), not stacked
+   below it -- shorter rows, more of the Top 25 visible without scrolling. The real horizontal gap
+   below (20px) plus chips being pushed to the far edge via justify-content is what keeps a thumb
+   reaching for a chip from landing on the name link instead -- distance, not a separate line, is
+   doing that job now. flex-wrap is a safety net, not the primary layout: only kicks in if the
+   head content genuinely can't share a row with the chips (long name + long opponent + narrow
+   viewport), at which point chips drop to their own full-width line same as before. */
+.pickem-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; }
+.pickem-head { display: flex; align-items: center; gap: 10px; flex: 1 1 240px; min-width: 0; }
 .pickem-row .rk { font-weight: 800; font-size: 14px; width: 22px; flex: none; }
 /* .delta-badge's base margin-bottom (built for the team-detail hero) misaligns it in a flex row;
    fixed min-width so ▲10 vs — don't ragged-edge the team names below each other. */
 .pickem-row .delta-badge { margin-bottom: 0; font-size: 11.5px; padding: 2px 7px; min-width: 40px; justify-content: center; flex: none; }
-.pickem-row .info { flex: 1; min-width: 150px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.pickem-row .info { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; overflow: hidden; }
 .pickem-row .nm { font-weight: 700; font-size: 13.5px; color: inherit; text-decoration: none; }
 .pickem-row .nm:hover { color: var(--accent); }
 .pickem-row .opp { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
