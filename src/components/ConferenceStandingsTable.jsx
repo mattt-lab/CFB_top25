@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   teamsInConf, confRecord, confSlugFor, rankAt, trendColor, deltaLabel, playoffOddsFor,
 } from '../data/teams.js';
@@ -6,6 +6,7 @@ import TeamMark from './TeamMark.jsx';
 import PinButton from './PinButton.jsx';
 
 export default function ConferenceStandingsTable({ conf, weekIdx }) {
+  const navigate = useNavigate();
   const rows = teamsInConf(conf)
     .map((t) => ({
       t,
@@ -41,13 +42,17 @@ export default function ConferenceStandingsTable({ conf, weekIdx }) {
             const delta = hasTrend ? prevRank - natRank : 0;
             const po = natRank != null ? playoffOddsFor(natRank, t.record, t.sp) : null;
             return (
-              <tr key={t.id} className="row-click">
+              <tr
+                key={t.id}
+                className="row-click"
+                onClick={() => navigate(`/team/${t.id}`, { state: { from: 'conference', confSlug: confSlugFor(conf) } })}
+              >
                 <td><PinButton teamId={t.id} /></td>
                 <td className="tabnum" style={{ fontWeight: 800 }}>{natRank ?? '—'}</td>
                 <td>
                   <TeamMark team={t} />
                   <Link
-                    className="row-link"
+                    className="team-link"
                     to={`/team/${t.id}`}
                     state={{ from: 'conference', confSlug: confSlugFor(conf) }}
                   >

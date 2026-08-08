@@ -109,11 +109,14 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .hist-banner button { flex: none; font: inherit; font-weight: 700; font-size: 12px; background: var(--accent); color: var(--accent-ink); border: none; border-radius: 999px; padding: 6px 13px; cursor: pointer; }
 
 /* Pins & conference dots */
-/* position+z-index: the "whole row/card clickable" stretched-link trick (.row-link::after,
-   further down) covers the entire row with an absolutely-positioned overlay. Without this, that
-   overlay -- a later, positioned element -- paints ABOVE the pin button (a plain, non-positioned
-   button), silently swallowing every click/tap meant for the star. Confirmed live: the star was
-   completely unresponsive in the Top 25 table and Conference standings. */
+/* position+z-index: the "whole row clickable" stretched-link trick (.row-link::after, further
+   down -- .bubble-row/Your Teams only now, see the Safari note near .team-link) covers the entire
+   row with an absolutely-positioned overlay. Without this, that overlay -- a later, positioned
+   element -- paints ABOVE the pin button (a plain, non-positioned button), silently swallowing
+   every click/tap meant for the star. Confirmed live: the star was completely unresponsive.
+   (The Top 25 table and Conference standings don't need this anymore -- they moved off the
+   stretched-link trick entirely, onto a plain <tr onClick>, so there's no overlay to shadow the
+   pin button there in the first place.) */
 .pin-btn { background: none; border: none; cursor: pointer; font-size: 15px; line-height: 1; color: var(--accent); padding: 2px 4px; position: relative; z-index: 2; }
 .conf-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 3px; vertical-align: middle; flex: none; }
 
@@ -179,17 +182,24 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 table.data-table caption { text-align: left; font-size: 11.5px; color: var(--muted); margin-bottom: 6px; }
 table.data-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; padding: 6px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
 table.data-table td { padding: 7px 8px; border-bottom: 1px solid var(--grid); }
-table.data-table tbody tr.row-click { cursor: pointer; position: relative; }
+/* Whole-row-clickable via a plain onClick + useNavigate() on the <tr> (Top25Table.jsx,
+   ConferenceStandingsTable.jsx), NOT the stretched-<Link>::after overlay .bubble-row below uses --
+   that trick relied on `position: relative` on the <tr> itself to contain an absolutely-positioned
+   ::after, and Safari has a long-standing bug where a <tr> doesn't reliably establish a containing
+   block for a positioned descendant. Confirmed live: the ::after was escaping its row and covering
+   the WHOLE table, with the LAST row's overlay painting on top of every earlier one -- every tap
+   anywhere in the table landed on the bottom-most team's page, regardless of which row was tapped.
+   Chromium doesn't have this bug at all, which is why it never reproduced in any Chromium-based
+   testing. No position/containing-block trickery needed for a plain onClick, so this is immune to
+   it entirely. .team-link below is just the plain, non-stretched team-name link inside the row. */
+table.data-table tbody tr.row-click { cursor: pointer; }
 table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
-/* Whole-row-clickable via a real, natively-focusable <Link> stretched over the row -- rather than
-   a bare onClick on the <tr> (not focusable, not operable by keyboard at all). Every other
-   clickable row/card on the site (.bubble-row, .seed-card, .matchup-row) is already a real link;
-   this brings the table in line with that instead of hand-rolling tabIndex/keydown on a <tr>. */
+.team-link { color: inherit; text-decoration: none; }
+.team-link:hover { color: var(--accent); }
+/* .bubble-row (MyTeamsSection.jsx) is a <div>, not a <tr> -- divs don't have the Safari
+   containing-block bug above, so the stretched-link trick stays safe to use here. */
 .row-link { position: static; color: inherit; text-decoration: none; }
 .row-link::after { content: ''; position: absolute; inset: 0; }
-/* The link's own focus ring (from the generic a:focus-visible rule above) only outlines its small
-   text box; also highlight the full row so keyboard focus is obvious across the whole click target. */
-table.data-table tbody tr.row-click:has(.row-link:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
 
 .delta-rows { display: flex; flex-direction: column; gap: 12px; }
 .delta-row { display: grid; grid-template-columns: 78px 1fr 46px; align-items: center; gap: 10px; }

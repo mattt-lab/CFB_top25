@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   WEEKLY_ORDER, teamById, deltaAt, sparkPoints,
   playoffOddsFor, nattyOddsFor, americanOdds, trendColor, deltaLabel,
@@ -18,6 +18,7 @@ function sparseCaption() {
 }
 
 export default function Top25Table({ weekIdx }) {
+  const navigate = useNavigate();
   const order = WEEKLY_ORDER[weekIdx];
   const caption = sparseCaption();
 
@@ -41,12 +42,16 @@ export default function Top25Table({ weekIdx }) {
             const color = trendColor(delta);
 
             return (
-              <tr key={id} className="row-click">
+              <tr
+                key={id}
+                className="row-click"
+                onClick={() => navigate(`/team/${id}`, { state: { from: 'top25' } })}
+              >
                 <td><PinButton teamId={id} /></td>
                 <td className="tabnum" style={{ fontWeight: 800 }}>{rank}</td>
                 <td>
                   <TeamMark team={t} />
-                  <Link className="row-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>{' '}
+                  <Link className="team-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>{' '}
                   <span style={{ color: 'var(--muted)', fontSize: 11 }}>{t.conf}</span>
                 </td>
                 <td className="tabnum">{t.record}</td>
