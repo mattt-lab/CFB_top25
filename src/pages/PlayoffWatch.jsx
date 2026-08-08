@@ -46,7 +46,7 @@ export default function PlayoffWatch() {
           return (
             <Link className="conf-race-card" key={conf} to={`/conference/${confSlugFor(conf)}`}>
               <div className="cf">{conf}</div>
-              <div className="ld"><TeamMark team={leader.team} />#{leader.rank} {leader.team.name}</div>
+              <div className="ld">#{leader.rank} <TeamMark team={leader.team} />{leader.team.name}</div>
               {chaser && <div className="ch">Chasing: #{chaser.rank} {chaser.team.name}</div>}
               <div className="nt">
                 {chaser

@@ -7,6 +7,7 @@ import {
 import { usePinnedStore } from '../store/usePinnedStore.js';
 import { downloadShareCard } from '../utils/shareCard.js';
 import TeamLadder from '../components/TeamLadder.jsx';
+import TeamMark from '../components/TeamMark.jsx';
 import Gauge from '../components/Gauge.jsx';
 import RankingChart from '../components/RankingChart.jsx';
 import DeltaRows from '../components/DeltaRows.jsx';
@@ -48,7 +49,9 @@ export default function TeamDetail() {
   const no = rank != null ? nattyOddsFor(rank, team.record, team.sp, team.fpi) : null;
   const currentWeekNumber = WEEK_IDX_MAX + 1;
   const {
-    opponent: nextOpponent, kickoff: nextKickoff, homeAway: nextHomeAway,
+    opponent: nextOpponent, vsAt: nextVsAt, opponentTeam: nextOpponentTeam,
+    opponentRank: nextOpponentRank, opponentName: nextOpponentName,
+    kickoff: nextKickoff, homeAway: nextHomeAway,
     status: nextStatus, awayScore: nextAwayScore, homeScore: nextHomeScore, period: nextPeriod, clock: nextClock,
   } = nextGameParts(team.nextGame);
   const nextBadge = gameStatusBadge(nextStatus, nextPeriod, nextClock);
@@ -58,8 +61,6 @@ export default function TeamDetail() {
   return (
     <div>
       <button type="button" className="back-link" onClick={() => navigate(backPath)}>{backLabel}</button>
-
-      <TeamLadder currentId={team.id} />
 
       <section className="hero-grid">
         <div className="card">
@@ -112,7 +113,11 @@ export default function TeamDetail() {
             <div style={{ fontSize: 13.5, marginTop: 4 }}>
               {nextOpponent ? (
                 <>
-                  <b>{nextOpponent}</b>
+                  <b>
+                    {nextVsAt} {nextOpponentRank != null && `#${nextOpponentRank} `}
+                    {nextOpponentTeam && <TeamMark team={nextOpponentTeam} />}
+                    {nextOpponentName}
+                  </b>
                   {nextBadge.text ? (
                     <span className={`badge-status${nextBadge.live ? ' badge-live' : ' badge-final'}`} style={{ marginLeft: 8 }}>
                       {nextBadge.live && <span className="pulse-dot" aria-hidden="true" />}
@@ -160,6 +165,12 @@ export default function TeamDetail() {
           )}
         </div>
       </section>
+
+      {/* Below the hero, not above it -- a fresh navigation lands scrolled to the very top (see
+          Layout.jsx), so the tapped team's own identity/rank/record needs to be the first thing
+          visible. Above the hero, this ribbon of OTHER teams read as "you got sent to a team
+          picker instead of the team you tapped," confirmed live as a real complaint. */}
+      <TeamLadder currentId={team.id} />
 
       <RankingChart team={team} />
 

@@ -3,7 +3,7 @@
     "season": 2026,
     "currentWeek": 1,
     "currentPrimarySource": "coaches",
-    "lastUpdated": "2026-08-07T17:23:53.675Z",
+    "lastUpdated": "2026-08-08T19:18:06.572Z",
     "weeksAvailable": [
       1
     ]
@@ -91,6 +91,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Ball State",
+        "opponentId": "ball-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:30:00.000Z",
@@ -123,6 +124,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Boise State",
+        "opponentId": "boise-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -155,6 +157,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Tennessee State",
+        "opponentId": "tennessee-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:00:00.000Z",
@@ -187,6 +190,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Texas State",
+        "opponentId": "texas-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -219,6 +223,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Wisconsin",
+        "opponentId": "wisconsin",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T23:30:00.000Z",
@@ -251,6 +256,7 @@
       "games": [],
       "nextGame": {
         "opponent": "North Texas",
+        "opponentId": "north-texas",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -283,6 +289,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Stanford",
+        "opponentId": "stanford",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T01:00:00.000Z",
@@ -315,6 +322,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Missouri State",
+        "opponentId": "missouri-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -347,6 +355,7 @@
       "games": [],
       "nextGame": {
         "opponent": "UTEP",
+        "opponentId": "utep",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T00:00:00.000Z",
@@ -379,6 +388,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Louisville",
+        "opponentId": "louisville",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T23:30:00.000Z",
@@ -411,6 +421,7 @@
       "games": [],
       "nextGame": {
         "opponent": "East Carolina",
+        "opponentId": "east-carolina",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -426,7 +437,7 @@
         "movedUp": 0,
         "trendScore": 0.45,
         "nextOpponentRank": null,
-        "blurb": "Alabama is the first team out at the 13 seed, one spot from the field. The Tide are close enough that a single result anywhere above them could change everything.",
+        "blurb": "Alabama is the first team out at the 13 seed, one spot from the field. The Tide are close enough that a single result could push them in.",
         "blurbSource": "llm"
       }
     },
@@ -451,6 +462,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Abilene Christian",
+        "opponentId": "abilene-christian",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -483,6 +495,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Clemson",
+        "opponentId": "clemson",
         "opponentRank": 23,
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
@@ -498,7 +511,7 @@
         "movedUp": 0,
         "trendScore": 0.6,
         "nextOpponentRank": 23,
-        "blurb": "LSU sits at 14, two spots from the bracket, and gets an immediate chance to move: No. 23 Clemson comes to Baton Rouge next. Beat a ranked team at home and the Tigers jump the line in a hurry.",
+        "blurb": "LSU sits at the 14 seed, two spots from the field, and gets an immediate chance to move with No. 23 Clemson coming to Baton Rouge.",
         "blurbSource": "llm"
       }
     },
@@ -523,6 +536,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Fresno State",
+        "opponentId": "fresno-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T01:00:00.000Z",
@@ -538,7 +552,7 @@
         "movedUp": 0,
         "trendScore": 0.15,
         "nextOpponentRank": null,
-        "blurb": "USC holds the 15 seed, three spots outside the field. The Trojans need both results and help to climb into the picture.",
+        "blurb": "USC holds the 15 seed, three spots outside the bracket, and needs help along with wins to climb back into the picture.",
         "blurbSource": "llm"
       }
     },
@@ -563,6 +577,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Utah Tech",
+        "opponentId": "utah-tech",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
@@ -578,7 +593,7 @@
         "movedUp": 0,
         "trendScore": 0.75,
         "nextOpponentRank": null,
-        "blurb": "BYU anchors the bubble at 16, four spots from the field and the furthest back of the four teams on the outside. There's ground to make up and not much room to slip.",
+        "blurb": "BYU is the last team on the bubble at the 16 seed, four spots from the field. The Cougars have ground to make up before the Big 12 race tightens.",
         "blurbSource": "llm"
       }
     },
@@ -603,6 +618,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Western Michigan",
+        "opponentId": "western-michigan",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
@@ -635,6 +651,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Marshall",
+        "opponentId": "marshall",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -667,6 +684,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Furman",
+        "opponentId": "furman",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -699,6 +717,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Washington State",
+        "opponentId": "washington-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T20:00:00.000Z",
@@ -731,6 +750,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Florida State",
+        "opponentId": "florida-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-07T23:30:00.000Z",
@@ -763,6 +783,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Idaho",
+        "opponentId": "idaho",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T01:00:00.000Z",
@@ -795,6 +816,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Northern Illinois",
+        "opponentId": "northern-illinois",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T20:15:00.000Z",
@@ -827,6 +849,7 @@
       "games": [],
       "nextGame": {
         "opponent": "LSU",
+        "opponentId": "lsu",
         "opponentRank": 13,
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
@@ -859,6 +882,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Oregon State",
+        "opponentId": "oregon-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -891,6 +915,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Arkansas-Pine Bluff",
+        "opponentId": "arkansas-pine-bluff",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T00:00:00.000Z",
@@ -923,6 +948,7 @@
       "games": [],
       "nextGame": {
         "opponent": "TCU",
+        "opponentId": "tcu",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-08-29T16:00:00.000Z",
@@ -955,6 +981,7 @@
       "games": [],
       "nextGame": {
         "opponent": "North Carolina",
+        "opponentId": "north-carolina",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-08-29T16:00:00.000Z",
@@ -987,6 +1014,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Eastern Michigan",
+        "opponentId": "eastern-michigan",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T22:30:00.000Z",
@@ -1019,6 +1047,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Virginia",
+        "opponentId": "virginia",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-08-29T19:30:00.000Z",
@@ -1051,6 +1080,7 @@
       "games": [],
       "nextGame": {
         "opponent": "NC State",
+        "opponentId": "nc-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-08-29T19:30:00.000Z",
@@ -1083,6 +1113,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Eastern Kentucky",
+        "opponentId": "eastern-kentucky",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -1115,6 +1146,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Fordham",
+        "opponentId": "fordham",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -1147,6 +1179,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Mississippi Valley State",
+        "opponentId": "mississippi-valley-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T02:00:00.000Z",
@@ -1179,6 +1212,7 @@
       "games": [],
       "nextGame": {
         "opponent": "San José State",
+        "opponentId": "san-jose-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T22:30:00.000Z",
@@ -1211,6 +1245,7 @@
       "games": [],
       "nextGame": {
         "opponent": "UNLV",
+        "opponentId": "unlv",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T02:00:00.000Z",
@@ -1243,6 +1278,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Miami",
+        "opponentId": "miami",
         "opponentRank": 7,
         "homeAway": "home",
         "when": "2026-09-05T01:00:00.000Z",
@@ -1275,6 +1311,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Mercyhurst",
+        "opponentId": "mercyhurst",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T01:00:00.000Z",
@@ -1307,6 +1344,7 @@
       "games": [],
       "nextGame": {
         "opponent": "SMU",
+        "opponentId": "smu",
         "opponentRank": 20,
         "homeAway": "home",
         "when": "2026-09-07T23:30:00.000Z",
@@ -1339,6 +1377,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Arkansas State",
+        "opponentId": "arkansas-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -1371,6 +1410,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Hawai'i",
+        "opponentId": "hawai-i",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T02:00:00.000Z",
@@ -1403,6 +1443,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Rutgers",
+        "opponentId": "rutgers",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T22:00:00.000Z",
@@ -1435,6 +1476,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Massachusetts",
+        "opponentId": "massachusetts",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T22:00:00.000Z",
@@ -1467,6 +1509,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Buffalo",
+        "opponentId": "buffalo",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
@@ -1499,6 +1542,7 @@
       "games": [],
       "nextGame": {
         "opponent": "UAlbany",
+        "opponentId": "ualbany",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
@@ -1531,6 +1575,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Kennesaw State",
+        "opponentId": "kennesaw-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
@@ -1563,6 +1608,7 @@
       "games": [],
       "nextGame": {
         "opponent": "West Georgia",
+        "opponentId": "west-georgia",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
@@ -1595,6 +1641,7 @@
       "games": [],
       "nextGame": {
         "opponent": "UCF",
+        "opponentId": "ucf",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
@@ -1627,6 +1674,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Bethune-Cookman",
+        "opponentId": "bethune-cookman",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
@@ -1659,6 +1707,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Delaware",
+        "opponentId": "delaware",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
@@ -1691,6 +1740,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Merrimack",
+        "opponentId": "merrimack",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
@@ -1723,6 +1773,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Wake Forest",
+        "opponentId": "wake-forest",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-03T23:00:00.000Z",
@@ -1755,6 +1806,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Akron",
+        "opponentId": "akron",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-03T23:00:00.000Z",
@@ -1787,6 +1839,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Missouri",
+        "opponentId": "missouri",
         "opponentRank": 25,
         "homeAway": "away",
         "when": "2026-09-04T00:00:00.000Z",
@@ -1819,6 +1872,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Georgia Tech",
+        "opponentId": "georgia-tech",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T00:00:00.000Z",
@@ -1851,6 +1905,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Colorado",
+        "opponentId": "colorado",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T00:00:00.000Z",
@@ -1883,6 +1938,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Minnesota",
+        "opponentId": "minnesota",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T00:00:00.000Z",
@@ -1915,6 +1971,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Eastern Illinois",
+        "opponentId": "eastern-illinois",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T00:00:00.000Z",
@@ -1947,6 +2004,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Illinois",
+        "opponentId": "illinois",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T01:00:00.000Z",
@@ -1979,6 +2037,7 @@
       "games": [],
       "nextGame": {
         "opponent": "UAB",
+        "opponentId": "uab",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T01:00:00.000Z",
@@ -2011,6 +2070,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Utah",
+        "opponentId": "utah",
         "opponentRank": 21,
         "homeAway": "away",
         "when": "2026-09-04T01:00:00.000Z",
@@ -2043,6 +2103,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Georgia State",
+        "opponentId": "georgia-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T23:00:00.000Z",
@@ -2075,6 +2136,7 @@
       "games": [],
       "nextGame": {
         "opponent": "North Carolina A&T",
+        "opponentId": "north-carolina-a-t",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T23:00:00.000Z",
@@ -2107,6 +2169,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Purdue",
+        "opponentId": "purdue",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-04T23:00:00.000Z",
@@ -2139,6 +2202,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Indiana State",
+        "opponentId": "indiana-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-04T23:00:00.000Z",
@@ -2171,6 +2235,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Kansas",
+        "opponentId": "kansas",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T00:00:00.000Z",
@@ -2203,6 +2268,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Long Island University",
+        "opponentId": "long-island-university",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T00:00:00.000Z",
@@ -2235,6 +2301,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Oklahoma",
+        "opponentId": "oklahoma",
         "opponentRank": 9,
         "homeAway": "away",
         "when": "2026-09-05T00:00:00.000Z",
@@ -2267,6 +2334,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Michigan State",
+        "opponentId": "michigan-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T00:00:00.000Z",
@@ -2299,6 +2367,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Toledo",
+        "opponentId": "toledo",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T00:00:00.000Z",
@@ -2331,6 +2400,7 @@
       "games": [],
       "nextGame": {
         "opponent": "USC",
+        "opponentId": "usc",
         "opponentRank": 14,
         "homeAway": "away",
         "when": "2026-09-05T01:00:00.000Z",
@@ -2363,6 +2433,7 @@
       "games": [],
       "nextGame": {
         "opponent": "James Madison",
+        "opponentId": "james-madison",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2395,6 +2466,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Liberty",
+        "opponentId": "liberty",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2427,6 +2499,7 @@
       "games": [],
       "nextGame": {
         "opponent": "West Virginia",
+        "opponentId": "west-virginia",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2459,6 +2532,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Coastal Carolina",
+        "opponentId": "coastal-carolina",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2491,6 +2565,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Nebraska",
+        "opponentId": "nebraska",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2523,6 +2598,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Ohio",
+        "opponentId": "ohio",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2555,6 +2631,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Bowling Green",
+        "opponentId": "bowling-green",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2587,6 +2664,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Tarleton State",
+        "opponentId": "tarleton-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2619,6 +2697,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Houston",
+        "opponentId": "houston",
         "opponentRank": 24,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2651,6 +2730,7 @@
       "games": [],
       "nextGame": {
         "opponent": "UConn",
+        "opponentId": "uconn",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2683,6 +2763,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Lafayette",
+        "opponentId": "lafayette",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2715,6 +2796,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Pittsburgh",
+        "opponentId": "pittsburgh",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2747,6 +2829,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Miami (OH)",
+        "opponentId": "miami-oh",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2779,6 +2862,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Alabama",
+        "opponentId": "alabama",
         "opponentRank": 11,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2811,6 +2895,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Indiana",
+        "opponentId": "indiana",
         "opponentRank": 6,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2843,6 +2928,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Army",
+        "opponentId": "army",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2875,6 +2961,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Bryant",
+        "opponentId": "bryant",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2907,6 +2994,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Syracuse",
+        "opponentId": "syracuse",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2939,6 +3027,7 @@
       "games": [],
       "nextGame": {
         "opponent": "New Hampshire",
+        "opponentId": "new-hampshire",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:00:00.000Z",
@@ -2971,6 +3060,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Ohio State",
+        "opponentId": "ohio-state",
         "opponentRank": 1,
         "homeAway": "away",
         "when": "2026-09-05T16:30:00.000Z",
@@ -3003,6 +3093,7 @@
       "games": [],
       "nextGame": {
         "opponent": "South Carolina",
+        "opponentId": "south-carolina",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T16:45:00.000Z",
@@ -3035,6 +3126,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Kent State",
+        "opponentId": "kent-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T16:45:00.000Z",
@@ -3067,6 +3159,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Air Force",
+        "opponentId": "air-force",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T17:00:00.000Z",
@@ -3099,6 +3192,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Duquesne",
+        "opponentId": "duquesne",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T17:00:00.000Z",
@@ -3131,6 +3225,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Kentucky",
+        "opponentId": "kentucky",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T17:00:00.000Z",
@@ -3163,6 +3258,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Youngstown State",
+        "opponentId": "youngstown-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T17:00:00.000Z",
@@ -3195,6 +3291,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Iowa State",
+        "opponentId": "iowa-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T17:00:00.000Z",
@@ -3227,6 +3324,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Southeast Missouri State",
+        "opponentId": "southeast-missouri-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T17:00:00.000Z",
@@ -3259,6 +3357,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Temple",
+        "opponentId": "temple",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T18:00:00.000Z",
@@ -3291,6 +3390,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Rhode Island",
+        "opponentId": "rhode-island",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T18:00:00.000Z",
@@ -3323,6 +3423,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Georgia",
+        "opponentId": "georgia",
         "opponentRank": 3,
         "homeAway": "away",
         "when": "2026-09-05T19:00:00.000Z",
@@ -3355,6 +3456,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Penn State",
+        "opponentId": "penn-state",
         "opponentRank": 17,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3387,6 +3489,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Tennessee",
+        "opponentId": "tennessee",
         "opponentRank": 18,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3419,6 +3522,7 @@
       "games": [],
       "nextGame": {
         "opponent": "App State",
+        "opponentId": "app-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3451,6 +3555,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Maine",
+        "opponentId": "maine",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3483,6 +3588,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Auburn",
+        "opponentId": "auburn",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3515,6 +3621,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Baylor",
+        "opponentId": "baylor",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3547,6 +3654,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Texas",
+        "opponentId": "texas",
         "opponentRank": 4,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3579,6 +3687,7 @@
       "games": [],
       "nextGame": {
         "opponent": "North Dakota State",
+        "opponentId": "north-dakota-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3611,6 +3720,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Duke",
+        "opponentId": "duke",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3643,6 +3753,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Tulane",
+        "opponentId": "tulane",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3675,6 +3786,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Navy",
+        "opponentId": "navy",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3707,6 +3819,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Towson",
+        "opponentId": "towson",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3739,6 +3852,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Oregon",
+        "opponentId": "oregon",
         "opponentRank": 2,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3771,6 +3885,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Cincinnati",
+        "opponentId": "cincinnati",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3803,6 +3918,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Boston College",
+        "opponentId": "boston-college",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3835,6 +3951,7 @@
       "games": [],
       "nextGame": {
         "opponent": "UTSA",
+        "opponentId": "utsa",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3867,6 +3984,7 @@
       "games": [],
       "nextGame": {
         "opponent": "UT Rio Grande Valley",
+        "opponentId": "ut-rio-grande-valley",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3899,6 +4017,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Charlotte",
+        "opponentId": "charlotte",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3931,6 +4050,7 @@
       "games": [],
       "nextGame": {
         "opponent": "The Citadel",
+        "opponentId": "the-citadel",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:30:00.000Z",
@@ -3963,6 +4083,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Tulsa",
+        "opponentId": "tulsa",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T19:45:00.000Z",
@@ -3995,6 +4116,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Oklahoma State",
+        "opponentId": "oklahoma-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T19:45:00.000Z",
@@ -4027,6 +4149,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Iowa",
+        "opponentId": "iowa",
         "opponentRank": 22,
         "homeAway": "away",
         "when": "2026-09-05T20:15:00.000Z",
@@ -4059,6 +4182,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Arkansas",
+        "opponentId": "arkansas",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T20:15:00.000Z",
@@ -4091,6 +4215,7 @@
       "games": [],
       "nextGame": {
         "opponent": "North Alabama",
+        "opponentId": "north-alabama",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T20:15:00.000Z",
@@ -4123,6 +4248,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Southern Miss",
+        "opponentId": "southern-miss",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T21:00:00.000Z",
@@ -4155,6 +4281,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Alcorn State",
+        "opponentId": "alcorn-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T21:00:00.000Z",
@@ -4187,6 +4314,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Old Dominion",
+        "opponentId": "old-dominion",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T22:00:00.000Z",
@@ -4219,6 +4347,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Norfolk State",
+        "opponentId": "norfolk-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T22:00:00.000Z",
@@ -4251,6 +4380,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Colorado State",
+        "opponentId": "colorado-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T22:00:00.000Z",
@@ -4283,6 +4413,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Wyoming",
+        "opponentId": "wyoming",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T22:00:00.000Z",
@@ -4315,6 +4446,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Troy",
+        "opponentId": "troy",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4347,6 +4479,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Sam Houston",
+        "opponentId": "sam-houston",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4379,6 +4512,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Rice",
+        "opponentId": "rice",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4411,6 +4545,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Houston Christian",
+        "opponentId": "houston-christian",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4443,6 +4578,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Texas Tech",
+        "opponentId": "texas-tech",
         "opponentRank": 12,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4475,6 +4611,7 @@
       "games": [],
       "nextGame": {
         "opponent": "South Alabama",
+        "opponentId": "south-alabama",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4507,6 +4644,7 @@
       "games": [],
       "nextGame": {
         "opponent": "SE Louisiana",
+        "opponentId": "se-louisiana",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4539,6 +4677,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Texas A&M",
+        "opponentId": "texas-a-m",
         "opponentRank": 8,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4571,6 +4710,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Vanderbilt",
+        "opponentId": "vanderbilt",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4603,6 +4743,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Austin Peay",
+        "opponentId": "austin-peay",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4635,6 +4776,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Kansas State",
+        "opponentId": "kansas-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4667,6 +4809,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Nicholls",
+        "opponentId": "nicholls",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4699,6 +4842,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Utah State",
+        "opponentId": "utah-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4731,6 +4875,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Idaho State",
+        "opponentId": "idaho-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4763,6 +4908,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Memphis",
+        "opponentId": "memphis",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4795,6 +4941,7 @@
       "games": [],
       "nextGame": {
         "opponent": "South Florida",
+        "opponentId": "south-florida",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4827,6 +4974,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Florida International",
+        "opponentId": "florida-international",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4859,6 +5007,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Jacksonville State",
+        "opponentId": "jacksonville-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4891,6 +5040,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Georgia Southern",
+        "opponentId": "georgia-southern",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4923,6 +5073,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Charleston Southern",
+        "opponentId": "charleston-southern",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4955,6 +5106,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Middle Tennessee",
+        "opponentId": "middle-tennessee",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:00:00.000Z",
@@ -4987,6 +5139,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Murray State",
+        "opponentId": "murray-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:00:00.000Z",
@@ -5019,6 +5172,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Michigan",
+        "opponentId": "michigan",
         "opponentRank": 16,
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
@@ -5051,6 +5205,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Louisiana Tech",
+        "opponentId": "louisiana-tech",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
@@ -5083,6 +5238,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Northwestern State",
+        "opponentId": "northwestern-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
@@ -5115,6 +5271,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Virginia Tech",
+        "opponentId": "virginia-tech",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
@@ -5147,6 +5304,7 @@
       "games": [],
       "nextGame": {
         "opponent": "VMI",
+        "opponentId": "vmi",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
@@ -5179,6 +5337,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Mississippi State",
+        "opponentId": "mississippi-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:30:00.000Z",
@@ -5211,6 +5370,7 @@
       "games": [],
       "nextGame": {
         "opponent": "UL Monroe",
+        "opponentId": "ul-monroe",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:30:00.000Z",
@@ -5243,6 +5403,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Florida",
+        "opponentId": "florida",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-05T23:45:00.000Z",
@@ -5275,6 +5436,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Florida Atlantic",
+        "opponentId": "florida-atlantic",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-05T23:45:00.000Z",
@@ -5307,6 +5469,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Maryland",
+        "opponentId": "maryland",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
@@ -5339,6 +5502,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Hampton",
+        "opponentId": "hampton",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
@@ -5371,6 +5535,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Northwestern",
+        "opponentId": "northwestern",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
@@ -5403,6 +5568,7 @@
       "games": [],
       "nextGame": {
         "opponent": "South Dakota State",
+        "opponentId": "south-dakota-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
@@ -5435,6 +5601,7 @@
       "games": [],
       "nextGame": {
         "opponent": "BYU",
+        "opponentId": "byu",
         "opponentRank": 15,
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
@@ -5467,6 +5634,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Louisiana",
+        "opponentId": "louisiana",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T00:00:00.000Z",
@@ -5499,6 +5667,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Lamar",
+        "opponentId": "lamar",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T00:00:00.000Z",
@@ -5531,6 +5700,7 @@
       "games": [],
       "nextGame": {
         "opponent": "New Mexico State",
+        "opponentId": "new-mexico-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T01:00:00.000Z",
@@ -5563,6 +5733,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Arizona State",
+        "opponentId": "arizona-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T01:00:00.000Z",
@@ -5595,6 +5766,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Morgan State",
+        "opponentId": "morgan-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T01:00:00.000Z",
@@ -5627,6 +5799,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Arizona",
+        "opponentId": "arizona",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T01:30:00.000Z",
@@ -5659,6 +5832,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Northern Arizona",
+        "opponentId": "northern-arizona",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T01:30:00.000Z",
@@ -5691,6 +5865,7 @@
       "games": [],
       "nextGame": {
         "opponent": "San Diego State",
+        "opponentId": "san-diego-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T01:30:00.000Z",
@@ -5723,6 +5898,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Portland State",
+        "opponentId": "portland-state",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T01:30:00.000Z",
@@ -5755,6 +5931,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Sacramento State",
+        "opponentId": "sacramento-state",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T02:00:00.000Z",
@@ -5787,6 +5964,7 @@
       "games": [],
       "nextGame": {
         "opponent": "New Mexico",
+        "opponentId": "new-mexico",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T02:00:00.000Z",
@@ -5819,6 +5997,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Central Michigan",
+        "opponentId": "central-michigan",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T02:00:00.000Z",
@@ -5851,6 +6030,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Nevada",
+        "opponentId": "nevada",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T02:30:00.000Z",
@@ -5883,6 +6063,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Western Kentucky",
+        "opponentId": "western-kentucky",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T02:30:00.000Z",
@@ -5915,6 +6096,7 @@
       "games": [],
       "nextGame": {
         "opponent": "California",
+        "opponentId": "california",
         "opponentRank": null,
         "homeAway": "away",
         "when": "2026-09-06T02:30:00.000Z",
@@ -5947,6 +6129,7 @@
       "games": [],
       "nextGame": {
         "opponent": "UCLA",
+        "opponentId": "ucla",
         "opponentRank": null,
         "homeAway": "home",
         "when": "2026-09-06T02:30:00.000Z",
@@ -5979,6 +6162,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Washington",
+        "opponentId": "washington",
         "opponentRank": 19,
         "homeAway": "away",
         "when": "2026-09-06T20:00:00.000Z",
@@ -6011,6 +6195,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Ole Miss",
+        "opponentId": "ole-miss",
         "opponentRank": 10,
         "homeAway": "away",
         "when": "2026-09-06T23:30:00.000Z",
@@ -6043,6 +6228,7 @@
       "games": [],
       "nextGame": {
         "opponent": "Notre Dame",
+        "opponentId": "notre-dame",
         "opponentRank": 5,
         "homeAway": "away",
         "when": "2026-09-06T23:30:00.000Z",
@@ -8155,7 +8341,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 6.2,
-      "blurb": "No. 23 Clemson opens the season in Baton Rouge as a 10.5-point underdog to No. 13 LSU, with a 50.5 total suggesting the sportsbooks expect defenses and field position to decide it. A Week 1 win here would immediately reshape both teams' at-large math.",
+      "blurb": "No. 23 Clemson opens on the road at No. 13 LSU, where the Tigers are favored by 10.5 with a modest 50.5 total. A top-25 scalp in Week 1 would reshape both résumés in a hurry.",
       "blurbSource": "llm"
     },
     {
@@ -8176,7 +8362,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 4.87,
-      "blurb": "The Apple Cup returns with No. 19 Washington a 21.5-point favorite at home. Rivalry games rarely respect the number, but the Huskies can't afford a Week 1 stumble against an unranked Washington State.",
+      "blurb": "The Apple Cup returns with No. 19 Washington laying 21.5 at home. Rivalry math says close, the number says the Huskies should be comfortable.",
       "blurbSource": "llm"
     },
     {
@@ -8197,7 +8383,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 4.27,
-      "blurb": "Louisville heads to Oxford as a 6.5-point underdog against No. 10 Ole Miss, and the 55.5 total says points shouldn't be hard to come by. It's the kind of quality non-conference test that either validates the Rebels' ranking or dents it right away.",
+      "blurb": "Louisville heads to Oxford as a 6.5-point underdog against No. 10 Ole Miss, with the total up at 55.5. The Rebels are favored but not by enough to call this a breather.",
       "blurbSource": "llm"
     },
     {
@@ -8218,7 +8404,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 3.07,
-      "blurb": "No. 5 Notre Dame hosts Wisconsin as a 20.5-point favorite with a modest 47.5 total. The Irish have no margin for error in a playoff résumé built without a conference title, so style points matter.",
+      "blurb": "Wisconsin visits No. 5 Notre Dame as a 20.5-point underdog with the total sitting at just 47.5. The Irish are expected to control this one on the ground and on the scoreboard.",
       "blurbSource": "llm"
     },
     {
@@ -8239,7 +8425,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 3,
-      "blurb": "The Border War kicks off the season with Colorado State favored by just four at home. A four-point line in a rivalry game is another way of saying nobody has any idea.",
+      "blurb": "The Border War kicks off the weekend with Colorado State favored by four at home. A coin-flip spread in a rivalry game is exactly the Week 1 chaos you signed up for.",
       "blurbSource": "llm"
     },
     {
@@ -8260,7 +8446,7 @@
       "period": null,
       "clock": null,
       "stakesScore": 2.58,
-      "blurb": "No. 16 Michigan opens at home as a 26.5-point favorite over Western Michigan. This is a tune-up, but the Wolverines are close enough to the bubble that how they look matters as much as whether they win.",
+      "blurb": "Western Michigan draws No. 16 Michigan in the Big House with the Wolverines laying 26.5. This is a tune-up, and Michigan's job is to make it look like one.",
       "blurbSource": "llm"
     }
   ],
@@ -8268,31 +8454,31 @@
     {
       "teamId": "texas",
       "score": 5.45,
-      "blurb": "Texas checks in at No. 4 and FPI is even higher on the Longhorns, slotting them second nationally. In a loaded SEC, the metrics say the ceiling is a title.",
+      "blurb": "Texas sits fourth in the poll and second in FPI, which makes the Longhorns one of the few teams the metrics like even more than the voters do.",
       "blurbSource": "llm"
     },
     {
       "teamId": "texas-tech",
       "score": 5.45,
-      "blurb": "Texas Tech sits 12th in the rankings and 10th in FPI, a rare case of the numbers and the voters more or less agreeing. The Red Raiders are the Big 12's front-runner heading in.",
+      "blurb": "Texas Tech checks in at No. 12 with FPI slotting the Red Raiders 10th -- the model sees a legitimate Big 12 frontrunner.",
       "blurbSource": "llm"
     },
     {
       "teamId": "michigan",
       "score": 5.23,
-      "blurb": "Michigan opens 16th with FPI a tick more optimistic at 15th. Nothing about that profile is settled — the Wolverines' season will be decided by what they do in Big Ten play.",
+      "blurb": "Michigan opens at No. 16 with FPI right there at 15, a rare case of poll and model in near-total agreement.",
       "blurbSource": "llm"
     },
     {
       "teamId": "byu",
       "score": 5.13,
-      "blurb": "BYU is ranked 15th but FPI is more skeptical at 20th, the widest gap in this group. The Cougars will have to prove the ranking is the honest number.",
+      "blurb": "BYU is ranked 15th but FPI has the Cougars down at 20, a gap worth watching as the Big 12 schedule unfolds.",
       "blurbSource": "llm"
     },
     {
       "teamId": "lsu",
       "score": 4.9,
-      "blurb": "LSU comes in 13th while FPI likes the Tigers at ninth. If the metrics are right, LSU is undervalued heading into a Week 1 opener with real stakes.",
+      "blurb": "LSU comes in at No. 13 with FPI bullish at ninth -- the model thinks the Tigers are underrated heading into the opener.",
       "blurbSource": "llm"
     }
   ],
@@ -8307,7 +8493,7 @@
       "chaserRank": 2,
       "gap": 1,
       "score": 9,
-      "blurb": "The Big Ten's automatic bid is a two-horse race in the tightest possible terms: No. 1 Ohio State leads with No. 2 Oregon a single spot behind. One loss by either flips the entire league picture.",
+      "blurb": "Ohio State and Oregon are separated by a single spot at the top of the Big Ten, No. 1 to No. 2. There's no margin for error in the race for that automatic bid.",
       "blurbSource": "llm"
     },
     {
@@ -8320,7 +8506,7 @@
       "chaserRank": 4,
       "gap": 1,
       "score": 9,
-      "blurb": "Georgia holds the SEC's auto-bid position at No. 3 with Texas breathing down its neck at No. 4. A one-spot gap means the Bulldogs have zero cushion.",
+      "blurb": "Georgia holds the SEC's auto bid at No. 3 with Texas breathing down its neck at No. 4. One slip from the Bulldogs and the Longhorns take the league lead.",
       "blurbSource": "llm"
     },
     {
@@ -8333,7 +8519,7 @@
       "chaserRank": 15,
       "gap": 3,
       "score": 7,
-      "blurb": "Texas Tech (No. 12) leads the Big 12 race with BYU (No. 15) three spots back — the widest of the three major-conference gaps. The Cougars need help, or a head-to-head chance, to close it.",
+      "blurb": "Texas Tech leads the Big 12 at No. 12 with BYU three spots back at 15. It's the widest of the power-league gaps, but hardly a comfortable cushion.",
       "blurbSource": "llm"
     }
   ]

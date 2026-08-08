@@ -406,11 +406,11 @@ async function main() {
     const homeScore = g.completed ? g.homePoints : null;
 
     nextGameByTeam[awayId] = {
-      opponent: g.homeTeam, opponentRank: homeRank, homeAway: 'away', when, network,
+      opponent: g.homeTeam, opponentId: homeId, opponentRank: homeRank, homeAway: 'away', when, network,
       cfbdId: g.id, status, awayScore, homeScore,
     };
     nextGameByTeam[homeId] = {
-      opponent: g.awayTeam, opponentRank: awayRank, homeAway: 'home', when, network,
+      opponent: g.awayTeam, opponentId: awayId, opponentRank: awayRank, homeAway: 'home', when, network,
       cfbdId: g.id, status, awayScore, homeScore,
     };
 

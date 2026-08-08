@@ -184,7 +184,8 @@ export function formatKickoff(iso) {
 export function nextGameParts(nextGame) {
   if (!nextGame) {
     return {
-      opponent: null, kickoff: null, homeAway: null,
+      opponent: null, vsAt: null, opponentTeam: null, opponentRank: null, opponentName: null,
+      kickoff: null, homeAway: null,
       status: null, awayScore: null, homeScore: null, period: null, clock: null,
     };
   }
@@ -192,7 +193,18 @@ export function nextGameParts(nextGame) {
   const oppLabel = nextGame.opponentRank != null ? `#${nextGame.opponentRank} ${nextGame.opponent}` : nextGame.opponent;
   const kickoff = [formatKickoff(nextGame.when), nextGame.network].filter(Boolean).join(' · ');
   return {
+    // Plain-text label, kept for any caller that just wants a string. Callers that want the
+    // opponent's logo inline (so "#8 Michigan" gets its mark between the rank and the name, not
+    // stuffed into a single un-splittable string) use vsAt/opponentTeam/opponentRank/opponentName
+    // below instead and assemble the JSX themselves.
     opponent: `${vsAt} ${oppLabel}`,
+    vsAt,
+    // nextGame.opponentId is only present once fetch-cfb-data.mjs has been re-run past the
+    // pipeline change that added it -- teamById() on an unresolved/old snapshot's undefined id
+    // returns undefined, so this degrades to null (no logo) rather than throwing.
+    opponentTeam: nextGame.opponentId ? teamById(nextGame.opponentId) ?? null : null,
+    opponentRank: nextGame.opponentRank ?? null,
+    opponentName: nextGame.opponent ?? null,
     kickoff: kickoff || null,
     homeAway: nextGame.homeAway,
     status: nextGame.status ?? 'scheduled',

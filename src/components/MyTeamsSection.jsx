@@ -31,7 +31,10 @@ export default function MyTeamsSection({ weekIdx }) {
       <div className="bubble-list">
         {visible.map(({ id, rank }) => {
           const t = teamById(id);
-          const { opponent, kickoff, homeAway, status, awayScore, homeScore, period, clock } = nextGameParts(t.nextGame);
+          const {
+            vsAt, opponentTeam, opponentRank, opponentName,
+            kickoff, homeAway, status, awayScore, homeScore, period, clock,
+          } = nextGameParts(t.nextGame);
           const badge = gameStatusBadge(status, period, clock);
           const mine = homeAway === 'home' ? homeScore : awayScore;
           const theirs = homeAway === 'home' ? awayScore : homeScore;
@@ -50,7 +53,15 @@ export default function MyTeamsSection({ weekIdx }) {
               <Link className="nm row-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
               <span className="needs">
                 <span className="tabnum record">{t.record}</span>
-                <span className="opp">{opponent ?? 'Bye week'}</span>
+                <span className="opp">
+                  {opponentName ? (
+                    <>
+                      {vsAt} {opponentRank != null && `#${opponentRank} `}
+                      {opponentTeam && <TeamMark team={opponentTeam} />}
+                      {opponentName}
+                    </>
+                  ) : 'Bye week'}
+                </span>
                 {badge.text ? (
                   <span className={`kickoff badge-status${badge.live ? ' badge-live' : ' badge-final'}`}>
                     {badge.live && <span className="pulse-dot" aria-hidden="true" />}

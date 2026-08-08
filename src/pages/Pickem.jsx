@@ -90,7 +90,7 @@ export default function Pickem() {
           const t = teamById(id);
           const currentRank = CURRENT_ORDER.indexOf(id) + 1;
           const move = currentRank - (i + 1); // positive = projected higher than today
-          const { opponent } = nextGameParts(t.nextGame);
+          const { vsAt, opponentTeam, opponentRank, opponentName } = nextGameParts(t.nextGame);
           return (
             <div key={id} className="pickem-row">
               <span className="pickem-head">
@@ -99,7 +99,13 @@ export default function Pickem() {
                 <span className="info">
                   <TeamMark team={t} />
                   <Link className="nm" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
-                  {opponent && <span className="opp">{opponent}</span>}
+                  {opponentName && (
+                    <span className="opp">
+                      {vsAt} {opponentRank != null && `#${opponentRank} `}
+                      {opponentTeam && <TeamMark team={opponentTeam} />}
+                      {opponentName}
+                    </span>
+                  )}
                 </span>
               </span>
               {t.nextGame ? (

@@ -156,6 +156,8 @@ nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postga
                                 // "biggest games". See "Game status lifecycle" below for who
                                 // writes status/score/period/clock and when.
         "opponent": "Michigan",
+        "opponentId": "michigan", // slugify(opponent) -- lets the frontend look up the opponent's
+                                // own team object (for its logo, etc.) without re-deriving the id
         "opponentRank": 8,      // null if the opponent is unranked
         "homeAway": "home",     // "home" | "away" — is THIS team hosting or visiting
         "when": "2026-11-29T17:00:00Z",

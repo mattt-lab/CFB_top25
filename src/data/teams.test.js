@@ -24,21 +24,35 @@ describe('americanOdds', () => {
 describe('nextGameParts', () => {
   it('returns null parts for a bye week (no nextGame)', () => {
     expect(nextGameParts(null)).toEqual({
-      opponent: null, kickoff: null, homeAway: null,
+      opponent: null, vsAt: null, opponentTeam: null, opponentRank: null, opponentName: null,
+      kickoff: null, homeAway: null,
       status: null, awayScore: null, homeScore: null, period: null, clock: null,
     });
   });
   it('formats a home game against a ranked opponent', () => {
-    const { opponent } = nextGameParts({
+    const { opponent, vsAt, opponentRank, opponentName } = nextGameParts({
       homeAway: 'home', opponent: 'Michigan', opponentRank: 8, when: null, network: null,
     });
     expect(opponent).toBe('vs #8 Michigan');
+    expect(vsAt).toBe('vs');
+    expect(opponentRank).toBe(8);
+    expect(opponentName).toBe('Michigan');
   });
   it('formats an away game against an unranked opponent (no rank prefix)', () => {
-    const { opponent } = nextGameParts({
+    const { opponent, vsAt, opponentRank } = nextGameParts({
       homeAway: 'away', opponent: 'Ball State', opponentRank: null, when: null, network: null,
     });
     expect(opponent).toBe('at Ball State');
+    expect(vsAt).toBe('at');
+    expect(opponentRank).toBeNull();
+  });
+  it('resolves opponentTeam from opponentId once the pipeline provides one, null otherwise', () => {
+    expect(nextGameParts({
+      homeAway: 'home', opponent: 'Ohio State', opponentId: 'ohio-state', opponentRank: 1, when: null, network: null,
+    }).opponentTeam?.id).toBe('ohio-state');
+    expect(nextGameParts({
+      homeAway: 'home', opponent: 'Michigan', opponentRank: 8, when: null, network: null,
+    }).opponentTeam).toBeNull();
   });
   it('joins kickoff time and network with a middot, omitting either when absent', () => {
     const { kickoff } = nextGameParts({
