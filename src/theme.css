@@ -230,6 +230,14 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
    13-13.5px row text, matching where ConfDot's vertical-align: middle put the 8px dot. flex: none
    mirrors .conf-dot so the mark never shrinks in flex rows (.bubble-row, .matchup-row .t, .ld). */
 .team-mark { width: 18px; height: 18px; object-fit: contain; vertical-align: -4px; margin-right: 7px; flex: none; }
+/* .team-mark is always the FIRST element in a flex row/cell elsewhere (Top25Table, Pick 'em,
+   PlayoffWatch's seed/bubble rows) -- margin-right alone is correct there, adding margin-left too
+   would just indent it off the container's natural edge. The one place a mark follows loose rank
+   text inline (Playoff Watch's ".ld" leader line, Conference Tracker's field list -- "#1
+   [mark]Ohio State") only had a single JSX space character separating them, visibly tighter than
+   the margin-right gap on the mark's other side. .rank-prefix wraps just that "#N" text so it gets
+   its own margin, scoped to these two spots instead of changing .team-mark's spacing everywhere. */
+.rank-prefix { margin-right: 4px; }
 .rank-figure { font-size: 64px; line-height: 1; font-weight: 800; font-stretch: 78%; letter-spacing: -0.02em; }
 .rank-block { display: flex; align-items: flex-end; gap: 10px; margin-top: 6px; }
 .eyebrow-lbl { font-size: 11.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); }

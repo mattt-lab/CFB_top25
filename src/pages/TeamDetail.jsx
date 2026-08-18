@@ -41,7 +41,13 @@ export default function TeamDetail() {
   const sourceLabel = primaryLabel(PRIMARY_SOURCE_BY_WEEK[WEEK_IDX_MAX]);
   const rankDelta = deltaAt(team.id, WEEK_IDX_MAX);
   const rankDeltaDir = dirFor(rankDelta);
+  // The big featured number above is already whichever poll is primary (sourceLabel) -- showing
+  // that same poll again in the stat grid below would be redundant. Show the OTHER human poll
+  // instead: Coaches when AP is featured, AP when Coaches (or CFP, once the committee exists) is
+  // featured -- never the poll already shown as the giant rank.
+  const showCoachesInGrid = sourceLabel === 'AP Poll';
   const apTrend = trendOf(team.ap);
+  const coachesTrend = trendOf(team.coaches);
   // Unranked teams (fell out of the poll, or never ranked) have rank === null -- the odds
   // formulas assume a real rank, so skip them rather than let `null` silently coerce to 0 and
   // produce a nonsense near-100% "playoff odds" for a team that isn't even ranked.
@@ -90,13 +96,23 @@ export default function TeamDetail() {
             <div className="eyebrow-lbl" style={{ marginBottom: 12 }}>{sourceLabel.toUpperCase()}&nbsp;RANK</div>
           </div>
           <div className="stat-grid">
-            <div className="stat">
-              <div className="lbl">AP Poll</div>
-              <div className="val tabnum">{team.ap[WEEK_IDX_MAX] != null ? `#${team.ap[WEEK_IDX_MAX]}` : '—'}</div>
-              <div className="sub">
-                {apTrend.dir === 'flat' ? 'No change' : `${apTrend.dir === 'up' ? '▲' : '▼'}${apTrend.diff} vs last wk`}
+            {showCoachesInGrid ? (
+              <div className="stat">
+                <div className="lbl">Coaches Poll</div>
+                <div className="val tabnum">{team.coaches[WEEK_IDX_MAX] != null ? `#${team.coaches[WEEK_IDX_MAX]}` : '—'}</div>
+                <div className="sub">
+                  {coachesTrend.dir === 'flat' ? 'No change' : `${coachesTrend.dir === 'up' ? '▲' : '▼'}${coachesTrend.diff} vs last wk`}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="stat">
+                <div className="lbl">AP Poll</div>
+                <div className="val tabnum">{team.ap[WEEK_IDX_MAX] != null ? `#${team.ap[WEEK_IDX_MAX]}` : '—'}</div>
+                <div className="sub">
+                  {apTrend.dir === 'flat' ? 'No change' : `${apTrend.dir === 'up' ? '▲' : '▼'}${apTrend.diff} vs last wk`}
+                </div>
+              </div>
+            )}
             <div className="stat">
               <div className="lbl">SP+ Rank</div>
               <div className="val tabnum">{team.sp != null ? `#${team.sp}` : '—'}</div>

@@ -2,18 +2,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   WEEKLY_ORDER, teamById, deltaAt, sparkPoints,
   playoffOddsFor, nattyOddsFor, americanOdds, trendColor, deltaLabel,
-  HAS_TREND_HISTORY, HAS_SP_RATINGS,
+  HAS_TREND_HISTORY,
 } from '../data/teams.js';
 import TeamMark from './TeamMark.jsx';
 import Sparkline from './Sparkline.jsx';
 import PinButton from './PinButton.jsx';
 
 function sparseCaption() {
-  if (!HAS_TREND_HISTORY && !HAS_SP_RATINGS) {
-    return 'Wk Δ, Trend, and SP+ will start appearing once more than one week of rankings exists and SP+ ratings are published for the season.';
-  }
   if (!HAS_TREND_HISTORY) return 'Wk Δ and Trend will start appearing once more than one week of rankings exists.';
-  if (!HAS_SP_RATINGS) return 'SP+ will start appearing once CFBD publishes ratings for the season.';
   return null;
 }
 
@@ -29,7 +25,7 @@ export default function Top25Table({ weekIdx }) {
         <thead>
           <tr>
             <th></th><th>Rk</th><th>Team</th><th>Record</th><th>Wk &Delta;</th><th>Trend</th>
-            <th>SP+</th><th>Make CFP</th><th>Win it all</th>
+            <th>Make CFP</th><th>Win it all</th>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +53,6 @@ export default function Top25Table({ weekIdx }) {
                 <td className="tabnum">{t.record}</td>
                 <td style={{ color, fontWeight: 700 }}>{deltaLabel(delta)}</td>
                 <td><Sparkline points={sparkPoints(id, weekIdx)} /></td>
-                <td className="tabnum">{t.sp != null ? `#${t.sp}` : '—'}</td>
                 <td className="tabnum">{po}%</td>
                 <td className="tabnum">{americanOdds(no)}</td>
               </tr>

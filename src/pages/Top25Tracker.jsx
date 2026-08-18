@@ -110,7 +110,7 @@ export default function Top25Tracker() {
       <div className="bracket-label">Full season</div>
       <div className="section-header">
         <div>
-          <h2>Top 25</h2>
+          <h2>Top 25 — {weekSource}</h2>
           <p>Tap any team for full history, scorecard, and odds.</p>
         </div>
         <span className="odds-hint">Playoff / title odds are a simplified model — see note below</span>

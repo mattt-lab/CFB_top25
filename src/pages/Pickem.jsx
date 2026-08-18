@@ -82,7 +82,7 @@ export default function Pickem() {
       <div className="page-title">
         <div className="eyebrow">Week {WEEK_IDX_MAX + 1} · what-if</div>
         <h1>Top 25 Pick 'em</h1>
-        <p>Call this week's games and watch the Top 25 re-sort itself into a projected order.</p>
+        <p>Call this week's games and watch the AP Top 25 re-sort itself into a projected order.</p>
       </div>
 
       <div className="pickem-list">

@@ -131,13 +131,13 @@ export default function ConferenceDetail() {
         {fieldCount ? (
           <ul className="pred-list">
             {inField.byes.map((o) => (
-              <li key={o.id}><span className="ic">B</span><Link to={`/team/${o.id}`} state={{ from: 'conference', confSlug }}>#{o.rank} <TeamMark team={o.team} />{o.team.name} — first-round bye</Link></li>
+              <li key={o.id}><span className="ic">B</span><Link to={`/team/${o.id}`} state={{ from: 'conference', confSlug }}><span className="rank-prefix">#{o.rank}</span><TeamMark team={o.team} />{o.team.name} — first-round bye</Link></li>
             ))}
             {inField.seeds5to12.map((o) => (
-              <li key={o.id}><span className="ic">F</span><Link to={`/team/${o.id}`} state={{ from: 'conference', confSlug }}>#{o.rank} <TeamMark team={o.team} />{o.team.name} — in the field</Link></li>
+              <li key={o.id}><span className="ic">F</span><Link to={`/team/${o.id}`} state={{ from: 'conference', confSlug }}><span className="rank-prefix">#{o.rank}</span><TeamMark team={o.team} />{o.team.name} — in the field</Link></li>
             ))}
             {inField.bubble.map((o) => (
-              <li key={o.id}><span className="ic">?</span><Link to={`/team/${o.id}`} state={{ from: 'conference', confSlug }}>#{o.rank} <TeamMark team={o.team} />{o.team.name} — on the bubble</Link></li>
+              <li key={o.id}><span className="ic">?</span><Link to={`/team/${o.id}`} state={{ from: 'conference', confSlug }}><span className="rank-prefix">#{o.rank}</span><TeamMark team={o.team} />{o.team.name} — on the bubble</Link></li>
             ))}
           </ul>
         ) : (
