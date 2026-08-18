@@ -100,6 +100,15 @@ function slugify(name) {
 // this script -- unrecognized polls are just skipped.
 function classifyPoll(pollName) {
   const p = (pollName || '').toLowerCase();
+  // CFBD started also returning FCS-level polls (e.g. "FCS Coaches Poll") in the same /rankings
+  // response as the FBS ones -- confirmed live, 2026 week 1 suddenly added one alongside the real
+  // "Coaches Poll" where only the FBS one existed before. A loose "coaches" substring match can't
+  // tell them apart, and since both entries land in the same `polls` array for that week, whichever
+  // one is processed second silently overwrites weekPolls[wk].coaches -- confirmed live, this
+  // replaced the real Top 25 Coaches Poll with FCS teams (Montana State, Montana, ...) as the
+  // resolved primary ranking. Exclude anything FCS-labeled outright; this app only ever tracks
+  // FBS-level rankings, so there's never a legitimate reason for an FCS poll to match here.
+  if (p.includes('fcs')) return null;
   if (p.includes('playoff committee') || p === 'cfp') return 'cfp';
   if (p.includes('coaches')) return 'coaches';
   if (p.includes('ap top') || p === 'ap') return 'ap';
@@ -150,15 +159,18 @@ async function main() {
     }
   }
 
-  // Per-week primary-ranking fallback: CFP Committee if that week has it, else Coaches Poll
-  // (CFBD's "USA Today Coaches Poll"), else AP. This is what every cross-team feature (Top 25
+  // Per-week primary-ranking fallback: CFP Committee if that week has it, else AP Top 25, else
+  // Coaches Poll (CFBD's "USA Today Coaches Poll"). This is what every cross-team feature (Top 25
   // order, tiers, the Playoff Watch bracket, time-travel) actually ranks teams by -- not raw CFP,
-  // because CFP doesn't exist for a real chunk of every season (weeks 1 through ~7-11).
+  // because CFP doesn't exist for a real chunk of every season (weeks 1 through ~7-11). AP over
+  // Coaches (flipped from the original CFP > Coaches > AP order) per explicit user preference --
+  // AP is the more widely-recognized poll, so it should be primary whenever it's actually out,
+  // with Coaches only as the fallback for the rare week AP hasn't published yet but Coaches has.
   function resolvePrimaryPoll(wk) {
     const p = weekPolls[wk] || {};
     if (p.cfp && p.cfp.length) return { order: p.cfp, source: 'cfp' };
-    if (p.coaches && p.coaches.length) return { order: p.coaches, source: 'coaches' };
     if (p.ap && p.ap.length) return { order: p.ap, source: 'ap' };
+    if (p.coaches && p.coaches.length) return { order: p.coaches, source: 'coaches' };
     return null;
   }
 

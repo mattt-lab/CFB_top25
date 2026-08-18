@@ -353,6 +353,18 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 .bubble-row .needs .record { font-weight: 700; color: var(--ink-1); flex: none; }
 .bubble-row .needs .opp { font-weight: 700; color: var(--ink-1); }
 .bubble-row .needs .kickoff { flex: none; text-align: right; }
+/* Narrow phones: the row was a fixed single line (rank, logo, name, record, opponent, kickoff,
+   pin) with no wrap at all -- confirmed live, it just overflowed the card instead of reflowing,
+   with the pin button overlapping whatever text didn't fit. .needs (record/opponent/kickoff)
+   drops to its own full-width line below rank/logo/name/pin (order pulls it after the pin button
+   despite coming before it in the DOM, so the pin stays on line 1 rather than being pushed down
+   too), and wraps internally so a long opponent name and a long kickoff string don't have to
+   share one line either. */
+@media (max-width: 640px) {
+  .bubble-row { flex-wrap: wrap; row-gap: 6px; }
+  .bubble-row .needs { order: 1; flex-basis: 100%; flex-wrap: wrap; justify-content: flex-start; row-gap: 4px; }
+  .bubble-row .needs .kickoff { text-align: left; }
+}
 
 .conf-race-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 @media (max-width: 780px) { .conf-race-grid { grid-template-columns: 1fr; } }
