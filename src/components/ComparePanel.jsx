@@ -18,16 +18,24 @@ export default function ComparePanel({ team }) {
 
   const other = teamById(otherId);
 
+  // team.games now covers the full season including upcoming games (res: null) -- head-to-head/
+  // common-opponent comparisons only make sense against games that actually happened, so both
+  // sides are filtered to completed-only before any of the logic below runs. Without this, an
+  // upcoming (not-yet-played) head-to-head matchup would render "lost to" (null !== 'W') instead
+  // of being skipped, and a shared upcoming opponent would show a blank result badge.
+  const teamCompleted = team.games.filter((g) => g.res != null);
+  const otherCompleted = other ? other.games.filter((g) => g.res != null) : [];
+
   let body = null;
   if (other) {
-    // Some teams have an empty `games: []` -- either the sample fixture's intentionally sparse
-    // non-priority teams, or (in real data) a team with no game log yet this early in a season.
-    // Head-to-head/common-opponent logic needs real game
-    // logs on both sides, so bail out to a plain message instead of rendering an empty table.
-    if (!team.games.length || !other.games.length) {
-      const missing = !team.games.length && !other.games.length
+    // Some teams have an empty completed-game log -- either the sample fixture's intentionally
+    // sparse non-priority teams, or (in real data) a team with no games played yet this early in
+    // a season. Head-to-head/common-opponent logic needs real game logs on both sides, so bail out
+    // to a plain message instead of rendering an empty table.
+    if (!teamCompleted.length || !otherCompleted.length) {
+      const missing = !teamCompleted.length && !otherCompleted.length
         ? `${team.name} and ${other.name}`
-        : !team.games.length ? team.name : other.name;
+        : !teamCompleted.length ? team.name : other.name;
       body = (
         <p style={{ fontSize: 12.5, color: 'var(--ink-2)', margin: 0 }}>
           No game data available for {missing} yet — head-to-head and common-opponent comparisons
@@ -35,10 +43,10 @@ export default function ComparePanel({ team }) {
         </p>
       );
     } else {
-      const directGame = team.games.find((g) => g.opp === other.name);
+      const directGame = teamCompleted.find((g) => g.opp === other.name);
       const oppMapA = {};
-      team.games.forEach((g) => { oppMapA[g.opp] = g; });
-      const common = other.games.filter((g) => oppMapA[g.opp]);
+      teamCompleted.forEach((g) => { oppMapA[g.opp] = g; });
+      const common = otherCompleted.filter((g) => oppMapA[g.opp]);
 
       body = (
         <>

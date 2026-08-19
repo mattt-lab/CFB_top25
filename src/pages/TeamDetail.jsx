@@ -13,6 +13,7 @@ import RankingChart from '../components/RankingChart.jsx';
 import DeltaRows from '../components/DeltaRows.jsx';
 import ResumeTable from '../components/ResumeTable.jsx';
 import ComparePanel from '../components/ComparePanel.jsx';
+import SeasonSchedule from '../components/SeasonSchedule.jsx';
 
 export default function TeamDetail() {
   const { teamId } = useParams();
@@ -213,6 +214,8 @@ export default function TeamDetail() {
       </div>
 
       <ComparePanel team={team} />
+
+      <SeasonSchedule team={team} />
     </div>
   );
 }

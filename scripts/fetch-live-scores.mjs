@@ -93,6 +93,23 @@ function teamLabel(current, teamId, rank) {
   return rank != null ? `#${rank} ${name}` : name;
 }
 
+// fetch-cfb-data.mjs (the once-daily heavy pipeline) now writes an "upcoming" teamGameLog entry
+// (res: null) for every game on the full-season schedule, including this week's -- so by the time
+// a game we're tracking goes final, there's almost always already a matching entry sitting in
+// teams[id].games[] for this exact week/opponent. Update that entry in place instead of pushing a
+// second one, or the team's schedule would show a duplicate row (one stale res:null, one final)
+// until tomorrow's pipeline run overwrites teams{} from scratch. Falls back to a push in the OLD
+// lean shape only for a `current.json` that predates this feature and never got an upcoming entry
+// written for this game -- short-lived either way, same reason.
+function settleGameLogEntry(teamGames, wk, oppName, res, tag, awayScore, homeScore, fallbackOppRank) {
+  const idx = teamGames.findIndex((g) => g.wk === wk && g.opp === oppName);
+  if (idx === -1) {
+    teamGames.push({ wk, opp: oppName, oppConf: null, oppRank: fallbackOppRank, res, tag, awayScore, homeScore });
+    return;
+  }
+  teamGames[idx] = { ...teamGames[idx], res, tag, awayScore, homeScore };
+}
+
 // Pure: takes a `current` object and the raw /scoreboard response, returns a freshly-cloned,
 // patched `current` plus whether anything actually changed. Never mutates its input -- needed so
 // the git-race retry loop below can call this again against a freshly-reset base without paying
@@ -128,14 +145,14 @@ export function applyScoreboardPatch(current, scoreboardGames) {
       // oppConf here (not re-derived) matches fetch-cfb-data.mjs's game-log entries exactly --
       // without it, a game settled by this script would carry a temporary gap in confRecord()
       // (src/data/teams.js) until the next daily pipeline run overwrites teams{} from scratch.
-      homeTeam.games.push({
-        wk: patched.meta.currentWeek, opp: awayTeam.name, oppConf: awayTeam.conf, oppRank: entry.awayRank,
-        res: homeRes, tag: tagFor(homeRes, entry.awayRank),
-      });
-      awayTeam.games.push({
-        wk: patched.meta.currentWeek, opp: homeTeam.name, oppConf: homeTeam.conf, oppRank: entry.homeRank,
-        res: awayRes, tag: tagFor(awayRes, entry.homeRank),
-      });
+      settleGameLogEntry(
+        homeTeam.games, patched.meta.currentWeek, awayTeam.name,
+        homeRes, tagFor(homeRes, entry.awayRank), newAwayScore, newHomeScore, entry.awayRank,
+      );
+      settleGameLogEntry(
+        awayTeam.games, patched.meta.currentWeek, homeTeam.name,
+        awayRes, tagFor(awayRes, entry.homeRank), newAwayScore, newHomeScore, entry.homeRank,
+      );
       const awayLabel = teamLabel(patched, entry.awayId, entry.awayRank);
       const homeLabel = teamLabel(patched, entry.homeId, entry.homeRank);
       update.settledBlurb = `Final: ${awayLabel} ${newAwayScore}, ${homeLabel} ${newHomeScore}.`;

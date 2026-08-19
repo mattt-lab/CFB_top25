@@ -15,7 +15,12 @@ function noteFor(g) {
 const RESUME_LENGTH = 6;
 
 export default function ResumeTable({ team }) {
-  if (!team.games.length) {
+  // team.games now covers the full regular season (completed + upcoming), not just completed
+  // games -- filter to completed-only BEFORE the empty-check/slice below so an unplayed future
+  // game at the tail of the array can't get pulled into the "recent form" resume.
+  const completedGames = team.games.filter((g) => g.res != null);
+
+  if (!completedGames.length) {
     return (
       <p style={{ fontSize: 12.5, color: 'var(--ink-2)', margin: 0 }}>
         No game-by-game data available for {team.name} yet.
@@ -23,7 +28,7 @@ export default function ResumeTable({ team }) {
     );
   }
 
-  const recentGames = team.games.slice(-RESUME_LENGTH);
+  const recentGames = completedGames.slice(-RESUME_LENGTH);
 
   return (
     <div style={{ overflowX: 'auto' }}>

@@ -10,12 +10,13 @@ import { version as APP_VERSION } from '../../package.json';
 const WEEK_OPTIONS = [];
 for (let w = WEEK_IDX_MIN; w <= WEEK_IDX_MAX; w++) WEEK_OPTIONS.push(w);
 
-// The week-travel control only affects the Top 25 table, the Playoff Watch bracket, and a
-// conference's standings table -- team pages always show the full season regardless, and the
-// Conferences hub is a "right now" directory, not a data view -- so it's only shown (and only
-// meaningful) on these routes. Patterns, not exact paths, since /conference/:confSlug is dynamic --
-// a plain array-includes check (which worked fine for the two static routes) can't match it.
-const WEEK_TRAVEL_PATTERNS = ['/', '/playoff-watch', '/conference/:confSlug'];
+// The week-travel control only affects the Top 25 table (shown on both the This Week homepage
+// via MyTeamsSection and on /top25's Top25Table), the Playoff Watch bracket, and a conference's
+// standings table -- team pages always show the full season regardless, and the Conferences hub
+// is a "right now" directory, not a data view -- so it's only shown (and only meaningful) on
+// these routes. Patterns, not exact paths, since /conference/:confSlug is dynamic -- a plain
+// array-includes check (which worked fine for the static routes) can't match it.
+const WEEK_TRAVEL_PATTERNS = ['/', '/top25', '/playoff-watch', '/conference/:confSlug'];
 
 function formatLastUpdated(iso) {
   try {
@@ -28,7 +29,8 @@ function formatLastUpdated(iso) {
 }
 
 function titleFor(pathname) {
-  if (pathname === '/') return 'Top 25 Tracker';
+  if (pathname === '/') return 'This Week';
+  if (pathname === '/top25') return 'Top 25';
   if (pathname === '/playoff-watch') return 'Playoff Watch';
   if (pathname === '/conferences') return 'Conferences';
   if (pathname === '/pickem') return "Top 25 Pick 'em";
@@ -93,10 +95,13 @@ export default function Layout() {
         </header>
         <nav className="nav">
           <NavLink to="/" end className={({ isActive }) => (isActive ? 'active' : '')}>
-            Top 25 Tracker
+            This Week
           </NavLink>
           <NavLink to="/conferences" className={({ isActive }) => (isActive ? 'active' : '')}>
             Conferences
+          </NavLink>
+          <NavLink to="/top25" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Top 25
           </NavLink>
           <NavLink to="/pickem" className={({ isActive }) => (isActive ? 'active' : '')}>
             Top 25 Pick 'em

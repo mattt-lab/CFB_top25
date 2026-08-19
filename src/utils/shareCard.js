@@ -299,13 +299,17 @@ export async function downloadShareCard(team) {
     ctx.textAlign = 'left';
   });
 
-  // RIGHT: ResumeTable.jsx reproduction -- last 6 games (week, opponent[+rank], W/L, note).
-  if (!team.games || team.games.length === 0) {
+  // RIGHT: ResumeTable.jsx reproduction -- last 6 COMPLETED games (week, opponent[+rank], W/L,
+  // note). team.games now covers the full season including upcoming games (res: null) -- filter
+  // those out first, same fix as ResumeTable.jsx, so an unplayed game can't displace a real result
+  // out of the "last 6" or render a blank result badge.
+  const completedGames = (team.games || []).filter((g) => g.res != null);
+  if (completedGames.length === 0) {
     ctx.fillStyle = ink2;
     ctx.font = '400 16px ' + FONT;
     ctx.fillText(`No game-by-game data available for ${team.name} yet.`, RIGHT_X, 700);
   } else {
-    const recentGames = team.games.slice(-6);
+    const recentGames = completedGames.slice(-6);
     const COL_WK = RIGHT_X;
     const COL_OPP = RIGHT_X + 46; // 666
     const COL_RESULT = 930;

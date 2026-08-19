@@ -206,6 +206,18 @@ async function main() {
     `Current week: ${currentWeek} (ranked by ${currentSource}). Weeks with poll data: ${weeksAvailable.join(', ')}.`,
   );
 
+  // Hoisted up here (out of its original home in Step 6, "this week's slate") because Step 3's
+  // games loop now needs it too, for upcoming (not-yet-played) games' opponent ranks -- there's no
+  // historical per-week snapshot for a week that hasn't happened yet, so upcoming games fall back
+  // to "opponent's current rank as of this fetch", same convention nextGameByTeam already uses.
+  // Only depends on rankingsByWeek/currentWeek, both already resolved above, so nothing breaks by
+  // moving it earlier.
+  const currentPrimaryOrder = rankingsByWeek[currentWeek].primary;
+  function currentRank(id) {
+    const i = currentPrimaryOrder.indexOf(id);
+    return i === -1 ? null : i + 1;
+  }
+
   // ---- Step 2: write this week's raw snapshot file (append-only -- never overwrite) -----------
   const snapshotPath = join(RANKINGS_DIR, `${SEASON}-wk${String(currentWeek).padStart(2, '0')}.json`);
   if (existsSync(snapshotPath)) {
@@ -263,7 +275,7 @@ async function main() {
   // Not verified live -- worth a spot check once a key exists.
   const games = await cfbdGet('/games', { year: SEASON, seasonType: SEASON_TYPE, classification: 'fbs' });
 
-  const teamGameLog = {}; // id -> [{ wk, opp, oppRank, res, tag }]
+  const teamGameLog = {}; // id -> [{ wk, opp, oppId, oppConf, oppRank, homeAway, when, res, tag, awayScore, homeScore }]
   const teamRecord = {}; // id -> { wins, losses }
 
   for (const g of games) {
@@ -273,37 +285,54 @@ async function main() {
     touchTeam(homeId, g.homeTeam, g.homeConference);
     touchTeam(awayId, g.awayTeam, g.awayConference);
 
-    if (g.completed && g.homePoints != null && g.awayPoints != null) {
-      const homeWon = g.homePoints > g.awayPoints;
+    const completed = g.completed && g.homePoints != null && g.awayPoints != null;
 
+    // teamRecord's win/loss counters increment for EVERY completed game regardless of week --
+    // deliberately NOT gated by the `g.week >= weeksAvailable[0]` check below, which only ever
+    // controls whether a teamGameLog entry gets pushed. Keep that separation: it's a real,
+    // intentional distinction in this code, not something to unify.
+    if (completed) {
+      const homeWon = g.homePoints > g.awayPoints;
       teamRecord[homeId] = teamRecord[homeId] || { wins: 0, losses: 0 };
       teamRecord[awayId] = teamRecord[awayId] || { wins: 0, losses: 0 };
       if (homeWon) { teamRecord[homeId].wins += 1; teamRecord[awayId].losses += 1; }
       else { teamRecord[awayId].wins += 1; teamRecord[homeId].losses += 1; }
+    }
 
-      // Per-team game log only covers weeks with poll data (weeksAvailable[0] onward) -- that's
-      // the only span the per-week snapshot files can cross-reference for a point-in-time
-      // opponent rank. Early in a season this is the preseason poll week; once the CFP committee
-      // starts, opponentRankAtWeek is already reading committee ranks for those weeks too.
-      if (g.week >= weeksAvailable[0]) {
-        const homeOppRank = opponentRankAtWeek(g.week, awayId);
-        const awayOppRank = opponentRankAtWeek(g.week, homeId);
-        const homeRes = homeWon ? 'W' : 'L';
-        const awayRes = homeWon ? 'L' : 'W';
-        // oppConf lets the frontend derive an in-conference win-loss record (confRecord() in
-        // src/data/teams.js) without fragile opponent-name matching -- captured here from the same
-        // /games response already in hand, not re-looked-up. Filtered against the team's OWN
-        // *current* conf at read time, so a past game against a since-realigned former conference
-        // mate correctly stops counting once that mate has moved (see confRecord's comment).
-        (teamGameLog[homeId] = teamGameLog[homeId] || []).push({
-          wk: g.week, opp: g.awayTeam, oppConf: g.awayConference, oppRank: homeOppRank,
-          res: homeRes, tag: tagFor(homeRes, homeOppRank),
-        });
-        (teamGameLog[awayId] = teamGameLog[awayId] || []).push({
-          wk: g.week, opp: g.homeTeam, oppConf: g.homeConference, oppRank: awayOppRank,
-          res: awayRes, tag: tagFor(awayRes, awayOppRank),
-        });
-      }
+    // Per-team game log only covers weeks with poll data (weeksAvailable[0] onward) -- that's
+    // the only span the per-week snapshot files can cross-reference for a point-in-time
+    // opponent rank. Early in a season this is the preseason poll week; once the CFP committee
+    // starts, opponentRankAtWeek is already reading committee ranks for those weeks too. This now
+    // covers BOTH completed and upcoming games -- the full regular-season schedule, not just
+    // results to date -- so team pages can render a full slate. Completed games use the frozen
+    // point-in-time opponent rank (opponentRankAtWeek); upcoming games have no such snapshot for a
+    // week that hasn't happened yet, so they use the opponent's CURRENT rank instead (currentRank,
+    // hoisted above for exactly this) -- same convention nextGameByTeam's opponentRank uses.
+    if (g.week >= weeksAvailable[0]) {
+      const homeWon = completed ? g.homePoints > g.awayPoints : null;
+      const homeRes = completed ? (homeWon ? 'W' : 'L') : null;
+      const awayRes = completed ? (homeWon ? 'L' : 'W') : null;
+      const homeOppRank = completed ? opponentRankAtWeek(g.week, awayId) : currentRank(awayId);
+      const awayOppRank = completed ? opponentRankAtWeek(g.week, homeId) : currentRank(homeId);
+      const awayScore = completed ? g.awayPoints : null;
+      const homeScore = completed ? g.homePoints : null;
+      // oppConf lets the frontend derive an in-conference win-loss record (confRecord() in
+      // src/data/teams.js) without fragile opponent-name matching -- captured here from the same
+      // /games response already in hand, not re-looked-up. Filtered against the team's OWN
+      // *current* conf at read time, so a past game against a since-realigned former conference
+      // mate correctly stops counting once that mate has moved (see confRecord's comment).
+      (teamGameLog[homeId] = teamGameLog[homeId] || []).push({
+        wk: g.week, opp: g.awayTeam, oppId: awayId, oppConf: g.awayConference, oppRank: homeOppRank,
+        homeAway: 'home', when: g.startDate || null,
+        res: homeRes, tag: completed ? tagFor(homeRes, homeOppRank) : null,
+        awayScore, homeScore,
+      });
+      (teamGameLog[awayId] = teamGameLog[awayId] || []).push({
+        wk: g.week, opp: g.homeTeam, oppId: homeId, oppConf: g.homeConference, oppRank: awayOppRank,
+        homeAway: 'away', when: g.startDate || null,
+        res: awayRes, tag: completed ? tagFor(awayRes, awayOppRank) : null,
+        awayScore, homeScore,
+      });
     }
   }
   for (const id of Object.keys(teamGameLog)) teamGameLog[id].sort((a, b) => a.wk - b.wk);
@@ -382,12 +411,6 @@ async function main() {
   function isRivalry(a, b) { return rivalryPairs.has([a, b].sort().join('|')); }
 
   // ---- Step 6: this week's slate (games under currentWeek's poll -- preview through final) ------
-  const currentPrimaryOrder = rankingsByWeek[currentWeek].primary;
-  function currentRank(id) {
-    const i = currentPrimaryOrder.indexOf(id);
-    return i === -1 ? null : i + 1;
-  }
-
   const weekGames = games.filter((g) => g && g.week === currentWeek && g.seasonType === SEASON_TYPE);
 
   // Per-team "next matchup" -- built from the FULL weekGames list, not the top-6 slate Stage 1

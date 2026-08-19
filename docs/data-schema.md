@@ -140,14 +140,35 @@ nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postga
       "ap": [3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1],           // one entry per week 1-12+, null before the team is first ranked
       "coaches": [3, 3, 2, 2, 2, 3, 2, 2, 2, 1, 1, 1],
       "cfp": [null, null, null, null, null, null, 2, 2, 2, 1, 1, 1], // null before the committee's first reveal that season -- this varies year to year (confirmed live: week 7 in some seasons, week 11 in 2024), it isn't a fixed week number
+      // The FULL regular-season schedule -- completed AND upcoming, chronologically ordered by
+      // `wk` -- not completed-games-only like the mockup-era shape. A bye week is never a game
+      // object at all (CFBD's /games endpoint simply has no entry for that team that week), so a
+      // bye just shows up as a gap in the `wk` sequence (e.g. ...5, 7... with no 6) -- nothing
+      // else in this schema needs to represent it explicitly. Consumers that only want completed
+      // games (ResumeTable's "last 6", confRecord()) filter on `res != null` themselves.
       "games": [
         {
           "wk": 7,
           "opp": "Penn State",
+          "oppId": "penn-state", // slugify(opp) -- resolves to a real team object via teamById(),
+                                  // same convention as nextGame.opponentId below
           "oppConf": "Big Ten",  // opponent's conference (from the same /games response, not re-looked-up) -- lets confRecord() derive an in-conference W-L without fragile opponent-name matching; realignment-safe since it's compared against the team's own CURRENT conf, not stored as a fixed relationship
-          "oppRank": 4,          // opponent's rank IN THAT WEEK, looked up from rankings/2026-wk07.json — this is why the snapshot files exist
-          "res": "W",
-          "tag": "quality"       // "quality" | "bad" | "" — computed once at derive time, not in the browser
+          "oppRank": 4,          // opponent's rank -- POINT-IN-TIME for a completed game (looked
+                                  // up from that week's rankings/2026-wk07.json snapshot, same as
+                                  // before -- this is why the snapshot files exist), but CURRENT/
+                                  // LATEST rank for an upcoming game (there's no past snapshot for
+                                  // a week that hasn't happened yet, so this one field's meaning
+                                  // shifts depending on whether `res` is null). null if the
+                                  // opponent is/was unranked either way.
+          "homeAway": "home",    // "home" | "away" -- is THIS team hosting or visiting
+          "when": "2026-10-18T19:00:00Z", // kickoff ISO string, or null if CFBD has no time yet
+          "res": "W",            // "W" | "L" | null -- null means not yet played (upcoming game)
+          "tag": "quality",      // "quality" | "bad" | "" | null -- null for an upcoming game,
+                                  // since quality-win/bad-loss tagging only makes sense once
+                                  // there's a result to tag; computed once at derive time for
+                                  // completed games, not in the browser
+          "awayScore": 10,       // number or null -- null until the game has started
+          "homeScore": 45
         }
       ],
       "nextGame": {            // this team's own current-week matchup, from the FULL currentWeek
@@ -365,7 +386,8 @@ branding change doesn't break joins.
 |---|---|
 | `meta`, `rankingsByWeek`, `teams` (except `games[].tag`/`oppConf`) | fetch script (task #5) |
 | `allGames` (full weekly slate) | fetch script (task #5) -- `games` is a Stage 1-derived subset, not independently fetched |
-| `teams[].games[].tag`/`oppConf` | fetch script, using that week's `rankings/wkNN.json` snapshot for the opponent's point-in-time rank (`tag`) and the same `/games` response's `awayConference`/`homeConference` (`oppConf`) |
+| `teams[].games[]` (full array, completed + upcoming, daily) | fetch script, rebuilt from scratch each run -- `oppConf` from that same `/games` response's `awayConference`/`homeConference`; `tag`/`res` computed for completed games using that week's `rankings/wkNN.json` snapshot for the opponent's point-in-time rank, and left `null` for upcoming games |
+| `teams[].games[]` (current week's entry, patched in place on final) | `fetch-live-scores.mjs` -- the moment it first sees the current week's game go final, it patches that one entry's `res`/`tag`/`awayScore`/`homeScore` (and bumps `wins`/`losses`) in place, rather than waiting for the next daily fetch-script run to rebuild the array |
 | `games[].stakesScore`, `predictions[].score`, `fieldStorylines`, `teams[].bubbleNote` (minus `blurb`/`blurbSource`) | Stage 1 scoring (task #6) -- also where `games` itself is derived from `allGames` |
 | `games[].blurb`, `predictions[].blurb`, `fieldStorylines[].blurb`, `teams[].bubbleNote.blurb`, all `blurbSource` fields | Stage 2 narration (task #7), with a deterministic-line fallback on failure -- status-aware since the live-score work: a pregame preview for scheduled/in_progress games, a postgame recap for final ones |
 | `games[]`/`allGames[].cfbdId`/`status`/`awayScore`/`homeScore`, `teams[].nextGame.cfbdId`/`status`/`awayScore`/`homeScore` | fetch script (`"scheduled"`/`"final"` only, from `/games`) -- see "Game status lifecycle" above |

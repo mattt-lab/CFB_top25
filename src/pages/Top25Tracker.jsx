@@ -5,7 +5,6 @@ import {
   gameStatusBadge,
 } from '../data/teams.js';
 import MyTeamsSection from '../components/MyTeamsSection.jsx';
-import Top25Table from '../components/Top25Table.jsx';
 import TeamMark from '../components/TeamMark.jsx';
 
 export default function Top25Tracker() {
@@ -22,8 +21,8 @@ export default function Top25Tracker() {
     <div>
       <div className="page-title">
         <div className="eyebrow">{eyebrow}</div>
-        <h1>CFB Top 25 Tracker</h1>
-        <p>Full ranking board, the games that will move it, and what the model expects next.</p>
+        <h1>CFB This Week</h1>
+        <p>This week's biggest games and what the model expects next.</p>
       </div>
 
       <MyTeamsSection weekIdx={weekIdx} />
@@ -106,37 +105,6 @@ export default function Top25Tracker() {
           ))}
         </ul>
       </section>
-
-      <div className="bracket-label">Full season</div>
-      <div className="section-header">
-        <div>
-          <h2>Top 25 — {weekSource}</h2>
-          <p>Tap any team for full history, scorecard, and odds.</p>
-        </div>
-        <span className="odds-hint">Playoff / title odds are a simplified model — see note below</span>
-      </div>
-      <Top25Table weekIdx={weekIdx} />
-
-      {/* Playoff Watch keeps its nav tab -- this callout slot now belongs to Pick 'em. */}
-      <div className="cta-card">
-        <div className="txt">
-          <b>Top 25 Pick 'em</b>
-          <span>Call this week's games and watch the rankings shake out.</span>
-        </div>
-        <Link className="cta-btn" to="/pickem">Play Pick 'em →</Link>
-      </div>
-
-      {/* Only shown here, not sitewide -- this is what the Top 25 table's .odds-hint ("see note
-          below") points at, and this is the only page that surfaces the "Make CFP"/"win it all"
-          odds columns directly (Team Detail's gauges and Conference standings' Make-CFP column
-          derive from the same model, but don't need their own copy of this disclosure). */}
-      <p className="footnote warn" style={{ marginTop: 30 }}>
-        <b>On odds:</b> spreads/totals are sourced live from{' '}
-        <a href="https://collegefootballdata.com/key" style={{ color: 'inherit' }} target="_blank" rel="noopener noreferrer">
-          CollegeFootballData.com
-        </a>. "Make the playoff" / "win it all" are an in-house estimate blending rank, record,
-        and computer ratings (SP+/FPI/Elo).
-      </p>
     </div>
   );
 }

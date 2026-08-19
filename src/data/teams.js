@@ -329,6 +329,11 @@ export function confRaceInfo(conf, wIdx) {
 export function confRecord(team) {
   let wins = 0, losses = 0;
   for (const g of team.games) {
+    // team.games now covers the full regular season (completed + upcoming) -- an upcoming game
+    // has res: null, which already fails both the 'W' and 'L' checks below and falls through
+    // uncounted, but this is now an intentional skip (not incidental) since upcoming games are a
+    // real, expected part of every team's games[] array, not an edge case.
+    if (g.res == null) continue;
     if (g.oppConf !== team.conf) continue;
     if (g.res === 'W') wins += 1;
     else if (g.res === 'L') losses += 1;
