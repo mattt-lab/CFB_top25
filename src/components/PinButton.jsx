@@ -8,6 +8,7 @@ export default function PinButton({ teamId }) {
       type="button"
       className="pin-btn"
       aria-pressed={isPinned}
+      aria-label={`${isPinned ? 'Unpin' : 'Pin'} team`}
       title={`${isPinned ? 'Unpin' : 'Pin'} team`}
       onClick={(e) => { e.stopPropagation(); togglePin(teamId); }}
     >

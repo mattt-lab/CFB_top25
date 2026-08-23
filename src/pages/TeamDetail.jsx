@@ -1,7 +1,7 @@
 import { useParams, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import {
   teamById, WEEK_IDX_MAX, trendOf, playoffOddsFor, nattyOddsFor, americanOdds,
-  deltaAt, primaryLabel, PRIMARY_SOURCE_BY_WEEK, dirFor, arrowGlyph, computerRatingNote, nextGameParts,
+  rankAt, primaryLabel, PRIMARY_SOURCE_BY_WEEK, dirFor, arrowGlyph, computerRatingNote, nextGameParts,
   gameStatusBadge, confByRouteSlug, confSlugFor,
 } from '../data/teams.js';
 import { usePinnedStore } from '../store/usePinnedStore.js';
@@ -40,8 +40,15 @@ export default function TeamDetail() {
   // see docs/data-schema.md) -- never the raw team.cfp[] array, which is null pre-committee.
   const rank = team.cfpRank;
   const sourceLabel = primaryLabel(PRIMARY_SOURCE_BY_WEEK[WEEK_IDX_MAX]);
-  const rankDelta = deltaAt(team.id, WEEK_IDX_MAX);
-  const rankDeltaDir = dirFor(rankDelta);
+  // deltaAt() null-coerces a missing rank to 0, which is fine for every OTHER caller (they only
+  // ever iterate teams already known ranked that week -- see ConferenceStandingsTable.jsx) but not
+  // here: TeamDetail renders whichever team the URL names, ranked or not. Mirror that table's guard
+  // -- only show a delta when both this week and last week resolved to a real rank, else a team
+  // that just fell out of (or into) the poll would render a false "improved/dropped 24" arrow.
+  const prevRank = WEEK_IDX_MAX > 0 ? rankAt(team.id, WEEK_IDX_MAX - 1) : null;
+  const hasTrend = rank != null && prevRank != null;
+  const rankDelta = hasTrend ? prevRank - rank : 0;
+  const rankDeltaDir = hasTrend ? dirFor(rankDelta) : 'flat';
   // The big featured number above is already whichever poll is primary (sourceLabel) -- showing
   // that same poll again in the stat grid below would be redundant. Show the OTHER human poll
   // instead: Coaches when AP is featured, AP when Coaches (or CFP, once the committee exists) is
@@ -90,7 +97,7 @@ export default function TeamDetail() {
           <div className="rank-block">
             <div>
               <div className={`delta-badge ${rankDeltaDir}`}>
-                {rankDeltaDir === 'flat' ? 'No change' : `${arrowGlyph(rankDelta)} ${Math.abs(rankDelta)} this week`}
+                {!hasTrend ? '—' : rankDeltaDir === 'flat' ? 'No change' : `${arrowGlyph(rankDelta)} ${Math.abs(rankDelta)} this week`}
               </div>
             </div>
             <div className="rank-figure tabnum">{rank ?? '—'}</div>

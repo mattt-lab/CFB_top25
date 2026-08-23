@@ -276,6 +276,13 @@ export function gamesInConf(conf) {
   return allGames.filter((g) => g.awayTeam?.conf === conf || g.homeTeam?.conf === conf);
 }
 
+// Every game this week involving at least one currently-ranked team -- unlike `games` (the
+// stakesScore-trimmed marquee subset), this is the complete Top 25 slate. Unsorted, same
+// convention as gamesInConf() -- the caller sorts for its own display order.
+export function rankedGamesThisWeek() {
+  return allGames.filter((g) => g.awayRank != null || g.homeRank != null);
+}
+
 // ---- Auto-bid-aware 12-team field: top-4 conference champs get byes, 5th champ auto-bids, 7 at-large ----
 export function computeField(wIdx) {
   const order = WEEKLY_ORDER[wIdx];

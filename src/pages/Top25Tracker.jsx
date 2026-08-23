@@ -2,15 +2,19 @@ import { Link } from 'react-router-dom';
 import { useWeekStore } from '../store/useWeekStore.js';
 import {
   WEEK_IDX_MAX, games, predictions, primaryLabel, PRIMARY_SOURCE_BY_WEEK, formatKickoff,
-  gameStatusBadge,
+  gameStatusBadge, rankedGamesThisWeek,
 } from '../data/teams.js';
 import MyTeamsSection from '../components/MyTeamsSection.jsx';
 import TeamMark from '../components/TeamMark.jsx';
+import RankedMatchupsTable from '../components/RankedMatchupsTable.jsx';
 
 export default function Top25Tracker() {
   const weekIdx = useWeekStore((s) => s.weekIdx);
   const currentWeekNumber = WEEK_IDX_MAX + 1;
   const weekSource = primaryLabel(PRIMARY_SOURCE_BY_WEEK[weekIdx]);
+  // rankedGamesThisWeek() is unsorted (same convention as gamesInConf()) -- sort here, not in
+  // the data layer. Duplicates with the "biggest games" cards above are intentional, not deduped.
+  const rankedGames = rankedGamesThisWeek().slice().sort((a, b) => new Date(a.when) - new Date(b.when));
   // Current-week poll source is already shown in the sticky header -- only worth repeating here
   // when time-traveling to a past week, where the source may differ from the header's latest one.
   const eyebrow = weekIdx === WEEK_IDX_MAX
@@ -105,6 +109,8 @@ export default function Top25Tracker() {
           ))}
         </ul>
       </section>
+
+      <RankedMatchupsTable games={rankedGames} />
     </div>
   );
 }

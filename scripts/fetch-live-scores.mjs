@@ -101,10 +101,16 @@ function teamLabel(current, teamId, rank) {
 // until tomorrow's pipeline run overwrites teams{} from scratch. Falls back to a push in the OLD
 // lean shape only for a `current.json` that predates this feature and never got an upcoming entry
 // written for this game -- short-lived either way, same reason.
-function settleGameLogEntry(teamGames, wk, oppName, res, tag, awayScore, homeScore, fallbackOppRank) {
-  const idx = teamGames.findIndex((g) => g.wk === wk && g.opp === oppName);
+function settleGameLogEntry(teamGames, wk, oppId, oppName, res, tag, awayScore, homeScore, fallbackOppRank) {
+  // Match on oppId (the slugified team id fetch-cfb-data.mjs already stamps on every entry), not
+  // opp name -- the existing entry's `opp` string comes from CFBD's /games endpoint while oppName
+  // here comes from teams[id].name (first spelling seen, possibly from /rankings) -- two different
+  // fetches that aren't guaranteed to agree on spelling/casing for the same school. A name-only
+  // match can silently miss and push a duplicate row instead of patching the existing one in place.
+  const idx = teamGames.findIndex((g) => g.wk === wk
+    && (oppId != null && g.oppId != null ? g.oppId === oppId : g.opp === oppName));
   if (idx === -1) {
-    teamGames.push({ wk, opp: oppName, oppConf: null, oppRank: fallbackOppRank, res, tag, awayScore, homeScore });
+    teamGames.push({ wk, opp: oppName, oppId: oppId ?? null, oppConf: null, oppRank: fallbackOppRank, res, tag, awayScore, homeScore });
     return;
   }
   teamGames[idx] = { ...teamGames[idx], res, tag, awayScore, homeScore };
@@ -146,11 +152,11 @@ export function applyScoreboardPatch(current, scoreboardGames) {
       // without it, a game settled by this script would carry a temporary gap in confRecord()
       // (src/data/teams.js) until the next daily pipeline run overwrites teams{} from scratch.
       settleGameLogEntry(
-        homeTeam.games, patched.meta.currentWeek, awayTeam.name,
+        homeTeam.games, patched.meta.currentWeek, entry.awayId, awayTeam.name,
         homeRes, tagFor(homeRes, entry.awayRank), newAwayScore, newHomeScore, entry.awayRank,
       );
       settleGameLogEntry(
-        awayTeam.games, patched.meta.currentWeek, homeTeam.name,
+        awayTeam.games, patched.meta.currentWeek, entry.homeId, homeTeam.name,
         awayRes, tagFor(awayRes, entry.homeRank), newAwayScore, newHomeScore, entry.homeRank,
       );
       const awayLabel = teamLabel(patched, entry.awayId, entry.awayRank);

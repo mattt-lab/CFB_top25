@@ -25,7 +25,7 @@ export default function TeamLadder({ currentId }) {
               className="chip"
               to={`/team/${id}`}
               role="option"
-              aria-pressed={id === currentId}
+              aria-selected={id === currentId}
             >
               {inner}
             </Link>
