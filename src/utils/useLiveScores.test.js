@@ -63,6 +63,25 @@ describe('matchLiveGames', () => {
       g1: { status: 'scheduled', period: null, clock: null, awayScore: null, homeScore: null },
     });
   });
+
+  it('still matches correctly when one team has a SECOND, unrelated event in the response', () => {
+    // Reproduces a real bug: ESPN's scoreboard with no `dates` param can return a window spanning
+    // more than one calendar day (confirmed live -- USC's real live game against San Jose State
+    // was returned alongside USC's OWN following-week game against Fresno State in the same
+    // response). A flat "one event per team id" map lets whichever event iterates last win that
+    // team's slot, silently losing the live match. clemson's other, unrelated event is listed
+    // AFTER the real ohio-state/michigan matchup here specifically to catch that regression.
+    const games = [{ id: 'g1', away: 'ohio-state', home: 'michigan' }];
+    const espn = {
+      events: [
+        espnEvent({ awayId: '194', awayScore: 17, homeId: '130', homeScore: 14, state: 'in', period: 3, clock: '8:42' }),
+        espnEvent({ awayId: '130', awayScore: 0, homeId: '228', homeScore: 0, state: 'pre' }), // michigan's OTHER, later game
+      ],
+    };
+    expect(matchLiveGames(games, espn, TEAM_MAP)).toEqual({
+      g1: { status: 'in_progress', period: 3, clock: '8:42', awayScore: 17, homeScore: 14 },
+    });
+  });
 });
 
 describe('toPseudoGame', () => {

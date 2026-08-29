@@ -21,12 +21,20 @@ const POLL_MS = 60_000;
 // ESPN event contains both teams -- callers should merge this onto the static game, not replace it.
 export function matchLiveGames(games, espnScoreboard, teamMap = espnTeamMap) {
   const events = espnScoreboard?.events ?? [];
-  // ESPN team id (string) -> event, for O(1) lookup instead of scanning events per game.
-  const eventByEspnTeamId = new Map();
+  // ESPN team id (string) -> every event that team appears in. NOT a single last-write-wins slot
+  // per team -- confirmed live that ESPN's scoreboard with no `dates` param can return a window
+  // spanning more than one calendar day (e.g. early season, a team's just-played game AND its
+  // following week's game both came back in the same response). A flat one-event map let whichever
+  // event happened to iterate last silently clobber a team's real, live match.
+  const eventsByEspnTeamId = new Map();
   for (const event of events) {
     const competitors = event.competitions?.[0]?.competitors ?? [];
     for (const c of competitors) {
-      if (c.team?.id) eventByEspnTeamId.set(String(c.team.id), event);
+      if (!c.team?.id) continue;
+      const key = String(c.team.id);
+      let set = eventsByEspnTeamId.get(key);
+      if (!set) eventsByEspnTeamId.set(key, (set = new Set()));
+      set.add(event);
     }
   }
 
@@ -35,8 +43,13 @@ export function matchLiveGames(games, espnScoreboard, teamMap = espnTeamMap) {
     const awayEspnId = teamMap[g.away];
     const homeEspnId = teamMap[g.home];
     if (!awayEspnId || !homeEspnId) continue;
-    const event = eventByEspnTeamId.get(awayEspnId);
-    if (!event || event !== eventByEspnTeamId.get(homeEspnId)) continue; // same event, both sides
+    const awayEvents = eventsByEspnTeamId.get(awayEspnId);
+    const homeEvents = eventsByEspnTeamId.get(homeEspnId);
+    if (!awayEvents || !homeEvents) continue;
+    // The one event both teams actually share -- correct regardless of how many OTHER events
+    // either team separately appears in.
+    const event = [...awayEvents].find((e) => homeEvents.has(e));
+    if (!event) continue;
 
     const competition = event.competitions[0];
     const competitors = competition.competitors;
