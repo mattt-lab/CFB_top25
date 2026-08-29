@@ -416,9 +416,7 @@ async function main() {
   // Per-team "next matchup" -- built from the FULL weekGames list, not the top-6 slate Stage 1
   // trims `games` down to (score.mjs overwrites current.games, but teams[id].nextGame lives on
   // the team object and survives that trim). This is what lets "Your Teams" show every pinned
-  // team's next opponent/kickoff/network, not just the handful in the "biggest games" panel -- and
-  // it's also the canonical map fetch-live-scores.mjs walks to find every team's game, not just
-  // the ones that made the top-6 (see that script for why the wider set matters there).
+  // team's next opponent/kickoff/network, not just the handful in the "biggest games" panel.
   const nextGameByTeam = {};
 
   const gamesOut = weekGames.map((g) => {
@@ -432,10 +430,10 @@ async function main() {
     const when = g.startDate || null;
     const network = pickNetwork(g.id);
     // `/games` only ever reports `completed`/final points -- never a true mid-game "in_progress"
-    // state (that only exists on CFBD's separate /scoreboard endpoint, which fetch-live-scores.mjs
-    // polls during actual game windows). Setting status/score here from data already in hand means
-    // a game the light poller already progressed to 'final' doesn't flicker back to blank
-    // 'scheduled' the next time this (once-daily) script rebuilds gamesOut from scratch.
+    // state (that lived on CFBD's separate /scoreboard endpoint, now behind a paid tier we don't
+    // have -- see scripts/lib/cfbd.mjs). So status here is only ever 'scheduled' or 'final'; any
+    // "LIVE" state a visitor sees comes entirely from the client-side ESPN overlay
+    // (src/utils/useLiveScores.js), never from this committed field.
     const status = g.completed ? 'final' : 'scheduled';
     const awayScore = g.completed ? g.awayPoints : null;
     const homeScore = g.completed ? g.homePoints : null;
@@ -463,8 +461,9 @@ async function main() {
       ou: line && line.overUnder != null ? line.overUnder : null,
       network,
       rivalry: isRivalry(awayId, homeId),
-      // 'scheduled' | 'in_progress' | 'final' -- only ever 'scheduled'/'final' here (see above);
-      // fetch-live-scores.mjs is the only writer of 'in_progress', during the actual game window.
+      // 'scheduled' | 'in_progress' | 'final' -- only ever 'scheduled'/'final' here (see above).
+      // 'in_progress' only ever exists transiently client-side, for the marquee panel -- see
+      // src/utils/useLiveScores.js.
       status,
       awayScore,
       homeScore,

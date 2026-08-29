@@ -288,8 +288,17 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 .game-team .r { color: var(--muted); font-weight: 700; margin-right: 5px; }
 .game-at { font-size: 11px; color: var(--muted); padding: 0 6px; }
 .game-line { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 12px; }
+.game-line.game-line-score { justify-content: center; padding-bottom: 2px; }
 .game-line .spread { font-weight: 800; font-variant-numeric: tabular-nums; }
-.game-line .score { font-weight: 800; font-variant-numeric: tabular-nums; }
+/* The actual score, once a game is live or final -- deliberately the loudest number on the card
+   (bigger even than .rank-figure's sibling .stat-grid values elsewhere use for "big number"), since
+   it's the one thing every other element on a game card exists to lead a reader toward. --accent
+   while live ties it visually to the LIVE badge above; final settles to plain ink like the FINAL
+   badge does (see the badge-status comment below) -- once decided, the color-coded urgency is over. */
+.game-line .score { display: flex; align-items: baseline; gap: 8px; }
+.game-line .score-num { font-size: 26px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.game-line .score-sep { font-size: 14px; font-weight: 700; color: var(--muted); }
+.game-line .score.score-live .score-num { color: var(--accent); }
 .game-impl { font-size: 12px; color: var(--ink-2); margin-top: 8px; line-height: 1.4; }
 
 /* Live/final game status -- shared by game cards, "Your Teams", and the team-detail next-game

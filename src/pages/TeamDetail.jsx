@@ -5,6 +5,7 @@ import {
   gameStatusBadge, confByRouteSlug, confSlugFor,
 } from '../data/teams.js';
 import { usePinnedStore } from '../store/usePinnedStore.js';
+import { useLiveScores, toPseudoGame } from '../utils/useLiveScores.js';
 import { downloadShareCard } from '../utils/shareCard.js';
 import TeamLadder from '../components/TeamLadder.jsx';
 import TeamMark from '../components/TeamMark.jsx';
@@ -23,6 +24,10 @@ export default function TeamDetail() {
   const togglePin = usePinnedStore((s) => s.togglePin);
 
   const team = teamById(teamId);
+  // useLiveScores must run unconditionally (rules of hooks) even though `team` can be null for a
+  // bad :teamId -- an empty pseudoGames array is a no-op fetch-skip, not a crash (see its guard).
+  const pseudoGame = team ? toPseudoGame(team.id, team.nextGame) : null;
+  const liveNext = useLiveScores(pseudoGame ? [pseudoGame] : []);
   if (!team) return <Navigate to="/" replace />;
 
   // A bare `from: 'conference'` flag wouldn't be enough to build a back link -- resolving through
@@ -67,7 +72,7 @@ export default function TeamDetail() {
     opponentRank: nextOpponentRank, opponentName: nextOpponentName,
     kickoff: nextKickoff, homeAway: nextHomeAway,
     status: nextStatus, awayScore: nextAwayScore, homeScore: nextHomeScore, period: nextPeriod, clock: nextClock,
-  } = nextGameParts(team.nextGame);
+  } = nextGameParts(team.nextGame ? { ...team.nextGame, ...(liveNext[team.id] ?? {}) } : null);
   const nextBadge = gameStatusBadge(nextStatus, nextPeriod, nextClock);
   const myScore = nextHomeAway === 'home' ? nextHomeScore : nextAwayScore;
   const theirScore = nextHomeAway === 'home' ? nextAwayScore : nextHomeScore;

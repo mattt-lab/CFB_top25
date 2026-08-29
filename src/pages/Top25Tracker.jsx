@@ -4,12 +4,16 @@ import {
   WEEK_IDX_MAX, games, predictions, primaryLabel, PRIMARY_SOURCE_BY_WEEK, formatKickoff,
   gameStatusBadge, rankedGamesThisWeek,
 } from '../data/teams.js';
+import { useLiveScores } from '../utils/useLiveScores.js';
 import MyTeamsSection from '../components/MyTeamsSection.jsx';
 import TeamMark from '../components/TeamMark.jsx';
 import RankedMatchupsTable from '../components/RankedMatchupsTable.jsx';
 
 export default function Top25Tracker() {
   const weekIdx = useWeekStore((s) => s.weekIdx);
+  // Client-side-only overlay (see useLiveScores.js) -- only patches the marquee panel below, not
+  // rankedGames or anything else read from teams.js's static build-time snapshot.
+  const liveOverlay = useLiveScores(games);
   const currentWeekNumber = WEEK_IDX_MAX + 1;
   const weekSource = primaryLabel(PRIMARY_SOURCE_BY_WEEK[weekIdx]);
   // rankedGamesThisWeek() is unsorted (same convention as gamesInConf()) -- sort here, not in
@@ -38,7 +42,8 @@ export default function Top25Tracker() {
           </div>
         </div>
         <div className="games-grid">
-          {games.map((g) => {
+          {games.map((base) => {
+            const g = { ...base, ...(liveOverlay[base.id] ?? {}) };
             const badge = gameStatusBadge(g.status, g.period, g.clock);
             const decided = g.status === 'in_progress' || g.status === 'final';
             return (
@@ -74,10 +79,16 @@ export default function Top25Tracker() {
                     )}
                   </Link>
                 </div>
-                <div className="game-line">
+                <div className={`game-line${decided ? ' game-line-score' : ''}`}>
                   {decided ? (
-                    <span className="score">
-                      {g.awayTeam?.name ?? g.away} {g.awayScore} – {g.homeTeam?.name ?? g.home} {g.homeScore}
+                    // Team names are already shown above (with rank + logo) -- repeating them here
+                    // just to label two numbers was what kept this line stuck at 12px body-text
+                    // size. Same away-left/home-right order as .game-teams above it, so position
+                    // alone still says which score is which.
+                    <span className={`score${badge.live ? ' score-live' : ''}`}>
+                      <span className="score-num">{g.awayScore}</span>
+                      <span className="score-sep">–</span>
+                      <span className="score-num">{g.homeScore}</span>
                     </span>
                   ) : (
                     <>

@@ -1,7 +1,8 @@
-// Shared CollegeFootballData.com (CFBD) HTTP helper -- identical auth/URL-building/response-
-// validation logic needed by both fetch-cfb-data.mjs (the once-daily heavy pipeline) and
-// fetch-live-scores.mjs (the frequent light poller), pulled out so a fix here doesn't need to be
-// applied twice.
+// Shared CollegeFootballData.com (CFBD) HTTP helper -- auth/URL-building/response-validation
+// logic for fetch-cfb-data.mjs (the once-daily heavy pipeline). Used to also be shared with
+// fetch-live-scores.mjs (a frequent light poller of CFBD's /scoreboard endpoint) until CFBD put
+// /scoreboard behind a paid Patreon tier -- that script's retired; live in-game score/clock for
+// the homepage marquee now comes from a client-side ESPN fetch instead (src/utils/useLiveScores.js).
 
 const CFBD_BASE = 'https://api.collegefootballdata.com';
 

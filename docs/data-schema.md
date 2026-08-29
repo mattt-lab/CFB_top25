@@ -66,30 +66,27 @@ time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order be
 
 ## Game status lifecycle
 
-`games[].status` / `teams[id].nextGame.status` move through exactly three states: `"scheduled"` →
-`"in_progress"` → `"final"`. Two different scripts write this field, at two different cadences,
-because CFBD splits the data across two endpoints with very different freshness:
+`games[].status` / `teams[id].nextGame.status` as **committed to `data/current.json`** only ever
+move `"scheduled"` → `"final"` — never `"in_progress"`. `fetch-cfb-data.mjs` (once daily) is the
+only writer: it reads CFBD's plain `/games` endpoint, which only ever reports a boolean `completed`
+flag plus final points, no true mid-game state. Writing `"scheduled"`/`"final"` directly from that
+(for free, zero extra API calls) is also what stops a game from ever regressing from `"final"` back
+to `"scheduled"` the next time this script rebuilds `games[]` from scratch.
 
-- **`fetch-cfb-data.mjs`** (once daily) reads CFBD's plain `/games` endpoint, which only ever
-  reports a boolean `completed` flag plus final points — no true mid-game state. It writes
-  `"scheduled"` or `"final"` (never `"in_progress"`) directly from that, for free, with zero extra
-  API calls. This is also what stops a game from ever regressing from `"final"` back to
-  `"scheduled"` the next time this script rebuilds `games[]` from scratch.
-- **`fetch-live-scores.mjs`** (every ~15 min during game windows — see
-  `.github/workflows/fetch-live-scores.yml`) is the **only** writer of `"in_progress"`, `period`,
-  and `clock`, via CFBD's separate `/scoreboard` endpoint (one call returns every currently-live
-  game at once). It patches both `games[]` and `allGames[]` (so a Conference Tracker page's
-  schedule section shows live state too, not just the marquee panel), plus every team's
-  `nextGame`. It can also confirm `"final"` well before the next day's heavy pipeline run gets
-  to it — the moment it first sees a game go final, it bumps both teams' `wins`/`losses`, appends a
-  `teams[id].games[]` entry (with `oppConf`, so `confRecord()` stays correct even for a game this
-  script settled mid-week), and writes a deterministic recap sentence directly into `blurb`
-  (`blurbSource: "fallback"`) so the result shows up immediately, not whenever Claude next runs.
+`"in_progress"`, and the `period`/`clock` fields, only ever exist **transiently, client-side**, for
+the homepage marquee panel — never written to `data/current.json`. CFBD's `/scoreboard` endpoint
+used to provide this (polled server-side every ~15 min by `fetch-live-scores.mjs`), until CFBD put
+it behind a paid Patreon tier. It's replaced by `src/utils/useLiveScores.js`, which fetches ESPN's
+public scoreboard directly from the visitor's browser, matches it against `games[]` via
+`src/data/espnTeamMap.json`, and overlays `status`/`period`/`clock`/scores in memory for however
+long that visitor's page stays open. `allGames[]` and every team's `nextGame` are NOT covered by
+this yet (see the README's "Live scoring" section) — only the ~6 games in the marquee `games[]`
+array ever show `"in_progress"`, and only to a visitor with the page open during the game.
 
-`blurbSource: "fallback"` on a **`final`** game therefore doesn't necessarily mean the LLM call
-failed — it may just mean the light poller's instant recap hasn't been replaced by narrate.mjs's
-nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postgame recap for
-`"final"` games and a pregame preview for everything else, replacing whatever was there before).
+One consequence: win-loss records and game-log entries used to update the instant a game went
+final (the old script bumped `wins`/`losses` and appended a `teams[id].games[]` entry the moment it
+saw `"final"`, since the client-side replacement never writes back to committed data at all).
+Records/recaps now only ever settle on `fetch-cfb-data.mjs`'s next once-daily run.
 
 ## `data/current.json`
 
@@ -183,13 +180,16 @@ nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postga
         "homeAway": "home",     // "home" | "away" — is THIS team hosting or visiting
         "when": "2026-11-29T17:00:00Z",
         "network": "FOX",       // same source as games[].network; null if CFBD has no media entry yet
-        "cfbdId": 401628383,    // CFBD's own numeric game id -- how fetch-live-scores.mjs matches
-                                // this game against a /scoreboard response
-        "status": "scheduled",  // "scheduled" | "in_progress" | "final"
+        "cfbdId": 401628383,    // CFBD's own numeric game id -- kept for identity/debugging; no
+                                // current reader joins against it (the live-score overlay only
+                                // covers games[] today, matched via espnTeamMap.json instead, not
+                                // by cfbdId -- see "Game status lifecycle" above)
+        "status": "scheduled",  // "scheduled" | "final" as committed here -- see "Game status
+                                // lifecycle" above for why "in_progress" never appears in this file
         "awayScore": null,      // null until the game has started
         "homeScore": null,
-        "period": null,         // current quarter -- only ever set while status is "in_progress"
-        "clock": null           // e.g. "8:42" -- only ever set while status is "in_progress"
+        "period": null,         // always null as committed here -- see "Game status lifecycle" above
+        "clock": null           // always null as committed here -- see "Game status lifecycle" above
       },                        // null (not present as an object) if this team has no game in
                                 // currentWeek's slate — bye week, or no games left on the schedule
       "bubbleNote": {           // present ONLY for the 4 teams currently on the playoff bubble
@@ -222,7 +222,7 @@ nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postga
   "allGames": [
     {
       "id": "2026-wk12-osu-mich",
-      "cfbdId": 401628383,          // CFBD's own numeric game id -- how fetch-live-scores.mjs matches this game against a /scoreboard response
+      "cfbdId": 401628383,          // CFBD's own numeric game id -- kept for identity/debugging, not currently joined against by anything
       "away": "ohio-state", "awayRank": 1,
       "home": "michigan", "homeRank": 8,
       "when": "2026-11-29T17:00:00Z",
@@ -230,9 +230,9 @@ nicer LLM-written recap yet (narrate.mjs is now status-aware: it writes a postga
       "ou": 44.5,
       "network": "FOX",              // TV network or streaming outlet from CFBD's /games/media endpoint; null if CFBD has no media entry yet (common for games far in advance)
       "rivalry": true,               // from data/rivalries.json
-      "status": "scheduled",         // "scheduled" | "in_progress" | "final" -- see "Game status lifecycle" below
+      "status": "scheduled",         // "scheduled" | "final" as committed here -- see "Game status lifecycle" below ("in_progress" is client-side-only, and only for the games[] marquee subset, not allGames[])
       "awayScore": null, "homeScore": null,  // null until the game has started
-      "period": null, "clock": null, // e.g. period 3, clock "8:42" -- only ever set while status is "in_progress"
+      "period": null, "clock": null, // always null as committed here -- see "Game status lifecycle" below
       "stakesScore": null,           // Stage 1 output IF this game was selected into `games` below -- null otherwise
       "blurb": null,
       "blurbSource": null
@@ -387,8 +387,7 @@ branding change doesn't break joins.
 | `meta`, `rankingsByWeek`, `teams` (except `games[].tag`/`oppConf`) | fetch script (task #5) |
 | `allGames` (full weekly slate) | fetch script (task #5) -- `games` is a Stage 1-derived subset, not independently fetched |
 | `teams[].games[]` (full array, completed + upcoming, daily) | fetch script, rebuilt from scratch each run -- `oppConf` from that same `/games` response's `awayConference`/`homeConference`; `tag`/`res` computed for completed games using that week's `rankings/wkNN.json` snapshot for the opponent's point-in-time rank, and left `null` for upcoming games |
-| `teams[].games[]` (current week's entry, patched in place on final) | `fetch-live-scores.mjs` -- the moment it first sees the current week's game go final, it patches that one entry's `res`/`tag`/`awayScore`/`homeScore` (and bumps `wins`/`losses`) in place, rather than waiting for the next daily fetch-script run to rebuild the array |
 | `games[].stakesScore`, `predictions[].score`, `fieldStorylines`, `teams[].bubbleNote` (minus `blurb`/`blurbSource`) | Stage 1 scoring (task #6) -- also where `games` itself is derived from `allGames` |
-| `games[].blurb`, `predictions[].blurb`, `fieldStorylines[].blurb`, `teams[].bubbleNote.blurb`, all `blurbSource` fields | Stage 2 narration (task #7), with a deterministic-line fallback on failure -- status-aware since the live-score work: a pregame preview for scheduled/in_progress games, a postgame recap for final ones |
+| `games[].blurb`, `predictions[].blurb`, `fieldStorylines[].blurb`, `teams[].bubbleNote.blurb`, all `blurbSource` fields | Stage 2 narration (task #7), with a deterministic-line fallback on failure -- status-aware: a pregame preview for scheduled games, a postgame recap for final ones |
 | `games[]`/`allGames[].cfbdId`/`status`/`awayScore`/`homeScore`, `teams[].nextGame.cfbdId`/`status`/`awayScore`/`homeScore` | fetch script (`"scheduled"`/`"final"` only, from `/games`) -- see "Game status lifecycle" above |
-| `games[]`/`allGames[].period`/`clock`, `teams[].nextGame.period`/`clock`, and confirming `"final"` sooner than the next daily run | `scripts/fetch-live-scores.mjs`, from CFBD's `/scoreboard` endpoint -- the only writer of `"in_progress"` |
+| `games[]`'s `status`/`period`/`clock`/`awayScore`/`homeScore` as actually RENDERED on the homepage marquee, while a game is live | `src/utils/useLiveScores.js`, client-side only, from ESPN's public scoreboard -- never written to `data/current.json`; see "Game status lifecycle" above |

@@ -1,7 +1,8 @@
-// Shared W/L-tagging logic for a team's historical games[] log. Used by both fetch-cfb-data.mjs
-// (building the season-to-date log for every team) and fetch-live-scores.mjs (appending the one
-// entry for a game that just went final) -- pulled out so the "quality win" / "bad loss"
-// thresholds live in exactly one place rather than drifting out of sync between the two scripts.
+// Shared W/L-tagging logic for a team's historical games[] log, used by fetch-cfb-data.mjs
+// (building the season-to-date log for every team). Used to also be shared with
+// fetch-live-scores.mjs (appending the one entry for a game the instant it went final, ahead of
+// the next daily run) -- that script's retired (see cfbd.mjs), so game-log entries now only ever
+// settle once/day, on fetch-cfb-data.mjs's own schedule.
 
 // Point-in-time "quality win" / "bad loss" thresholds, roughly: beating a team ranked ~20-or-
 // better reads as "quality"; losing to a team that wasn't ranked at all reads as "bad".

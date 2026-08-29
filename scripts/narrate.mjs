@@ -27,10 +27,8 @@ function teamName(current, teamId) {
 
 // Deterministic one-line fallback -- used when the API call fails outright or returns a
 // malformed/missing blurb for a given id, so a bad API day never ships blank text. A game that's
-// gone final needs a recap sentence, not a pregame preview -- the same branch fetch-live-scores.mjs
-// uses for its own instant deterministic recap the moment a game ends (see docs/data-schema.md's
-// "Game status lifecycle"), so the two independently-produced fallback sentences read consistently
-// with each other regardless of which script happened to write the last one.
+// gone final needs a recap sentence, not a pregame preview -- see docs/data-schema.md's "Game
+// status lifecycle".
 function fallbackGameBlurb(g, current) {
   const away = teamName(current, g.away);
   const home = teamName(current, g.home);

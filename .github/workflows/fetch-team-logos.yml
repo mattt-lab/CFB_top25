@@ -1,8 +1,8 @@
 name: Fetch team logos
 
 # Standalone, MANUALLY-triggered refresh of public/logos/*.png (scripts/fetch-team-logos.mjs).
-# Unlike fetch-data.yml/fetch-live-scores.yml, this has NO schedule trigger -- team logos
-# essentially never change mid-season, so there's no reason to burn a CFBD call on a cron. Run it
+# Unlike fetch-data.yml, this has NO schedule trigger -- team logos essentially never change
+# mid-season, so there's no reason to burn a CFBD call on a cron. Run it
 # by hand (Actions tab -> Fetch team logos -> Run workflow) whenever a team rebrands, a new FBS
 # team joins, or a logo asset otherwise needs refreshing.
 

@@ -67,7 +67,7 @@ describe('nextGameParts', () => {
     expect(parts.awayScore).toBeNull();
     expect(parts.homeScore).toBeNull();
   });
-  it('passes through live score/status/period/clock once fetch-live-scores.mjs has patched them', () => {
+  it('passes through live score/status/period/clock when the caller has them', () => {
     const parts = nextGameParts({
       homeAway: 'away', opponent: 'Michigan', opponentRank: 8, when: null, network: null,
       status: 'in_progress', awayScore: 14, homeScore: 21, period: 3, clock: '8:42',

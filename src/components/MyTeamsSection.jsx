@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { usePinnedStore } from '../store/usePinnedStore.js';
 import { teamById, rankAt, byRankAsc, nextGameParts, gameStatusBadge } from '../data/teams.js';
+import { useLiveScores, toPseudoGame } from '../utils/useLiveScores.js';
 import TeamMark from './TeamMark.jsx';
 import PinButton from './PinButton.jsx';
 
@@ -11,10 +12,15 @@ export default function MyTeamsSection({ weekIdx }) {
     // A pinned id can outlive the team it pointed to (a rename, or a schema change) — drop
     // anything that no longer resolves rather than crashing the whole section.
     .filter((id) => teamById(id))
-    .map((id) => ({ id, rank: rankAt(id, weekIdx) }))
+    .map((id) => ({ id, rank: rankAt(id, weekIdx), team: teamById(id) }))
     // Unranked (rank === null -- e.g. pinned from a direct team-page visit rather than the Top
     // 25 table) sorts to the end, not the front.
     .sort(byRankAsc((x) => x.rank));
+
+  // One shared fetch covers every pinned team's next game, not one per row -- must be called
+  // unconditionally (rules of hooks), before the empty-list early return below.
+  const pseudoGames = visible.map(({ id, team }) => toPseudoGame(id, team.nextGame)).filter(Boolean);
+  const liveOverlay = useLiveScores(pseudoGames);
 
   // Nothing to show -- drop the whole card rather than an always-there empty-state message,
   // which was permanent clutter on the very first thing every visitor saw on the homepage.
@@ -29,12 +35,11 @@ export default function MyTeamsSection({ weekIdx }) {
         </div>
       </div>
       <div className="bubble-list">
-        {visible.map(({ id, rank }) => {
-          const t = teamById(id);
+        {visible.map(({ id, rank, team: t }) => {
           const {
             vsAt, opponentTeam, opponentRank, opponentName,
             kickoff, homeAway, status, awayScore, homeScore, period, clock,
-          } = nextGameParts(t.nextGame);
+          } = nextGameParts(t.nextGame ? { ...t.nextGame, ...(liveOverlay[id] ?? {}) } : null);
           const badge = gameStatusBadge(status, period, clock);
           const mine = homeAway === 'home' ? homeScore : awayScore;
           const theirs = homeAway === 'home' ? awayScore : homeScore;

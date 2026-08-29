@@ -177,10 +177,12 @@ export function formatKickoff(iso) {
 // network text (e.g. "Sat, Sep 5, 3:30 PM PDT · FOX"), split so the caller can style the opponent
 // distinctly (bold, so it stands out from the surrounding record/kickoff text). Both null for a
 // bye week (no nextGame) or a team with no games left on CFBD's schedule. Shared by "Your Teams"
-// and the team-detail hero card. Also passes through the live/final fields fetch-live-scores.mjs
-// patches onto nextGame (status/scores/period/clock) using the same away/home-relative naming as
-// games[] itself -- callers resolve "my score" vs. "their score" from `homeAway`, same as they
-// already do for the opponent label above, rather than this helper guessing which side is "mine".
+// and the team-detail hero card. Also passes through nextGame's status/scores/period/clock (only
+// ever 'scheduled'/'final' as committed by fetch-cfb-data.mjs -- see its Step 6 comment; no
+// client-side live overlay exists for nextGame yet, only for the homepage marquee panel, see
+// src/utils/useLiveScores.js) using the same away/home-relative naming as games[] itself --
+// callers resolve "my score" vs. "their score" from `homeAway`, same as they already do for the
+// opponent label above, rather than this helper guessing which side is "mine".
 export function nextGameParts(nextGame) {
   if (!nextGame) {
     return {
@@ -331,8 +333,8 @@ export function confRaceInfo(conf, wIdx) {
 // record/resume -- filters to games where the opponent shared this team's OWN *current* conference
 // (realignment-safe: a past game against a since-departed conference mate stops counting once that
 // mate has moved, since it compares against team.conf now, not a hardcoded conference name).
-// Requires teams[id].games[].oppConf (fetch-cfb-data.mjs Step 3 / fetch-live-scores.mjs's settle
-// block) -- absent on any game logged before that field existed, which just won't match either way.
+// Requires teams[id].games[].oppConf (fetch-cfb-data.mjs Step 3) -- absent on any game logged
+// before that field existed, which just won't match either way.
 export function confRecord(team) {
   let wins = 0, losses = 0;
   for (const g of team.games) {
