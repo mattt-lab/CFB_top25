@@ -4,7 +4,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   arrowGlyph, dirFor, trendColor, deltaLabel, computerRatingNote, byRankAsc, trendOf, formatKickoff,
-  americanOdds, nextGameParts, gameStatusBadge, confSlugFor, confByRouteSlug, confRecord,
+  americanOdds, nextGameParts, gameStatusBadge, leadingScoreLabel, confSlugFor, confByRouteSlug, confRecord,
 } from './teams.js';
 
 describe('americanOdds', () => {
@@ -88,6 +88,24 @@ describe('gameStatusBadge', () => {
   });
   it('shows a final badge with no detail (period/clock are moot once the game is over)', () => {
     expect(gameStatusBadge('final', 4, '0:00')).toEqual({ text: 'FINAL', live: false, detail: null });
+  });
+});
+
+describe('leadingScoreLabel', () => {
+  it('prefixes the away team when away is ahead', () => {
+    expect(leadingScoreLabel({ away: 'usc', awayScore: 13, home: 'rice', homeScore: 0 })).toBe('usc 13–0');
+  });
+  it('prefixes the home team when home is ahead', () => {
+    expect(leadingScoreLabel({ away: 'rice', awayScore: 0, home: 'usc', homeScore: 13 })).toBe('usc 0–13');
+  });
+  it('prefers the resolved team object name over the bare id when available', () => {
+    expect(leadingScoreLabel({
+      away: 'usc', awayScore: 13, awayTeam: { name: 'USC' },
+      home: 'rice', homeScore: 0, homeTeam: { name: 'Rice' },
+    })).toBe('USC 13–0');
+  });
+  it('omits the name prefix on a tie', () => {
+    expect(leadingScoreLabel({ away: 'usc', awayScore: 7, home: 'rice', homeScore: 7 })).toBe('7–7');
   });
 });
 

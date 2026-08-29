@@ -73,15 +73,18 @@ flag plus final points, no true mid-game state. Writing `"scheduled"`/`"final"` 
 (for free, zero extra API calls) is also what stops a game from ever regressing from `"final"` back
 to `"scheduled"` the next time this script rebuilds `games[]` from scratch.
 
-`"in_progress"`, and the `period`/`clock` fields, only ever exist **transiently, client-side**, for
-the homepage marquee panel — never written to `data/current.json`. CFBD's `/scoreboard` endpoint
-used to provide this (polled server-side every ~15 min by `fetch-live-scores.mjs`), until CFBD put
-it behind a paid Patreon tier. It's replaced by `src/utils/useLiveScores.js`, which fetches ESPN's
-public scoreboard directly from the visitor's browser, matches it against `games[]` via
-`src/data/espnTeamMap.json`, and overlays `status`/`period`/`clock`/scores in memory for however
-long that visitor's page stays open. `allGames[]` and every team's `nextGame` are NOT covered by
-this yet (see the README's "Live scoring" section) — only the ~6 games in the marquee `games[]`
-array ever show `"in_progress"`, and only to a visitor with the page open during the game.
+`"in_progress"`, and the `period`/`clock` fields, only ever exist **transiently, client-side** —
+never written to `data/current.json`. CFBD's `/scoreboard` endpoint used to provide this (polled
+server-side every ~15 min by `fetch-live-scores.mjs`), until CFBD put it behind a paid Patreon
+tier. It's replaced by `src/utils/useLiveScores.js`, which fetches ESPN's public scoreboard
+directly from the visitor's browser, matches it against a game via `src/data/espnTeamMap.json`,
+and overlays `status`/`period`/`clock`/scores in memory for however long that visitor's page stays
+open. Covers the homepage marquee `games[]`, the full-slate table (`rankedGamesThisWeek()`'s
+output -- the ranked-team subset of `allGames[]`, not every entry in it), "Your Teams", and
+team-detail pages (the last two via `teams[id].nextGame`, adapted through `toPseudoGame()` since
+`nextGame` is opponent-relative, not away/home-relative like `games[]`/`allGames[]`) —
+`"in_progress"` only ever shows up to a visitor with a relevant page open during the game, never in
+the committed JSON itself.
 
 One consequence: win-loss records and game-log entries used to update the instant a game went
 final (the old script bumped `wins`/`losses` and appended a `teams[id].games[]` entry the moment it
@@ -230,7 +233,7 @@ Records/recaps now only ever settle on `fetch-cfb-data.mjs`'s next once-daily ru
       "ou": 44.5,
       "network": "FOX",              // TV network or streaming outlet from CFBD's /games/media endpoint; null if CFBD has no media entry yet (common for games far in advance)
       "rivalry": true,               // from data/rivalries.json
-      "status": "scheduled",         // "scheduled" | "final" as committed here -- see "Game status lifecycle" below ("in_progress" is client-side-only, and only for the games[] marquee subset, not allGames[])
+      "status": "scheduled",         // "scheduled" | "final" as committed here -- see "Game status lifecycle" below ("in_progress" is client-side-only; covers this entry too if it's also surfaced by rankedGamesThisWeek() into the full-slate table, not just games[]'s marquee subset)
       "awayScore": null, "homeScore": null,  // null until the game has started
       "period": null, "clock": null, // always null as committed here -- see "Game status lifecycle" below
       "stakesScore": null,           // Stage 1 output IF this game was selected into `games` below -- null otherwise

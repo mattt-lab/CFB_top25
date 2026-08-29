@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { formatKickoff, gameStatusBadge } from '../data/teams.js';
+import { formatKickoff, gameStatusBadge, leadingScoreLabel } from '../data/teams.js';
 import TeamMark from './TeamMark.jsx';
 
 // "#8 Michigan" / "Ball State" -- rank omitted for unranked side, same as OpponentCell's
@@ -46,17 +46,22 @@ export default function RankedMatchupsTable({ games }) {
                       <TeamCell id={g.home} rank={g.homeRank} team={g.homeTeam} />
                     </td>
                     <td>
-                      {badge.text ? (
-                        <span className={`badge-status${badge.live ? ' badge-live' : ' badge-final'}`}>
-                          {badge.live && <span className="pulse-dot" aria-hidden="true" />}
-                          {badge.text}{badge.detail && ` · ${badge.detail}`}
+                      {badge.live ? (
+                        // A dense table row reads better as plain time-remaining text than the
+                        // marquee's compact "LIVE" chip -- this IS the kickoff column once a game
+                        // has one, not a status badge competing with it for space.
+                        <span className="badge-status badge-live">
+                          <span className="pulse-dot" aria-hidden="true" />
+                          {g.period != null ? `Q${g.period}, ${g.clock} remaining` : 'Live'}
                         </span>
+                      ) : badge.text ? (
+                        <span className="badge-status badge-final">{badge.text}</span>
                       ) : (
                         formatKickoff(g.when)
                       )}
                     </td>
                     <td className="tabnum">
-                      {decided ? `${g.awayScore}–${g.homeScore}` : (g.spread ?? '—')}
+                      {decided ? leadingScoreLabel(g) : (g.spread ?? '—')}
                     </td>
                   </tr>
                 );

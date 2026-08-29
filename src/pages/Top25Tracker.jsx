@@ -11,14 +11,19 @@ import RankedMatchupsTable from '../components/RankedMatchupsTable.jsx';
 
 export default function Top25Tracker() {
   const weekIdx = useWeekStore((s) => s.weekIdx);
-  // Client-side-only overlay (see useLiveScores.js) -- only patches the marquee panel below, not
-  // rankedGames or anything else read from teams.js's static build-time snapshot.
-  const liveOverlay = useLiveScores(games);
   const currentWeekNumber = WEEK_IDX_MAX + 1;
   const weekSource = primaryLabel(PRIMARY_SOURCE_BY_WEEK[weekIdx]);
   // rankedGamesThisWeek() is unsorted (same convention as gamesInConf()) -- sort here, not in
   // the data layer. Duplicates with the "biggest games" cards above are intentional, not deduped.
   const rankedGames = rankedGamesThisWeek().slice().sort((a, b) => new Date(a.when) - new Date(b.when));
+  // ONE shared ESPN fetch covers both the marquee panel and the full-slate table below -- `games`
+  // (the marquee) is a subset of the ranked slate more often than not, so deduping by id here
+  // avoids two near-simultaneous fetches of the same ESPN scoreboard for the same games.
+  const trackedGamesById = new Map();
+  for (const g of games) trackedGamesById.set(g.id, g);
+  for (const g of rankedGames) trackedGamesById.set(g.id, g);
+  const liveOverlay = useLiveScores([...trackedGamesById.values()]);
+  const liveRankedGames = rankedGames.map((g) => ({ ...g, ...(liveOverlay[g.id] ?? {}) }));
   // Current-week poll source is already shown in the sticky header -- only worth repeating here
   // when time-traveling to a past week, where the source may differ from the header's latest one.
   const eyebrow = weekIdx === WEEK_IDX_MAX
@@ -121,7 +126,7 @@ export default function Top25Tracker() {
         </ul>
       </section>
 
-      <RankedMatchupsTable games={rankedGames} />
+      <RankedMatchupsTable games={liveRankedGames} />
     </div>
   );
 }

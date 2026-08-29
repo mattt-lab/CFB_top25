@@ -217,12 +217,13 @@ export function nextGameParts(nextGame) {
   };
 }
 
-// Badge chrome for a game's current status -- shared by the "biggest games" cards, "Your Teams",
-// and the team-detail "Next Game" block, so LIVE/FINAL always look and read the same everywhere.
-// `detail` is the period/clock text for a live game (e.g. "Q3 · 8:42"); null otherwise. This is a
-// static site with no live client connection by design (see docs/data-schema.md) -- the clock is
-// only ever as fresh as the last ~15-minute poll/deploy, so callers should treat `detail` as a
-// rough "as of last check" indicator, not a ticking real-time clock.
+// Badge chrome for a game's current status -- shared by the "biggest games" cards, the full-slate
+// table, "Your Teams", and the team-detail "Next Game" block, so LIVE/FINAL always look and read
+// the same everywhere. `detail` is the period/clock text for a live game (e.g. "Q3 · 8:42"); null
+// otherwise. `status`/`period`/`clock` are only ever 'scheduled'/'final'/null as COMMITTED to
+// data/current.json (see docs/data-schema.md's "Game status lifecycle") -- a caller only ever sees
+// 'in_progress' here at all once it's merged in src/utils/useLiveScores.js's client-side overlay,
+// which is also what keeps `clock` actually current rather than "as of last deploy".
 export function gameStatusBadge(status, period, clock) {
   if (status === 'final') return { text: 'FINAL', live: false, detail: null };
   if (status === 'in_progress') {
@@ -230,6 +231,16 @@ export function gameStatusBadge(status, period, clock) {
     return { text: 'LIVE', live: true, detail };
   }
   return { text: null, live: false, detail: null };
+}
+
+// "USC 13–0" -- prefixes the leading (or, once final, winning) team's name onto the bare score so
+// a reader doesn't have to cross-reference a separate matchup column to know who's ahead. No name
+// prefix on a tie (neither side is "leading"). Assumes away/home-relative scores, same convention
+// as games[]/allGames[] -- the same order the score numbers appear in.
+export function leadingScoreLabel(g) {
+  if (g.awayScore === g.homeScore) return `${g.awayScore}–${g.homeScore}`;
+  const leaderName = g.awayScore > g.homeScore ? (g.awayTeam?.name ?? g.away) : (g.homeTeam?.name ?? g.home);
+  return `${leaderName} ${g.awayScore}–${g.homeScore}`;
 }
 
 // Last-two-non-null-values trend for a team's own authored poll array (AP/Coaches/CFP).
