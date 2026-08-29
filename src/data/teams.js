@@ -242,14 +242,20 @@ export function gameStatusBadge(status, period, clock) {
   return { text: null, live: false, detail: null };
 }
 
-// "USC 13–0" -- prefixes the leading (or, once final, winning) team's name onto the bare score so
-// a reader doesn't have to cross-reference a separate matchup column to know who's ahead. No name
-// prefix on a tie (neither side is "leading"). Assumes away/home-relative scores, same convention
-// as games[]/allGames[] -- the same order the score numbers appear in.
+// "USC leads, 13–0" while live, "USC wins, 24–17" once final -- names the leading/winning team and
+// puts THEIR score first, so the two numbers always read as "leader-trailer" rather than the
+// away/home order silently attaching the wrong-looking number to the callout (e.g. a naive
+// "{home} 13-0" for a game whose away team is actually the one winning 0-13 reads as if the home
+// team scored 13, not 0 -- confirmed live, this is exactly the confusing case a visitor flagged).
+// No name/verb on a tie -- neither side is leading, and a tie can't be final in football anyway.
 export function leadingScoreLabel(g) {
   if (g.awayScore === g.homeScore) return `${g.awayScore}–${g.homeScore}`;
-  const leaderName = g.awayScore > g.homeScore ? (g.awayTeam?.name ?? g.away) : (g.homeTeam?.name ?? g.home);
-  return `${leaderName} ${g.awayScore}–${g.homeScore}`;
+  const awayLeads = g.awayScore > g.homeScore;
+  const leaderName = awayLeads ? (g.awayTeam?.name ?? g.away) : (g.homeTeam?.name ?? g.home);
+  const leaderScore = awayLeads ? g.awayScore : g.homeScore;
+  const trailerScore = awayLeads ? g.homeScore : g.awayScore;
+  const verb = g.status === 'final' ? 'wins' : 'leads';
+  return `${leaderName} ${verb}, ${leaderScore}–${trailerScore}`;
 }
 
 // Last-two-non-null-values trend for a team's own authored poll array (AP/Coaches/CFP).

@@ -92,20 +92,25 @@ describe('gameStatusBadge', () => {
 });
 
 describe('leadingScoreLabel', () => {
-  it('prefixes the away team when away is ahead', () => {
-    expect(leadingScoreLabel({ away: 'usc', awayScore: 13, home: 'rice', homeScore: 0 })).toBe('usc 13–0');
+  it('names the away team and puts their score first when away is ahead', () => {
+    expect(leadingScoreLabel({ status: 'in_progress', away: 'usc', awayScore: 13, home: 'rice', homeScore: 0 })).toBe('usc leads, 13–0');
   });
-  it('prefixes the home team when home is ahead', () => {
-    expect(leadingScoreLabel({ away: 'rice', awayScore: 0, home: 'usc', homeScore: 13 })).toBe('usc 0–13');
+  it('names the home team and puts THEIR score first when home is ahead, even though home is second in away-home order', () => {
+    // Regression case: home leading 7-0 (away 0, home 7) must read "7-0" (leader-trailer), not a
+    // naive away-then-home "0-7" that makes the leader look like it's losing.
+    expect(leadingScoreLabel({ status: 'in_progress', away: 'san-jose-state', awayScore: 0, home: 'usc', homeScore: 7 })).toBe('usc leads, 7–0');
   });
   it('prefers the resolved team object name over the bare id when available', () => {
     expect(leadingScoreLabel({
-      away: 'usc', awayScore: 13, awayTeam: { name: 'USC' },
+      status: 'in_progress', away: 'usc', awayScore: 13, awayTeam: { name: 'USC' },
       home: 'rice', homeScore: 0, homeTeam: { name: 'Rice' },
-    })).toBe('USC 13–0');
+    })).toBe('USC leads, 13–0');
   });
-  it('omits the name prefix on a tie', () => {
-    expect(leadingScoreLabel({ away: 'usc', awayScore: 7, home: 'rice', homeScore: 7 })).toBe('7–7');
+  it('says "wins" instead of "leads" once the game is final', () => {
+    expect(leadingScoreLabel({ status: 'final', away: 'usc', awayScore: 24, home: 'rice', homeScore: 17 })).toBe('usc wins, 24–17');
+  });
+  it('omits the name/verb on a tie', () => {
+    expect(leadingScoreLabel({ status: 'in_progress', away: 'usc', awayScore: 7, home: 'rice', homeScore: 7 })).toBe('7–7');
   });
 });
 
