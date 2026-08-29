@@ -35,6 +35,15 @@ WEEKS.forEach((wk, idx) => {
 
 export const CURRENT_PRIMARY_SOURCE = raw.meta.currentPrimarySource;
 
+// True until the CFP committee releases its first ranking of the season (~week 8-10) -- the real-
+// world moment a playoff picture stops being pure early-season guesswork (every "champion"/seed
+// before then is just whichever team the AP/Coaches poll happens to rank highest, with no
+// committee input at all). Drives Playoff Watch's early-season banner and its muted nav tab
+// (Layout.jsx) -- deliberately NOT hidden/disabled, matching this site's existing "honest about
+// gaps" pattern elsewhere (see PlayoffWatch.jsx's own pre-committee footnote) rather than blocking
+// the page outright.
+export const PLAYOFF_PICTURE_IS_EARLY = CURRENT_PRIMARY_SOURCE !== 'cfp';
+
 // ---- teams: every team gets a full entry in the real schema (no DETAILED/SUMMARY split) ----
 // Keyed by id already (schema: `teams` is an object keyed by slugify(name)) — just attach `id`
 // onto each value and reconstruct the old `"W-L"` display string the components expect.

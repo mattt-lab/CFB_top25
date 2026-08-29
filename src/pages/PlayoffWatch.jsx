@@ -39,6 +39,21 @@ export default function PlayoffWatch() {
         <p>Who's in, who's got a bye, and who's still fighting for the last spot — if the field were set today.</p>
       </div>
 
+      {/* Same "no committee yet" condition as the pre-committee footnote at the bottom of this
+          page, so both agree for whichever week is actually being viewed (time-travel included)
+          -- not a global "is it early in the season overall" flag, which wouldn't track a
+          time-traveled week correctly. See PLAYOFF_PICTURE_IS_EARLY in teams.js for the nav tab's
+          version of this, which IS global (time-travel doesn't apply to a persistent nav item). */}
+      {weekSource !== 'CFP Committee' && (
+        <div className="hist-banner">
+          <span>
+            ⚠ Too early to call — the CFP committee hasn't released a ranking yet, so every
+            "champion" and seed below is just whichever team the {weekSource} happens to rank
+            highest. Treat this as a rough early-season projection, not a real field.
+          </span>
+        </div>
+      )}
+
       <div className="bracket-label">Conference championship races</div>
       <div className="conf-race-grid">
         {confs.map((conf) => {

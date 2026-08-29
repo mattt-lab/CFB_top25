@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation, matchPath } from 'react-router-dom';
 import {
   teamById, WEEK_IDX_MIN, WEEK_IDX_MAX, SEASON, LAST_UPDATED, confByRouteSlug,
+  PLAYOFF_PICTURE_IS_EARLY,
 } from '../data/teams.js';
 import { useWeekStore } from '../store/useWeekStore.js';
 import { trackPageview } from '../utils/analytics.js';
@@ -106,8 +107,13 @@ export default function Layout() {
           <NavLink to="/pickem" className={({ isActive }) => (isActive ? 'active' : '')}>
             Top 25 Pick 'em
           </NavLink>
-          {/* Playoff Watch stays LAST in the nav (user rule) -- new tabs go before it. */}
-          <NavLink to="/playoff-watch" className={({ isActive }) => (isActive ? 'active' : '')}>
+          {/* Playoff Watch stays LAST in the nav (user rule) -- new tabs go before it. Muted
+              (not hidden/disabled) before the CFP committee's first ranking -- see
+              PLAYOFF_PICTURE_IS_EARLY's doc comment in teams.js for why. */}
+          <NavLink
+            to="/playoff-watch"
+            className={({ isActive }) => [isActive ? 'active' : '', PLAYOFF_PICTURE_IS_EARLY ? 'nav-muted' : ''].filter(Boolean).join(' ')}
+          >
             Playoff Watch
           </NavLink>
         </nav>

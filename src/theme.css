@@ -91,6 +91,12 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .nav a { text-decoration: none; color: var(--ink-2); font-size: 13.5px; font-weight: 700; padding: 12px 4px; margin-right: 22px; border-bottom: 2px solid transparent; }
 .nav a:hover { color: var(--ink-1); }
 .nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+/* Playoff Watch, pre-CFP-committee (see PLAYOFF_PICTURE_IS_EARLY in teams.js) -- de-emphasized,
+   not disabled: still fully clickable/hoverable, just doesn't compete for attention in the nav
+   while it's still guesswork. .active wins if the visitor is actually on the page right now. */
+.nav a.nav-muted { color: var(--muted); }
+.nav a.nav-muted:hover { color: var(--ink-1); }
+.nav a.nav-muted.active { color: var(--accent); border-bottom-color: var(--accent); }
 
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px) 48px; }
 
