@@ -27,7 +27,7 @@ export default function UpNext() {
         <p>
           {dateLabel
             ? `Nothing on today's schedule -- here's ${dateLabel}, the next day with games.`
-            : "Every game on today's schedule, live scores included. Finished games sink to the bottom."}
+            : "Every game on today's schedule, live scores included."}
         </p>
       </div>
 
@@ -37,7 +37,7 @@ export default function UpNext() {
             No games on the board right now -- check back once the next slate is out.
           </p>
         ) : (
-          <GameSlateTable games={sortedGames} />
+          <GameSlateTable games={sortedGames} showUpset />
         )}
       </section>
     </div>
