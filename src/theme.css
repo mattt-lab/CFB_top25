@@ -141,6 +141,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .panel-title p { font-size: 12.5px; color: var(--ink-2); margin: 2px 0 0; }
 .toggle-btn { font-size: 11.5px; font-weight: 700; color: var(--ink-2); background: none; border: 1px solid var(--border); border-radius: 999px; padding: 5px 11px; cursor: pointer; font-family: inherit; }
 .toggle-btn:hover { border-color: var(--accent); color: var(--ink-1); }
+/* ComparePanel's opponent picker is the one <select> styled off .toggle-btn (the header's week
+   picker has its own .week-select instead, background included) -- `background: none` above is
+   correct for every OTHER .toggle-btn (a plain button), but a <select> without an explicit
+   background here left its native option-list popup with no background rule to inherit, so Windows/
+   Chrome fell back to the OS's white dropdown while still applying .toggle-btn's light --ink-2 text
+   color -- confirmed live as unreadable white-on-white. Options need their OWN background/color,
+   not just the closed select's -- browsers render the popup off the <option> elements' own computed
+   style, not by inheriting the <select>'s in every case. */
+select.toggle-btn, select.toggle-btn option { background: var(--panel); color: var(--ink-1); }
 
 /* Pick 'em (styled off the .toggle-btn small-pill convention; rows echo .bubble-row) */
 .pickem-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
