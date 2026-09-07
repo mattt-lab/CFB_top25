@@ -72,7 +72,11 @@ export default function MyTeamsSection({ weekIdx }) {
                 {badge.text ? (
                   <span className={`kickoff badge-status${badge.live ? ' badge-live' : ' badge-final'}`}>
                     {badge.live && <span className="pulse-dot" aria-hidden="true" />}
-                    {mine != null && theirs != null ? `${mine}–${theirs} · ` : ''}{badge.text}
+                    {badge.live && mine != null && theirs != null ? (
+                      <><span className="live-score-num">{mine}–{theirs}</span> {badge.text}</>
+                    ) : (
+                      <>{mine != null && theirs != null ? `${mine}–${theirs} · ` : ''}{badge.text}</>
+                    )}
                   </span>
                 ) : (
                   kickoff && <span className="kickoff">{kickoff}</span>

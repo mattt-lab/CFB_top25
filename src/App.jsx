@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
 import Top25Tracker from './pages/Top25Tracker.jsx';
 import Top25Poll from './pages/Top25Poll.jsx';
+import UpNext from './pages/UpNext.jsx';
 import PlayoffWatch from './pages/PlayoffWatch.jsx';
 import TeamDetail from './pages/TeamDetail.jsx';
 import Conferences from './pages/Conferences.jsx';
@@ -13,6 +14,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Top25Tracker />} />
+        <Route path="/up-next" element={<UpNext />} />
         <Route path="/top25" element={<Top25Poll />} />
         <Route path="/playoff-watch" element={<PlayoffWatch />} />
         <Route path="/team/:teamId" element={<TeamDetail />} />

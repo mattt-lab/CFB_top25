@@ -242,20 +242,63 @@ export function gameStatusBadge(status, period, clock) {
   return { text: null, live: false, detail: null };
 }
 
-// "USC leads, 13–0" while live, "USC wins, 24–17" once final -- names the leading/winning team and
-// puts THEIR score first, so the two numbers always read as "leader-trailer" rather than the
-// away/home order silently attaching the wrong-looking number to the callout (e.g. a naive
-// "{home} 13-0" for a game whose away team is actually the one winning 0-13 reads as if the home
-// team scored 13, not 0 -- confirmed live, this is exactly the confusing case a visitor flagged).
-// No name/verb on a tie -- neither side is leading, and a tie can't be final in football anyway.
-export function leadingScoreLabel(g) {
-  if (g.awayScore === g.homeScore) return `${g.awayScore}–${g.homeScore}`;
+// Shared by leadingScoreLabel (plain text, below) and any caller that needs the raw pieces instead
+// of a joined string (e.g. GameSlateTable.jsx styles the score digits bigger than the surrounding
+// text for a live game, which a pre-joined string can't do). Puts the LEADER's score first --
+// away/home order would silently attach the wrong-looking number to the callout (e.g. a naive
+// "{home} 13-0" for a game whose away team is actually winning 0-13 reads as if the home team
+// scored 13, not 0 -- confirmed live, this is exactly the confusing case a visitor flagged).
+export function leadingScoreParts(g) {
+  if (g.awayScore === g.homeScore) return { tied: true, leaderScore: g.awayScore, trailerScore: g.homeScore };
   const awayLeads = g.awayScore > g.homeScore;
-  const leaderName = awayLeads ? (g.awayTeam?.name ?? g.away) : (g.homeTeam?.name ?? g.home);
-  const leaderScore = awayLeads ? g.awayScore : g.homeScore;
-  const trailerScore = awayLeads ? g.homeScore : g.awayScore;
-  const verb = g.status === 'final' ? 'wins' : 'leads';
-  return `${leaderName} ${verb}, ${leaderScore}–${trailerScore}`;
+  return {
+    tied: false,
+    leaderName: awayLeads ? (g.awayTeam?.name ?? g.away) : (g.homeTeam?.name ?? g.home),
+    leaderScore: awayLeads ? g.awayScore : g.homeScore,
+    trailerScore: awayLeads ? g.homeScore : g.awayScore,
+    verb: g.status === 'final' ? 'wins' : 'leads',
+  };
+}
+
+// "USC leads, 13–0" while live, "USC wins, 24–17" once final. No name/verb on a tie -- neither
+// side is leading, and a tie can't be final in football anyway.
+export function leadingScoreLabel(g) {
+  const p = leadingScoreParts(g);
+  if (p.tied) return `${p.leaderScore}–${p.trailerScore}`;
+  return `${p.leaderName} ${p.verb}, ${p.leaderScore}–${p.trailerScore}`;
+}
+
+// Which side the betting line favors, resolved by checking whether CFBD's pre-formatted spread
+// string (e.g. "Ohio State -6.5") starts with either team's resolved name -- there's no structured
+// numeric field, just this string (see fetch-cfb-data.mjs's spread comment). Returns null (not a
+// guess) when there's no line, or the string matches neither name -- a genuine pick'em line, or a
+// name-formatting mismatch between the odds provider and our own team names.
+function favoredSide(g) {
+  if (!g.spread) return null;
+  const awayName = g.awayTeam?.name;
+  const homeName = g.homeTeam?.name;
+  if (awayName && g.spread.startsWith(awayName)) return 'away';
+  if (homeName && g.spread.startsWith(homeName)) return 'home';
+  return null;
+}
+
+// "Potential upset" -- the underdog (per the betting line) is doing better than the line implies.
+// While live: ahead in the first half (period 1-2), tied or better in Q3 (period 3), or within 7
+// points in Q4 or OT (period >= 4). Once final: the underdog won outright. Needs a resolvable
+// favorite (see favoredSide) and, for the live checks, a known period -- degrades to false rather
+// than guessing when either is missing.
+export function isPotentialUpset(g) {
+  if (g.awayScore == null || g.homeScore == null) return false;
+  const favored = favoredSide(g);
+  if (!favored) return false;
+  const favScore = favored === 'away' ? g.awayScore : g.homeScore;
+  const dogScore = favored === 'away' ? g.homeScore : g.awayScore;
+
+  if (g.status === 'final') return dogScore > favScore;
+  if (g.status !== 'in_progress' || g.period == null) return false;
+  if (g.period <= 2) return dogScore > favScore;
+  if (g.period === 3) return dogScore >= favScore;
+  return Math.abs(favScore - dogScore) <= 7; // period >= 4 -- Q4 or OT
 }
 
 // Last-two-non-null-values trend for a team's own authored poll array (AP/Coaches/CFP).

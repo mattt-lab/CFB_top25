@@ -38,6 +38,37 @@ allGames.forEach((g) => {
   }
 });
 
+// teamId -> that team's allGames entry this week, for the auto-populate/real-result lookups below.
+const GAME_BY_TEAM = {};
+allGames.forEach((g) => {
+  GAME_BY_TEAM[g.away] = g;
+  GAME_BY_TEAM[g.home] = g;
+});
+
+// Real result -> pick category, once a team's game is final. Margin >= 14 either way counts as a
+// blowout (the user's own threshold) -- ties are impossible in football, so margin is never 0 for
+// a final game. Returns null for a bye week or a game that hasn't finished yet -- those stay
+// user-assignable via the chips, same as today.
+function autoResultFor(teamId) {
+  const g = GAME_BY_TEAM[teamId];
+  if (!g || g.status !== 'final' || g.awayScore == null || g.homeScore == null) return null;
+  const isHome = g.home === teamId;
+  const mine = isHome ? g.homeScore : g.awayScore;
+  const theirs = isHome ? g.awayScore : g.homeScore;
+  const margin = mine - theirs;
+  if (margin > 0) return margin >= 14 ? 'blowoutWin' : 'win';
+  return Math.abs(margin) >= 14 ? 'blowoutLoss' : 'loss';
+}
+
+// Half-populated "what-if" baseline: every ranked team whose game has already gone final gets its
+// real result pre-filled, so the projection reflects reality as the week plays out. A team whose
+// game hasn't finished yet gets no entry here -- unchanged, still freely assignable via chips.
+const AUTO_PICKS = {};
+CURRENT_ORDER.forEach((id) => {
+  const result = autoResultFor(id);
+  if (result) AUTO_PICKS[id] = result;
+});
+
 // Opponent-quality resolver for the model: poll rank straight off the slate entry, SP+ rank via
 // the opponent's own team record (may be absent for a non-Power-4 unranked opponent -- degrades
 // to null, which the model treats as a generic unranked team).
@@ -52,14 +83,17 @@ function getOpponentInfo(teamId) {
 }
 
 export default function Pickem() {
-  const [picks, setPicks] = useState({});
+  const [picks, setPicks] = useState(AUTO_PICKS);
 
   const projected = useMemo(
     () => projectOrder(CURRENT_ORDER, picks, teams, { getOpponentInfo, h2h: H2H }),
     [picks],
   );
 
-  const anyPicks = Object.keys(picks).length > 0;
+  // No chip ever exists for an AUTO_PICKS team (see the render below), so `picks` can only ever
+  // gain keys beyond that baseline -- never lose or overwrite one -- making a length comparison a
+  // reliable "any manual calls on top of the real results" check.
+  const anyManualPicks = Object.keys(picks).length > Object.keys(AUTO_PICKS).length;
 
   function handlePick(teamId, outcome) {
     setPicks((prev) => {
@@ -108,7 +142,17 @@ export default function Pickem() {
                   )}
                 </span>
               </span>
-              {t.nextGame ? (
+              {!t.nextGame ? (
+                <span className="bye">Bye</span>
+              ) : GAME_BY_TEAM[id]?.status === 'final' ? (
+                // Already decided, not a hypothetical -- a static result instead of chips, same
+                // pattern the bye case above already uses (no click target to toggle a real result).
+                <span className="pick-final" style={{ fontSize: 12.5, color: 'var(--ink-2)' }}>
+                  Final — {OUTCOMES.find((o) => o.value === picks[id])?.long}{' '}
+                  ({GAME_BY_TEAM[id].home === id ? GAME_BY_TEAM[id].homeScore : GAME_BY_TEAM[id].awayScore}
+                  –{GAME_BY_TEAM[id].home === id ? GAME_BY_TEAM[id].awayScore : GAME_BY_TEAM[id].homeScore})
+                </span>
+              ) : (
                 <span className="pick-chips" role="group" aria-label={`Call ${t.name}'s game`}>
                   {OUTCOMES.map((o) => (
                     <button
@@ -123,8 +167,6 @@ export default function Pickem() {
                     </button>
                   ))}
                 </span>
-              ) : (
-                <span className="bye">Bye</span>
               )}
             </div>
           );
@@ -134,9 +176,9 @@ export default function Pickem() {
       <button
         type="button"
         className="toggle-btn"
-        onClick={() => setPicks({})}
-        disabled={!anyPicks}
-        style={anyPicks ? undefined : { opacity: 0.5, cursor: 'default' }}
+        onClick={() => setPicks(AUTO_PICKS)}
+        disabled={!anyManualPicks}
+        style={anyManualPicks ? undefined : { opacity: 0.5, cursor: 'default' }}
       >
         Reset picks
       </button>

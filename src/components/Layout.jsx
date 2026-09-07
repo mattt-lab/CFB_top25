@@ -31,6 +31,7 @@ function formatLastUpdated(iso) {
 
 function titleFor(pathname) {
   if (pathname === '/') return 'This Week';
+  if (pathname === '/up-next') return 'Up Next';
   if (pathname === '/top25') return 'Top 25';
   if (pathname === '/playoff-watch') return 'Playoff Watch';
   if (pathname === '/conferences') return 'Conferences';
@@ -97,6 +98,9 @@ export default function Layout() {
         <nav className="nav">
           <NavLink to="/" end className={({ isActive }) => (isActive ? 'active' : '')}>
             This Week
+          </NavLink>
+          <NavLink to="/up-next" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Up Next
           </NavLink>
           <NavLink to="/conferences" className={({ isActive }) => (isActive ? 'active' : '')}>
             Conferences
