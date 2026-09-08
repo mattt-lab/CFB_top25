@@ -37,7 +37,7 @@ export default function UpNext() {
             No games on the board right now -- check back once the next slate is out.
           </p>
         ) : (
-          <GameSlateTable games={sortedGames} showUpset />
+          <GameSlateTable games={sortedGames} showUpset showNetwork />
         )}
       </section>
     </div>

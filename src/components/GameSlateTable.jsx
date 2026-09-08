@@ -30,7 +30,7 @@ function ScoreCell({ g }) {
 // column, score column" tables that differ only in which games they pass in and whether the
 // upset flag applies. Callers are responsible for sorting `games` and merging any live-score
 // overlay onto them before passing in.
-export default function GameSlateTable({ games, showUpset = false }) {
+export default function GameSlateTable({ games, showUpset = false, showNetwork = false }) {
   if (games.length === 0) return null;
   return (
     <div style={{ overflowX: 'auto' }}>
@@ -62,6 +62,7 @@ export default function GameSlateTable({ games, showUpset = false }) {
                   ) : (
                     formatKickoff(g.when)
                   )}
+                  {showNetwork && g.network && `, ${g.network}`}
                 </td>
                 <td className="tabnum">
                   {upset && <span role="img" aria-label="Potential upset">🔥 </span>}
