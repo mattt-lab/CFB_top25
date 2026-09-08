@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  WEEKLY_ORDER, teamById, deltaAt, sparkPoints,
+  WEEKLY_ORDER, WEEK_IDX_MAX, teamById, deltaAt, sparkPoints,
   playoffOddsFor, nattyOddsFor, americanOdds, trendColor, deltaLabel,
   HAS_TREND_HISTORY,
 } from '../data/teams.js';
@@ -13,9 +13,9 @@ function sparseCaption() {
   return null;
 }
 
-export default function Top25Table({ weekIdx }) {
+export default function Top25Table() {
   const navigate = useNavigate();
-  const order = WEEKLY_ORDER[weekIdx];
+  const order = WEEKLY_ORDER[WEEK_IDX_MAX];
   const caption = sparseCaption();
 
   return (
@@ -32,7 +32,7 @@ export default function Top25Table({ weekIdx }) {
           {order.map((id, i) => {
             const rank = i + 1;
             const t = teamById(id);
-            const delta = deltaAt(id, weekIdx);
+            const delta = deltaAt(id, WEEK_IDX_MAX);
             const po = playoffOddsFor(rank, t.record, t.sp);
             const no = nattyOddsFor(rank, t.record, t.sp, t.fpi);
             const color = trendColor(delta);
@@ -52,7 +52,7 @@ export default function Top25Table({ weekIdx }) {
                 </td>
                 <td className="tabnum">{t.record}</td>
                 <td style={{ color, fontWeight: 700 }}>{deltaLabel(delta)}</td>
-                <td><Sparkline points={sparkPoints(id, weekIdx)} /></td>
+                <td><Sparkline points={sparkPoints(id, WEEK_IDX_MAX)} /></td>
                 <td className="tabnum">{po}%</td>
                 <td className="tabnum">{americanOdds(no)}</td>
               </tr>

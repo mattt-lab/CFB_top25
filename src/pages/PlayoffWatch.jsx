@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useWeekStore } from '../store/useWeekStore.js';
 import {
   WEEK_IDX_MAX, computeField, primaryLabel, PRIMARY_SOURCE_BY_WEEK, fieldStorylines,
   confRaceInfo, confSlugFor,
@@ -16,14 +15,9 @@ function TeamRow({ o, seedNum }) {
 }
 
 export default function PlayoffWatch() {
-  const weekIdx = useWeekStore((s) => s.weekIdx);
-  const field = computeField(weekIdx);
-  const weekSource = primaryLabel(PRIMARY_SOURCE_BY_WEEK[weekIdx]);
-  // Same reasoning as Top25Tracker's eyebrow: the current-week poll source is already in the
-  // sticky header, so only repeat it here when the snapshot is historical (source may differ).
-  const eyebrow = weekIdx === WEEK_IDX_MAX
-    ? `Week ${weekIdx + 1} Projection`
-    : `Week ${weekIdx + 1} Projection (historical, by ${weekSource})`;
+  const field = computeField(WEEK_IDX_MAX);
+  const weekSource = primaryLabel(PRIMARY_SOURCE_BY_WEEK[WEEK_IDX_MAX]);
+  const eyebrow = `Week ${WEEK_IDX_MAX + 1} Projection`;
 
   const confs = Object.keys(field.champsByConf).sort(
     (a, b) => field.champsByConf[a].rank - field.champsByConf[b].rank
@@ -40,10 +34,8 @@ export default function PlayoffWatch() {
       </div>
 
       {/* Same "no committee yet" condition as the pre-committee footnote at the bottom of this
-          page, so both agree for whichever week is actually being viewed (time-travel included)
-          -- not a global "is it early in the season overall" flag, which wouldn't track a
-          time-traveled week correctly. See PLAYOFF_PICTURE_IS_EARLY in teams.js for the nav tab's
-          version of this, which IS global (time-travel doesn't apply to a persistent nav item). */}
+          page, so both agree. See PLAYOFF_PICTURE_IS_EARLY in teams.js for the nav tab's version
+          of this same check. */}
       {weekSource !== 'CFP Committee' && (
         <div className="hist-banner">
           <span>
@@ -57,7 +49,7 @@ export default function PlayoffWatch() {
       <div className="bracket-label">Conference championship races</div>
       <div className="conf-race-grid">
         {confs.map((conf) => {
-          const { leader, chaser, gap } = confRaceInfo(conf, weekIdx);
+          const { leader, chaser, gap } = confRaceInfo(conf, WEEK_IDX_MAX);
           return (
             <Link className="conf-race-card" key={conf} to={`/conference/${confSlugFor(conf)}`}>
               <div className="cf">{conf}</div>

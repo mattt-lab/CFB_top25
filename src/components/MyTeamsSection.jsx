@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom';
 import { usePinnedStore } from '../store/usePinnedStore.js';
-import { teamById, rankAt, byRankAsc, nextGameParts, gameStatusBadge } from '../data/teams.js';
+import { teamById, rankAt, byRankAsc, nextGameParts, gameStatusBadge, WEEK_IDX_MAX } from '../data/teams.js';
 import { useLiveScores, toPseudoGame } from '../utils/useLiveScores.js';
 import TeamMark from './TeamMark.jsx';
 import PinButton from './PinButton.jsx';
 
-export default function MyTeamsSection({ weekIdx }) {
+export default function MyTeamsSection() {
   const pinned = usePinnedStore((s) => s.pinned);
 
   const visible = pinned
     // A pinned id can outlive the team it pointed to (a rename, or a schema change) — drop
     // anything that no longer resolves rather than crashing the whole section.
     .filter((id) => teamById(id))
-    .map((id) => ({ id, rank: rankAt(id, weekIdx), team: teamById(id) }))
+    .map((id) => ({ id, rank: rankAt(id, WEEK_IDX_MAX), team: teamById(id) }))
     // Unranked (rank === null -- e.g. pinned from a direct team-page visit rather than the Top
     // 25 table) sorts to the end, not the front.
     .sort(byRankAsc((x) => x.rank));

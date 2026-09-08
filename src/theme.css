@@ -109,10 +109,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; background: none; border: none; color: var(--ink-2); cursor: pointer; padding: 20px 0 4px; text-decoration: none; }
 .back-link:hover { color: var(--accent); }
 
-/* Week travel (compact, lives in the header) + historical-snapshot banner */
-.week-select { font: inherit; font-size: 12.5px; font-weight: 700; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 5px 9px; color: var(--ink-1); cursor: pointer; }
+/* Pre-committee projection warning (Playoff Watch) -- was also the week-travel historical-snapshot
+   banner before that feature was removed; kept as a plain message-only banner now. */
 .hist-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: color-mix(in srgb, var(--accent) 14%, var(--panel)); border: 1px solid var(--accent); border-radius: 10px; padding: 10px 16px; margin: 0 0 16px; font-size: 13px; font-weight: 600; }
-.hist-banner button { flex: none; font: inherit; font-weight: 700; font-size: 12px; background: var(--accent); color: var(--accent-ink); border: none; border-radius: 999px; padding: 6px 13px; cursor: pointer; }
 
 /* Pins & conference dots */
 /* position+z-index: the "whole row clickable" stretched-link trick (.row-link::after, further

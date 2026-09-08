@@ -1,17 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  teamsInConf, confRecord, confSlugFor, rankAt, trendColor, deltaLabel, playoffOddsFor,
+  teamsInConf, confRecord, confSlugFor, rankAt, trendColor, deltaLabel, playoffOddsFor, WEEK_IDX_MAX,
 } from '../data/teams.js';
 import TeamMark from './TeamMark.jsx';
 import PinButton from './PinButton.jsx';
 
-export default function ConferenceStandingsTable({ conf, weekIdx }) {
+export default function ConferenceStandingsTable({ conf }) {
   const navigate = useNavigate();
   const rows = teamsInConf(conf)
     .map((t) => ({
       t,
-      natRank: rankAt(t.id, weekIdx),
-      prevRank: weekIdx > 0 ? rankAt(t.id, weekIdx - 1) : null,
+      natRank: rankAt(t.id, WEEK_IDX_MAX),
+      prevRank: WEEK_IDX_MAX > 0 ? rankAt(t.id, WEEK_IDX_MAX - 1) : null,
       cRec: confRecord(t),
     }))
     // Conference record first (a standings table's whole point), national rank as the tiebreaker

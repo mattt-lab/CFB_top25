@@ -1,20 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useWeekStore } from '../store/useWeekStore.js';
 import { WEEK_IDX_MAX, primaryLabel, PRIMARY_SOURCE_BY_WEEK } from '../data/teams.js';
 import Top25Table from '../components/Top25Table.jsx';
 
 export default function Top25Poll() {
-  const weekIdx = useWeekStore((s) => s.weekIdx);
   const currentWeekNumber = WEEK_IDX_MAX + 1;
-  const weekSource = primaryLabel(PRIMARY_SOURCE_BY_WEEK[weekIdx]);
-  const eyebrow = weekIdx === WEEK_IDX_MAX
-    ? `Week ${currentWeekNumber}`
-    : `Week ${weekIdx + 1} snapshot (historical, by ${weekSource})`;
+  const weekSource = primaryLabel(PRIMARY_SOURCE_BY_WEEK[WEEK_IDX_MAX]);
 
   return (
     <div>
       <div className="page-title">
-        <div className="eyebrow">{eyebrow}</div>
+        <div className="eyebrow">Week {currentWeekNumber}</div>
         <h1>Top 25</h1>
         <p>Full ranking board, and what it means for the playoff and title race.</p>
       </div>
@@ -27,7 +22,7 @@ export default function Top25Poll() {
         </div>
         <span className="odds-hint">Playoff / title odds are a simplified model — see note below</span>
       </div>
-      <Top25Table weekIdx={weekIdx} />
+      <Top25Table />
 
       {/* Playoff Watch keeps its own nav tab -- this callout slot belongs to Pick 'em. */}
       <div className="cta-card">

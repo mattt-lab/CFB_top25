@@ -1,8 +1,7 @@
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { useWeekStore } from '../store/useWeekStore.js';
 import {
   confByRouteSlug, confRaceInfo, gamesInConf, games, fieldStorylines, computeField,
-  gameStatusBadge, formatKickoff,
+  gameStatusBadge, formatKickoff, WEEK_IDX_MAX,
 } from '../data/teams.js';
 import ConferenceStandingsTable from '../components/ConferenceStandingsTable.jsx';
 import TeamMark from '../components/TeamMark.jsx';
@@ -21,11 +20,10 @@ function raceLine(conf, race) {
 
 export default function ConferenceDetail() {
   const { confSlug } = useParams();
-  const weekIdx = useWeekStore((s) => s.weekIdx);
   const conf = confByRouteSlug(confSlug);
   if (!conf) return <Navigate to="/conferences" replace />;
 
-  const race = confRaceInfo(conf, weekIdx);
+  const race = confRaceInfo(conf, WEEK_IDX_MAX);
   const storyline = fieldStorylines.find((s) => s.type === 'conf-race-gap' && s.conf === conf);
 
   // Marquee games (games[]) already have an LLM/fallback blurb from the normal pipeline -- reuse
@@ -37,7 +35,7 @@ export default function ConferenceDetail() {
   const marqueeBlurbByCfbdId = new Map(games.map((g) => [g.cfbdId, g.blurb]));
   const schedule = gamesInConf(conf).slice().sort((a, b) => new Date(a.when) - new Date(b.when));
 
-  const field = computeField(weekIdx);
+  const field = computeField(WEEK_IDX_MAX);
   const inField = {
     byes: field.byes.filter((o) => o.team.conf === conf),
     seeds5to12: field.seeds5to12.filter((o) => o.team.conf === conf),
@@ -119,7 +117,7 @@ export default function ConferenceDetail() {
       )}
 
       <div className="bracket-label">Standings</div>
-      <ConferenceStandingsTable conf={conf} weekIdx={weekIdx} />
+      <ConferenceStandingsTable conf={conf} />
 
       <section className="card" style={{ marginTop: 22 }}>
         <div className="panel-title">
@@ -148,10 +146,8 @@ export default function ConferenceDetail() {
       </section>
 
       <p className="footnote">
-        Standings and schedule reflect the current week regardless of any historical snapshot
-        selected above; the projected field uses the real CFP seeding rule (top-4 conference
-        champions get byes, a 5th champion auto-bids, the rest fills by rank) -- see Playoff Watch
-        for the full bracket.
+        The projected field uses the real CFP seeding rule (top-4 conference champions get byes, a
+        5th champion auto-bids, the rest fills by rank) -- see Playoff Watch for the full bracket.
       </p>
     </div>
   );
