@@ -15,6 +15,15 @@ on:
     # season-changeover logic in scripts/lib/season.mjs (off-season runs just re-fetch the same
     # settled season, which is a harmless no-op commit-wise since nothing changes).
     - cron: '0 13 * * *'
+    # Monday-only extra run, 19:30 UTC (2:30pm ET) -- the AP/Coaches poll normally lands Sunday
+    # afternoon, well before the next 13:00 UTC run, but any week with games extending into
+    # Sunday/Monday pushes the poll to Monday/Tuesday instead (confirmed live: Week 1->2 this
+    # season). This second run is the cheap fix -- same script, same "skip commit if nothing
+    # changed" behavior, just one more chance the same day to catch a same-day poll instead of
+    # sitting stale until Tuesday morning. Not added to every day of the week: the risk is
+    # specifically about a Monday-extending slate, not a daily one, so no reason to pay the extra
+    # CFBD/Claude cost the other six days.
+    - cron: '30 19 * * 1'
   workflow_dispatch: {}
 
 permissions:
