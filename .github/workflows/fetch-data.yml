@@ -1,8 +1,11 @@
 name: Fetch CFB data
 
 # Runs the full data pipeline (fetch -> score -> narrate) and commits the result straight to
-# main. That push is what triggers deploy-pages.yml -- this workflow does not build/deploy
-# itself. data/rankings/*.json snapshots are append-only (never overwritten -- see
+# main, then explicitly dispatches deploy-pages.yml -- this workflow does not build/deploy
+# itself. The explicit dispatch matters: a push made with this job's own GITHUB_TOKEN does NOT
+# trigger deploy-pages.yml's `on: push` listener (GitHub's anti-recursion rule), so without it
+# the site would silently never redeploy on a day nobody else happens to push something.
+# data/rankings/*.json snapshots are append-only (never overwritten -- see
 # scripts/fetch-cfb-data.mjs and docs/data-schema.md), so they accumulate in git history on
 # purpose; only data/current.json is expected to change on every run.
 
@@ -16,6 +19,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: fetch-data
@@ -55,4 +59,18 @@ jobs:
           else
             git commit -m "Update CFB data ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
             git push
+            echo "changed=true" >> "$GITHUB_ENV"
           fi
+
+      # A push made with the default GITHUB_TOKEN does NOT trigger other workflows' `on: push`
+      # listeners -- GitHub's built-in anti-recursion rule, meant to stop infinite automation
+      # loops. Without this, deploy-pages.yml's `on: push: branches: [main]` silently never fires
+      # from this workflow's own commits (confirmed live: the site sat on stale data for a full day
+      # with no human push in between to accidentally trigger a deploy). A workflow_dispatch call
+      # isn't subject to that same restriction, so trigger the deploy explicitly instead of relying
+      # on the push event to cascade.
+      - name: Trigger a redeploy
+        if: env.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy-pages.yml --repo ${{ github.repository }}
