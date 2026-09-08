@@ -72,6 +72,53 @@ entirely, no matter how unconvincing the win.
 the blowout line) still cost them 2 spots -- who you blow out clearly matters more than by how much,
 and margin-vs-a-weak-opponent isn't a reliable stand-in for resume value.
 
+## Correction: passive ripple vs. real movement
+
+The per-team grading above has a real flaw, caught after the fact: **a fixed 25-slot ranking is a
+zero-sum system.** When one team falls, everyone below it slides up a slot whether or not THEY did
+anything -- that rise isn't evidence the model correctly (or incorrectly) predicted *their* game, it's
+just the mechanical consequence of the team above them falling. Grading every team's raw absolute-rank
+delta independently, like the table above does, smears one team's real miss across several other
+teams' rows as if it were their own error too.
+
+Tracing the actual before/after order position-by-position (not just each team's own delta) separates
+this cleanly:
+
+- **Oregon fell 4 real spots** (2 -> 6) on its own. Georgia, Notre Dame, Texas, and Indiana then each
+  rose exactly 1 -- but checking their order *relative to each other*, it's byte-identical
+  before and after. None of them gained anything real; they were purely carried up by Oregon's fall.
+  So 4 of the 8 "close (err 1)" rows above aren't really 4 separate small model misses -- they're one
+  miss (Oregon) counted five times.
+- **Michigan fell out of the Top 25 entirely**, vacating a slot. Utah, Iowa, and Houston's "+1"s are
+  100% that vacancy -- checking the relative order in that whole block, those three didn't pass anyone
+  or get passed by anyone. Oklahoma's "-1" (in the earlier table, graded "exact match") turns out to
+  be the same story but for LSU's jump, not Oklahoma's own game -- LSU passing Oklahoma explains all of
+  it, with nothing left over.
+- **Washington's drop is only partly ripple.** Stripping out the pure Michigan-vacancy effect,
+  Washington still fell 3 *real* spots -- Penn State, SMU, and Tennessee each specifically passed
+  Washington, independent of the Michigan vacancy they also benefited from. That's a genuine model
+  miss (blowout win, predicted flat, actually lost real ground to peers), not ripple noise.
+- **A handful of small moves were real, targeted swaps the model actually called correctly in
+  direction:** Ole Miss passed Texas A&M (model predicted exactly Ole Miss +1 / Texas A&M -1), Missouri
+  passed Louisville (model predicted exactly Missouri +1 / Louisville -1). Louisville's raw "+0" in the
+  table above reads as a miss, but it's actually a real -1 (lost to Missouri, as the model expected)
+  masked by a +1 gift from the Michigan vacancy landing at the same time -- the model's underlying call
+  was right, the zero-sum bookkeeping just hid it.
+- **Alabama passing Texas Tech** was a real swap the model did NOT call (both were modeled flat).
+
+**Revised picture:** the model's genuine failures are concentrated in about **three teams it had no
+way to see coming** -- Oregon (-4), Michigan (fell out entirely), and Washington (-3 real) -- plus two
+smaller missed swaps (Texas Tech/Alabama). Once ripple is stripped out, several of the moves that
+looked like model misses (Georgia/Notre Dame/Texas/Indiana/Oklahoma/Utah/Iowa/Houston, 8 rows) are
+revealed as the model correctly having nothing to say about those teams -- the "error" belonged to
+Oregon and Michigan's rows all along. And on the real, non-ripple swaps it *was* positioned to call
+(Ole Miss/Texas A&M, Missouri/Louisville), it got the direction right both times.
+
+**Methodology note for next time:** don't grade a team's raw absolute-rank delta in isolation. First
+identify which teams are "root movers" (their relative order changed against teams they weren't
+already ahead/behind of) versus which are pure passive risers/fallers (their relative order to
+everyone around them is unchanged) -- only the root movers are a fair test of the model.
+
 **Resolved (2026-09-08):** filled in against the real Week 2 AP poll — see the Findings section
 above. SMU's real result (W 27-24) and actual movement are in the table now too, though it's marked
 N/A for grading since no pick was actually live for it at capture time (its projected row above was
