@@ -243,10 +243,22 @@ export function nextGameParts(nextGame) {
 // data/current.json (see docs/data-schema.md's "Game status lifecycle") -- a caller only ever sees
 // 'in_progress' here at all once it's merged in src/utils/useLiveScores.js's client-side overlay,
 // which is also what keeps `clock` actually current rather than "as of last deploy".
+// "Q3" for regulation, "OT"/"2OT"/"3OT"... beyond it -- ESPN's period keeps counting past 4
+// during overtime (5 = OT, 6 = 2OT, ...), so a naive `Q${period}` reads as "Q5" during an OT
+// game, which looks broken rather than exciting to any football fan. Exported so any other
+// period-displaying spot (e.g. GameSlateTable.jsx's live-status cell) uses the same convention
+// instead of reimplementing it.
+export function periodLabel(period) {
+  if (period == null) return null;
+  if (period <= 4) return `Q${period}`;
+  const otNum = period - 4;
+  return otNum === 1 ? 'OT' : `${otNum}OT`;
+}
+
 export function gameStatusBadge(status, period, clock) {
   if (status === 'final') return { text: 'FINAL', live: false, detail: null };
   if (status === 'in_progress') {
-    const detail = period != null ? `Q${period}${clock ? ` · ${clock}` : ''}` : null;
+    const detail = period != null ? `${periodLabel(period)}${clock ? ` · ${clock}` : ''}` : null;
     return { text: 'LIVE', live: true, detail };
   }
   return { text: null, live: false, detail: null };

@@ -5,7 +5,7 @@ import { describe, it, expect } from 'vitest';
 import {
   arrowGlyph, dirFor, trendColor, deltaLabel, computerRatingNote, byRankAsc, trendOf, formatKickoff,
   americanOdds, nextGameParts, gameStatusBadge, leadingScoreLabel, confSlugFor, confByRouteSlug, confRecord,
-  isPotentialUpset,
+  isPotentialUpset, periodLabel,
 } from './teams.js';
 
 describe('americanOdds', () => {
@@ -322,5 +322,20 @@ describe('isPotentialUpset', () => {
       spread: 'Pick \'em',
     };
     expect(isPotentialUpset(g)).toBe(false);
+  });
+});
+
+describe('periodLabel', () => {
+  it('labels regulation periods as Q1-Q4', () => {
+    expect(periodLabel(1)).toBe('Q1');
+    expect(periodLabel(4)).toBe('Q4');
+  });
+  it('labels overtime periods as OT, 2OT, 3OT... instead of Q5, Q6, Q7', () => {
+    expect(periodLabel(5)).toBe('OT');
+    expect(periodLabel(6)).toBe('2OT');
+    expect(periodLabel(7)).toBe('3OT');
+  });
+  it('returns null for an unknown period', () => {
+    expect(periodLabel(null)).toBeNull();
   });
 });

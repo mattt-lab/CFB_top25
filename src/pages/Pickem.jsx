@@ -4,6 +4,7 @@ import {
   WEEK_IDX_MAX, WEEKLY_ORDER, teams, teamById, allGames, nextGameParts, deltaLabel, dirFor,
 } from '../data/teams.js';
 import { projectOrder, MIRROR } from '../utils/projectTop25.js';
+import { useLiveScores } from '../utils/useLiveScores.js';
 import TeamMark from '../components/TeamMark.jsx';
 
 const OUTCOMES = [
@@ -38,19 +39,27 @@ allGames.forEach((g) => {
   }
 });
 
-// teamId -> that team's allGames entry this week, for the auto-populate/real-result lookups below.
+// teamId -> that team's allGames entry this week (the static, build-time snapshot). Used as the
+// base for the live-merged version built inside the component -- see liveGameByTeam.
 const GAME_BY_TEAM = {};
 allGames.forEach((g) => {
   GAME_BY_TEAM[g.away] = g;
   GAME_BY_TEAM[g.home] = g;
 });
 
+// Distinct games (deduped by id) for the current Top 25's matchups, so useLiveScores can track
+// them for live-final detection -- GAME_BY_TEAM maps both sides of a game to the SAME object, so
+// dedupe by id first rather than passing every team's (duplicate) game in twice.
+const PICKEM_GAMES = [...new Map(
+  CURRENT_ORDER.map((id) => GAME_BY_TEAM[id]).filter(Boolean).map((g) => [g.id, g]),
+).values()];
+
 // Real result -> pick category, once a team's game is final. Margin >= 14 either way counts as a
 // blowout (the user's own threshold) -- ties are impossible in football, so margin is never 0 for
 // a final game. Returns null for a bye week or a game that hasn't finished yet -- those stay
-// user-assignable via the chips, same as today.
-function autoResultFor(teamId) {
-  const g = GAME_BY_TEAM[teamId];
+// user-assignable via the chips. Takes the game object directly (not a teamId lookup) so it works
+// the same whether `g` is the static snapshot or the live-merged version.
+function autoResultFor(g, teamId) {
   if (!g || g.status !== 'final' || g.awayScore == null || g.homeScore == null) return null;
   const isHome = g.home === teamId;
   const mine = isHome ? g.homeScore : g.awayScore;
@@ -59,15 +68,6 @@ function autoResultFor(teamId) {
   if (margin > 0) return margin >= 14 ? 'blowoutWin' : 'win';
   return Math.abs(margin) >= 14 ? 'blowoutLoss' : 'loss';
 }
-
-// Half-populated "what-if" baseline: every ranked team whose game has already gone final gets its
-// real result pre-filled, so the projection reflects reality as the week plays out. A team whose
-// game hasn't finished yet gets no entry here -- unchanged, still freely assignable via chips.
-const AUTO_PICKS = {};
-CURRENT_ORDER.forEach((id) => {
-  const result = autoResultFor(id);
-  if (result) AUTO_PICKS[id] = result;
-});
 
 // Opponent-quality resolver for the model: poll rank straight off the slate entry, SP+ rank via
 // the opponent's own team record (may be absent for a non-Power-4 unranked opponent -- degrades
@@ -83,20 +83,51 @@ function getOpponentInfo(teamId) {
 }
 
 export default function Pickem() {
-  const [picks, setPicks] = useState(AUTO_PICKS);
+  // The static build-time snapshot only ever says 'scheduled' or 'final' (see
+  // useLiveScores.js's header comment) -- without this overlay, a game that's ACTUALLY final per
+  // ESPN mid-Saturday would still show interactive chips here while the rest of the site (This
+  // Week, Full Slate, Up Next) already shows it final, letting a visitor "call" a game that's
+  // already been decided.
+  const liveOverlay = useLiveScores(PICKEM_GAMES);
+  const liveGameByTeam = useMemo(() => {
+    const merged = {};
+    CURRENT_ORDER.forEach((id) => {
+      const g = GAME_BY_TEAM[id];
+      if (g) merged[id] = { ...g, ...(liveOverlay[g.id] ?? {}) };
+    });
+    return merged;
+  }, [liveOverlay]);
+
+  // Half-populated "what-if" baseline: every ranked team whose game has gone final (per the live
+  // overlay, not just the static snapshot) gets its real result pre-filled. Recomputed whenever
+  // the live overlay updates, so a game that goes final while the page is open transitions from
+  // chips to a locked real result live, not just on the next full page load.
+  const autoPicks = useMemo(() => {
+    const next = {};
+    CURRENT_ORDER.forEach((id) => {
+      const result = autoResultFor(liveGameByTeam[id], id);
+      if (result) next[id] = result;
+    });
+    return next;
+  }, [liveGameByTeam]);
+
+  // Manual (user-clicked) picks only -- kept separate from autoPicks so a game newly going final
+  // mid-session cleanly overrides whatever the user had guessed, without needing to reconcile two
+  // meanings of the same map. `picks` (used for the projection + chip active-state) merges the
+  // two, auto taking precedence -- consistent with chips never rendering for an already-final
+  // team in the first place (see the render below), so the two should never actually collide.
+  const [manualPicks, setManualPicks] = useState({});
+  const picks = useMemo(() => ({ ...manualPicks, ...autoPicks }), [manualPicks, autoPicks]);
 
   const projected = useMemo(
     () => projectOrder(CURRENT_ORDER, picks, teams, { getOpponentInfo, h2h: H2H }),
     [picks],
   );
 
-  // No chip ever exists for an AUTO_PICKS team (see the render below), so `picks` can only ever
-  // gain keys beyond that baseline -- never lose or overwrite one -- making a length comparison a
-  // reliable "any manual calls on top of the real results" check.
-  const anyManualPicks = Object.keys(picks).length > Object.keys(AUTO_PICKS).length;
+  const anyManualPicks = Object.keys(manualPicks).some((id) => !autoPicks[id]);
 
   function handlePick(teamId, outcome) {
-    setPicks((prev) => {
+    setManualPicks((prev) => {
       const next = { ...prev };
       const opp = H2H[teamId];
       if (prev[teamId] === outcome) {
@@ -125,6 +156,7 @@ export default function Pickem() {
           const currentRank = CURRENT_ORDER.indexOf(id) + 1;
           const move = currentRank - (i + 1); // positive = projected higher than today
           const { vsAt, opponentTeam, opponentRank, opponentName } = nextGameParts(t.nextGame);
+          const liveGame = liveGameByTeam[id];
           return (
             <div key={id} className="pickem-row">
               <span className="pickem-head">
@@ -144,13 +176,13 @@ export default function Pickem() {
               </span>
               {!t.nextGame ? (
                 <span className="bye">Bye</span>
-              ) : GAME_BY_TEAM[id]?.status === 'final' ? (
+              ) : liveGame?.status === 'final' ? (
                 // Already decided, not a hypothetical -- a static result instead of chips, same
                 // pattern the bye case above already uses (no click target to toggle a real result).
                 <span className="pick-final" style={{ fontSize: 12.5, color: 'var(--ink-2)' }}>
                   Final — {OUTCOMES.find((o) => o.value === picks[id])?.long}{' '}
-                  ({GAME_BY_TEAM[id].home === id ? GAME_BY_TEAM[id].homeScore : GAME_BY_TEAM[id].awayScore}
-                  –{GAME_BY_TEAM[id].home === id ? GAME_BY_TEAM[id].awayScore : GAME_BY_TEAM[id].homeScore})
+                  ({liveGame.home === id ? liveGame.homeScore : liveGame.awayScore}
+                  –{liveGame.home === id ? liveGame.awayScore : liveGame.homeScore})
                 </span>
               ) : (
                 <span className="pick-chips" role="group" aria-label={`Call ${t.name}'s game`}>
@@ -176,7 +208,7 @@ export default function Pickem() {
       <button
         type="button"
         className="toggle-btn"
-        onClick={() => setPicks(AUTO_PICKS)}
+        onClick={() => setManualPicks({})}
         disabled={!anyManualPicks}
         style={anyManualPicks ? undefined : { opacity: 0.5, cursor: 'default' }}
       >

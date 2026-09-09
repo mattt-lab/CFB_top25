@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { formatKickoff, gameStatusBadge, leadingScoreLabel, leadingScoreParts, isPotentialUpset } from '../data/teams.js';
+import { formatKickoff, gameStatusBadge, leadingScoreLabel, leadingScoreParts, isPotentialUpset, periodLabel } from '../data/teams.js';
 import TeamMark from './TeamMark.jsx';
 
 // "#8 Michigan" / "Ball State" -- rank omitted for unranked side. Guards on the resolved team
@@ -55,7 +55,7 @@ export default function GameSlateTable({ games, showUpset = false, showNetwork =
                     // has one, not a status badge competing with it for space.
                     <span className="badge-status badge-live">
                       <span className="pulse-dot" aria-hidden="true" />
-                      {g.period != null ? `Q${g.period}, ${g.clock} remaining` : 'Live'}
+                      {g.period != null ? `${periodLabel(g.period)}, ${g.clock} remaining` : 'Live'}
                     </span>
                   ) : badge.text ? (
                     <span className="badge-status badge-final">{badge.text}</span>
