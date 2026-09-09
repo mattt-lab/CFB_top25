@@ -150,77 +150,88 @@ export default function Pickem() {
         <p>Call this week's games and watch the AP Top 25 re-sort itself into a projected order.</p>
       </div>
 
-      <div className="pickem-list">
-        {projected.map((id, i) => {
-          const t = teamById(id);
-          const currentRank = CURRENT_ORDER.indexOf(id) + 1;
-          const move = currentRank - (i + 1); // positive = projected higher than today
-          const { vsAt, opponentTeam, opponentRank, opponentName } = nextGameParts(t.nextGame);
-          const liveGame = liveGameByTeam[id];
-          return (
-            <div key={id} className="pickem-row">
-              <span className="pickem-head">
-                <span className="rk tabnum">{i + 1}</span>
-                <span className={`delta-badge ${dirFor(move)}`}>{deltaLabel(move)}</span>
-                <span className="info">
-                  <TeamMark team={t} />
-                  <Link className="nm" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
-                  {opponentName && (
-                    <span className="opp">
-                      {vsAt} {opponentRank != null && `#${opponentRank} `}
-                      {opponentTeam && <TeamMark team={opponentTeam} />}
-                      {opponentName}
+      {projected.length === 0 ? (
+        // CURRENT_ORDER (and so `projected`, which just re-sorts it) is empty in the same rare
+        // gap UpNext.jsx's empty state already covers -- e.g. a rollover window where the poll
+        // for this week hasn't landed yet. Same honest-about-gaps message pattern, not a blank list.
+        <p style={{ fontSize: 12.5, color: 'var(--ink-2)', margin: 0 }}>
+          No Top 25 to pick yet -- check back once this week's poll is out.
+        </p>
+      ) : (
+        <>
+          <div className="pickem-list">
+            {projected.map((id, i) => {
+              const t = teamById(id);
+              const currentRank = CURRENT_ORDER.indexOf(id) + 1;
+              const move = currentRank - (i + 1); // positive = projected higher than today
+              const { vsAt, opponentTeam, opponentRank, opponentName } = nextGameParts(t.nextGame);
+              const liveGame = liveGameByTeam[id];
+              return (
+                <div key={id} className="pickem-row">
+                  <span className="pickem-head">
+                    <span className="rk tabnum">{i + 1}</span>
+                    <span className={`delta-badge ${dirFor(move)}`}>{deltaLabel(move)}</span>
+                    <span className="info">
+                      <TeamMark team={t} />
+                      <Link className="nm" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
+                      {opponentName && (
+                        <span className="opp">
+                          {vsAt} {opponentRank != null && `#${opponentRank} `}
+                          {opponentTeam && <TeamMark team={opponentTeam} />}
+                          {opponentName}
+                        </span>
+                      )}
+                    </span>
+                  </span>
+                  {!t.nextGame ? (
+                    <span className="bye">Bye</span>
+                  ) : liveGame?.status === 'final' ? (
+                    // Already decided, not a hypothetical -- a static result instead of chips, same
+                    // pattern the bye case above already uses (no click target to toggle a real result).
+                    <span className="pick-final" style={{ fontSize: 12.5, color: 'var(--ink-2)' }}>
+                      Final — {OUTCOMES.find((o) => o.value === picks[id])?.long}{' '}
+                      ({liveGame.home === id ? liveGame.homeScore : liveGame.awayScore}
+                      –{liveGame.home === id ? liveGame.awayScore : liveGame.homeScore})
+                    </span>
+                  ) : (
+                    <span className="pick-chips" role="group" aria-label={`Call ${t.name}'s game`}>
+                      {OUTCOMES.map((o) => (
+                        <button
+                          key={o.value}
+                          type="button"
+                          className={`pick-chip${picks[id] === o.value ? ' active' : ''}`}
+                          aria-pressed={picks[id] === o.value}
+                          onClick={() => handlePick(id, o.value)}
+                        >
+                          <span className="long">{o.long}</span>
+                          <span className="short">{o.short}</span>
+                        </button>
+                      ))}
                     </span>
                   )}
-                </span>
-              </span>
-              {!t.nextGame ? (
-                <span className="bye">Bye</span>
-              ) : liveGame?.status === 'final' ? (
-                // Already decided, not a hypothetical -- a static result instead of chips, same
-                // pattern the bye case above already uses (no click target to toggle a real result).
-                <span className="pick-final" style={{ fontSize: 12.5, color: 'var(--ink-2)' }}>
-                  Final — {OUTCOMES.find((o) => o.value === picks[id])?.long}{' '}
-                  ({liveGame.home === id ? liveGame.homeScore : liveGame.awayScore}
-                  –{liveGame.home === id ? liveGame.awayScore : liveGame.homeScore})
-                </span>
-              ) : (
-                <span className="pick-chips" role="group" aria-label={`Call ${t.name}'s game`}>
-                  {OUTCOMES.map((o) => (
-                    <button
-                      key={o.value}
-                      type="button"
-                      className={`pick-chip${picks[id] === o.value ? ' active' : ''}`}
-                      aria-pressed={picks[id] === o.value}
-                      onClick={() => handlePick(id, o.value)}
-                    >
-                      <span className="long">{o.long}</span>
-                      <span className="short">{o.short}</span>
-                    </button>
-                  ))}
-                </span>
-              )}
-            </div>
-          );
-        })}
-      </div>
+                </div>
+              );
+            })}
+          </div>
 
-      <button
-        type="button"
-        className="toggle-btn"
-        onClick={() => setManualPicks({})}
-        disabled={!anyManualPicks}
-        style={anyManualPicks ? undefined : { opacity: 0.5, cursor: 'default' }}
-      >
-        Reset picks
-      </button>
+          <button
+            type="button"
+            className="toggle-btn"
+            onClick={() => setManualPicks({})}
+            disabled={!anyManualPicks}
+            style={anyManualPicks ? undefined : { opacity: 0.5, cursor: 'default' }}
+          >
+            Reset picks
+          </button>
 
-      <p className="footnote">
-        Movement scales with opponent quality (poll rank, else SP+) and the margin you call —
-        upsets move mountains, expected wins barely register, a strong resume cushions a bad week,
-        and beating a fellow ranked team always puts you ahead of them. A simplified model, not a
-        committee simulation.
-      </p>
+          <p className="footnote">
+            Movement scales with opponent quality (poll rank, else SP+) and the margin you call —
+            upsets move mountains, expected wins barely register, a strong resume cushions a bad week,
+            and beating a fellow ranked team always puts you ahead of them. A simplified model, not a
+            committee simulation.
+          </p>
+        </>
+      )}
     </div>
   );
 }

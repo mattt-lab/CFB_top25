@@ -3,6 +3,7 @@ import {
   confByRouteSlug, confRaceInfo, gamesInConf, games, fieldStorylines, computeField,
   gameStatusBadge, formatKickoff, WEEK_IDX_MAX,
 } from '../data/teams.js';
+import { useLiveScores } from '../utils/useLiveScores.js';
 import ConferenceStandingsTable from '../components/ConferenceStandingsTable.jsx';
 import TeamMark from '../components/TeamMark.jsx';
 
@@ -21,6 +22,18 @@ function raceLine(conf, race) {
 export default function ConferenceDetail() {
   const { confSlug } = useParams();
   const conf = confByRouteSlug(confSlug);
+
+  // Computed and hooked BEFORE the `!conf` early return below so useLiveScores (a hook) is always
+  // called unconditionally, never skipped for an invalid confSlug -- Rules of Hooks. Safe even
+  // when conf is undefined: gamesInConf(undefined) just filters allGames against a conf no real
+  // team has, so it's already `[]` by the time useLiveScores sees it.
+  const schedule = gamesInConf(conf).slice().sort((a, b) => new Date(a.when) - new Date(b.when));
+  // Conference pages previously never wired into the live overlay at all -- they rendered
+  // whatever status/score data.json had baked in at build time, so a game already FINAL on This
+  // Week/Full Slate could still read "scheduled" here for the rest of the day. Same
+  // useLiveScores(schedule) + per-game merge pattern UpNext.jsx and Pickem.jsx already use.
+  const liveOverlay = useLiveScores(schedule);
+
   if (!conf) return <Navigate to="/conferences" replace />;
 
   const race = confRaceInfo(conf, WEEK_IDX_MAX);
@@ -33,7 +46,7 @@ export default function ConferenceDetail() {
   // multiply Claude calls for a once-daily job, for text that mostly restates what the card already
   // shows).
   const marqueeBlurbByCfbdId = new Map(games.map((g) => [g.cfbdId, g.blurb]));
-  const schedule = gamesInConf(conf).slice().sort((a, b) => new Date(a.when) - new Date(b.when));
+  const liveSchedule = schedule.map((g) => ({ ...g, ...(liveOverlay[g.id] ?? {}) }));
 
   const field = computeField(WEEK_IDX_MAX);
   const inField = {
@@ -56,9 +69,9 @@ export default function ConferenceDetail() {
       </p>
 
       <div className="bracket-label">This week's {conf} games</div>
-      {schedule.length ? (
+      {liveSchedule.length ? (
         <div className="games-grid">
-          {schedule.map((g) => {
+          {liveSchedule.map((g) => {
             const badge = gameStatusBadge(g.status, g.period, g.clock);
             const decided = g.status === 'in_progress' || g.status === 'final';
             const blurb = marqueeBlurbByCfbdId.get(g.cfbdId);

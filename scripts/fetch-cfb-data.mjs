@@ -330,6 +330,50 @@ async function main() {
   }
   for (const id of Object.keys(teamGameLog)) teamGameLog[id].sort((a, b) => a.wk - b.wk);
 
+  // ---- Step 3b: postseason results (record only) -----------------------------------------------
+  // teamRecord above only ever saw seasonType='regular' games (Step 3's own fetch uses the
+  // SEASON_TYPE constant), so a team's final record permanently excluded any bowl/CFP result once
+  // the postseason started -- confirmed live: CFBD classifies bowls/CFP under a SEPARATE
+  // seasonType, 'postseason' (verified via a real /games?seasonType=postseason call against
+  // 2025's actual bowl data: 46 games returned, e.g. Washington 38, Boise State 10 in the LA
+  // Bowl). Also confirmed live that querying seasonType=postseason for the CURRENT, still-in-
+  // progress season returns a clean `[]` (HTTP 200), not an error, so this is safe to run daily
+  // year-round even before bowl matchups exist.
+  //
+  // Postseason games are folded into teamRecord ONLY here, never merged into the main `games`
+  // array above -- CFBD renumbers postseason `week` back to 1 (confirmed in that same live
+  // response), which would collide with the real week 1 in teamGameLog's `wk`-sort and in
+  // opponentRankAtWeek's per-week snapshot lookup if merged there. teamGameLog / the per-team
+  // season-schedule UI (SeasonSchedule.jsx et al., which already frames itself as "regular-season
+  // schedule") stays regular-season-only for now -- properly labeling postseason entries across
+  // its render sites is a separate follow-up, not folded into this fix.
+  console.log(`Fetching postseason games for ${SEASON}...`);
+  const postseasonGames = await cfbdGet('/games', { year: SEASON, seasonType: 'postseason', classification: 'fbs' });
+  for (const g of postseasonGames) {
+    if (!g || !g.homeTeam || !g.awayTeam) continue;
+    const homeId = slugify(g.homeTeam);
+    const awayId = slugify(g.awayTeam);
+    touchTeam(homeId, g.homeTeam, g.homeConference);
+    touchTeam(awayId, g.awayTeam, g.awayConference);
+
+    const completed = g.completed && g.homePoints != null && g.awayPoints != null;
+    // Same tie guard as the regular-season loop above -- equal points on a completed game is
+    // always a data error (football can't end level), never a real result.
+    if (completed && g.homePoints === g.awayPoints) {
+      console.warn(
+        `Postseason game ${g.id} (${g.awayTeam} @ ${g.homeTeam}) is marked completed with equal `
+        + `points (${g.homePoints}-${g.awayPoints}) -- football can't end in a tie, this is a data `
+        + 'error upstream. Skipping the record update rather than guessing a winner.',
+      );
+    } else if (completed) {
+      const homeWon = g.homePoints > g.awayPoints;
+      teamRecord[homeId] = teamRecord[homeId] || { wins: 0, losses: 0 };
+      teamRecord[awayId] = teamRecord[awayId] || { wins: 0, losses: 0 };
+      if (homeWon) { teamRecord[homeId].wins += 1; teamRecord[awayId].losses += 1; }
+      else { teamRecord[awayId].wins += 1; teamRecord[homeId].losses += 1; }
+    }
+  }
+
   // NOTE: this used to compute a separately-derived `NEXT_WEEK` (first week >= currentWeek with
   // an incomplete game), on the theory that mid-season `NEXT_WEEK` naturally lands on
   // `currentWeek + 1` (this week's games done, next week's not yet). That theory was wrong: an AP/

@@ -96,6 +96,14 @@ export default function Layout() {
         {/* Sourced from package.json (not hand-typed) so it can't drift from the real shipped
             version -- same visible-version convention as the Tour de France app's page footers. */}
         <footer style={{ textAlign: 'center', padding: '20px 0 4px', fontSize: 11, color: 'var(--muted)', letterSpacing: '1px' }}>
+          <div style={{ marginBottom: 6, letterSpacing: 'normal' }}>
+            {/* Kickoff times (formatKickoff() in teams.js) render via the browser's own
+                toLocaleString with no explicit timeZone -- i.e. each visitor's own local time,
+                by design, not a fixed ET. A per-time zone abbreviation ("PDT", "EDT") already
+                rides along on every individual kickoff, but that's easy to skim past; this is
+                the explicit, sitewide version of the same fact. */}
+            All times shown in your local time zone.
+          </div>
           v{APP_VERSION}
         </footer>
       </div>

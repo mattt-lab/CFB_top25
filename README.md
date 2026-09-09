@@ -84,10 +84,9 @@ team ids to ESPN's, so an ESPN event can be matched back to one of our games. A 
 can't be matched just keeps whatever `data/current.json` already says (scheduled, or final once the
 next day's pipeline run catches up) — nothing in this path can crash the page.
 
-Covers the homepage marquee panel, the Full Slate table, Up Next, "Your Teams", and team pages (the
-last two go through a `teams[id].nextGame`-to-pseudo-game adapter, `toPseudoGame()`, since that
-field is opponent-relative rather than away/home-relative). Conference schedules aren't wired up
-yet — those still show only what the daily pipeline last committed.
+Covers the homepage marquee panel, the Full Slate table, Up Next, conference schedules, "Your
+Teams", and team pages (the last two go through a `teams[id].nextGame`-to-pseudo-game adapter,
+`toPseudoGame()`, since that field is opponent-relative rather than away/home-relative).
 
 The Full Slate table also uses this live period/score data to flag a potential upset (🔥) —
 `isPotentialUpset()` in `src/data/teams.js` resolves the betting favorite from the spread string,
@@ -167,6 +166,6 @@ src/
   components/                shared UI (game cards, tables, charts, gauges, ...)
   data/teams.js              the frontend's data-loading + pure-helper layer
   data/espnTeamMap.json      our team id -> ESPN team id, for the client-side live overlay
-  utils/useLiveScores.js     client-side ESPN fetch + match (marquee, Full Slate, Up Next, Your Teams, team pages)
+  utils/useLiveScores.js     client-side ESPN fetch + match (marquee, Full Slate, Up Next, conferences, Your Teams, team pages)
 .github/workflows/           fetch-data.yml, deploy-pages.yml, fetch-team-logos.yml (manual)
 ```
