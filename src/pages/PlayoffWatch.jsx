@@ -65,19 +65,29 @@ export default function PlayoffWatch() {
         })}
       </div>
 
-      <div className="bracket-label">Seeds 1–4 — bye week (top 4 conference champions)</div>
+      {/* Straight seeding (CFP rule since 2025): byes go to the top-4 teams by overall rank, not
+          the top-4 conference champions specifically -- a bye seed is only labeled "champ" when
+          it actually IS its conference's highest-ranked team; a non-champion (an at-large team,
+          or an Independent) landing in the top 4 gets "At-large" instead. See computeField's own
+          doc comment in teams.js for the full rule. */}
+      <div className="bracket-label">Seeds 1–4 — bye week (top 4 overall)</div>
       <div className="seed-grid">
-        {field.byes.map((o, i) => (
-          <Link className="seed-card" key={o.id} to={`/team/${o.id}`} state={{ from: 'playoff' }}>
-            <div className="n">Seed {i + 1}</div>
-            <div className="t"><TeamMark team={o.team} />{o.team.name}</div>
-            <div className="c">{o.team.conf} champ · {o.team.record} · #{o.rank} overall</div>
-            <div className="byetag">First-round bye · auto-bid</div>
-          </Link>
-        ))}
+        {field.byes.map((o, i) => {
+          const isChamp = field.champsByConf[o.team.conf]?.id === o.id;
+          return (
+            <Link className="seed-card" key={o.id} to={`/team/${o.id}`} state={{ from: 'playoff' }}>
+              <div className="n">Seed {i + 1}</div>
+              <div className="t"><TeamMark team={o.team} />{o.team.name}</div>
+              <div className="c">
+                {isChamp ? `${o.team.conf} champ` : 'At-large'} · {o.team.record} · #{o.rank} overall
+              </div>
+              <div className="byetag">First-round bye</div>
+            </Link>
+          );
+        })}
       </div>
 
-      <div className="bracket-label">First round — seeds 5–12 (5th champion + 7 at-large)</div>
+      <div className="bracket-label">First round — seeds 5–12</div>
       <div className="matchup-grid">
         {pairs.map(([ai, bi]) => {
           const a = field.seeds5to12[ai], b = field.seeds5to12[bi];
@@ -128,10 +138,11 @@ export default function PlayoffWatch() {
       </section>
 
       <p className="footnote">
-        Seeding applies the real CFP rule: the 4 highest-ranked conference champions get byes, a 5th
-        champion gets a guaranteed at-large-seeded bid, and the rest fills by rank. Each conference's
-        "champion" here is just its current highest-ranked team — real championship games haven't
-        been played in this model.
+        Seeding applies the real CFP rule (straight seeding since the 2025 season): the 5
+        highest-ranked conference champions are guaranteed a spot in the field, but the 4 byes go
+        to whichever teams rank highest overall — a non-champion can out-seed a lower-ranked
+        champion for the bye. Each conference's "champion" here is just its current highest-ranked
+        team — real championship games haven't been played in this model.
         {weekSource !== 'CFP Committee' && (
           <> This week's ranking comes from the {weekSource} — the CFP committee hasn't released
           its first ranking of the season yet, so this is a projection, not an official field.</>

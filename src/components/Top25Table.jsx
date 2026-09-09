@@ -32,10 +32,13 @@ export default function Top25Table() {
           {order.map((id, i) => {
             const rank = i + 1;
             const t = teamById(id);
+            // null means the team debuted in the poll this week (no real previous rank to diff
+            // against) -- render NEW rather than feeding null through arrowGlyph/deltaLabel, which
+            // would otherwise misrender it as a false flat "-0" (see deltaAt's own doc comment).
             const delta = deltaAt(id, WEEK_IDX_MAX);
             const po = playoffOddsFor(rank, t.record, t.sp);
             const no = nattyOddsFor(rank, t.record, t.sp, t.fpi);
-            const color = trendColor(delta);
+            const color = delta == null ? 'var(--muted)' : trendColor(delta);
 
             return (
               <tr
@@ -51,7 +54,7 @@ export default function Top25Table() {
                   <span style={{ color: 'var(--muted)', fontSize: 11 }}>{t.conf}</span>
                 </td>
                 <td className="tabnum">{t.record}</td>
-                <td style={{ color, fontWeight: 700 }}>{deltaLabel(delta)}</td>
+                <td style={{ color, fontWeight: 700 }}>{delta == null ? 'NEW' : deltaLabel(delta)}</td>
                 <td><Sparkline points={sparkPoints(id, WEEK_IDX_MAX)} /></td>
                 <td className="tabnum">{po}%</td>
                 <td className="tabnum">{americanOdds(no)}</td>

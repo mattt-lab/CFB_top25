@@ -5,6 +5,7 @@ import { describe, it, expect } from 'vitest';
 import {
   arrowGlyph, dirFor, trendColor, deltaLabel, computerRatingNote, byRankAsc, trendOf, formatKickoff,
   americanOdds, nextGameParts, gameStatusBadge, leadingScoreLabel, confSlugFor, confByRouteSlug, confRecord,
+  isPotentialUpset,
 } from './teams.js';
 
 describe('americanOdds', () => {
@@ -273,5 +274,53 @@ describe('formatKickoff', () => {
   it('adds the month/day once the game is more than a week out', () => {
     const farOut = new Date(Date.now() + 10 * 86400000).toISOString();
     expect(formatKickoff(farOut)).toMatch(/Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec/);
+  });
+});
+
+describe('isPotentialUpset', () => {
+  // Regression for the "Texas" / "Texas A&M" name-prefix collision: a spread favoring the
+  // LONGER name ("Texas A&M -3.5") also satisfies startsWith() for the shorter "Texas" purely by
+  // coincidence. Texas A&M is genuinely favored here and is winning big -- exactly as expected,
+  // not an upset -- but the pre-fix code resolved the favorite as "Texas" (checked first, shorter
+  // match), which made Texas A&M's real, unsurprising lead look like the underdog blowing out the
+  // favorite. Texas-Texas A&M is a real rivalry game (see data/rivalries.json), not a hypothetical.
+  it('resolves the favorite as the longer name when both team names are startsWith matches', () => {
+    const g = {
+      status: 'in_progress', period: 2, clock: '5:00',
+      away: 'texas', awayTeam: { name: 'Texas' }, awayScore: 3,
+      home: 'texas-a-m', homeTeam: { name: 'Texas A&M' }, homeScore: 21,
+      spread: 'Texas A&M -3.5',
+    };
+    expect(isPotentialUpset(g)).toBe(false);
+  });
+
+  it('flags a live first-half lead by the underdog as a potential upset', () => {
+    const g = {
+      status: 'in_progress', period: 1, clock: '10:00',
+      away: 'nobody', awayTeam: { name: 'Nobody State' }, awayScore: 10,
+      home: 'somebody', homeTeam: { name: 'Somebody U' }, homeScore: 3,
+      spread: 'Somebody U -14',
+    };
+    expect(isPotentialUpset(g)).toBe(true);
+  });
+
+  it('flags an outright underdog win once the game is final', () => {
+    const g = {
+      status: 'final',
+      away: 'nobody', awayTeam: { name: 'Nobody State' }, awayScore: 24,
+      home: 'somebody', homeTeam: { name: 'Somebody U' }, homeScore: 17,
+      spread: 'Somebody U -14',
+    };
+    expect(isPotentialUpset(g)).toBe(true);
+  });
+
+  it('degrades to false rather than guessing when the spread favors neither known name', () => {
+    const g = {
+      status: 'in_progress', period: 1,
+      away: 'a', awayTeam: { name: 'Team A' }, awayScore: 10,
+      home: 'b', homeTeam: { name: 'Team B' }, homeScore: 0,
+      spread: 'Pick \'em',
+    };
+    expect(isPotentialUpset(g)).toBe(false);
   });
 });

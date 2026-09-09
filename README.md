@@ -16,9 +16,10 @@ at **[mattt-lab.github.io/CFB_top25](https://mattt-lab.github.io/CFB_top25/)**.
 - **Up Next** — every game on today's schedule, not just ranked teams, live scores included and
   finished games sorted to the bottom; rolls forward to the next day with games if today's slate is
   empty.
-- **Playoff Watch** — a real, computed projection of the 12-team CFP field: the 4 conference
-  champions who'd get a first-round bye, the 5th auto-bid, the 7 at-large seeds, and who's on the
-  bubble — following the actual CFP seeding rule, not a guess.
+- **Playoff Watch** — a real, computed projection of the 12-team CFP field: straight seeding since
+  2025 (the top-4 teams by overall rank get the bye, not necessarily conference champions), the 5
+  highest-ranked champions guaranteed a spot, the at-large seeds, and who's on the bubble —
+  following the actual current CFP seeding rule, not a guess.
 - **Live game-day scores** — game cards, the Full Slate table, and Up Next all move through
   *scheduled → live → final* on their own as game day unfolds, with a pulsing "LIVE" badge and a
   bigger-than-normal score, then a final score and a recap the moment a game ends. See

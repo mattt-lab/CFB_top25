@@ -104,8 +104,18 @@ export function rankAt(teamId, wIdx) {
   const i = order.indexOf(teamId);
   return i === -1 ? null : i + 1;
 }
+// Returns null (not a number) when either week's rank is unresolved -- a team debuting in the poll
+// this week has no real "previous rank" to diff against, and null - N / N - null would otherwise
+// silently coerce to 0, rendering a false "improved N" or "dropped N" for exactly the teams a
+// visitor is most curious about (poll entrants/exits). Callers must check for null and render
+// "NEW"/an equivalent instead of feeding it to arrowGlyph/deltaLabel/trendColor, which would
+// themselves misrender null as a flat "-0" rather than refusing to guess.
 export function deltaAt(teamId, wIdx) {
-  return wIdx <= WEEK_IDX_MIN ? 0 : rankAt(teamId, wIdx - 1) - rankAt(teamId, wIdx);
+  if (wIdx <= WEEK_IDX_MIN) return 0;
+  const prev = rankAt(teamId, wIdx - 1);
+  const curr = rankAt(teamId, wIdx);
+  if (prev == null || curr == null) return null;
+  return prev - curr;
 }
 export function sparkPoints(teamId, wIdx) {
   const pts = [];
@@ -273,12 +283,22 @@ export function leadingScoreLabel(g) {
 // numeric field, just this string (see fetch-cfb-data.mjs's spread comment). Returns null (not a
 // guess) when there's no line, or the string matches neither name -- a genuine pick'em line, or a
 // name-formatting mismatch between the odds provider and our own team names.
+//
+// One team's name can be a strict prefix of the other's ("Texas" vs. "Texas A&M"/"Texas State"/
+// "Texas Tech" -- all real matchups, Texas-A&M is a rivalry game in data/rivalries.json), so a
+// spread favoring the LONGER-named team ("Texas A&M -3.5") also satisfies startsWith() for the
+// shorter one purely by coincidence. When both names match, the longer name is the real one --
+// the string has to be at least that long for the longer match to succeed at all, so it can't be
+// a coincidental prefix collision the way the shorter match can.
 function favoredSide(g) {
   if (!g.spread) return null;
   const awayName = g.awayTeam?.name;
   const homeName = g.homeTeam?.name;
-  if (awayName && g.spread.startsWith(awayName)) return 'away';
-  if (homeName && g.spread.startsWith(homeName)) return 'home';
+  const awayMatch = !!(awayName && g.spread.startsWith(awayName));
+  const homeMatch = !!(homeName && g.spread.startsWith(homeName));
+  if (awayMatch && homeMatch) return awayName.length >= homeName.length ? 'away' : 'home';
+  if (awayMatch) return 'away';
+  if (homeMatch) return 'home';
   return null;
 }
 
@@ -354,7 +374,14 @@ export function rankedGamesThisWeek() {
   return allGames.filter((g) => g.awayRank != null || g.homeRank != null);
 }
 
-// ---- Auto-bid-aware 12-team field: top-4 conference champs get byes, 5th champ auto-bids, 7 at-large ----
+// ---- Straight-seeded 12-team field (CFP's 2025-26 seeding change) ----
+// The 5 highest-ranked conference champions are GUARANTEED A FIELD SPOT (auto-bid), but the 4
+// byes go to the top-4 teams by overall rank regardless of champion status -- a highly-ranked
+// non-champion (an at-large team, or an Independent, which has no championship to win) can
+// out-seed a lower-ranked champion for the bye. Confirmed against the CFP's own 2025-26 seeding
+// announcement (collegefootballplayoff.com/news/2025/5/22/2526-seeding-rev.aspx). This replaces
+// the pre-2025 rule (byes reserved for the top-4 champs specifically), which this function used
+// to encode. Mirrors scripts/lib/ranking.mjs's computeField exactly -- keep in sync by hand.
 export function computeField(wIdx) {
   const order = WEEKLY_ORDER[wIdx];
   const teams = order.map((id, i) => ({ id, team: teamById(id), rank: i + 1 }));
@@ -369,13 +396,18 @@ export function computeField(wIdx) {
     if (!champsByConf[conf] || o.rank < champsByConf[conf].rank) champsByConf[conf] = o;
   });
   const champs = Object.keys(champsByConf).map((c) => champsByConf[c]).sort((a, b) => a.rank - b.rank);
-  const champIds = {}; champs.forEach((c) => { champIds[c.id] = true; });
-  const byes = champs.slice(0, 4);
-  const fifthChamp = champs.length > 4 ? champs[4] : null;
-  const pool = teams.filter((o) => !champIds[o.id]); // already rank-sorted
-  const atLarge7 = pool.slice(0, 7);
-  const seeds5to12 = (fifthChamp ? [fifthChamp] : []).concat(atLarge7).sort((a, b) => a.rank - b.rank);
-  const usedIds = {}; byes.concat(seeds5to12).forEach((o) => { usedIds[o.id] = true; });
+  // Field selection: the 5 highest-ranked champs are guaranteed in, then fill to 12 with the
+  // best-ranked non-champs (at-large). Seeding: the resulting 12-team field is sorted straight by
+  // overall rank -- the top 4 of THAT sort get byes, whatever mix of champ/at-large they are.
+  const guaranteedChamps = champs.slice(0, 5);
+  const guaranteedIds = {}; guaranteedChamps.forEach((c) => { guaranteedIds[c.id] = true; });
+  const pool = teams.filter((o) => !guaranteedIds[o.id]); // already rank-sorted
+  const atLargeNeeded = 12 - guaranteedChamps.length;
+  const atLarge = pool.slice(0, atLargeNeeded);
+  const field = guaranteedChamps.concat(atLarge).sort((a, b) => a.rank - b.rank);
+  const byes = field.slice(0, 4);
+  const seeds5to12 = field.slice(4, 12);
+  const usedIds = {}; field.forEach((o) => { usedIds[o.id] = true; });
   const bubble = teams.filter((o) => !usedIds[o.id]).slice(0, 4);
   return { byes, seeds5to12, bubble, champsByConf, allTeams: teams };
 }

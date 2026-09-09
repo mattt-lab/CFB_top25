@@ -11,12 +11,15 @@ export default function TeamLadder({ currentId }) {
         {order.map((id, i) => {
           const rank = i + 1;
           const t = teamById(id);
+          // null means the team debuted in the poll this week -- see deltaAt's doc comment.
           const delta = deltaAt(id, WEEK_IDX_MAX);
           const inner = (
             <>
               <span className="rk tabnum">{rank}</span>
               <span className="nm">{t.name}</span>
-              <span className={`dl ${dirFor(delta)}`}>{deltaLabel(delta)}</span>
+              <span className={`dl ${delta == null ? 'flat' : dirFor(delta)}`}>
+                {delta == null ? 'NEW' : deltaLabel(delta)}
+              </span>
             </>
           );
           return (

@@ -174,10 +174,11 @@ function scoreFieldStorylines(current, field) {
 // series -- doesn't apply to whoever occupied the bubble in a past week during time-travel.
 function scoreBubbleNotes(current, field) {
   const notes = {};
-  // Seed position (13-16, by array order), not raw rank: a conference-champion bye can absorb a
-  // higher-ranked team out of the at-large pool, so a bubble team's raw poll rank doesn't
-  // necessarily land at 13-16 even though its SEED does -- confirmed live, e.g. a team ranked #11
-  // overall still landing in the bubble-4 because enough higher-ranked teams were bye champs.
+  // Seed position (13-16, by array order), not raw rank: a lower-ranked conference champion can
+  // still claim one of the 5 guaranteed champ spots ahead of a higher-ranked at-large team, so a
+  // bubble team's raw poll rank doesn't necessarily land at 13-16 even though its SEED does --
+  // e.g. a team ranked #11 overall still landing in the bubble-4 because enough guaranteed champs
+  // (regardless of their own rank) filled the field ahead of it.
   field.bubble.forEach((o, i) => {
     const teamId = o.id;
     const seed = 13 + i;
