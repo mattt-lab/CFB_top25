@@ -112,7 +112,10 @@ export default function Top25Tracker() {
       <section className="card" style={{ marginTop: 22 }}>
         <div className="panel-title">
           <div>
-            <h2>What the model expects — Week {currentWeekNumber} → {currentWeekNumber + 1}</h2>
+            <h2>Current trends and insights — Week {currentWeekNumber}</h2>
+            {/* "expects"/N -> N+1 implied a forecast this panel never made -- the underlying
+                facts (rank vs last week's rank, SP+/FPI gap) are about where a team stands RIGHT
+                NOW, not a prediction of next week. Renamed to match what it actually says. */}
             <p>Notes generated from rankings, resume, and this week's lines.</p>
           </div>
         </div>
