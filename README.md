@@ -6,28 +6,36 @@ at **[mattt-lab.github.io/CFB_top25](https://mattt-lab.github.io/CFB_top25/)**.
 
 ## What it does
 
-- **Top 25 Tracker** — the current AP/Coaches/CFP-resolved ranking, this week's biggest games (with
-  live scores, spreads, and TV/streaming info), and short AI-written notes on the week's most
-  interesting storylines.
+- **This Week** — your pinned teams' status, this week's biggest games (live scores, spreads, and
+  TV/streaming info), short AI-written notes on the week's most interesting storylines, and a
+  compact **Full Slate** table of every ranked team's matchup this week sorted by kickoff — flagged
+  with 🔥 when the underdog is doing better than the spread implies (ahead in the first half, tied
+  or better in Q3, or within a score in Q4/OT; an outright win once final).
+- **Top 25** — the full current AP/Coaches/CFP-resolved ranking board: rank, week-over-week trend, a
+  multi-week rank sparkline, and playoff/title odds for all 25 teams.
+- **Up Next** — every game on today's schedule, not just ranked teams, live scores included and
+  finished games sorted to the bottom; rolls forward to the next day with games if today's slate is
+  empty.
 - **Playoff Watch** — a real, computed projection of the 12-team CFP field: the 4 conference
   champions who'd get a first-round bye, the 5th auto-bid, the 7 at-large seeds, and who's on the
   bubble — following the actual CFP seeding rule, not a guess.
-- **Live game-day scores** — game cards move through *scheduled → live → final* on their own as
-  Saturday unfolds, with a pulsing "LIVE" badge and score, then a final score and a recap the moment
-  a game ends. See [Live scoring](#live-scoring-client-side-not-a-server-poller) below for how this
-  works without a server.
-- **Team pages** — full season history, a ranking-history chart, computer-rating comparisons
-  (SP+/FPI/Elo vs. the poll), a resume of recent results, and a head-to-head/common-opponent
-  comparison against any other team.
+- **Live game-day scores** — game cards, the Full Slate table, and Up Next all move through
+  *scheduled → live → final* on their own as game day unfolds, with a pulsing "LIVE" badge and a
+  bigger-than-normal score, then a final score and a recap the moment a game ends. See
+  [Live scoring](#live-scoring-client-side-not-a-server-poller) below for how this works without a
+  server.
+- **Team pages** — a full season schedule (every game, completed and upcoming), a ranking-history
+  chart, computer-rating comparisons (SP+/FPI/Elo vs. the poll), a resume of recent results, and a
+  head-to-head/common-opponent comparison against another team with real shared history to compare.
 - **Conferences** — a directory of each Power 4 conference's standings, schedules, and the auto-bid
   race for its own CFP spot, with a dedicated page per conference.
 - **Top 25 Pick 'em** — pick a result (blowout win/win/loss/blowout loss) for every ranked team's
-  game this week and see the resulting Top 25 projected live, with head-to-head picks auto-synced
-  between both sides of a ranked-vs-ranked matchup.
+  still-to-play game and watch the Top 25 project live, with head-to-head picks auto-synced between
+  both sides of a ranked-vs-ranked matchup. Once a team's real game goes final, its pick auto-fills
+  from the actual result (≥14-point margin counts as a blowout) — the board fills in with reality as
+  the week plays out, and only still-unplayed games stay pickable.
 - **Pin your teams** — star any team to add it to a personal "Your Teams" strip on the homepage,
   showing record, next opponent, and live/final status at a glance.
-- **Time travel** — step back through any past week's rankings and playoff picture (team pages
-  always show the full season, regardless).
 - **Honest about gaps** — every panel that depends on data that doesn't exist yet (SP+ before it's
   published, trend history before week 2, an AI recap before it's had a moment to write one) says so
   explicitly instead of rendering a wall of blank dashes.
@@ -51,8 +59,13 @@ stages that are deliberately never allowed to blur together:
    never means blank text. Which path produced any given blurb is recorded (`blurbSource`) and
    disclosed to readers in the site's own footnote.
 
-A single GitHub Actions workflow runs this once daily — final scores land the day after a game, via
-this pipeline's own `/games` call. See below for how *in-game* state gets on the page sooner than that.
+A single GitHub Actions workflow runs this once daily (13:00 UTC), plus a second Monday-only run
+(19:30 UTC) to catch weeks whose slate runs into Sunday/Monday and pushes the AP/Coaches poll's
+release later than usual — final scores land the day after a game either way, via this pipeline's
+own `/games` call. That workflow commits with its own `GITHUB_TOKEN`, and GitHub's anti-recursion
+rule means a `GITHUB_TOKEN` push does *not* trigger another workflow's `on: push` listener — so it
+explicitly dispatches `deploy-pages.yml` itself after a real data change, rather than relying on the
+push to cascade. See below for how *in-game* state gets on the page sooner than that.
 
 ### Live scoring: client-side, not a server poller
 
@@ -70,10 +83,15 @@ team ids to ESPN's, so an ESPN event can be matched back to one of our games. A 
 can't be matched just keeps whatever `data/current.json` already says (scheduled, or final once the
 next day's pipeline run catches up) — nothing in this path can crash the page.
 
-Covers the homepage marquee panel, the full Top 25 slate table, "Your Teams", and team pages (the
+Covers the homepage marquee panel, the Full Slate table, Up Next, "Your Teams", and team pages (the
 last two go through a `teams[id].nextGame`-to-pseudo-game adapter, `toPseudoGame()`, since that
 field is opponent-relative rather than away/home-relative). Conference schedules aren't wired up
 yet — those still show only what the daily pipeline last committed.
+
+The Full Slate table also uses this live period/score data to flag a potential upset (🔥) —
+`isPotentialUpset()` in `src/data/teams.js` resolves the betting favorite from the spread string,
+then checks the underdog against a live/final threshold (see the function's own comment for the
+exact rule).
 
 ### Other pipeline details worth knowing
 
@@ -96,14 +114,17 @@ documented in [`docs/data-schema.md`](docs/data-schema.md).
 ## Tech stack
 
 - **React 19 + Vite**, deployed as a static build to GitHub Pages
-- **Zustand** for the small bits of client state (pinned teams, week time-travel)
+- **Zustand** for the one bit of client state that needs it (pinned teams)
 - **Recharts** for the ranking-history chart
 - **Anthropic SDK** (`claude-opus-5`) for narration only — never for selection or scoring
-- **Vitest** for the pure-function test suite (helpers in `src/data/teams.js` and
-  `src/utils/useLiveScores.js`)
+- **Vitest** for the pure-function test suite (helpers in `src/data/teams.js`,
+  `src/utils/useLiveScores.js`, `src/utils/pollSpread.js`, `src/utils/projectTop25.js`, and
+  `src/utils/upNextSchedule.js`)
 - **oxlint** for linting
-- **GitHub Actions**: one workflow for the daily data pipeline, one that builds and deploys the
-  site on every push to `main`, and a manually-triggered one to refresh team logos
+- **GitHub Actions**: one workflow for the data pipeline (daily, plus a Monday-only extra run), one
+  that builds and deploys the site on every push to `main` (including an explicit dispatch from the
+  data workflow itself, since its own commits don't trigger that push listener), and a
+  manually-triggered one to refresh team logos
 
 ## Running it locally
 
@@ -140,11 +161,11 @@ data/
   rivalries.json             hand-maintained rivalry pairs
 docs/data-schema.md          the full schema contract, kept in sync with the pipeline
 src/
-  pages/                     Top25Tracker, Top25Poll, PlayoffWatch, TeamDetail, Conferences,
-                              ConferenceDetail, Pickem
+  pages/                     Top25Tracker (This Week), Top25Poll (Top 25), UpNext, PlayoffWatch,
+                              TeamDetail, Conferences, ConferenceDetail, Pickem
   components/                shared UI (game cards, tables, charts, gauges, ...)
   data/teams.js              the frontend's data-loading + pure-helper layer
   data/espnTeamMap.json      our team id -> ESPN team id, for the client-side live overlay
-  utils/useLiveScores.js     client-side ESPN fetch + match (marquee, full slate, Your Teams, team pages)
+  utils/useLiveScores.js     client-side ESPN fetch + match (marquee, Full Slate, Up Next, Your Teams, team pages)
 .github/workflows/           fetch-data.yml, deploy-pages.yml, fetch-team-logos.yml (manual)
 ```
