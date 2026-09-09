@@ -12,7 +12,15 @@ export default function Top25Tracker() {
   const currentWeekNumber = WEEK_IDX_MAX + 1;
   // rankedGamesThisWeek() is unsorted (same convention as gamesInConf()) -- sort here, not in
   // the data layer. Duplicates with the "biggest games" cards above are intentional, not deduped.
-  const rankedGames = rankedGamesThisWeek().slice().sort((a, b) => new Date(a.when) - new Date(b.when));
+  // A game with no kickoff time yet (TBD, common before a week's broadcast schedule firms up)
+  // sorts to the END, not the top -- `new Date(null)` coerces to the Unix epoch (1970), which
+  // would otherwise float a TBD ranked matchup above every real kickoff time in the table.
+  const rankedGames = rankedGamesThisWeek().slice().sort((a, b) => {
+    if (!a.when && !b.when) return 0;
+    if (!a.when) return 1;
+    if (!b.when) return -1;
+    return new Date(a.when) - new Date(b.when);
+  });
   // ONE shared ESPN fetch covers both the marquee panel and the full-slate table below -- `games`
   // (the marquee) is a subset of the ranked slate more often than not, so deduping by id here
   // avoids two near-simultaneous fetches of the same ESPN scoreboard for the same games.

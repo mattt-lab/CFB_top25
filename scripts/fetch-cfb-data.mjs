@@ -63,6 +63,7 @@ import { dirname, join } from 'node:path';
 import { resolveSeasonYear } from './lib/season.mjs';
 import { tagFor } from './lib/game-log.mjs';
 import { cfbdGet } from './lib/cfbd.mjs';
+import { classifyPoll } from './lib/poll.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -90,29 +91,6 @@ function slugify(name) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-}
-
-// CFBD's /rankings response types `poll` as a bare string, not an enum (confirmed against the
-// live OpenAPI spec -- components.schemas.Poll.poll is just `{type: "string"}`). The actual
-// values it returns ("AP Top 25", "Coaches Poll", "Playoff Committee Rankings", plus lower-tier
-// polls like AFCA Division II) are documented informally by downstream client libraries
-// (cfbfastR). Matched case-insensitively/fuzzily so small wording drift doesn't silently break
-// this script -- unrecognized polls are just skipped.
-function classifyPoll(pollName) {
-  const p = (pollName || '').toLowerCase();
-  // CFBD started also returning FCS-level polls (e.g. "FCS Coaches Poll") in the same /rankings
-  // response as the FBS ones -- confirmed live, 2026 week 1 suddenly added one alongside the real
-  // "Coaches Poll" where only the FBS one existed before. A loose "coaches" substring match can't
-  // tell them apart, and since both entries land in the same `polls` array for that week, whichever
-  // one is processed second silently overwrites weekPolls[wk].coaches -- confirmed live, this
-  // replaced the real Top 25 Coaches Poll with FCS teams (Montana State, Montana, ...) as the
-  // resolved primary ranking. Exclude anything FCS-labeled outright; this app only ever tracks
-  // FBS-level rankings, so there's never a legitimate reason for an FCS poll to match here.
-  if (p.includes('fcs')) return null;
-  if (p.includes('playoff committee') || p === 'cfp') return 'cfp';
-  if (p.includes('coaches')) return 'coaches';
-  if (p.includes('ap top') || p === 'ap') return 'ap';
-  return null;
 }
 
 // ---- main -------------------------------------------------------------------------------
@@ -291,7 +269,17 @@ async function main() {
     // deliberately NOT gated by the `g.week >= weeksAvailable[0]` check below, which only ever
     // controls whether a teamGameLog entry gets pushed. Keep that separation: it's a real,
     // intentional distinction in this code, not something to unify.
-    if (completed) {
+    // Football can't legitimately end level -- OT rules force a winner -- so equal points on a
+    // completed game is always a data error upstream, never a real tie. `homePoints > awayPoints`
+    // silently coerces that case to "away won" (false is falsy), minting a phantom win/loss for
+    // both teams' records instead of surfacing the bad data. Skip the record update and warn.
+    if (completed && g.homePoints === g.awayPoints) {
+      console.warn(
+        `Game ${g.id} (${g.awayTeam} @ ${g.homeTeam}) is marked completed with equal points `
+        + `(${g.homePoints}-${g.awayPoints}) -- football can't end in a tie, this is a data error `
+        + 'upstream. Skipping the record update rather than guessing a winner.',
+      );
+    } else if (completed) {
       const homeWon = g.homePoints > g.awayPoints;
       teamRecord[homeId] = teamRecord[homeId] || { wins: 0, losses: 0 };
       teamRecord[awayId] = teamRecord[awayId] || { wins: 0, losses: 0 };
@@ -309,9 +297,14 @@ async function main() {
     // week that hasn't happened yet, so they use the opponent's CURRENT rank instead (currentRank,
     // hoisted above for exactly this) -- same convention nextGameByTeam's opponentRank uses.
     if (g.week >= weeksAvailable[0]) {
-      const homeWon = completed ? g.homePoints > g.awayPoints : null;
-      const homeRes = completed ? (homeWon ? 'W' : 'L') : null;
-      const awayRes = completed ? (homeWon ? 'L' : 'W') : null;
+      // Same tie guard as the teamRecord block above -- equal points on a completed game is
+      // always a data error (football can't end level), never a real result. res stays null
+      // (same as an unplayed game) rather than asserting a fabricated W/L; the real score numbers
+      // below are left alone since those aren't the part that's wrong.
+      const tied = completed && g.homePoints === g.awayPoints;
+      const homeWon = completed && !tied ? g.homePoints > g.awayPoints : null;
+      const homeRes = completed && !tied ? (homeWon ? 'W' : 'L') : null;
+      const awayRes = completed && !tied ? (homeWon ? 'L' : 'W') : null;
       const homeOppRank = completed ? opponentRankAtWeek(g.week, awayId) : currentRank(awayId);
       const awayOppRank = completed ? opponentRankAtWeek(g.week, homeId) : currentRank(homeId);
       const awayScore = completed ? g.awayPoints : null;
@@ -434,14 +427,39 @@ async function main() {
     // have -- see scripts/lib/cfbd.mjs). So status here is only ever 'scheduled' or 'final'; any
     // "LIVE" state a visitor sees comes entirely from the client-side ESPN overlay
     // (src/utils/useLiveScores.js), never from this committed field.
-    const status = g.completed ? 'final' : 'scheduled';
-    const awayScore = g.completed ? g.awayPoints : null;
-    const homeScore = g.completed ? g.homePoints : null;
+    //
+    // Same guard as Step 3's teamGameLog `completed` -- CFBD can report `completed: true` on a
+    // forfeited/cancelled game without ever populating real points. Trusting g.completed alone
+    // here would ship `status: 'final'` with awayScore/homeScore null, rendering as a blank/NaN
+    // score line instead of a real result -- worse than just leaving it 'scheduled' until real
+    // points (if any) show up in a later fetch.
+    const completed = g.completed && g.homePoints != null && g.awayPoints != null;
+    const status = completed ? 'final' : 'scheduled';
+    const awayScore = completed ? g.awayPoints : null;
+    const homeScore = completed ? g.homePoints : null;
 
+    // nextGameByTeam holds exactly ONE game per team by design (matches teams[id].nextGame's
+    // shape, which every frontend consumer -- TeamDetail, MyTeamsSection, ComparePanel -- assumes
+    // is singular). A team playing twice in the same tracked week (a reschedule doubleheader) is
+    // rare enough that redesigning that shape isn't worth it here, but a silent overwrite with no
+    // trace is worse than a loud one -- warn so it's at least visible in the pipeline's own log
+    // instead of just quietly showing the wrong "next game" to visitors.
+    if (nextGameByTeam[awayId]) {
+      console.warn(
+        `${awayId} already has a nextGame this week (game ${nextGameByTeam[awayId].cfbdId}) -- `
+        + `overwriting with game ${g.id}. Only the later game will show; this team is playing twice.`,
+      );
+    }
     nextGameByTeam[awayId] = {
       opponent: g.homeTeam, opponentId: homeId, opponentRank: homeRank, homeAway: 'away', when, network,
       cfbdId: g.id, status, awayScore, homeScore,
     };
+    if (nextGameByTeam[homeId]) {
+      console.warn(
+        `${homeId} already has a nextGame this week (game ${nextGameByTeam[homeId].cfbdId}) -- `
+        + `overwriting with game ${g.id}. Only the later game will show; this team is playing twice.`,
+      );
+    }
     nextGameByTeam[homeId] = {
       opponent: g.awayTeam, opponentId: awayId, opponentRank: awayRank, homeAway: 'home', when, network,
       cfbdId: g.id, status, awayScore, homeScore,

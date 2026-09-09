@@ -7,10 +7,12 @@ import { matchLiveGames, toPseudoGame, needsPolling } from './useLiveScores.js';
 
 const TEAM_MAP = { 'ohio-state': '194', michigan: '130', clemson: '228', lsu: '99' };
 
-function espnEvent({ awayId, awayScore, homeId, homeScore, state, period, clock }) {
+function espnEvent({ awayId, awayScore, homeId, homeScore, state, period, clock, date }) {
   return {
+    date,
     competitions: [
       {
+        date,
         status: { type: { state }, period, displayClock: clock },
         competitors: [
           { homeAway: 'away', team: { id: awayId }, score: String(awayScore) },
@@ -112,6 +114,23 @@ describe('matchLiveGames', () => {
     };
     expect(matchLiveGames(games, espn, TEAM_MAP)).toEqual({
       g2: { status: 'in_progress', period: 1, clock: '12:00', awayScore: 10, homeScore: 7 },
+    });
+  });
+
+  it('picks the event closest to our own tracked kickoff time when the same pair has two real events (a rematch)', () => {
+    // Ohio State and Michigan play twice: a regular-season game already final, and a rematch
+    // (conference championship/playoff) still to come. Without date disambiguation, `.find()`
+    // would just return whichever one happens to iterate first, regardless of which one our
+    // `g.when` actually points at.
+    const games = [{ id: 'g1', away: 'ohio-state', home: 'michigan', when: '2026-12-06T20:00:00Z' }];
+    const espn = {
+      events: [
+        espnEvent({ awayId: '194', awayScore: 24, homeId: '130', homeScore: 17, state: 'post', date: '2026-11-28T17:00:00Z' }),
+        espnEvent({ awayId: '194', awayScore: 3, homeId: '130', homeScore: 0, state: 'in', period: 1, clock: '14:00', date: '2026-12-06T20:00:00Z' }),
+      ],
+    };
+    expect(matchLiveGames(games, espn, TEAM_MAP)).toEqual({
+      g1: { status: 'in_progress', period: 1, clock: '14:00', awayScore: 3, homeScore: 0 },
     });
   });
 

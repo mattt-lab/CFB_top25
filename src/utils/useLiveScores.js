@@ -65,10 +65,28 @@ export function matchLiveGames(games, espnScoreboard, teamMap = espnTeamMap) {
       const awayEvents = eventsByEspnTeamId.get(awayEspnId);
       const homeEvents = eventsByEspnTeamId.get(homeEspnId);
       if (!awayEvents || !homeEvents) continue;
-      // The one event both teams actually share -- correct regardless of how many OTHER events
-      // either team separately appears in.
-      const event = [...awayEvents].find((e) => homeEvents.has(e));
-      if (!event) continue;
+      // Every event both teams share -- almost always exactly one, but a genuine rematch (a
+      // regular-season pairing replayed in a conference championship or the playoff) can put two
+      // real events for the same pair in the same dateless scoreboard window. Taking "whichever
+      // iterates first" then risks matching last week's already-final score onto this week's
+      // still-upcoming game, or vice versa.
+      const candidates = [...awayEvents].filter((e) => homeEvents.has(e));
+      if (!candidates.length) continue;
+      let event = candidates[0];
+      if (candidates.length > 1 && g.when) {
+        const target = Date.parse(g.when);
+        if (!Number.isNaN(target)) {
+          // Closest to our own tracked kickoff time wins -- degrades to "first found" (the prior
+          // behavior) if none of the candidates' dates parse.
+          event = candidates.reduce((best, c) => {
+            const cDate = Date.parse(c.date);
+            const bestDate = Date.parse(best.date);
+            if (Number.isNaN(cDate)) return best;
+            if (Number.isNaN(bestDate)) return c;
+            return Math.abs(cDate - target) < Math.abs(bestDate - target) ? c : best;
+          }, candidates[0]);
+        }
+      }
 
       const competition = event.competitions[0];
       const competitors = competition.competitors;
