@@ -184,7 +184,11 @@ export function formatKickoff(iso) {
   try {
     const date = new Date(iso);
     const daysOut = (date - new Date()) / 86400000;
-    const opts = { weekday: 'short', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' };
+    // No timeZoneName -- still the visitor's own local time (toLocaleString with no explicit
+    // timeZone), just without a per-game "PDT"/"EDT" suffix cluttering every kickoff time. The
+    // footer's sitewide "All times shown in your local time zone" note (Layout.jsx) covers this
+    // instead, once, rather than repeating it on every single time string.
+    const opts = { weekday: 'short', hour: 'numeric', minute: '2-digit' };
     if (daysOut < 0 || daysOut > 6) Object.assign(opts, { month: 'short', day: 'numeric' });
     return date.toLocaleString('en-US', opts);
   } catch {
