@@ -91,6 +91,33 @@ final (the old script bumped `wins`/`losses` and appended a `teams[id].games[]` 
 saw `"final"`, since the client-side replacement never writes back to committed data at all).
 Records/recaps now only ever settle on `fetch-cfb-data.mjs`'s next once-daily run.
 
+## Blurb narration sources (Stage 2)
+
+`narrate.mjs` writes every `blurb` in this file (`games[]`, `rankedNextGames[]`, `predictions[]`,
+`fieldStorylines[]`, `teams[].bubbleNote`), but it isn't always working from CFBD facts alone.
+Before building its prompt, it enriches each `games[]`/`rankedNextGames[]` entry with real ESPN
+detail, matched via the same `espnTeamMap.json` team-id lookup `useLiveScores.js` uses client-side
+(`scripts/lib/espn-match.mjs`), then extracted by `scripts/lib/espn-game-story.mjs`:
+
+- **A `"final"` game** — ESPN's own AP-sourced recap article (headline/description/full story
+  text) plus real scoring-play and turnover detail, derived from `drives[].result` (confirmed live
+  against ESPN's college-football `summary?event=` endpoint, same shape as the Seahawks_HQ sibling
+  project's NFL version). When present, the LLM writes a real 2-3 sentence recap with a genuine
+  narrative arc instead of a bare score line -- the article is reference material only, rephrased
+  in Claude's own words, never quoted.
+- **A `"scheduled"` game** — ESPN's own win-probability "Matchup Predictor" (e.g. a team favored
+  98.3% to 1.7%), as extra pregame color alongside the CFBD-sourced spread/total already in use.
+
+This enrichment is **ephemeral, not part of the committed schema above**: it's attached to an
+in-memory `_espn` field, read once while building the narration prompt, and stripped back out
+before `narrate.mjs` writes `data/current.json` -- the full article text and scoring-play list for
+up to ~24 games every run would meaningfully bloat a file this repo commits daily, for data no
+other consumer reads once the blurb text itself exists. If the ESPN match fails for a game (no
+event found, a fetch error, or -- most days -- ESPN simply hasn't published a recap article yet
+for a game that only just went final), that one game's blurb quietly falls back to the same plain
+spread-preview/bare-score-recap treatment this file used before this enrichment step existed;
+never blocks the rest of the run.
+
 ## `data/current.json`
 
 ```jsonc

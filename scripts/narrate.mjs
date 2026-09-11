@@ -14,12 +14,19 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
+import { buildEventsByEspnTeamId, findEspnEventId } from './lib/espn-match.mjs';
+import { buildGameStory, hasGameStory, buildPregameContext } from './lib/espn-game-story.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const CURRENT_PATH = join(ROOT, 'data', 'current.json');
+const espnTeamMap = JSON.parse(readFileSync(join(ROOT, 'src', 'data', 'espnTeamMap.json'), 'utf8'));
 
 const MODEL = 'claude-opus-5';
+const ESPN_SCOREBOARD_URL =
+  'https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80&limit=150';
+const espnSummaryUrl = (eventId) =>
+  `https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=${eventId}`;
 
 function teamName(current, teamId) {
   return current.teams[teamId]?.name ?? teamId;
@@ -68,9 +75,12 @@ function fallbackBubbleNoteBlurb(note, current) {
 
 // Shared by both `games` (the marquee 6) and `rankedNextGames` (every other game this week
 // touching a ranked team, see score.mjs) -- identical fact shape, identical blurb rules, so one
-// function feeds both instead of drifting into two near-duplicate mappings.
+// function feeds both instead of drifting into two near-duplicate mappings. `g._espn` (see
+// fetchEspnEnrichment/attachEspnEnrichment below) is present only when a real ESPN match was
+// found for this game -- its fields are simply omitted from the facts sent to Claude otherwise,
+// same "don't invent it, don't ask about it" discipline as everything else in this file.
 function toGameFacts(g, current) {
-  return {
+  const facts = {
     id: g.id,
     away: teamName(current, g.away),
     awayRank: g.awayRank,
@@ -89,6 +99,86 @@ function toGameFacts(g, current) {
     awayScore: g.awayScore,
     homeScore: g.homeScore,
   };
+  const gameStory = g._espn?.gameStory;
+  if (gameStory) {
+    facts.scoringPlays = gameStory.scoringPlays;
+    facts.turnoversByTeam = gameStory.turnoversByTeam;
+    facts.articleHeadline = gameStory.articleHeadline;
+    facts.articleDescription = gameStory.articleDescription;
+    facts.articleStory = gameStory.articleStory;
+  }
+  const pregameContext = g._espn?.pregameContext;
+  if (pregameContext) {
+    facts.awayWinPct = pregameContext.awayWinPct;
+    facts.homeWinPct = pregameContext.homeWinPct;
+  }
+  return facts;
+}
+
+// Enriches the already-selected games (the marquee 6 + rankedNextGames -- NOT the full ~90-100
+// game slate, same cost discipline as everywhere else this pipeline avoids narrating the full
+// slate) with real ESPN detail: a completed game gets the same recap-article + scoring-play/
+// turnover data the Seahawks_HQ sibling project uses for its own postgame recaps (confirmed live
+// 2026-09-11 that ESPN's CFB summary endpoint returns the identical shape); a still-scheduled game
+// gets ESPN's own "Matchup Predictor" win probability as extra pregame color beyond CFBD's spread/
+// total (already used). Same free, no-API-key ESPN endpoint family src/utils/useLiveScores.js
+// already depends on client-side -- no new data source, no new secret to manage.
+//
+// Per-game try/catch: one game's ESPN fetch failing (no event match, a network hiccup, ESPN
+// hasn't published a recap article yet) just means that game's facts omit the enrichment fields
+// above and narrate.mjs falls back to the plain spread/score-based blurb it already wrote before
+// this feature existed -- never blocks the other ~23 games in the same run.
+async function fetchEspnEnrichment(games) {
+  const enrichment = new Map();
+  let scoreboard;
+  try {
+    const res = await fetch(ESPN_SCOREBOARD_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    scoreboard = await res.json();
+  } catch (err) {
+    console.error(`ESPN scoreboard fetch failed, skipping all recap/predictor enrichment this run: ${err.message}`);
+    return enrichment;
+  }
+  const eventsByEspnTeamId = buildEventsByEspnTeamId(scoreboard);
+
+  let matched = 0;
+  let gameStories = 0;
+  let pregameContexts = 0;
+  for (const g of games) {
+    try {
+      const eventId = findEspnEventId(g, eventsByEspnTeamId, espnTeamMap);
+      if (!eventId) continue;
+      matched += 1;
+      const res = await fetch(espnSummaryUrl(eventId));
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const summary = await res.json();
+      if (g.status === 'final') {
+        const gameStory = buildGameStory(summary);
+        if (hasGameStory(gameStory)) {
+          enrichment.set(g.id, { gameStory });
+          gameStories += 1;
+        }
+      } else {
+        const pregameContext = buildPregameContext(summary, espnTeamMap[g.away], espnTeamMap[g.home]);
+        if (pregameContext) {
+          enrichment.set(g.id, { pregameContext });
+          pregameContexts += 1;
+        }
+      }
+    } catch (err) {
+      console.warn(`ESPN enrichment failed for game ${g.id}, will use plain facts: ${err.message}`);
+    }
+  }
+  console.log(
+    `ESPN enrichment: matched ${matched}/${games.length} games to a real ESPN event `
+    + `(${gameStories} recap${gameStories === 1 ? '' : 's'}, ${pregameContexts} predictor${pregameContexts === 1 ? '' : 's'}).`,
+  );
+  return enrichment;
+}
+
+function attachEspnEnrichment(g, enrichment) {
+  const found = enrichment.get(g.id);
+  return found ? { ...g, _espn: found } : g;
 }
 
 function buildFacts(current) {
@@ -157,6 +247,28 @@ the real final score instead, not a preview of a game that's already over. Don't
 pregame spread as a prediction for a final game; if you mention it at all, frame it as whether the
 result matched expectations. "in_progress" means the game is live right now -- treat it the same as
 "final" but describe it as still unfolding rather than decided (you won't usually see this state).
+
+A FINAL game may also carry "articleStory"/"articleHeadline"/"articleDescription" (a real AP wire
+recap article -- reference material and narrative color ONLY: REPHRASE it in your own words, never
+copy sentences or distinctive phrases verbatim) and/or "scoringPlays"/"turnoversByTeam" (verified,
+non-copyrighted structural facts -- use these exact counts/plays if you mention them, not your own
+reading of the article's wording). When these are present, write a real 2-3 sentence recap with an
+actual narrative arc -- a turnover swing, a comeback, a defensive takeover, a specific scoring play
+by the player's name if one is given -- not just the final score restated. When they're absent
+(most days, since this pipeline runs once daily and ESPN doesn't always have its recap article up
+the moment a game goes final), fall back to the plain final-score treatment above instead.
+
+A SCHEDULED game may carry "awayWinPct"/"homeWinPct" (ESPN's own win-probability model -- e.g. 68.2
+means a 68.2% favorite). When present, you can fold this in alongside the spread for pregame color
+("ESPN gives [team] a 68% shot"), but it's one more stat to use, not a substitute for real stakes
+or storyline framing.
+
+Do NOT state or imply anything about a team's championship history, playoff record, past results
+against this specific opponent, awards, or "revenge game"/rivalry-history framing unless that EXACT
+claim appears in the facts given for that game. This is a confirmed, real failure mode, not a
+hypothetical one: an identical prompt in a sibling project once invented a "title defense"
+storyline from a team's general reputation alone, with zero basis in that game's own source
+material -- treat every game's facts as the ONLY thing you know about it.
 
 rankedNextGames use the exact same facts shape and rules as games above -- write them the same way.
 They're additional games (each involving at least one currently-ranked Top 25 team) that didn't
@@ -242,7 +354,13 @@ async function fetchBlurbs(facts) {
   const client = new Anthropic();
   const response = await client.messages.create({
     model: MODEL,
-    max_tokens: 4096,
+    // 4096 (the original value) left too little headroom once real recaps started asking for 2-3
+    // sentences of actual synthesis instead of 1-2 sentences of phrasing -- Opus 5 runs extended
+    // thinking by default, and those thinking tokens draw from the same max_tokens budget as the
+    // visible text (same truncation lesson already learned the hard way in the Seahawks_HQ sibling
+    // project). This is a ceiling, not a target -- doesn't cost more unless a response actually
+    // needs the room.
+    max_tokens: 8192,
     system: SYSTEM_PROMPT,
     tools: [TOOL],
     tool_choice: { type: 'tool', name: 'write_blurbs' },
@@ -261,6 +379,16 @@ async function fetchBlurbs(facts) {
 
 async function main() {
   const current = JSON.parse(readFileSync(CURRENT_PATH, 'utf8'));
+
+  // ESPN enrichment is attached as an ephemeral `_espn` field, read by toGameFacts() above and
+  // stripped back out before this script's own write-back below -- it's a narration INPUT, not
+  // part of the committed data/current.json schema (the full article text + scoring-play list for
+  // up to ~24 games would meaningfully bloat a file that's committed to git on every run, for data
+  // nothing else reads once the blurb itself is written).
+  const enrichment = await fetchEspnEnrichment([...current.games, ...(current.rankedNextGames ?? [])]);
+  current.games = current.games.map((g) => attachEspnEnrichment(g, enrichment));
+  current.rankedNextGames = (current.rankedNextGames ?? []).map((g) => attachEspnEnrichment(g, enrichment));
+
   const facts = buildFacts(current);
 
   let result = null;
@@ -285,22 +413,24 @@ async function main() {
 
   let llmGames = 0;
   current.games = current.games.map((g) => {
+    const { _espn, ...rest } = g; // dropped -- narration input only, not part of the committed schema
     const blurb = gameBlurbs.get(g.id);
     if (typeof blurb === 'string' && blurb.trim()) {
       llmGames += 1;
-      return { ...g, blurb, blurbSource: 'llm' };
+      return { ...rest, blurb, blurbSource: 'llm' };
     }
-    return { ...g, blurb: fallbackGameBlurb(g, current), blurbSource: 'fallback' };
+    return { ...rest, blurb: fallbackGameBlurb(g, current), blurbSource: 'fallback' };
   });
 
   let llmRankedNextGames = 0;
   current.rankedNextGames = (current.rankedNextGames ?? []).map((g) => {
+    const { _espn, ...rest } = g; // dropped -- narration input only, not part of the committed schema
     const blurb = rankedNextGameBlurbs.get(g.id);
     if (typeof blurb === 'string' && blurb.trim()) {
       llmRankedNextGames += 1;
-      return { ...g, blurb, blurbSource: 'llm' };
+      return { ...rest, blurb, blurbSource: 'llm' };
     }
-    return { ...g, blurb: fallbackGameBlurb(g, current), blurbSource: 'fallback' };
+    return { ...rest, blurb: fallbackGameBlurb(g, current), blurbSource: 'fallback' };
   });
 
   // Propagate onto teams[id].nextGame.blurb -- the one shape MyTeamsSection.jsx ("Your Teams")
