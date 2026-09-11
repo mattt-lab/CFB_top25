@@ -17,9 +17,11 @@ function OpponentCell({ g }) {
   const vsAt = g.homeAway === 'home' ? 'vs' : 'at';
   return (
     <>
-      {vsAt} {g.oppRank != null && <span style={{ color: 'var(--muted)' }}>#{g.oppRank} </span>}
-      {oppTeam && <TeamMark team={oppTeam} />}
-      {g.opp}
+      {vsAt} <span className="team-inline">
+        {g.oppRank != null && <span style={{ color: 'var(--muted)' }}>#{g.oppRank} </span>}
+        {oppTeam && <TeamMark team={oppTeam} />}
+        {g.opp}
+      </span>
     </>
   );
 }

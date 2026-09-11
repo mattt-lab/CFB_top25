@@ -49,8 +49,10 @@ export default function Top25Table() {
                 <td><PinButton teamId={id} /></td>
                 <td className="tabnum" style={{ fontWeight: 800 }}>{rank}</td>
                 <td>
-                  <TeamMark team={t} />
-                  <Link className="team-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>{' '}
+                  <span className="team-inline">
+                    <TeamMark team={t} />
+                    <Link className="team-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
+                  </span>{' '}
                   <span style={{ color: 'var(--muted)', fontSize: 11 }}>{t.conf}</span>
                 </td>
                 <td className="tabnum">{t.record}</td>

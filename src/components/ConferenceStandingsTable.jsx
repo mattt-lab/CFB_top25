@@ -50,14 +50,16 @@ export default function ConferenceStandingsTable({ conf }) {
                 <td><PinButton teamId={t.id} /></td>
                 <td className="tabnum" style={{ fontWeight: 800 }}>{natRank ?? '—'}</td>
                 <td>
-                  <TeamMark team={t} />
-                  <Link
-                    className="team-link"
-                    to={`/team/${t.id}`}
-                    state={{ from: 'conference', confSlug: confSlugFor(conf) }}
-                  >
-                    {t.name}
-                  </Link>
+                  <span className="team-inline">
+                    <TeamMark team={t} />
+                    <Link
+                      className="team-link"
+                      to={`/team/${t.id}`}
+                      state={{ from: 'conference', confSlug: confSlugFor(conf) }}
+                    >
+                      {t.name}
+                    </Link>
+                  </span>
                 </td>
                 <td className="tabnum">{cRec.record}</td>
                 <td className="tabnum">{t.record}</td>

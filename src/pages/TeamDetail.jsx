@@ -143,9 +143,11 @@ export default function TeamDetail() {
               {nextOpponent ? (
                 <>
                   <b>
-                    {nextVsAt} {nextOpponentRank != null && `#${nextOpponentRank} `}
-                    {nextOpponentTeam && <TeamMark team={nextOpponentTeam} />}
-                    {nextOpponentName}
+                    {nextVsAt} <span className="team-inline">
+                      {nextOpponentRank != null && `#${nextOpponentRank} `}
+                      {nextOpponentTeam && <TeamMark team={nextOpponentTeam} />}
+                      {nextOpponentName}
+                    </span>
                   </b>
                   {nextBadge.text ? (
                     <span className={`badge-status${nextBadge.live ? ' badge-live' : ' badge-final'}`} style={{ marginLeft: 8 }}>

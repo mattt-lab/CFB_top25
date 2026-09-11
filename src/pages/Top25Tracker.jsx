@@ -67,18 +67,22 @@ export default function Top25Tracker() {
                 </div>
                 <div className="game-teams">
                   <Link className="game-team" to={`/team/${g.away}`}>
-                    {g.awayRank != null && <span className="r">#{g.awayRank}</span>}
-                    {g.awayTeam && <TeamMark team={g.awayTeam} />}
-                    {g.awayTeam?.name ?? g.away}
+                    <span className="team-inline">
+                      {g.awayRank != null && <span className="r">#{g.awayRank}</span>}
+                      {g.awayTeam && <TeamMark team={g.awayTeam} />}
+                      {g.awayTeam?.name ?? g.away}
+                    </span>
                     {g.awayTeam?.record && (
                       <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({g.awayTeam.record})</span>
                     )}
                   </Link>
                   <div className="game-at">at</div>
                   <Link className="game-team" to={`/team/${g.home}`}>
-                    {g.homeRank != null && <span className="r">#{g.homeRank}</span>}
-                    {g.homeTeam && <TeamMark team={g.homeTeam} />}
-                    {g.homeTeam?.name ?? g.home}
+                    <span className="team-inline">
+                      {g.homeRank != null && <span className="r">#{g.homeRank}</span>}
+                      {g.homeTeam && <TeamMark team={g.homeTeam} />}
+                      {g.homeTeam?.name ?? g.home}
+                    </span>
                     {g.homeTeam?.record && (
                       <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({g.homeTeam.record})</span>
                     )}

@@ -252,6 +252,14 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
    the margin-right gap on the mark's other side. .rank-prefix wraps just that "#N" text so it gets
    its own margin, scoped to these two spots instead of changing .team-mark's spacing everywhere. */
 .rank-prefix { margin-right: 4px; }
+/* Wraps a loose inline "#rank [mark] Team Name" run (Top25Tracker/ConferenceDetail's .game-team,
+   GameSlateTable's TeamCell, TeamDetail's next-game line, SeasonSchedule's OpponentCell,
+   Top25Table/ConferenceStandingsTable's team cell) so a narrow viewport can only wrap BETWEEN two
+   teams (at "at"/"vs."), never between one team's own rank, mark, and name -- confirmed live on
+   iOS Safari that a plain inline <img>+text boundary is a valid break point even with no
+   whitespace between them. Deliberately plain (not display:flex/inline-flex) -- every call site
+   already relies on .team-mark's own margin-right for icon-to-text spacing, not a flex gap. */
+.team-inline { white-space: nowrap; }
 .rank-figure { font-size: 64px; line-height: 1; font-weight: 800; font-stretch: 78%; letter-spacing: -0.02em; }
 .rank-block { display: flex; align-items: flex-end; gap: 10px; margin-top: 6px; }
 .eyebrow-lbl { font-size: 11.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); }
@@ -301,6 +309,16 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 .game-team:hover { color: var(--accent); }
 .game-team .r { color: var(--muted); font-weight: 700; margin-right: 5px; }
 .game-at { font-size: 11px; color: var(--muted); padding: 0 6px; }
+/* Below 480px, two side-by-side .game-team links each carrying a nowrapped "#rank [mark] Team
+   Name" (.team-inline, added so the mark can't separate from the name) no longer reliably fit
+   half the row each -- confirmed live at 320px with real same-week matchups (e.g. "#1 Ohio State"
+   vs "#4 Texas"), text spilled past the card's right edge instead of wrapping. Stacking the two
+   teams into their own full-width lines instead of squeezing them side by side gives each one the
+   full card width to render its nowrapped identity without truncation. */
+@media (max-width: 480px) {
+  .game-teams { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .game-at { padding: 0; }
+}
 .game-line { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 12px; }
 .game-line.game-line-score { justify-content: center; padding-bottom: 2px; }
 .game-line .spread { font-weight: 800; font-variant-numeric: tabular-nums; }
@@ -366,7 +384,11 @@ table.data-table tbody tr.upset-row { background: color-mix(in srgb, var(--accen
 .seed-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px; cursor: pointer; text-align: left; font: inherit; color: inherit; text-decoration: none; display: block; }
 .seed-card:hover { border-color: var(--accent); }
 .seed-card .n { font-size: 11px; font-weight: 800; color: var(--tier-lock); text-transform: uppercase; letter-spacing: .04em; }
-.seed-card .t { font-size: 15px; font-weight: 800; margin-top: 4px; }
+/* white-space: nowrap -- unlike .matchup-row .t and .conf-race-card .ld (both already
+   display:flex, so the mark and name are separate flex items that wrap as atomic units), this .t
+   is a plain block div with the mark and name as loose inline content -- vulnerable to a line
+   break landing directly between the mark and the name with no space required. */
+.seed-card .t { font-size: 15px; font-weight: 800; margin-top: 4px; white-space: nowrap; }
 .seed-card .c { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
 .seed-card .byetag { display: inline-block; margin-top: 8px; font-size: 10px; font-weight: 700; color: var(--tier-lock); background: color-mix(in srgb, var(--tier-lock) 16%, transparent); padding: 2px 7px; border-radius: 999px; }
 .seed-card[disabled] { cursor: default; opacity: .7; }
@@ -386,18 +408,31 @@ table.data-table tbody tr.upset-row { background: color-mix(in srgb, var(--accen
 .bubble-row { display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; cursor: pointer; text-decoration: none; color: inherit; position: relative; }
 .bubble-row:hover { border-color: var(--accent); }
 .bubble-row .rk { font-weight: 800; font-size: 14px; width: 22px; }
-.bubble-row .nm { font-weight: 700; font-size: 13.5px; flex: 1; }
+/* white-space: nowrap -- a team's own name is a proper noun and should never break mid-word onto
+   a second line just because .nm's flex:1 got squeezed on a narrow phone (confirmed live: this IS
+   what a long name like "Mississippi State" did before this was added). */
+.bubble-row .nm { font-weight: 700; font-size: 13.5px; flex: 1; white-space: nowrap; }
+/* .record sits between the name and .needs (own team's identity), NOT inside .needs (opponent
+   info) -- confirmed live this was the actual bug: at the 640px breakpoint below, .needs drops to
+   its own full-width line, and having .record live inside .needs meant a team's OWN record
+   visually attached to the OPPONENT's line ("1-0" reading like part of "vs Utah State") instead
+   of its own name's line. flex: none matches its old sizing now that it's a direct .bubble-row
+   item instead of a .needs child. */
+.bubble-row .record { font-weight: 700; color: var(--ink-1); flex: none; }
 .bubble-row .needs { font-size: 12px; color: var(--ink-2); flex: 2; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-/* "Your Teams" row content: record left, opponent bold in the middle, kickoff/network pushed
-   right. PlayoffWatch's bubble rows reuse .needs for a single plain note -- justify-content has
-   no visible effect on a lone text node, so this is safe for both. */
-.bubble-row .needs .record { font-weight: 700; color: var(--ink-1); flex: none; }
-.bubble-row .needs .opp { font-weight: 700; color: var(--ink-1); }
+/* "Your Teams" row content: opponent bold, kickoff/network pushed right. PlayoffWatch's bubble
+   rows reuse .needs for a single plain note -- justify-content has no visible effect on a lone
+   text node, so this is safe for both. .opp gets the same white-space: nowrap .pickem-row .opp
+   already uses -- confirmed live on iOS Safari that a plain inline <img>+text boundary (the rank
+   prefix, team mark, and opponent name inside .opp) is a valid line-break point even with no
+   space between them, which could otherwise strand the mark alone away from the name it belongs
+   to instead of wrapping the whole "#5 [mark] Team Name" unit together. */
+.bubble-row .needs .opp { font-weight: 700; color: var(--ink-1); white-space: nowrap; }
 .bubble-row .needs .kickoff { flex: none; text-align: right; }
 /* Narrow phones: the row was a fixed single line (rank, logo, name, record, opponent, kickoff,
    pin) with no wrap at all -- confirmed live, it just overflowed the card instead of reflowing,
-   with the pin button overlapping whatever text didn't fit. .needs (record/opponent/kickoff)
-   drops to its own full-width line below rank/logo/name/pin (order pulls it after the pin button
+   with the pin button overlapping whatever text didn't fit. .needs (opponent/kickoff) drops to
+   its own full-width line below rank/logo/name/record/pin (order pulls it after the pin button
    despite coming before it in the DOM, so the pin stays on line 1 rather than being pushed down
    too), and wraps internally so a long opponent name and a long kickoff string don't have to
    share one line either. */

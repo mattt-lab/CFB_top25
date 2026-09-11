@@ -56,10 +56,12 @@ export default function MyTeamsSection() {
               <span className="rk tabnum">{rank ?? '—'}</span>
               <TeamMark team={t} />
               <Link className="nm row-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
+              {/* 0-0 just means the season hasn't started for this team yet -- not a stat worth a
+                  permanent slot on the card before it means anything. Lives next to the name, NOT
+                  inside .needs below -- .needs is opponent info and drops to its own line on a
+                  narrow phone, which used to strand this team's own record on the opponent's line. */}
+              {(t.wins > 0 || t.losses > 0) && <span className="tabnum record">{t.record}</span>}
               <span className="needs">
-                {/* 0-0 just means the season hasn't started for this team yet -- not a stat
-                    worth a permanent slot on the card before it means anything. */}
-                {(t.wins > 0 || t.losses > 0) && <span className="tabnum record">{t.record}</span>}
                 <span className="opp">
                   {opponentName ? (
                     <>

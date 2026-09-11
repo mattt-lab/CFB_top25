@@ -7,11 +7,11 @@ import TeamMark from './TeamMark.jsx';
 // unresolved FCS buy-game foe).
 function TeamCell({ id, rank, team }) {
   return (
-    <>
+    <span className="team-inline">
       {rank != null && <span style={{ color: 'var(--muted)' }}>#{rank} </span>}
       {team && <TeamMark team={team} />}
       <Link to={`/team/${id}`}>{team?.name ?? id}</Link>
-    </>
+    </span>
   );
 }
 
