@@ -312,12 +312,15 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 /* Below 480px, two side-by-side .game-team links each carrying a nowrapped "#rank [mark] Team
    Name" (.team-inline, added so the mark can't separate from the name) no longer reliably fit
    half the row each -- confirmed live at 320px with real same-week matchups (e.g. "#1 Ohio State"
-   vs "#4 Texas"), text spilled past the card's right edge instead of wrapping. Stacking the two
-   teams into their own full-width lines instead of squeezing them side by side gives each one the
-   full card width to render its nowrapped identity without truncation. */
+   vs "#4 Texas"), text spilled past the card's right edge instead of wrapping. flex-wrap (row
+   direction, NOT flex-direction: column -- an earlier version of this fix forced "at" onto its
+   own isolated line, which read oddly) lets the row wrap wherever it naturally runs out of space:
+   normally that's right after the away team, so "at" rides along at the end of that line ("#1
+   Ohio State (1-0) at"), with the home team alone on the line below. justify-content: flex-start
+   overrides the row's own space-between so a short first line doesn't stretch "at" out to the
+   card's far edge. */
 @media (max-width: 480px) {
-  .game-teams { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .game-at { padding: 0; }
+  .game-teams { flex-wrap: wrap; justify-content: flex-start; row-gap: 4px; }
 }
 .game-line { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 12px; }
 .game-line.game-line-score { justify-content: center; padding-bottom: 2px; }
