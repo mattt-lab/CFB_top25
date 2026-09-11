@@ -36,7 +36,8 @@ at **[mattt-lab.github.io/CFB_top25](https://mattt-lab.github.io/CFB_top25/)**.
   from the actual result (≥14-point margin counts as a blowout) — the board fills in with reality as
   the week plays out, and only still-unplayed games stay pickable.
 - **Pin your teams** — star any team to add it to a personal "Your Teams" strip on the homepage,
-  showing record, next opponent, and live/final status at a glance.
+  showing record, next opponent, and live/final status at a glance, plus the same AI-written
+  analysis blurb the marquee panel gets whenever that game involves a currently-ranked team.
 - **Honest about gaps** — every panel that depends on data that doesn't exist yet (SP+ before it's
   published, trend history before week 2, an AI recap before it's had a moment to write one) says so
   explicitly instead of rendering a wall of blank dashes.

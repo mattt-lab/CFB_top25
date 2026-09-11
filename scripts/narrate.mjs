@@ -66,8 +66,11 @@ function fallbackBubbleNoteBlurb(note, current) {
   return `#${note.seed} ${name} sits ${note.spotsFromField} spot${note.spotsFromField === 1 ? '' : 's'} outside the field.`;
 }
 
-function buildFacts(current) {
-  const games = current.games.map((g) => ({
+// Shared by both `games` (the marquee 6) and `rankedNextGames` (every other game this week
+// touching a ranked team, see score.mjs) -- identical fact shape, identical blurb rules, so one
+// function feeds both instead of drifting into two near-duplicate mappings.
+function toGameFacts(g, current) {
+  return {
     id: g.id,
     away: teamName(current, g.away),
     awayRank: g.awayRank,
@@ -85,7 +88,12 @@ function buildFacts(current) {
     status: g.status,
     awayScore: g.awayScore,
     homeScore: g.homeScore,
-  }));
+  };
+}
+
+function buildFacts(current) {
+  const games = current.games.map((g) => toGameFacts(g, current));
+  const rankedNextGames = (current.rankedNextGames ?? []).map((g) => toGameFacts(g, current));
 
   const predictions = current.predictions.map((p) => {
     const t = current.teams[p.teamId] ?? {};
@@ -132,7 +140,7 @@ function buildFacts(current) {
       nextOpponentRank: t.bubbleNote.nextOpponentRank,
     }));
 
-  return { games, predictions, fieldStorylines, bubbleNotes };
+  return { games, rankedNextGames, predictions, fieldStorylines, bubbleNotes };
 }
 
 const SYSTEM_PROMPT = `You write short, punchy blurbs for a college football Top 25 tracking site.
@@ -150,6 +158,11 @@ pregame spread as a prediction for a final game; if you mention it at all, frame
 result matched expectations. "in_progress" means the game is live right now -- treat it the same as
 "final" but describe it as still unfolding rather than decided (you won't usually see this state).
 
+rankedNextGames use the exact same facts shape and rules as games above -- write them the same way.
+They're additional games (each involving at least one currently-ranked Top 25 team) that didn't
+make today's "biggest games" cut, but still get shown to any visitor tracking one of the teams
+playing in them, so they deserve the same real preview/recap treatment, not a lesser afterthought.
+
 Field storylines come in two flavors: "conf-race-gap" (how tight a conference's race for the
 automatic playoff bid is between the leader and the chaser right behind them) and
 "bye-line-matchup"/"bubble-line-matchup" (an upcoming game between two teams in the same
@@ -166,6 +179,17 @@ const TOOL = {
     type: 'object',
     properties: {
       games: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+            blurb: { type: 'string' },
+          },
+          required: ['id', 'blurb'],
+        },
+      },
+      rankedNextGames: {
         type: 'array',
         items: {
           type: 'object',
@@ -210,7 +234,7 @@ const TOOL = {
         },
       },
     },
-    required: ['games', 'predictions', 'fieldStorylines', 'bubbleNotes'],
+    required: ['games', 'rankedNextGames', 'predictions', 'fieldStorylines', 'bubbleNotes'],
   },
 };
 
@@ -225,7 +249,7 @@ async function fetchBlurbs(facts) {
     messages: [
       {
         role: 'user',
-        content: `Write blurbs for these games, predictions, field storylines, and bubble notes:\n\n${JSON.stringify(facts, null, 2)}`,
+        content: `Write blurbs for these games, ranked-team next games, predictions, field storylines, and bubble notes:\n\n${JSON.stringify(facts, null, 2)}`,
       },
     ],
   });
@@ -240,7 +264,10 @@ async function main() {
   const facts = buildFacts(current);
 
   let result = null;
-  if (!facts.games.length && !facts.predictions.length && !facts.fieldStorylines.length && !facts.bubbleNotes.length) {
+  if (
+    !facts.games.length && !facts.rankedNextGames.length && !facts.predictions.length
+    && !facts.fieldStorylines.length && !facts.bubbleNotes.length
+  ) {
     console.log('Nothing to narrate.');
   } else {
     try {
@@ -251,6 +278,7 @@ async function main() {
   }
 
   const gameBlurbs = new Map((result?.games ?? []).map((g) => [g.id, g.blurb]));
+  const rankedNextGameBlurbs = new Map((result?.rankedNextGames ?? []).map((g) => [g.id, g.blurb]));
   const predictionBlurbs = new Map((result?.predictions ?? []).map((p) => [p.teamId, p.blurb]));
   const storylineBlurbs = new Map((result?.fieldStorylines ?? []).map((s) => [s.id, s.blurb]));
   const bubbleNoteBlurbs = new Map((result?.bubbleNotes ?? []).map((b) => [b.teamId, b.blurb]));
@@ -264,6 +292,36 @@ async function main() {
     }
     return { ...g, blurb: fallbackGameBlurb(g, current), blurbSource: 'fallback' };
   });
+
+  let llmRankedNextGames = 0;
+  current.rankedNextGames = (current.rankedNextGames ?? []).map((g) => {
+    const blurb = rankedNextGameBlurbs.get(g.id);
+    if (typeof blurb === 'string' && blurb.trim()) {
+      llmRankedNextGames += 1;
+      return { ...g, blurb, blurbSource: 'llm' };
+    }
+    return { ...g, blurb: fallbackGameBlurb(g, current), blurbSource: 'fallback' };
+  });
+
+  // Propagate onto teams[id].nextGame.blurb -- the one shape MyTeamsSection.jsx ("Your Teams")
+  // actually reads, since it renders per-pinned-team, not per-game. Joined by cfbdId (CFBD's raw
+  // numeric game id), the one field both a game entry and a team's nextGame already carry -- see
+  // docs/data-schema.md's nextGame.cfbdId comment. Covers current.games AND current.rankedNextGames
+  // in one map so a marquee game and a ranked-next-game never get narrated twice: whichever one a
+  // team's next game actually matches, both sides of that SAME game (even an unranked team whose
+  // opponent happens to be ranked) get the identical blurb, not two differently-worded ones.
+  const blurbByCfbdId = new Map();
+  for (const g of [...current.games, ...current.rankedNextGames]) {
+    blurbByCfbdId.set(g.cfbdId, { blurb: g.blurb, blurbSource: g.blurbSource });
+  }
+  let teamsWithNextGameBlurb = 0;
+  for (const t of Object.values(current.teams)) {
+    if (!t.nextGame) continue;
+    const found = blurbByCfbdId.get(t.nextGame.cfbdId);
+    t.nextGame.blurb = found?.blurb ?? null;
+    t.nextGame.blurbSource = found?.blurbSource ?? null;
+    if (found) teamsWithNextGameBlurb += 1;
+  }
 
   let llmPredictions = 0;
   current.predictions = current.predictions.map((p) => {
@@ -301,6 +359,8 @@ async function main() {
   }
 
   console.log(`Games: ${llmGames}/${current.games.length} narrated by LLM, ${current.games.length - llmGames} fell back.`);
+  console.log(`Ranked next games: ${llmRankedNextGames}/${current.rankedNextGames.length} narrated by LLM, ${current.rankedNextGames.length - llmRankedNextGames} fell back.`);
+  console.log(`Teams with a next-game blurb: ${teamsWithNextGameBlurb}/${Object.values(current.teams).filter((t) => t.nextGame).length} (bye teams excluded).`);
   console.log(`Predictions: ${llmPredictions}/${current.predictions.length} narrated by LLM, ${current.predictions.length - llmPredictions} fell back.`);
   console.log(`Field storylines: ${llmStorylines}/${current.fieldStorylines.length} narrated by LLM, ${current.fieldStorylines.length - llmStorylines} fell back.`);
   console.log(`Bubble notes: ${llmBubbleNotes}/${bubbleTeamIds.length} narrated by LLM, ${bubbleTeamIds.length - llmBubbleNotes} fell back.`);

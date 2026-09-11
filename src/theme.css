@@ -407,8 +407,11 @@ table.data-table tbody tr.upset-row { background: color-mix(in srgb, var(--accen
 
 .bubble-list { display: flex; flex-direction: column; gap: 8px; }
 /* position:relative -- anchors .row-link::after (see MyTeamsSection.jsx) so the stretched click
-   target covers just this row, not the whole list or page. */
-.bubble-row { display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; cursor: pointer; text-decoration: none; color: inherit; position: relative; }
+   target covers just this row, not the whole list or page. flex-wrap: wrap is unconditional (not
+   just under the 640px breakpoint below) so .bubble-blurb can always force itself onto its own
+   full-width line -- harmless at wide widths, where everything already fits on one row anyway and
+   wrapping simply never triggers. */
+.bubble-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; row-gap: 6px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; cursor: pointer; text-decoration: none; color: inherit; position: relative; }
 .bubble-row:hover { border-color: var(--accent); }
 .bubble-row .rk { font-weight: 800; font-size: 14px; width: 22px; }
 /* white-space: nowrap -- a team's own name is a proper noun and should never break mid-word onto
@@ -432,6 +435,14 @@ table.data-table tbody tr.upset-row { background: color-mix(in srgb, var(--accen
    to instead of wrapping the whole "#5 [mark] Team Name" unit together. */
 .bubble-row .needs .opp { font-weight: 700; color: var(--ink-1); white-space: nowrap; }
 .bubble-row .needs .kickoff { flex: none; text-align: right; }
+/* Analysis blurb for a pinned team's next game (see score.mjs/narrate.mjs's rankedNextGames) --
+   only present when either side of that game is currently ranked, so this simply isn't rendered
+   at all otherwise (MyTeamsSection.jsx), not an empty line. Same text treatment as the marquee's
+   .game-impl. flex-basis: 100% forces its own full-width line unconditionally (not just under the
+   640px breakpoint below) since a blurb sentence never belongs squeezed next to the row above it;
+   order: 2 keeps it below .needs (order: 1) regardless of DOM position -- team identity, then
+   opponent/kickoff, then the blurb, always in that reading order. */
+.bubble-blurb { flex-basis: 100%; order: 2; font-size: 12px; color: var(--ink-2); line-height: 1.4; }
 /* Narrow phones: the row was a fixed single line (rank, logo, name, record, opponent, kickoff,
    pin) with no wrap at all -- confirmed live, it just overflowed the card instead of reflowing,
    with the pin button overlapping whatever text didn't fit. .needs (opponent/kickoff) drops to
@@ -440,7 +451,6 @@ table.data-table tbody tr.upset-row { background: color-mix(in srgb, var(--accen
    too), and wraps internally so a long opponent name and a long kickoff string don't have to
    share one line either. */
 @media (max-width: 640px) {
-  .bubble-row { flex-wrap: wrap; row-gap: 6px; }
   .bubble-row .needs { order: 1; flex-basis: 100%; flex-wrap: wrap; justify-content: flex-start; row-gap: 4px; }
   .bubble-row .needs .kickoff { text-align: left; }
 }

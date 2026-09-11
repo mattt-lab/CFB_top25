@@ -13,6 +13,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { rankAt, distanceToCutoff, computeField } from './lib/ranking.mjs';
+import { selectRankedNextGames } from './lib/ranked-next-games.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -236,7 +237,21 @@ function main() {
     current.teams[id].bubbleNote = bubbleNotes[id] || null;
   }
 
+  // Every OTHER game this week that didn't make the marquee 6 but still involves at least one
+  // currently-ranked (Top 25) team -- lets "Your Teams" show an analysis blurb for a pinned team's
+  // next game even when that game wasn't stakes-y enough for the "biggest games" cut. Reuses
+  // scoredGames' already-computed stakesScore/sort rather than re-deriving anything; deduped
+  // against keptGames by id so a marquee game is never narrated (and billed) twice under two
+  // different blurbs -- Stage 2 propagates the SAME blurb onto both wherever they'd otherwise
+  // collide, see narrate.mjs.
+  const rankedNextGames = selectRankedNextGames(scoredGames, keptGames);
+  console.log(
+    `Ranked next games: ${rankedNextGames.length} additional game${rankedNextGames.length === 1 ? '' : 's'} `
+    + `involve a ranked team beyond the ${keptGames.length} marquee games.`,
+  );
+
   current.games = keptGames;
+  current.rankedNextGames = rankedNextGames;
   current.predictions = keptPredictions;
   current.fieldStorylines = fieldStorylines;
 

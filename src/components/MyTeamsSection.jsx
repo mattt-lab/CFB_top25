@@ -85,6 +85,10 @@ export default function MyTeamsSection() {
                 )}
               </span>
               <PinButton teamId={id} />
+              {/* Only ever set (see score.mjs/narrate.mjs) when this team's next game involves at
+                  least one currently-ranked Top 25 team -- an unranked pin playing an unranked
+                  opponent just renders no blurb line at all, not an empty one. */}
+              {t.nextGame?.blurb && <div className="bubble-blurb">{t.nextGame.blurb}</div>}
             </div>
           );
         })}

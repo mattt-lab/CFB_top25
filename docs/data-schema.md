@@ -183,16 +183,24 @@ Records/recaps now only ever settle on `fetch-cfb-data.mjs`'s next once-daily ru
         "homeAway": "home",     // "home" | "away" — is THIS team hosting or visiting
         "when": "2026-11-29T17:00:00Z",
         "network": "FOX",       // same source as games[].network; null if CFBD has no media entry yet
-        "cfbdId": 401628383,    // CFBD's own numeric game id -- kept for identity/debugging; no
-                                // current reader joins against it (the live-score overlay only
-                                // covers games[] today, matched via espnTeamMap.json instead, not
-                                // by cfbdId -- see "Game status lifecycle" above)
+        "cfbdId": 401628383,    // CFBD's own numeric game id -- Stage 2 narration (task #7) joins
+                                // `blurb`/`blurbSource` below against this same id in `games[]`/
+                                // `rankedNextGames[]`. The live-score overlay still matches games[]
+                                // today via espnTeamMap.json, not by cfbdId -- see "Game status
+                                // lifecycle" above.
         "status": "scheduled",  // "scheduled" | "final" as committed here -- see "Game status
                                 // lifecycle" above for why "in_progress" never appears in this file
         "awayScore": null,      // null until the game has started
         "homeScore": null,
         "period": null,         // always null as committed here -- see "Game status lifecycle" above
-        "clock": null           // always null as committed here -- see "Game status lifecycle" above
+        "clock": null,          // always null as committed here -- see "Game status lifecycle" above
+        "blurb": "Ohio State hosts Michigan...", // Stage 2 output -- the SAME blurb as this game's
+                                // entry in `games[]` (if it made the marquee 6) or `rankedNextGames[]`
+                                // (if it didn't, but either side is ranked); null if neither team in
+                                // this game is currently ranked. Read by MyTeamsSection.jsx
+                                // ("Your Teams") to show an analysis line under a pinned team's
+                                // next game -- renders nothing when this is null, not an empty line.
+        "blurbSource": null     // "llm" | "fallback" | null (null pairs with blurb: null above)
       },                        // null (not present as an object) if this team has no game in
                                 // currentWeek's slate — bye week, or no games left on the schedule
       "bubbleNote": {           // present ONLY for the 4 teams currently on the playoff bubble
@@ -265,7 +273,37 @@ Records/recaps now only ever settle on `fetch-cfb-data.mjs`'s next once-daily ru
     }
   ],
 
-  // This week's scored + narrated team storylines (the "what the model expects" panel).
+  // Every OTHER game this week (beyond the 6 in `games` above) that still involves at least one
+  // currently-ranked Top 25 team, narrated the same way as `games` -- lets "Your Teams" show a
+  // real analysis blurb for a pinned team's next game even when it wasn't stakes-y enough for the
+  // marquee cut, without narrating the full ~90-100 game slate (the same cost tradeoff `allGames`'
+  // comment above already explains). Deduped against `games` by `id`: a game that already made the
+  // marquee never appears here too. Same per-game shape as `games`/`allGames`; not rendered as its
+  // own panel anywhere -- Stage 2 (narration) propagates each entry's blurb onto BOTH teams'
+  // `teams[id].nextGame.blurb` (joined by `cfbdId`), which is the shape MyTeamsSection.jsx actually
+  // reads. A team whose next game isn't in `games` OR `rankedNextGames` (neither side ranked) keeps
+  // `nextGame.blurb: null` -- the frontend renders nothing for that row, not an empty string.
+  "rankedNextGames": [
+    {
+      "id": "2026-wk12-iowa-state-iowa",
+      "cfbdId": 401856788,
+      "away": "iowa-state", "awayRank": null,
+      "home": "iowa", "homeRank": 21,
+      "when": "2026-09-12T23:30:00Z",
+      "spread": "Iowa -14",
+      "ou": 41.5,
+      "network": "NBC",
+      "rivalry": true,
+      "status": "scheduled",
+      "awayScore": null, "homeScore": null,
+      "period": null, "clock": null,
+      "stakesScore": 4.3,
+      "blurb": "Iowa is a 14-point home favorite over rival Iowa State...",
+      "blurbSource": "llm"
+    }
+  ],
+
+  // This week's scored + narrated team storylines (the "Current trends and insights" panel).
   "predictions": [
     {
       "teamId": "vanderbilt",
@@ -390,7 +428,7 @@ branding change doesn't break joins.
 | `meta`, `rankingsByWeek`, `teams` (except `games[].tag`/`oppConf`) | fetch script (task #5) |
 | `allGames` (full weekly slate) | fetch script (task #5) -- `games` is a Stage 1-derived subset, not independently fetched |
 | `teams[].games[]` (full array, completed + upcoming, daily) | fetch script, rebuilt from scratch each run -- `oppConf` from that same `/games` response's `awayConference`/`homeConference`; `tag`/`res` computed for completed games using that week's `rankings/wkNN.json` snapshot for the opponent's point-in-time rank, and left `null` for upcoming games |
-| `games[].stakesScore`, `predictions[].score`, `fieldStorylines`, `teams[].bubbleNote` (minus `blurb`/`blurbSource`) | Stage 1 scoring (task #6) -- also where `games` itself is derived from `allGames` |
-| `games[].blurb`, `predictions[].blurb`, `fieldStorylines[].blurb`, `teams[].bubbleNote.blurb`, all `blurbSource` fields | Stage 2 narration (task #7), with a deterministic-line fallback on failure -- status-aware: a pregame preview for scheduled games, a postgame recap for final ones |
+| `games[].stakesScore`, `rankedNextGames`, `predictions[].score`, `fieldStorylines`, `teams[].bubbleNote` (minus `blurb`/`blurbSource`) | Stage 1 scoring (task #6) -- also where `games` and `rankedNextGames` are both derived from `allGames` |
+| `games[].blurb`, `rankedNextGames[].blurb`, `teams[].nextGame.blurb`, `predictions[].blurb`, `fieldStorylines[].blurb`, `teams[].bubbleNote.blurb`, all `blurbSource` fields | Stage 2 narration (task #7), with a deterministic-line fallback on failure -- status-aware: a pregame preview for scheduled games, a postgame recap for final ones. `teams[].nextGame.blurb` is copied from whichever of `games[]`/`rankedNextGames[]` matches that team's next game by `cfbdId`, not narrated a second time |
 | `games[]`/`allGames[].cfbdId`/`status`/`awayScore`/`homeScore`, `teams[].nextGame.cfbdId`/`status`/`awayScore`/`homeScore` | fetch script (`"scheduled"`/`"final"` only, from `/games`) -- see "Game status lifecycle" above |
 | `games[]`'s `status`/`period`/`clock`/`awayScore`/`homeScore` as actually RENDERED on the homepage marquee, while a game is live | `src/utils/useLiveScores.js`, client-side only, from ESPN's public scoreboard -- never written to `data/current.json`; see "Game status lifecycle" above |
