@@ -57,13 +57,14 @@ export default function GameSlateTable({ games, showUpset = false, showNetwork =
                     // reimplemented inline here with its own separate "remaining" wording and no
                     // guard against a nonsensical "Q0" badge; now both fixes live in one place, not
                     // two slightly-different copies. Network rendered INSIDE this same span (not as
-                    // a trailing sibling text node) with a middot, not a comma -- confirmed live the
-                    // old trailing ", FOX" wrapped onto its own line in this narrow column, reading
-                    // as an orphaned fragment starting with a stray comma.
+                    // a trailing sibling text node), space-separated with no middot -- confirmed
+                    // live the old trailing ", FOX" wrapped onto its own line in this narrow column,
+                    // reading as an orphaned fragment starting with a stray comma; a middot before
+                    // it read as one separator too many next to the clock ("Q4 4:00 · FOX").
                     <span className="badge-status badge-live">
                       <span className="pulse-dot" aria-hidden="true" />
                       {badge.detail}
-                      {showNetwork && g.network && ` · ${g.network}`}
+                      {showNetwork && g.network && ` ${g.network}`}
                     </span>
                   ) : badge.text ? (
                     // No network for a decided game -- once it's final, the outlet it aired on

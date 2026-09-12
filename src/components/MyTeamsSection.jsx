@@ -73,12 +73,18 @@ export default function MyTeamsSection() {
                   {badge.text ? (
                     <span className={`badge-status${badge.live ? ' badge-live' : ' badge-final'}`}>
                       {badge.live && <span className="pulse-dot" aria-hidden="true" />}
-                      {badge.text}{badge.detail && ` · ${badge.detail}`}
+                      {/* Live: just the quarter/clock, no "LIVE" text -- same as the marquee cards
+                          and GameSlateTable's kickoff column (Up Next / Full Slate). */}
+                      {badge.live ? badge.detail : badge.text}
                     </span>
                   ) : (
                     t.nextGame && formatKickoff(t.nextGame.when, true)
                   )}
-                  {(!badge.text || badge.live) && t.nextGame?.network && <span> · {t.nextGame.network}</span>}
+                  {/* Space-separated once live ("Q4 4:00 FOX", no middot) matching GameSlateTable;
+                      the dot stays for the scheduled case ("SAT 2:30 PM · BTN"). */}
+                  {(!badge.text || badge.live) && t.nextGame?.network && (
+                    <span>{badge.live ? ' ' : ' · '}{t.nextGame.network}</span>
+                  )}
                 </span>
                 <PinButton teamId={id} />
               </div>

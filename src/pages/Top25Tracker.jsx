@@ -57,15 +57,21 @@ export default function Top25Tracker() {
                   {badge.text ? (
                     <span className={`badge-status${badge.live ? ' badge-live' : ' badge-final'}`}>
                       {badge.live && <span className="pulse-dot" aria-hidden="true" />}
-                      {badge.text}{badge.detail && ` · ${badge.detail}`}
+                      {/* Live: just the quarter/clock (Q2 7:36), no "LIVE" text -- the pulse-dot and
+                          accent color already say that, same as GameSlateTable's kickoff column
+                          (Up Next / Full Slate). Final still shows the word, since there's no
+                          detail to show in its place. */}
+                      {badge.live ? badge.detail : badge.text}
                     </span>
                   ) : (
                     formatKickoff(g.when, true)
                   )}
                   {/* Network dropped once a game is final (badge.text && !badge.live) -- the
-                      outlet it aired on stops being useful info next to a decided result. Same
-                      fix as GameSlateTable's kickoff column, extended here for consistency. */}
-                  {(!badge.text || badge.live) && g.network && <span> · {g.network}</span>}
+                      outlet it aired on stops being useful info next to a decided result. Space-
+                      separated (no middot) once live, matching GameSlateTable's "Q4 4:00 FOX" --
+                      a dot there read as one separator too many right next to the game clock. The
+                      dot stays for the scheduled case ("SAT 6:30 PM · ABC"), a different pairing. */}
+                  {(!badge.text || badge.live) && g.network && <span>{badge.live ? ' ' : ' · '}{g.network}</span>}
                   {g.rivalry && <span className="tag rivalry" style={{ marginLeft: 8 }}>Rivalry</span>}
                 </div>
                 <div className="game-teams">

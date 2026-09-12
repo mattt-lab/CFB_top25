@@ -81,15 +81,18 @@ export default function ConferenceDetail() {
                   {badge.text ? (
                     <span className={`badge-status${badge.live ? ' badge-live' : ' badge-final'}`}>
                       {badge.live && <span className="pulse-dot" aria-hidden="true" />}
-                      {badge.text}{badge.detail && ` · ${badge.detail}`}
+                      {/* Live: just the quarter/clock, no "LIVE" text -- same as the marquee cards
+                          and GameSlateTable's kickoff column (Up Next / Full Slate). */}
+                      {badge.live ? badge.detail : badge.text}
                     </span>
                   ) : (
                     formatKickoff(g.when, true)
                   )}
                   {/* Network dropped once a game is final (badge.text && !badge.live) -- the
-                      outlet it aired on stops being useful info next to a decided result. Same
-                      fix as GameSlateTable's kickoff column, extended here for consistency. */}
-                  {(!badge.text || badge.live) && g.network && <span> · {g.network}</span>}
+                      outlet it aired on stops being useful info next to a decided result. Space-
+                      separated once live ("Q4 4:00 FOX", no middot), matching GameSlateTable; the
+                      dot stays for the scheduled case ("SAT 6:30 PM · ABC"). */}
+                  {(!badge.text || badge.live) && g.network && <span>{badge.live ? ' ' : ' · '}{g.network}</span>}
                   {g.rivalry && <span className="tag rivalry" style={{ marginLeft: 8 }}>Rivalry</span>}
                 </div>
                 <div className="game-teams">
