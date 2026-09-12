@@ -76,7 +76,10 @@ export default function Layout() {
           <NavLink to="/top25" className={({ isActive }) => (isActive ? 'active' : '')}>
             Top 25
           </NavLink>
-          <NavLink to="/pickem" className={({ isActive }) => (isActive ? 'active' : '')}>
+          {/* Hidden on phones (see .nav-desktop-only, theme.css) -- the Top 25 page already has
+              its own "Play Pick 'em →" CTA (Top25Poll.jsx), so this tab is redundant crowding on
+              a narrow nav bar, not the only way in. Stays in the desktop nav as a direct shortcut. */}
+          <NavLink to="/pickem" className={({ isActive }) => ['nav-desktop-only', isActive ? 'active' : ''].filter(Boolean).join(' ')}>
             Top 25 Pick 'em
           </NavLink>
           {/* Playoff Watch stays LAST in the nav (user rule) -- new tabs go before it. Muted
