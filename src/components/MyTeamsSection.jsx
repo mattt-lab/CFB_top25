@@ -1,9 +1,20 @@
 import { Link } from 'react-router-dom';
 import { usePinnedStore } from '../store/usePinnedStore.js';
-import { teamById, rankAt, byRankAsc, nextGameParts, gameStatusBadge, WEEK_IDX_MAX } from '../data/teams.js';
+import {
+  teamById, rankAt, byRankAsc, nextGameParts, gameStatusBadge, formatKickoff, allGames, WEEK_IDX_MAX,
+} from '../data/teams.js';
 import { useLiveScores, toPseudoGame } from '../utils/useLiveScores.js';
 import TeamMark from './TeamMark.jsx';
 import PinButton from './PinButton.jsx';
+
+// allGames (the full current-week slate) carries spread/ou -- nextGame (teams[id].nextGame) does
+// not, so a pinned team's own game is looked up here by cfbdId, the same join key narrate.mjs
+// already uses to attach nextGame.blurb. Built once per render, not once per row.
+function gameByCfbdId() {
+  const map = new Map();
+  for (const g of allGames) map.set(g.cfbdId, g);
+  return map;
+}
 
 export default function MyTeamsSection() {
   const pinned = usePinnedStore((s) => s.pinned);
@@ -21,6 +32,7 @@ export default function MyTeamsSection() {
   // unconditionally (rules of hooks), before the empty-list early return below.
   const pseudoGames = visible.map(({ id, team }) => toPseudoGame(id, team.nextGame)).filter(Boolean);
   const liveOverlay = useLiveScores(pseudoGames);
+  const gamesByCfbdId = gameByCfbdId();
 
   // Nothing to show -- drop the whole card rather than an always-there empty-state message,
   // which was permanent clutter on the very first thing every visitor saw on the homepage.
@@ -28,10 +40,7 @@ export default function MyTeamsSection() {
 
   return (
     // Plain section, not .card -- the title lives OUTSIDE any card here, same as "This week's
-    // biggest games" below it and PlayoffWatch's own bubble-list usage. Wrapping the whole
-    // section in .card used to nest one bordered/backgrounded box (.card) around each row's own
-    // already-bordered/backgrounded box (.bubble-row) -- confirmed live on iOS, it read as two
-    // cards stacked directly on top of each other instead of one row per team.
+    // biggest games" below it and PlayoffWatch's own bubble-list usage.
     <section style={{ marginBottom: 22 }}>
       <div className="panel-title" style={{ marginBottom: 10 }}>
         <div>
@@ -39,67 +48,93 @@ export default function MyTeamsSection() {
           <p>Pinned teams — click the ☆ on any team below to add it here.</p>
         </div>
       </div>
-      <div className="bubble-list">
+      <div className="games-grid">
         {visible.map(({ id, rank, team: t }) => {
           const {
             vsAt, opponentTeam, opponentRank, opponentName,
-            kickoff, homeAway, status, awayScore, homeScore, period, clock,
+            homeAway, status, awayScore, homeScore, period, clock,
           } = nextGameParts(t.nextGame ? { ...t.nextGame, ...(liveOverlay[id] ?? {}) } : null);
           const badge = gameStatusBadge(status, period, clock);
+          const decided = status === 'in_progress' || status === 'final';
           const mine = homeAway === 'home' ? homeScore : awayScore;
           const theirs = homeAway === 'home' ? awayScore : homeScore;
+          const matchedGame = t.nextGame ? gamesByCfbdId.get(t.nextGame.cfbdId) : null;
           return (
-            // A plain div, not itself a <Link> -- PinButton used to be nested INSIDE the row's
-            // <Link>, which is invalid HTML (interactive content inside an <a>) and meant tapping
-            // the star also triggered the anchor's native navigation (stopPropagation alone
-            // doesn't stop that; only preventDefault would, and simplicity here beat fighting the
-            // browser's default-action handling). Same stretched-link pattern as Top25Table.jsx
-            // instead: a real, independently-clickable Link around just the team name, stretched
-            // via .row-link::after to cover the whole row, with the pin button as a sibling that
-            // sits above it (see .pin-btn's z-index in theme.css).
-            <div key={id} className="bubble-row">
-              <span className="rk tabnum">{rank ?? '—'}</span>
-              <TeamMark team={t} />
-              <Link className="nm row-link" to={`/team/${id}`} state={{ from: 'top25' }}>
-                {t.name}
-                {/* 0-0 just means the season hasn't started for this team yet -- not a stat worth
-                    a permanent slot on the card before it means anything. Rendered inline right
-                    after the name (not a separate flex item after .nm) so it reads as one unit,
-                    "Washington (1-0)", matching the marquee's own "#1 Ohio State (1-0)" convention
-                    -- confirmed live a separate flex item here landed way out at the far edge of
-                    .nm's grown box instead of next to the visible name. Still not inside .needs
-                    below -- .needs is opponent info and drops to its own line on a narrow phone,
-                    which used to strand this team's own record on the opponent's line. */}
-                {(t.wins > 0 || t.losses > 0) && <span className="tabnum record"> ({t.record})</span>}
-              </Link>
-              <span className="needs">
-                <span className="opp">
-                  {opponentName ? (
-                    <>
-                      {vsAt} {opponentRank != null && `#${opponentRank} `}
-                      {opponentTeam && <TeamMark team={opponentTeam} />}
-                      {opponentName}
-                    </>
-                  ) : 'Bye week'}
+            // Same three-part shape as "This week's biggest games" below it, reusing its
+            // .game-card/.game-meta/.game-teams/.game-line/.game-impl classes directly: kickoff +
+            // network + pin star on top, the matchup in the middle, spread/O-U (or the live/final
+            // score) on the dashed line, narrative last. .game-card gets position:relative (see
+            // theme.css) so .row-link::after below can stretch a click target across the whole
+            // card, same trick the old .bubble-row used -- PinButton stays a plain sibling with
+            // its own z-index (theme.css) so tapping the star doesn't also trigger that navigation.
+            <div key={id} className="game-card">
+              <div className="game-meta game-meta-pinned">
+                <span>
+                  {badge.text ? (
+                    <span className={`badge-status${badge.live ? ' badge-live' : ' badge-final'}`}>
+                      {badge.live && <span className="pulse-dot" aria-hidden="true" />}
+                      {badge.text}{badge.detail && ` · ${badge.detail}`}
+                    </span>
+                  ) : (
+                    t.nextGame && formatKickoff(t.nextGame.when, true)
+                  )}
+                  {(!badge.text || badge.live) && t.nextGame?.network && <span> · {t.nextGame.network}</span>}
                 </span>
-                {badge.text ? (
-                  <span className={`kickoff badge-status${badge.live ? ' badge-live' : ' badge-final'}`}>
-                    {badge.live && <span className="pulse-dot" aria-hidden="true" />}
-                    {badge.live && mine != null && theirs != null ? (
-                      <><span className="live-score-num">{mine}–{theirs}</span> {badge.text}</>
-                    ) : (
-                      <>{mine != null && theirs != null ? `${mine}–${theirs} · ` : ''}{badge.text}</>
-                    )}
+                <PinButton teamId={id} />
+              </div>
+              <div className="game-teams">
+                <Link className="game-team row-link" to={`/team/${id}`} state={{ from: 'top25' }}>
+                  <span className="team-inline">
+                    {rank != null && <span className="r">#{rank}</span>}
+                    <TeamMark team={t} />
+                    {t.name}
                   </span>
+                  {/* 0-0 just means the season hasn't started for this team yet -- not a stat
+                      worth a permanent slot on the card before it means anything. */}
+                  {(t.wins > 0 || t.losses > 0) && (
+                    <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({t.record})</span>
+                  )}
+                </Link>
+                {opponentName ? (
+                  <>
+                    <div className="game-at">{vsAt}</div>
+                    <span className="game-team">
+                      <span className="team-inline">
+                        {opponentRank != null && <span className="r">#{opponentRank}</span>}
+                        {opponentTeam && <TeamMark team={opponentTeam} />}
+                        {opponentName}
+                      </span>
+                      {opponentTeam?.record && (
+                        <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({opponentTeam.record})</span>
+                      )}
+                    </span>
+                  </>
                 ) : (
-                  kickoff && <span className="kickoff">{kickoff}</span>
+                  <span style={{ color: 'var(--muted)' }}>Bye week</span>
                 )}
-              </span>
-              <PinButton teamId={id} />
+              </div>
+              {t.nextGame && (
+                <div className={`game-line${decided ? ' game-line-score' : ''}`}>
+                  {decided ? (
+                    // mine/theirs (not away/home) -- this card is "my" team's perspective, so my
+                    // score always sits on the same side as my team's name above it.
+                    <span className={`score${badge.live ? ' score-live' : ''}`}>
+                      <span className="score-num">{mine}</span>
+                      <span className="score-sep">–</span>
+                      <span className="score-num">{theirs}</span>
+                    </span>
+                  ) : (
+                    <>
+                      {matchedGame?.spread && <span className="spread">{matchedGame.spread}</span>}
+                      {matchedGame?.ou != null && <span style={{ color: 'var(--muted)' }}>O/U {matchedGame.ou}</span>}
+                    </>
+                  )}
+                </div>
+              )}
               {/* Only ever set (see score.mjs/narrate.mjs) when this team's next game involves at
                   least one currently-ranked Top 25 team -- an unranked pin playing an unranked
                   opponent just renders no blurb line at all, not an empty one. */}
-              {t.nextGame?.blurb && <div className="bubble-blurb">{t.nextGame.blurb}</div>}
+              {t.nextGame?.blurb && <div className="game-impl">{t.nextGame.blurb}</div>}
             </div>
           );
         })}

@@ -114,11 +114,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .hist-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: color-mix(in srgb, var(--accent) 14%, var(--panel)); border: 1px solid var(--accent); border-radius: 10px; padding: 10px 16px; margin: 0 0 16px; font-size: 13px; font-weight: 600; }
 
 /* Pins & conference dots */
-/* position+z-index: the "whole row clickable" stretched-link trick (.row-link::after, further
-   down -- .bubble-row/Your Teams only now, see the Safari note near .team-link) covers the entire
-   row with an absolutely-positioned overlay. Without this, that overlay -- a later, positioned
-   element -- paints ABOVE the pin button (a plain, non-positioned button), silently swallowing
-   every click/tap meant for the star. Confirmed live: the star was completely unresponsive.
+/* position+z-index: the "whole card clickable" stretched-link trick (.row-link::after, further
+   down -- "Your Teams" game-card only now, see MyTeamsSection.jsx) covers the entire card with an
+   absolutely-positioned overlay. Without this, that overlay -- a later, positioned element --
+   paints ABOVE the pin button (a plain, non-positioned button), silently swallowing every
+   click/tap meant for the star. Confirmed live: the star was completely unresponsive.
    (The Top 25 table and Conference standings don't need this anymore -- they moved off the
    stretched-link trick entirely, onto a plain <tr onClick>, so there's no overlay to shadow the
    pin button there in the first place.) */
@@ -210,8 +210,8 @@ table.data-table tbody tr.row-click { cursor: pointer; }
 table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 .team-link { color: inherit; text-decoration: none; }
 .team-link:hover { color: var(--accent); }
-/* .bubble-row (MyTeamsSection.jsx) is a <div>, not a <tr> -- divs don't have the Safari
-   containing-block bug above, so the stretched-link trick stays safe to use here. */
+/* .game-card (MyTeamsSection.jsx's "Your Teams" cards) is a <div>, not a <tr> -- divs don't have
+   the Safari containing-block bug above, so the stretched-link trick stays safe to use here. */
 .row-link { position: static; color: inherit; text-decoration: none; }
 .row-link::after { content: ''; position: absolute; inset: 0; }
 
@@ -302,8 +302,16 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 /* Overview-specific */
 .games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 @media (max-width: 720px) { .games-grid { grid-template-columns: 1fr; } }
-.game-card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+/* position: relative -- anchors .row-link::after ("Your Teams" only, see MyTeamsSection.jsx and
+   the .row-link comment further down) so a pinned team's stretched click target covers just its
+   own card, not the whole grid or page. No effect on the plain (non-pinned) marquee cards below,
+   which don't use .row-link at all. */
+.game-card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; position: relative; }
 .game-meta { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; margin-bottom: 8px; }
+/* "Your Teams" only -- puts the pin star at the far right of the same line as kickoff/network,
+   matching the user-requested "date/network/star, then matchup, then O-U/narrative" order. The
+   plain marquee cards don't have a star, so they use bare .game-meta (block, no flex) unchanged. */
+.game-meta-pinned { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .game-teams { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .game-team { font-size: 14.5px; font-weight: 700; color: inherit; text-decoration: none; }
 .game-team:hover { color: var(--accent); }
@@ -405,56 +413,15 @@ table.data-table tbody tr.upset-row { background: color-mix(in srgb, var(--accen
 .matchup-row .t { font-size: 13.5px; font-weight: 700; flex: 1; display: flex; align-items: center; }
 .matchup-vs { font-size: 10px; color: var(--muted); text-align: center; padding: 2px 0; letter-spacing: .06em; }
 
+/* Only remaining consumer is PlayoffWatch.jsx's bubble list (rank, logo, name, a single plain
+   note) -- "Your Teams" moved onto the .game-card grid above it instead (see MyTeamsSection.jsx),
+   so it no longer needs its own record/opponent/kickoff/blurb sub-rules; removed along with it. */
 .bubble-list { display: flex; flex-direction: column; gap: 8px; }
-/* position:relative -- anchors .row-link::after (see MyTeamsSection.jsx) so the stretched click
-   target covers just this row, not the whole list or page. flex-wrap: wrap is unconditional (not
-   just under the 640px breakpoint below) so .bubble-blurb can always force itself onto its own
-   full-width line -- harmless at wide widths, where everything already fits on one row anyway and
-   wrapping simply never triggers. */
 .bubble-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; row-gap: 6px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; cursor: pointer; text-decoration: none; color: inherit; position: relative; }
 .bubble-row:hover { border-color: var(--accent); }
 .bubble-row .rk { font-weight: 800; font-size: 14px; width: 22px; }
-/* white-space: nowrap -- a team's own name is a proper noun and should never break mid-word onto
-   a second line just because .nm's flex:1 got squeezed on a narrow phone (confirmed live: this IS
-   what a long name like "Mississippi State" did before this was added). */
 .bubble-row .nm { font-weight: 700; font-size: 13.5px; flex: 1; white-space: nowrap; }
-/* .record is now rendered INSIDE .nm's <Link>, right after the name text (see MyTeamsSection.jsx),
-   not as its own flex item -- it used to be a sibling flex item instead, which put it at the far
-   edge of .nm's grown (flex:1) box instead of right next to the visible name ("Washington" ...
-   far-right-floating "1-0" rather than "Washington (1-0)" read as one unit). Still not inside
-   .needs (opponent info): at the 640px breakpoint below, .needs drops to its own full-width line,
-   and a record living there would visually attach to the OPPONENT's line ("1-0" reading like part
-   of "vs Utah State") instead of its own name's line. */
-.bubble-row .nm .record { font-weight: 700; color: var(--ink-1); }
 .bubble-row .needs { font-size: 12px; color: var(--ink-2); flex: 2; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-/* "Your Teams" row content: opponent bold, kickoff/network pushed right. PlayoffWatch's bubble
-   rows reuse .needs for a single plain note -- justify-content has no visible effect on a lone
-   text node, so this is safe for both. .opp gets the same white-space: nowrap .pickem-row .opp
-   already uses -- confirmed live on iOS Safari that a plain inline <img>+text boundary (the rank
-   prefix, team mark, and opponent name inside .opp) is a valid line-break point even with no
-   space between them, which could otherwise strand the mark alone away from the name it belongs
-   to instead of wrapping the whole "#5 [mark] Team Name" unit together. */
-.bubble-row .needs .opp { font-weight: 700; color: var(--ink-1); white-space: nowrap; }
-.bubble-row .needs .kickoff { flex: none; text-align: right; }
-/* Analysis blurb for a pinned team's next game (see score.mjs/narrate.mjs's rankedNextGames) --
-   only present when either side of that game is currently ranked, so this simply isn't rendered
-   at all otherwise (MyTeamsSection.jsx), not an empty line. Same text treatment as the marquee's
-   .game-impl. flex-basis: 100% forces its own full-width line unconditionally (not just under the
-   640px breakpoint below) since a blurb sentence never belongs squeezed next to the row above it;
-   order: 2 keeps it below .needs (order: 1) regardless of DOM position -- team identity, then
-   opponent/kickoff, then the blurb, always in that reading order. */
-.bubble-blurb { flex-basis: 100%; order: 2; font-size: 12px; color: var(--ink-2); line-height: 1.4; }
-/* Narrow phones: the row was a fixed single line (rank, logo, name, record, opponent, kickoff,
-   pin) with no wrap at all -- confirmed live, it just overflowed the card instead of reflowing,
-   with the pin button overlapping whatever text didn't fit. .needs (opponent/kickoff) drops to
-   its own full-width line below rank/logo/name/record/pin (order pulls it after the pin button
-   despite coming before it in the DOM, so the pin stays on line 1 rather than being pushed down
-   too), and wraps internally so a long opponent name and a long kickoff string don't have to
-   share one line either. */
-@media (max-width: 640px) {
-  .bubble-row .needs { order: 1; flex-basis: 100%; flex-wrap: wrap; justify-content: flex-start; row-gap: 4px; }
-  .bubble-row .needs .kickoff { text-align: left; }
-}
 
 .conf-race-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 @media (max-width: 780px) { .conf-race-grid { grid-template-columns: 1fr; } }
