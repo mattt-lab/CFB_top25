@@ -84,9 +84,12 @@ export default function ConferenceDetail() {
                       {badge.text}{badge.detail && ` · ${badge.detail}`}
                     </span>
                   ) : (
-                    formatKickoff(g.when)
+                    formatKickoff(g.when, true)
                   )}
-                  {g.network && <span> · {g.network}</span>}
+                  {/* Network dropped once a game is final (badge.text && !badge.live) -- the
+                      outlet it aired on stops being useful info next to a decided result. Same
+                      fix as GameSlateTable's kickoff column, extended here for consistency. */}
+                  {(!badge.text || badge.live) && g.network && <span> · {g.network}</span>}
                   {g.rivalry && <span className="tag rivalry" style={{ marginLeft: 8 }}>Rivalry</span>}
                 </div>
                 <div className="game-teams">

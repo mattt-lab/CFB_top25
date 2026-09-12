@@ -275,6 +275,16 @@ describe('formatKickoff', () => {
     const farOut = new Date(Date.now() + 10 * 86400000).toISOString();
     expect(formatKickoff(farOut)).toMatch(/Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec/);
   });
+  it('adds the month/day for a game that already kicked off (daysOut < 0), by default', () => {
+    const alreadyStarted = new Date(Date.now() - 2 * 86400000).toISOString();
+    expect(formatKickoff(alreadyStarted)).toMatch(/Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec/);
+  });
+  it('alwaysThisWeek: true suppresses the month/day even for a far-future or already-started game', () => {
+    const farOut = new Date(Date.now() + 10 * 86400000).toISOString();
+    const alreadyStarted = new Date(Date.now() - 2 * 86400000).toISOString();
+    expect(formatKickoff(farOut, true)).not.toMatch(/Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec/);
+    expect(formatKickoff(alreadyStarted, true)).not.toMatch(/Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec/);
+  });
 });
 
 describe('isPotentialUpset', () => {

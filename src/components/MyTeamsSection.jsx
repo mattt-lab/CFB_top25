@@ -27,10 +27,15 @@ export default function MyTeamsSection() {
   if (!visible.length) return null;
 
   return (
-    <section className="card" style={{ marginBottom: 22 }}>
-      <div className="panel-title">
+    // Plain section, not .card -- the title lives OUTSIDE any card here, same as "This week's
+    // biggest games" below it and PlayoffWatch's own bubble-list usage. Wrapping the whole
+    // section in .card used to nest one bordered/backgrounded box (.card) around each row's own
+    // already-bordered/backgrounded box (.bubble-row) -- confirmed live on iOS, it read as two
+    // cards stacked directly on top of each other instead of one row per team.
+    <section style={{ marginBottom: 22 }}>
+      <div className="panel-title" style={{ marginBottom: 10 }}>
         <div>
-          <h2>Your Teams</h2>
+          <h2 style={{ fontSize: 17 }}>Your Teams</h2>
           <p>Pinned teams — click the ☆ on any team below to add it here.</p>
         </div>
       </div>

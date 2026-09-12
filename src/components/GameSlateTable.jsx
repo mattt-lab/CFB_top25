@@ -52,17 +52,31 @@ export default function GameSlateTable({ games, showUpset = false, showNetwork =
                   {badge.live ? (
                     // A dense table row reads better as plain time-remaining text than the
                     // marquee's compact "LIVE" chip -- this IS the kickoff column once a game
-                    // has one, not a status badge competing with it for space.
+                    // has one, not a status badge competing with it for space. Network rendered
+                    // INSIDE this same span (not as a trailing sibling text node) with a middot,
+                    // not a comma -- confirmed live the old trailing ", FOX" wrapped onto its own
+                    // line in this narrow column, reading as an orphaned fragment starting with a
+                    // stray comma.
                     <span className="badge-status badge-live">
                       <span className="pulse-dot" aria-hidden="true" />
                       {g.period != null ? `${periodLabel(g.period)}, ${g.clock} remaining` : 'Live'}
+                      {showNetwork && g.network && ` · ${g.network}`}
                     </span>
                   ) : badge.text ? (
+                    // No network for a decided game -- once it's final, the outlet it aired on
+                    // isn't useful information anymore, just clutter next to the result.
                     <span className="badge-status badge-final">{badge.text}</span>
                   ) : (
-                    formatKickoff(g.when)
+                    <>
+                      {/* alwaysThisWeek: true -- this table is always this week's slate (Up Next,
+                          Full Slate), so a bare weekday is already unambiguous. Also matters for a
+                          game that already kicked off but hasn't been marked "final" yet in the
+                          once-daily committed data -- without this, that same staleness made
+                          formatKickoff think it needed a full date, not just a time. */}
+                      {formatKickoff(g.when, true)}
+                      {showNetwork && g.network && `, ${g.network}`}
+                    </>
                   )}
-                  {showNetwork && g.network && `, ${g.network}`}
                 </td>
                 <td className="tabnum">
                   {upset && <span role="img" aria-label="Potential upset">🔥 </span>}

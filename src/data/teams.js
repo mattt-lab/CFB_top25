@@ -179,17 +179,29 @@ export function computerRatingNote(computerRank, primaryRank, sourceLabel) {
 // A bare weekday ("Sat, 4:30 PM PDT") is only unambiguous if the game is actually within the next
 // few days -- add the month/day once it's more than a week out (a bye pushing a team's next game
 // further than usual, viewing the site mid-week, etc.), so "Sat" can't be read as the wrong Saturday.
-export function formatKickoff(iso) {
+//
+// `alwaysThisWeek` skips that date-adding check entirely, for callers whose games are ALWAYS
+// within the current tracked week by construction (the marquee panel, Up Next, Full Slate,
+// conference schedules, a team's own nextGame) -- confirmed live this was a real bug, not just a
+// theoretical one: `daysOut < 0` also fires for a game that simply already kicked off but hasn't
+// been marked "final" yet (this pipeline runs once daily, so a Friday-night game can sit
+// "scheduled" in the committed data into Saturday morning) -- for a genuinely far-future/past game
+// that's the right call (SeasonSchedule.jsx spans a whole season, where "Sat" alone IS ambiguous),
+// but for a same-week list, the extra "Sep 11" is just noise -- the weekday alone is already
+// unambiguous within one week, whether the game is upcoming or just hasn't caught up to final yet.
+export function formatKickoff(iso, alwaysThisWeek = false) {
   if (!iso) return null;
   try {
     const date = new Date(iso);
-    const daysOut = (date - new Date()) / 86400000;
     // No timeZoneName -- still the visitor's own local time (toLocaleString with no explicit
     // timeZone), just without a per-game "PDT"/"EDT" suffix cluttering every kickoff time. The
     // footer's sitewide "All times shown in your local time zone" note (Layout.jsx) covers this
     // instead, once, rather than repeating it on every single time string.
     const opts = { weekday: 'short', hour: 'numeric', minute: '2-digit' };
-    if (daysOut < 0 || daysOut > 6) Object.assign(opts, { month: 'short', day: 'numeric' });
+    if (!alwaysThisWeek) {
+      const daysOut = (date - new Date()) / 86400000;
+      if (daysOut < 0 || daysOut > 6) Object.assign(opts, { month: 'short', day: 'numeric' });
+    }
     return date.toLocaleString('en-US', opts);
   } catch {
     return iso;
@@ -216,7 +228,7 @@ export function nextGameParts(nextGame) {
   }
   const vsAt = nextGame.homeAway === 'home' ? 'vs' : 'at';
   const oppLabel = nextGame.opponentRank != null ? `#${nextGame.opponentRank} ${nextGame.opponent}` : nextGame.opponent;
-  const kickoff = [formatKickoff(nextGame.when), nextGame.network].filter(Boolean).join(' · ');
+  const kickoff = [formatKickoff(nextGame.when, true), nextGame.network].filter(Boolean).join(' · ');
   return {
     // Plain-text label, kept for any caller that just wants a string. Callers that want the
     // opponent's logo inline (so "#8 Michigan" gets its mark between the rank and the name, not
