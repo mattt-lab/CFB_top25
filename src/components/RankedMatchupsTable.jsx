@@ -22,7 +22,7 @@ export default function RankedMatchupsTable({ games }) {
           No ranked matchups on the board this week.
         </p>
       ) : (
-        <GameSlateTable games={liveGames} showUpset />
+        <GameSlateTable games={liveGames} showUpset showNetwork />
       )}
     </section>
   );
