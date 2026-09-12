@@ -302,6 +302,12 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
 /* Overview-specific */
 .games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 @media (max-width: 720px) { .games-grid { grid-template-columns: 1fr; } }
+/* "Your Teams" only -- same .game-card look as .games-grid above, but full-width/one-per-row
+   instead of a 2-up grid: a pinned team is a deliberate, singular choice, and the extra width
+   gives its (usually longer, Top-25-relevant) narrative room to breathe instead of wrapping at
+   half the marquee's width. flex column's default align-items: stretch is what makes each
+   .game-card fill the row -- no explicit width needed here. */
+.pinned-list { display: flex; flex-direction: column; gap: 12px; }
 /* position: relative -- anchors .row-link::after ("Your Teams" only, see MyTeamsSection.jsx and
    the .row-link comment further down) so a pinned team's stretched click target covers just its
    own card, not the whole grid or page. No effect on the plain (non-pinned) marquee cards below,

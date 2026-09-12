@@ -48,7 +48,7 @@ export default function MyTeamsSection() {
           <p>Pinned teams — click the ☆ on any team below to add it here.</p>
         </div>
       </div>
-      <div className="games-grid">
+      <div className="pinned-list">
         {visible.map(({ id, rank, team: t }) => {
           const {
             vsAt, opponentTeam, opponentRank, opponentName,

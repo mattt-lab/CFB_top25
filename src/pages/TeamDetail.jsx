@@ -4,7 +4,6 @@ import {
   rankAt, primaryLabel, PRIMARY_SOURCE_BY_WEEK, dirFor, arrowGlyph, computerRatingNote, nextGameParts,
   gameStatusBadge, confByRouteSlug, confSlugFor,
 } from '../data/teams.js';
-import { usePinnedStore } from '../store/usePinnedStore.js';
 import { useLiveScores, toPseudoGame } from '../utils/useLiveScores.js';
 import { downloadShareCard } from '../utils/shareCard.js';
 import TeamLadder from '../components/TeamLadder.jsx';
@@ -15,13 +14,12 @@ import DeltaRows from '../components/DeltaRows.jsx';
 import ResumeTable from '../components/ResumeTable.jsx';
 import ComparePanel from '../components/ComparePanel.jsx';
 import SeasonSchedule from '../components/SeasonSchedule.jsx';
+import PinButton from '../components/PinButton.jsx';
 
 export default function TeamDetail() {
   const { teamId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const isPinned = usePinnedStore((s) => s.isPinned(teamId));
-  const togglePin = usePinnedStore((s) => s.togglePin);
 
   const team = teamById(teamId);
   // useLiveScores must run unconditionally (rules of hooks) even though `team` can be null for a
@@ -94,9 +92,15 @@ export default function TeamDetail() {
               <div className="team-name">{team.name}</div>
               <div className="team-conf">{team.conf}</div>
             </div>
-            <div style={{ textAlign: 'right' }}>
-              <div className="eyebrow-lbl">Record</div>
-              <div className="tabnum" style={{ fontSize: 20, fontWeight: 800 }}>{team.record}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
+              {/* Same bare star icon as "Your Teams"/the marquee cards and the Top 25 table --
+                  one consistent pin spot across the site, top-right of whatever card it's on,
+                  rather than this page's own separate "Pin team" text button further down. */}
+              <PinButton teamId={team.id} />
+              <div style={{ textAlign: 'right' }}>
+                <div className="eyebrow-lbl">Record</div>
+                <div className="tabnum" style={{ fontSize: 20, fontWeight: 800 }}>{team.record}</div>
+              </div>
             </div>
           </div>
           <div className="rank-block">
@@ -164,9 +168,6 @@ export default function TeamDetail() {
             </div>
           </div>
           <div style={{ marginTop: 14, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <button type="button" className="toggle-btn" onClick={() => togglePin(team.id)}>
-              {isPinned ? '★ Pinned' : '☆ Pin team'}
-            </button>
             <button
               type="button"
               className="toggle-btn"
