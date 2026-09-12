@@ -418,13 +418,14 @@ table.data-table tbody tr.upset-row { background: color-mix(in srgb, var(--accen
    a second line just because .nm's flex:1 got squeezed on a narrow phone (confirmed live: this IS
    what a long name like "Mississippi State" did before this was added). */
 .bubble-row .nm { font-weight: 700; font-size: 13.5px; flex: 1; white-space: nowrap; }
-/* .record sits between the name and .needs (own team's identity), NOT inside .needs (opponent
-   info) -- confirmed live this was the actual bug: at the 640px breakpoint below, .needs drops to
-   its own full-width line, and having .record live inside .needs meant a team's OWN record
-   visually attached to the OPPONENT's line ("1-0" reading like part of "vs Utah State") instead
-   of its own name's line. flex: none matches its old sizing now that it's a direct .bubble-row
-   item instead of a .needs child. */
-.bubble-row .record { font-weight: 700; color: var(--ink-1); flex: none; }
+/* .record is now rendered INSIDE .nm's <Link>, right after the name text (see MyTeamsSection.jsx),
+   not as its own flex item -- it used to be a sibling flex item instead, which put it at the far
+   edge of .nm's grown (flex:1) box instead of right next to the visible name ("Washington" ...
+   far-right-floating "1-0" rather than "Washington (1-0)" read as one unit). Still not inside
+   .needs (opponent info): at the 640px breakpoint below, .needs drops to its own full-width line,
+   and a record living there would visually attach to the OPPONENT's line ("1-0" reading like part
+   of "vs Utah State") instead of its own name's line. */
+.bubble-row .nm .record { font-weight: 700; color: var(--ink-1); }
 .bubble-row .needs { font-size: 12px; color: var(--ink-2); flex: 2; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 /* "Your Teams" row content: opponent bold, kickoff/network pushed right. PlayoffWatch's bubble
    rows reuse .needs for a single plain note -- justify-content has no visible effect on a lone

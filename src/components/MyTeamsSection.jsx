@@ -60,12 +60,18 @@ export default function MyTeamsSection() {
             <div key={id} className="bubble-row">
               <span className="rk tabnum">{rank ?? '—'}</span>
               <TeamMark team={t} />
-              <Link className="nm row-link" to={`/team/${id}`} state={{ from: 'top25' }}>{t.name}</Link>
-              {/* 0-0 just means the season hasn't started for this team yet -- not a stat worth a
-                  permanent slot on the card before it means anything. Lives next to the name, NOT
-                  inside .needs below -- .needs is opponent info and drops to its own line on a
-                  narrow phone, which used to strand this team's own record on the opponent's line. */}
-              {(t.wins > 0 || t.losses > 0) && <span className="tabnum record">{t.record}</span>}
+              <Link className="nm row-link" to={`/team/${id}`} state={{ from: 'top25' }}>
+                {t.name}
+                {/* 0-0 just means the season hasn't started for this team yet -- not a stat worth
+                    a permanent slot on the card before it means anything. Rendered inline right
+                    after the name (not a separate flex item after .nm) so it reads as one unit,
+                    "Washington (1-0)", matching the marquee's own "#1 Ohio State (1-0)" convention
+                    -- confirmed live a separate flex item here landed way out at the far edge of
+                    .nm's grown box instead of next to the visible name. Still not inside .needs
+                    below -- .needs is opponent info and drops to its own line on a narrow phone,
+                    which used to strand this team's own record on the opponent's line. */}
+                {(t.wins > 0 || t.losses > 0) && <span className="tabnum record"> ({t.record})</span>}
+              </Link>
               <span className="needs">
                 <span className="opp">
                   {opponentName ? (
