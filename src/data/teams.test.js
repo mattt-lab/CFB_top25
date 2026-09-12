@@ -3,7 +3,7 @@
 // (see the "Rank-delta helpers" comment block in teams.js for the convention they all share).
 import { describe, it, expect } from 'vitest';
 import {
-  arrowGlyph, dirFor, trendColor, deltaLabel, computerRatingNote, byRankAsc, trendOf, formatKickoff,
+  arrowGlyph, dirFor, trendColor, deltaLabel, computerRatingNote, byRankAsc, trendOf, formatKickoff, isToday,
   americanOdds, nextGameParts, gameStatusBadge, leadingScoreLabel, confSlugFor, confByRouteSlug, confRecord,
   isPotentialUpset, periodLabel,
 } from './teams.js';
@@ -293,6 +293,31 @@ describe('formatKickoff', () => {
     const soon = new Date(Date.now() + 2 * 86400000).toISOString();
     expect(formatKickoff(soon, true, true)).not.toMatch(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/);
     expect(formatKickoff(soon, true, true)).toMatch(/^\d{1,2}:\d{2}\s*[AP]M$/);
+  });
+});
+
+describe('isToday', () => {
+  it('is false for a missing date', () => {
+    expect(isToday(null)).toBe(false);
+    expect(isToday(undefined)).toBe(false);
+  });
+  it('is true for a kickoff later today', () => {
+    const laterToday = new Date();
+    laterToday.setHours(23, 59, 0, 0);
+    expect(isToday(laterToday.toISOString())).toBe(true);
+  });
+  it('is true for a kickoff earlier today, even though it is in the past', () => {
+    const earlierToday = new Date();
+    earlierToday.setHours(0, 1, 0, 0);
+    expect(isToday(earlierToday.toISOString())).toBe(true);
+  });
+  it('is false for tomorrow', () => {
+    const tomorrow = new Date(Date.now() + 25 * 3600000);
+    expect(isToday(tomorrow.toISOString())).toBe(false);
+  });
+  it('is false for yesterday', () => {
+    const yesterday = new Date(Date.now() - 25 * 3600000);
+    expect(isToday(yesterday.toISOString())).toBe(false);
   });
 });
 

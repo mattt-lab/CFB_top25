@@ -190,12 +190,11 @@ export function computerRatingNote(computerRank, primaryRank, sourceLabel) {
 // but for a same-week list, the extra "Sep 11" is just noise -- the weekday alone is already
 // unambiguous within one week, whether the game is upcoming or just hasn't caught up to final yet.
 //
-// `omitWeekday` drops the weekday too, for a caller whose games are all on the SAME single day --
-// Up Next specifically, which already names that day once in its own page heading ("Today's
-// games" / "here's Thursday, Sep 11..."), so repeating it on all 40+ rows below is redundant in
-// exactly the way alwaysThisWeek's month/day already was. Left false for the Full Slate table
-// (same GameSlateTable component, different caller) -- that one genuinely mixes multiple days'
-// kickoffs in one list, where the weekday is load-bearing, not redundant.
+// `omitWeekday` drops the weekday too -- callers pass this per-game via isToday() below (see its
+// own comment): a kickoff happening today doesn't need its own day named, the same way
+// alwaysThisWeek's month/day was already redundant within one week. Left false for anything not
+// today (including every OTHER row in a table that mixes multiple days, like Top 25 Full Slate),
+// where the weekday is load-bearing, not redundant.
 export function formatKickoff(iso, alwaysThisWeek = false, omitWeekday = false) {
   if (!iso) return null;
   try {
@@ -214,6 +213,22 @@ export function formatKickoff(iso, alwaysThisWeek = false, omitWeekday = false) 
   } catch {
     return iso;
   }
+}
+
+// True if `iso` falls on the same LOCAL calendar day as right now, in the visitor's own
+// timezone -- same "local, not a fixed zone" convention pickDayGames()'s dateKey() already uses
+// to decide what counts as "today" for Up Next (confirmed against the same year/month/date
+// comparison there, so the two never disagree). Feeds formatKickoff's omitWeekday per-game: Top
+// 25 Full Slate mixes multiple days' kickoffs in one table, so only the rows actually happening
+// today can safely drop their weekday -- every other row still needs it to stay disambiguated
+// from the rest of the list.
+export function isToday(iso) {
+  if (!iso) return false;
+  const date = new Date(iso);
+  const now = new Date();
+  return date.getFullYear() === now.getFullYear()
+    && date.getMonth() === now.getMonth()
+    && date.getDate() === now.getDate();
 }
 
 // Opponent label (e.g. "vs #8 Michigan" / "at Alabama" for an unranked opponent) and kickoff/

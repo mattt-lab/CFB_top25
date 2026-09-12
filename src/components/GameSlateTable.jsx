@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { formatKickoff, gameStatusBadge, leadingScoreLabel, leadingScoreParts, isPotentialUpset, periodLabel } from '../data/teams.js';
+import { formatKickoff, isToday, gameStatusBadge, leadingScoreLabel, leadingScoreParts, isPotentialUpset, periodLabel } from '../data/teams.js';
 import TeamMark from './TeamMark.jsx';
 
 // "#8 Michigan" / "Ball State" -- rank omitted for unranked side. Guards on the resolved team
@@ -29,11 +29,8 @@ function ScoreCell({ g }) {
 // Shared by RankedMatchupsTable (Top 25 Full Slate) and UpNext -- both are "list of games, kickoff
 // column, score column" tables that differ only in which games they pass in and whether the
 // upset flag applies. Callers are responsible for sorting `games` and merging any live-score
-// overlay onto them before passing in. `omitWeekday` is for UpNext specifically: unlike Full
-// Slate (which mixes multiple days' kickoffs in one list, where the weekday is load-bearing),
-// Up Next always shows exactly one day's games and already names that day once in its own page
-// heading, so repeating it on every row is redundant -- see formatKickoff's own comment.
-export default function GameSlateTable({ games, showUpset = false, showNetwork = false, omitWeekday = false }) {
+// overlay onto them before passing in.
+export default function GameSlateTable({ games, showUpset = false, showNetwork = false }) {
   if (games.length === 0) return null;
   return (
     <div style={{ overflowX: 'auto' }}>
@@ -75,8 +72,12 @@ export default function GameSlateTable({ games, showUpset = false, showNetwork =
                           Full Slate), so a bare weekday is already unambiguous. Also matters for a
                           game that already kicked off but hasn't been marked "final" yet in the
                           once-daily committed data -- without this, that same staleness made
-                          formatKickoff think it needed a full date, not just a time. */}
-                      {formatKickoff(g.when, true, omitWeekday)}
+                          formatKickoff think it needed a full date, not just a time. omitWeekday
+                          is per-ROW (isToday(g.when)), not a whole-table flag -- Up Next only ever
+                          shows one day at a time so every row happens to agree, but Full Slate
+                          mixes multiple days in one table, where only today's own rows can safely
+                          drop their weekday without losing which day the rest of the list is on. */}
+                      {formatKickoff(g.when, true, isToday(g.when))}
                       {showNetwork && g.network && `, ${g.network}`}
                     </>
                   )}

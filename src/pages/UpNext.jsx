@@ -37,12 +37,12 @@ export default function UpNext() {
             No games on the board right now -- check back once the next slate is out.
           </p>
         ) : (
-          // omitWeekday only when showing TODAY (dateLabel null) -- that case has a persistent
-          // "TODAY'S GAMES" eyebrow on screen the whole time a visitor scrolls the table below.
-          // The rolled-forward case names its day just once, inside a sentence ("here's Thursday,
-          // Sep 11...") -- less persistently visible while scanning 40+ rows, so the weekday stays
-          // on each row there rather than risk it reading as still-today's slate.
-          <GameSlateTable games={sortedGames} showUpset showNetwork omitWeekday={!dateLabel} />
+          // GameSlateTable drops the weekday per-row for whichever games are happening today
+          // (isToday(g.when), in teams.js) -- when dateLabel is null every row here IS today's
+          // slate (pickDayGames's own todayKey check, same local-date comparison), so that's
+          // every row; when showing the rolled-forward day instead, none of these games are
+          // today, so the weekday correctly stays -- no separate flag needed here.
+          <GameSlateTable games={sortedGames} showUpset showNetwork />
         )}
       </section>
     </div>
