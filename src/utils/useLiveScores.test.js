@@ -3,7 +3,7 @@
 // polling side of useLiveScores is exercised manually in the browser, not here (see its header
 // comment) -- this only covers the join logic, which is where a wrong match would actually hurt.
 import { describe, it, expect } from 'vitest';
-import { matchLiveGames, toPseudoGame, needsPolling } from './useLiveScores.js';
+import { matchLiveGames, toPseudoGame, needsPolling, scoreboardUrl } from './useLiveScores.js';
 
 const TEAM_MAP = { 'ohio-state': '194', michigan: '130', clemson: '228', lsu: '99' };
 
@@ -217,5 +217,36 @@ describe('needsPolling', () => {
       { id: 'g2', away: 'c', home: 'd', when: '2026-09-06T02:00:00Z' },
     ];
     expect(needsPolling(games, { g1: { status: 'final' } }, now)).toBe(true);
+  });
+});
+
+describe('scoreboardUrl', () => {
+  it('scopes to a single padded date when every tracked game is on the same day', () => {
+    const games = [
+      { id: 'g1', away: 'a', home: 'b', when: '2026-09-12T16:00:00Z' },
+      { id: 'g2', away: 'c', home: 'd', when: '2026-09-12T23:00:00Z' },
+    ];
+    // Same UTC day for both, +/- 1 day padding -> 20260911-20260913.
+    expect(scoreboardUrl(games)).toMatch(/&dates=20260911-20260913$/);
+  });
+
+  it('spans a padded range covering every tracked game when they land on different days', () => {
+    const games = [
+      { id: 'g1', away: 'a', home: 'b', when: '2026-09-11T23:00:00Z' }, // Friday
+      { id: 'g2', away: 'c', home: 'd', when: '2026-09-14T18:00:00Z' }, // Monday
+    ];
+    expect(scoreboardUrl(games)).toMatch(/&dates=20260910-20260915$/);
+  });
+
+  it('falls back to the plain dateless URL when no game has a parseable `when`', () => {
+    const games = [{ id: 'g1', away: 'a', home: 'b', when: null }];
+    expect(scoreboardUrl(games)).not.toMatch(/dates=/);
+    expect(scoreboardUrl(games)).toMatch(/groups=80&limit=150$/);
+  });
+
+  it('confirmed live 2026-09-12: this is the exact shape that fixed a real missed game (#5 Indiana vs Howard, an FBS-vs-FCS matchup ESPN\'s dateless default silently omitted while it was genuinely in progress)', () => {
+    const games = [{ id: 'howard-indiana', away: 'howard', home: 'indiana', when: '2026-09-12T16:00:00Z' }];
+    expect(scoreboardUrl(games)).toContain('groups=80');
+    expect(scoreboardUrl(games)).toMatch(/dates=20260911-20260913$/);
   });
 });

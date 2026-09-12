@@ -11,7 +11,7 @@
 import { useEffect, useRef, useState } from 'react';
 import espnTeamMap from '../data/espnTeamMap.json';
 
-const SCOREBOARD_URL =
+const SCOREBOARD_BASE_URL =
   'https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80&limit=150';
 const POLL_MS = 60_000;
 // How long before/after a tracked game's kickoff to keep polling even though it isn't (yet, or
@@ -27,6 +27,28 @@ const MAX_BACKOFF_MS = 5 * POLL_MS;
 function safeScore(v) {
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
+}
+
+function espnDateParam(date) {
+  return `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(2, '0')}${String(date.getUTCDate()).padStart(2, '0')}`;
+}
+
+// Confirmed live 2026-09-12: ESPN's DATELESS scoreboard (no `dates` param -- what this used to
+// always send) applies some undocumented "current window" heuristic that can silently OMIT a
+// real, currently-relevant game. #5 Indiana hosting FCS Howard was missing entirely from the
+// dateless groups=80 response while genuinely in progress -- the exact same groups=80 query WITH
+// an explicit dates= range correctly included it (state "in", real score). Scoping every fetch to
+// the actual span of tracked kickoffs, padded a day on each side (the exact boundary logic behind
+// ESPN's default omission isn't documented, and the padding costs nothing), closes that gap for
+// good instead of hoping an undocumented default happens to cover whatever's being tracked.
+// Falls back to the plain dateless URL only if no tracked game has a parseable `when` at all.
+export function scoreboardUrl(games) {
+  const times = games.map((g) => Date.parse(g.when)).filter((t) => !Number.isNaN(t));
+  if (!times.length) return SCOREBOARD_BASE_URL;
+  const dayMs = 24 * 60 * 60 * 1000;
+  const from = espnDateParam(new Date(Math.min(...times) - dayMs));
+  const to = espnDateParam(new Date(Math.max(...times) + dayMs));
+  return `${SCOREBOARD_BASE_URL}&dates=${from === to ? from : `${from}-${to}`}`;
 }
 
 // Pure: given our marquee games[] and a raw ESPN scoreboard response, returns
@@ -187,7 +209,7 @@ export function useLiveScores(games) {
     async function tick() {
       timer = null;
       try {
-        const res = await fetch(SCOREBOARD_URL);
+        const res = await fetch(scoreboardUrl(gamesRef.current));
         if (!res.ok) throw new Error(`ESPN scoreboard HTTP ${res.status}`);
         const data = await res.json();
         if (cancelled) return;

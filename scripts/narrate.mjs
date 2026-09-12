@@ -14,7 +14,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
-import { buildEventsByEspnTeamId, findEspnEventId } from './lib/espn-match.mjs';
+import { buildEventsByEspnTeamId, findEspnEventId, buildScoreboardUrl } from './lib/espn-match.mjs';
 import { buildGameStory, hasGameStory, buildPregameContext } from './lib/espn-game-story.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -23,7 +23,7 @@ const CURRENT_PATH = join(ROOT, 'data', 'current.json');
 const espnTeamMap = JSON.parse(readFileSync(join(ROOT, 'src', 'data', 'espnTeamMap.json'), 'utf8'));
 
 const MODEL = 'claude-opus-5';
-const ESPN_SCOREBOARD_URL =
+const ESPN_SCOREBOARD_BASE_URL =
   'https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80&limit=150';
 const espnSummaryUrl = (eventId) =>
   `https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=${eventId}`;
@@ -132,7 +132,7 @@ async function fetchEspnEnrichment(games) {
   const enrichment = new Map();
   let scoreboard;
   try {
-    const res = await fetch(ESPN_SCOREBOARD_URL);
+    const res = await fetch(buildScoreboardUrl(games, ESPN_SCOREBOARD_BASE_URL));
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     scoreboard = await res.json();
   } catch (err) {

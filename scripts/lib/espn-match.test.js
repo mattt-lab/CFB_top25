@@ -2,7 +2,7 @@
 // src/utils/useLiveScores.test.js's matchLiveGames tests, adapted for the simpler
 // (id-only, no live status) server-side lookup.
 import { describe, it, expect } from 'vitest';
-import { buildEventsByEspnTeamId, findEspnEventId } from './espn-match.mjs';
+import { buildEventsByEspnTeamId, findEspnEventId, buildScoreboardUrl } from './espn-match.mjs';
 
 const TEAM_MAP = { 'ohio-state': '194', michigan: '130', clemson: '228' };
 
@@ -63,5 +63,35 @@ describe('findEspnEventId', () => {
     const map = buildEventsByEspnTeamId(scoreboard);
     const game = { away: 'ohio-state', home: 'michigan', when: null };
     expect(findEspnEventId(game, map, TEAM_MAP)).toBe('first');
+  });
+});
+
+const BASE = 'https://example.com/scoreboard?groups=80&limit=150';
+
+describe('buildScoreboardUrl', () => {
+  it('scopes to a single padded date when every tracked game is on the same day', () => {
+    const games = [
+      { id: 'g1', away: 'a', home: 'b', when: '2026-09-12T16:00:00Z' },
+      { id: 'g2', away: 'c', home: 'd', when: '2026-09-12T23:00:00Z' },
+    ];
+    expect(buildScoreboardUrl(games, BASE)).toBe(`${BASE}&dates=20260911-20260913`);
+  });
+
+  it('spans a padded range covering every tracked game when they land on different days', () => {
+    const games = [
+      { id: 'g1', away: 'a', home: 'b', when: '2026-09-11T23:00:00Z' },
+      { id: 'g2', away: 'c', home: 'd', when: '2026-09-14T18:00:00Z' },
+    ];
+    expect(buildScoreboardUrl(games, BASE)).toBe(`${BASE}&dates=20260910-20260915`);
+  });
+
+  it('falls back to the plain base URL when no game has a parseable `when`', () => {
+    const games = [{ id: 'g1', away: 'a', home: 'b', when: null }];
+    expect(buildScoreboardUrl(games, BASE)).toBe(BASE);
+  });
+
+  it('confirmed live 2026-09-12: this is the exact shape that fixed a real missed game (#5 Indiana vs Howard, an FBS-vs-FCS matchup ESPN\'s dateless default silently omitted while it was genuinely in progress)', () => {
+    const games = [{ id: 'howard-indiana', away: 'howard', home: 'indiana', when: '2026-09-12T16:00:00Z' }];
+    expect(buildScoreboardUrl(games, BASE)).toBe(`${BASE}&dates=20260911-20260913`);
   });
 });

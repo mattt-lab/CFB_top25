@@ -52,3 +52,26 @@ export function findEspnEventId(game, eventsByEspnTeamId, espnTeamMap) {
   }
   return best.id;
 }
+
+function espnDateParam(date) {
+  return `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(2, '0')}${String(date.getUTCDate()).padStart(2, '0')}`;
+}
+
+// Confirmed live 2026-09-12: ESPN's DATELESS scoreboard (no `dates` param) applies some
+// undocumented "current window" heuristic that can silently OMIT a real, currently-relevant
+// game -- a ranked FBS team hosting an FCS opponent was missing entirely from the dateless
+// response while genuinely in progress, though the exact same query WITH an explicit dates=
+// range correctly included it. Scopes every fetch to the actual span of tracked kickoffs, padded
+// a day on each side, instead of hoping the undocumented default happens to cover whatever's
+// being enriched this run. Same fix, same reasoning, as src/utils/useLiveScores.js's
+// scoreboardUrl() (this file's own client-side counterpart) -- `baseUrl` is passed in rather than
+// hardcoded here since the actual endpoint string lives in narrate.mjs, matching where
+// espnSummaryUrl's own URL construction already lives.
+export function buildScoreboardUrl(games, baseUrl) {
+  const times = games.map((g) => Date.parse(g.when)).filter((t) => !Number.isNaN(t));
+  if (!times.length) return baseUrl;
+  const dayMs = 24 * 60 * 60 * 1000;
+  const from = espnDateParam(new Date(Math.min(...times) - dayMs));
+  const to = espnDateParam(new Date(Math.max(...times) + dayMs));
+  return `${baseUrl}&dates=${from === to ? from : `${from}-${to}`}`;
+}
