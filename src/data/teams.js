@@ -308,6 +308,12 @@ export function periodLabel(period) {
 export function gameStatusBadge(status, period, clock) {
   if (status === 'final') return { text: 'FINAL', live: false, detail: null };
   if (status === 'in_progress' && period) {
+    // End of the 2nd quarter (clock hits 0:00) IS halftime -- period doesn't advance to 3 until
+    // the second half kicks off, so ESPN's own period+clock pair reads as a literal "Q2 0:00" for
+    // the whole ~20-minute intermission otherwise. Q1/Q3/Q4 hitting 0:00 are just ordinary
+    // end-of-quarter transitions with no named break of their own, so this is intentionally
+    // scoped to period === 2 only, not every period hitting zero.
+    if (period === 2 && clock === '0:00') return { text: 'LIVE', live: true, detail: 'Halftime' };
     // Space-separated, no "remaining" -- "Q4 4:00" reads as the actual clock, not prose.
     const detail = clock ? `${periodLabel(period)} ${clock}` : periodLabel(period);
     return { text: 'LIVE', live: true, detail };

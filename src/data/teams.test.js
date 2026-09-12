@@ -93,6 +93,14 @@ describe('gameStatusBadge', () => {
   it('treats "in_progress" with period 0 the same way -- confirmed live this is a real state ESPN reports right around kickoff, not a real quarter', () => {
     expect(gameStatusBadge('in_progress', 0, '0:00')).toEqual({ text: null, live: false, detail: null });
   });
+  it('shows "Halftime" instead of "Q2 0:00" -- period stays 2 with the clock pinned at 0:00 for the whole intermission, not just an instant', () => {
+    expect(gameStatusBadge('in_progress', 2, '0:00')).toEqual({ text: 'LIVE', live: true, detail: 'Halftime' });
+  });
+  it('does not relabel other quarters hitting 0:00 -- only the Q2/Q3 boundary is a named break', () => {
+    expect(gameStatusBadge('in_progress', 1, '0:00')).toEqual({ text: 'LIVE', live: true, detail: 'Q1 0:00' });
+    expect(gameStatusBadge('in_progress', 3, '0:00')).toEqual({ text: 'LIVE', live: true, detail: 'Q3 0:00' });
+    expect(gameStatusBadge('in_progress', 4, '0:00')).toEqual({ text: 'LIVE', live: true, detail: 'Q4 0:00' });
+  });
   it('shows a final badge with no detail (period/clock are moot once the game is over)', () => {
     expect(gameStatusBadge('final', 4, '0:00')).toEqual({ text: 'FINAL', live: false, detail: null });
   });
