@@ -277,7 +277,7 @@ export function nextGameParts(nextGame) {
 
 // Badge chrome for a game's current status -- shared by the "biggest games" cards, the full-slate
 // table, "Your Teams", and the team-detail "Next Game" block, so LIVE/FINAL always look and read
-// the same everywhere. `detail` is the period/clock text for a live game (e.g. "Q3 · 8:42"); null
+// the same everywhere. `detail` is the period/clock text for a live game (e.g. "Q3 8:42"); null
 // otherwise. `status`/`period`/`clock` are only ever 'scheduled'/'final'/null as COMMITTED to
 // data/current.json (see docs/data-schema.md's "Game status lifecycle") -- a caller only ever sees
 // 'in_progress' here at all once it's merged in src/utils/useLiveScores.js's client-side overlay,
@@ -286,18 +286,30 @@ export function nextGameParts(nextGame) {
 // during overtime (5 = OT, 6 = 2OT, ...), so a naive `Q${period}` reads as "Q5" during an OT
 // game, which looks broken rather than exciting to any football fan. Exported so any other
 // period-displaying spot (e.g. GameSlateTable.jsx's live-status cell) uses the same convention
-// instead of reimplementing it.
+// instead of reimplementing it. `period` <= 0 returns null too, same as a missing period --
+// confirmed live ESPN can report a live game with period 0 right around kickoff, before any real
+// game-clock data exists, and "Q0" isn't a real quarter (gameStatusBadge's own guard already
+// keeps this from ever reaching here today, but this stays defensively correct on its own for
+// any future direct caller rather than relying solely on that one call site).
 export function periodLabel(period) {
-  if (period == null) return null;
+  if (period == null || period <= 0) return null;
   if (period <= 4) return `Q${period}`;
   const otNum = period - 4;
   return otNum === 1 ? 'OT' : `${otNum}OT`;
 }
 
+// `period` falsy (0 or null/undefined) on an "in_progress" game means ESPN hasn't actually started
+// tracking real game-clock data yet -- confirmed live: ESPN can report state:"in" right around
+// kickoff before any period/clock data exists, which without this guard rendered a literal "Q0,
+// 0:00" badge -- not a real quarter, and reads as a bug to any football fan. Treated the same as
+// "not actually started yet" (falls through to the scheduled-style { text: null } below) rather
+// than a LIVE badge with a nonsensical or missing detail -- same "honest about gaps" convention
+// the rest of this codebase already uses elsewhere (Up Next/Pick'em's empty states, etc.).
 export function gameStatusBadge(status, period, clock) {
   if (status === 'final') return { text: 'FINAL', live: false, detail: null };
-  if (status === 'in_progress') {
-    const detail = period != null ? `${periodLabel(period)}${clock ? ` · ${clock}` : ''}` : null;
+  if (status === 'in_progress' && period) {
+    // Space-separated, no "remaining" -- "Q4 4:00" reads as the actual clock, not prose.
+    const detail = clock ? `${periodLabel(period)} ${clock}` : periodLabel(period);
     return { text: 'LIVE', live: true, detail };
   }
   return { text: null, live: false, detail: null };
@@ -366,7 +378,11 @@ export function isPotentialUpset(g) {
   const dogScore = favored === 'away' ? g.homeScore : g.awayScore;
 
   if (g.status === 'final') return dogScore > favScore;
-  if (g.status !== 'in_progress' || g.period == null) return false;
+  // !g.period (not just g.period == null) -- same "period 0 isn't a real quarter" convention
+  // gameStatusBadge uses, for consistency even though the practical impact here is small (a
+  // period-0 game is essentially always still 0-0, so dogScore > favScore below would already
+  // read false on its own).
+  if (g.status !== 'in_progress' || !g.period) return false;
   if (g.period <= 2) return dogScore > favScore;
   if (g.period === 3) return dogScore >= favScore;
   return Math.abs(favScore - dogScore) <= 7; // period >= 4 -- Q4 or OT

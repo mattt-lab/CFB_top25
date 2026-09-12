@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { formatKickoff, isToday, gameStatusBadge, leadingScoreLabel, leadingScoreParts, isPotentialUpset, periodLabel } from '../data/teams.js';
+import { formatKickoff, isToday, gameStatusBadge, leadingScoreLabel, leadingScoreParts, isPotentialUpset } from '../data/teams.js';
 import TeamMark from './TeamMark.jsx';
 
 // "#8 Michigan" / "Ball State" -- rank omitted for unranked side. Guards on the resolved team
@@ -50,16 +50,19 @@ export default function GameSlateTable({ games, showUpset = false, showNetwork =
                 </td>
                 <td>
                   {badge.live ? (
-                    // A dense table row reads better as plain time-remaining text than the
-                    // marquee's compact "LIVE" chip -- this IS the kickoff column once a game
-                    // has one, not a status badge competing with it for space. Network rendered
-                    // INSIDE this same span (not as a trailing sibling text node) with a middot,
-                    // not a comma -- confirmed live the old trailing ", FOX" wrapped onto its own
-                    // line in this narrow column, reading as an orphaned fragment starting with a
-                    // stray comma.
+                    // A dense table row reads better as plain "Q4 4:00" text than the marquee's
+                    // compact "LIVE" chip -- this IS the kickoff column once a game has one, not a
+                    // status badge competing with it for space. badge.detail (gameStatusBadge, in
+                    // teams.js) is the single shared source for this text now -- used to be
+                    // reimplemented inline here with its own separate "remaining" wording and no
+                    // guard against a nonsensical "Q0" badge; now both fixes live in one place, not
+                    // two slightly-different copies. Network rendered INSIDE this same span (not as
+                    // a trailing sibling text node) with a middot, not a comma -- confirmed live the
+                    // old trailing ", FOX" wrapped onto its own line in this narrow column, reading
+                    // as an orphaned fragment starting with a stray comma.
                     <span className="badge-status badge-live">
                       <span className="pulse-dot" aria-hidden="true" />
-                      {g.period != null ? `${periodLabel(g.period)}, ${g.clock} remaining` : 'Live'}
+                      {badge.detail}
                       {showNetwork && g.network && ` · ${g.network}`}
                     </span>
                   ) : badge.text ? (

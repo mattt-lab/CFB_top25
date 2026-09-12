@@ -81,11 +81,17 @@ describe('gameStatusBadge', () => {
   it('shows nothing for a scheduled game -- callers fall back to the kickoff time', () => {
     expect(gameStatusBadge('scheduled', null, null)).toEqual({ text: null, live: false, detail: null });
   });
-  it('shows a live badge with the period/clock as detail', () => {
-    expect(gameStatusBadge('in_progress', 3, '8:42')).toEqual({ text: 'LIVE', live: true, detail: 'Q3 · 8:42' });
+  it('shows a live badge with the period/clock as detail, space-separated with no "remaining"', () => {
+    expect(gameStatusBadge('in_progress', 3, '8:42')).toEqual({ text: 'LIVE', live: true, detail: 'Q3 8:42' });
   });
-  it('shows a live badge with no detail when period is unknown', () => {
-    expect(gameStatusBadge('in_progress', null, null)).toEqual({ text: 'LIVE', live: true, detail: null });
+  it('shows a live badge with just the period when clock is unknown', () => {
+    expect(gameStatusBadge('in_progress', 3, null)).toEqual({ text: 'LIVE', live: true, detail: 'Q3' });
+  });
+  it('treats "in_progress" with no period as not actually started yet, not a live badge with no detail', () => {
+    expect(gameStatusBadge('in_progress', null, null)).toEqual({ text: null, live: false, detail: null });
+  });
+  it('treats "in_progress" with period 0 the same way -- confirmed live this is a real state ESPN reports right around kickoff, not a real quarter', () => {
+    expect(gameStatusBadge('in_progress', 0, '0:00')).toEqual({ text: null, live: false, detail: null });
   });
   it('shows a final badge with no detail (period/clock are moot once the game is over)', () => {
     expect(gameStatusBadge('final', 4, '0:00')).toEqual({ text: 'FINAL', live: false, detail: null });
@@ -381,5 +387,8 @@ describe('periodLabel', () => {
   });
   it('returns null for an unknown period', () => {
     expect(periodLabel(null)).toBeNull();
+  });
+  it('returns null for period 0 -- not a real quarter', () => {
+    expect(periodLabel(0)).toBeNull();
   });
 });
