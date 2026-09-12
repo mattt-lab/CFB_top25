@@ -189,7 +189,14 @@ export function computerRatingNote(computerRank, primaryRank, sourceLabel) {
 // that's the right call (SeasonSchedule.jsx spans a whole season, where "Sat" alone IS ambiguous),
 // but for a same-week list, the extra "Sep 11" is just noise -- the weekday alone is already
 // unambiguous within one week, whether the game is upcoming or just hasn't caught up to final yet.
-export function formatKickoff(iso, alwaysThisWeek = false) {
+//
+// `omitWeekday` drops the weekday too, for a caller whose games are all on the SAME single day --
+// Up Next specifically, which already names that day once in its own page heading ("Today's
+// games" / "here's Thursday, Sep 11..."), so repeating it on all 40+ rows below is redundant in
+// exactly the way alwaysThisWeek's month/day already was. Left false for the Full Slate table
+// (same GameSlateTable component, different caller) -- that one genuinely mixes multiple days'
+// kickoffs in one list, where the weekday is load-bearing, not redundant.
+export function formatKickoff(iso, alwaysThisWeek = false, omitWeekday = false) {
   if (!iso) return null;
   try {
     const date = new Date(iso);
@@ -197,7 +204,8 @@ export function formatKickoff(iso, alwaysThisWeek = false) {
     // timeZone), just without a per-game "PDT"/"EDT" suffix cluttering every kickoff time. The
     // footer's sitewide "All times shown in your local time zone" note (Layout.jsx) covers this
     // instead, once, rather than repeating it on every single time string.
-    const opts = { weekday: 'short', hour: 'numeric', minute: '2-digit' };
+    const opts = { hour: 'numeric', minute: '2-digit' };
+    if (!omitWeekday) opts.weekday = 'short';
     if (!alwaysThisWeek) {
       const daysOut = (date - new Date()) / 86400000;
       if (daysOut < 0 || daysOut > 6) Object.assign(opts, { month: 'short', day: 'numeric' });

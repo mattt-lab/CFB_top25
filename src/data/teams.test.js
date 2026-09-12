@@ -285,6 +285,15 @@ describe('formatKickoff', () => {
     expect(formatKickoff(farOut, true)).not.toMatch(/Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec/);
     expect(formatKickoff(alreadyStarted, true)).not.toMatch(/Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec/);
   });
+  it('includes the weekday by default', () => {
+    const soon = new Date(Date.now() + 2 * 86400000).toISOString();
+    expect(formatKickoff(soon)).toMatch(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/);
+  });
+  it('omitWeekday: true drops the weekday too, leaving just the time', () => {
+    const soon = new Date(Date.now() + 2 * 86400000).toISOString();
+    expect(formatKickoff(soon, true, true)).not.toMatch(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/);
+    expect(formatKickoff(soon, true, true)).toMatch(/^\d{1,2}:\d{2}\s*[AP]M$/);
+  });
 });
 
 describe('isPotentialUpset', () => {

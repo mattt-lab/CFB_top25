@@ -37,7 +37,12 @@ export default function UpNext() {
             No games on the board right now -- check back once the next slate is out.
           </p>
         ) : (
-          <GameSlateTable games={sortedGames} showUpset showNetwork />
+          // omitWeekday only when showing TODAY (dateLabel null) -- that case has a persistent
+          // "TODAY'S GAMES" eyebrow on screen the whole time a visitor scrolls the table below.
+          // The rolled-forward case names its day just once, inside a sentence ("here's Thursday,
+          // Sep 11...") -- less persistently visible while scanning 40+ rows, so the weekday stays
+          // on each row there rather than risk it reading as still-today's slate.
+          <GameSlateTable games={sortedGames} showUpset showNetwork omitWeekday={!dateLabel} />
         )}
       </section>
     </div>

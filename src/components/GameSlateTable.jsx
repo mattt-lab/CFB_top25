@@ -29,8 +29,11 @@ function ScoreCell({ g }) {
 // Shared by RankedMatchupsTable (Top 25 Full Slate) and UpNext -- both are "list of games, kickoff
 // column, score column" tables that differ only in which games they pass in and whether the
 // upset flag applies. Callers are responsible for sorting `games` and merging any live-score
-// overlay onto them before passing in.
-export default function GameSlateTable({ games, showUpset = false, showNetwork = false }) {
+// overlay onto them before passing in. `omitWeekday` is for UpNext specifically: unlike Full
+// Slate (which mixes multiple days' kickoffs in one list, where the weekday is load-bearing),
+// Up Next always shows exactly one day's games and already names that day once in its own page
+// heading, so repeating it on every row is redundant -- see formatKickoff's own comment.
+export default function GameSlateTable({ games, showUpset = false, showNetwork = false, omitWeekday = false }) {
   if (games.length === 0) return null;
   return (
     <div style={{ overflowX: 'auto' }}>
@@ -73,7 +76,7 @@ export default function GameSlateTable({ games, showUpset = false, showNetwork =
                           game that already kicked off but hasn't been marked "final" yet in the
                           once-daily committed data -- without this, that same staleness made
                           formatKickoff think it needed a full date, not just a time. */}
-                      {formatKickoff(g.when, true)}
+                      {formatKickoff(g.when, true, omitWeekday)}
                       {showNetwork && g.network && `, ${g.network}`}
                     </>
                   )}
