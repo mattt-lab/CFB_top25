@@ -321,6 +321,8 @@ export function gameStatusBadge(status, period, clock) {
 // away/home order would silently attach the wrong-looking number to the callout (e.g. a naive
 // "{home} 13-0" for a game whose away team is actually winning 0-13 reads as if the home team
 // scored 13, not 0 -- confirmed live, this is exactly the confusing case a visitor flagged).
+// No "leads"/"wins" verb -- explicit ask: the team name in front of the score already says who's
+// ahead ("Miami 55–3" reads as Miami leading/winning without spelling it out), live or final.
 export function leadingScoreParts(g) {
   if (g.awayScore === g.homeScore) return { tied: true, leaderScore: g.awayScore, trailerScore: g.homeScore };
   const awayLeads = g.awayScore > g.homeScore;
@@ -329,16 +331,16 @@ export function leadingScoreParts(g) {
     leaderName: awayLeads ? (g.awayTeam?.name ?? g.away) : (g.homeTeam?.name ?? g.home),
     leaderScore: awayLeads ? g.awayScore : g.homeScore,
     trailerScore: awayLeads ? g.homeScore : g.awayScore,
-    verb: g.status === 'final' ? 'wins' : 'leads',
   };
 }
 
-// "USC leads, 13–0" while live, "USC wins, 24–17" once final. No name/verb on a tie -- neither
-// side is leading, and a tie can't be final in football anyway.
+// "USC 13–0" while live, "USC 24–17" once final -- same shape either way, since the name alone
+// already conveys leading/winning. No name on a tie -- neither side is leading, and a tie can't
+// be final in football anyway.
 export function leadingScoreLabel(g) {
   const p = leadingScoreParts(g);
   if (p.tied) return `${p.leaderScore}–${p.trailerScore}`;
-  return `${p.leaderName} ${p.verb}, ${p.leaderScore}–${p.trailerScore}`;
+  return `${p.leaderName} ${p.leaderScore}–${p.trailerScore}`;
 }
 
 // Which side the betting line favors, resolved by checking whether CFBD's pre-formatted spread

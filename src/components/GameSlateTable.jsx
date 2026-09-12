@@ -23,7 +23,7 @@ function ScoreCell({ g }) {
   if (g.status !== 'in_progress') return leadingScoreLabel(g);
   const p = leadingScoreParts(g);
   if (p.tied) return <span className="live-score-num">{p.leaderScore}–{p.trailerScore}</span>;
-  return <>{p.leaderName} {p.verb}, <span className="live-score-num">{p.leaderScore}–{p.trailerScore}</span></>;
+  return <>{p.leaderName} <span className="live-score-num">{p.leaderScore}–{p.trailerScore}</span></>;
 }
 
 // Shared by RankedMatchupsTable (Top 25 Full Slate) and UpNext -- both are "list of games, kickoff
