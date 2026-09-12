@@ -24,6 +24,19 @@ on:
     # specifically about a Monday-extending slate, not a daily one, so no reason to pay the extra
     # CFBD/Claude cost the other six days.
     - cron: '30 19 * * 1'
+    # Two Saturday catch-up runs, at 00:00 and 06:00 UTC -- confirmed live these fall on cron's
+    # Sunday slot (day-of-week 0), not Saturday's, because both land after 8pm ET Saturday, which
+    # has already rolled into the next UTC calendar day (ET is UTC-4 for most of the season,
+    # UTC-5 once DST ends in November -- same unadjusted-for-DST drift the 13:00 UTC daily run
+    # already accepts). Their PURPOSE is entirely about Saturday's own games, though: the single
+    # daily 13:00 UTC run fires before nearly any Saturday kickoff, let alone a final score, so
+    # Saturday -- the day carrying the large majority of each week's games -- was structurally the
+    # worst-served day for this to matter, confirmed live (a Friday-night game was still sitting
+    # "scheduled" the entire next day with no run in between to catch it). 00:00 UTC (8pm ET)
+    # catches the noon/afternoon windows once they've wrapped; 06:00 UTC (2am ET) catches the
+    # primetime/night window, including West Coast late kickoffs.
+    - cron: '0 0 * * 0'
+    - cron: '0 6 * * 0'
   workflow_dispatch: {}
 
 permissions:

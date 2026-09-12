@@ -61,10 +61,13 @@ stages that are deliberately never allowed to blur together:
    never means blank text. Which path produced any given blurb is recorded (`blurbSource`) and
    disclosed to readers in the site's own footnote.
 
-A single GitHub Actions workflow runs this once daily (13:00 UTC), plus a second Monday-only run
+A single GitHub Actions workflow runs this once daily (13:00 UTC), plus a Monday-only run
 (19:30 UTC) to catch weeks whose slate runs into Sunday/Monday and pushes the AP/Coaches poll's
-release later than usual — final scores land the day after a game either way, via this pipeline's
-own `/games` call. That workflow commits with its own `GITHUB_TOKEN`, and GitHub's anti-recursion
+release later than usual, and two Saturday-only runs (00:00 and 06:00 UTC — 8pm and 2am ET) since
+Saturday carries the large majority of each week's games and the single daily run fires before
+nearly any of them have even kicked off — those two catch final scores the same night instead of
+sitting stale until the next day's run, via this pipeline's own `/games` call. That workflow
+commits with its own `GITHUB_TOKEN`, and GitHub's anti-recursion
 rule means a `GITHUB_TOKEN` push does *not* trigger another workflow's `on: push` listener — so it
 explicitly dispatches `deploy-pages.yml` itself after a real data change, rather than relying on the
 push to cascade. See below for how *in-game* state gets on the page sooner than that.

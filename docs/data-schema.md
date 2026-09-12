@@ -67,7 +67,8 @@ time-travel, quality-win/bad-loss tagging) reads the resolved `primary` order be
 ## Game status lifecycle
 
 `games[].status` / `teams[id].nextGame.status` as **committed to `data/current.json`** only ever
-move `"scheduled"` → `"final"` — never `"in_progress"`. `fetch-cfb-data.mjs` (once daily) is the
+move `"scheduled"` → `"final"` — never `"in_progress"`. `fetch-cfb-data.mjs` (once daily most days,
+plus extra Saturday/Monday catch-up runs -- see `.github/workflows/fetch-data.yml`) is the
 only writer: it reads CFBD's plain `/games` endpoint, which only ever reports a boolean `completed`
 flag plus final points, no true mid-game state. Writing `"scheduled"`/`"final"` directly from that
 (for free, zero extra API calls) is also what stops a game from ever regressing from `"final"` back
