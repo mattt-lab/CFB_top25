@@ -3,7 +3,7 @@
 // polling side of useLiveScores is exercised manually in the browser, not here (see its header
 // comment) -- this only covers the join logic, which is where a wrong match would actually hurt.
 import { describe, it, expect } from 'vitest';
-import { matchLiveGames, toPseudoGame, needsPolling, scoreboardUrl } from './useLiveScores.js';
+import { matchLiveGames, toPseudoGame, needsPolling, scoreboardUrls, fetchScoreboard } from './useLiveScores.js';
 
 const TEAM_MAP = { 'ohio-state': '194', michigan: '130', clemson: '228', lsu: '99' };
 
@@ -220,33 +220,86 @@ describe('needsPolling', () => {
   });
 });
 
-describe('scoreboardUrl', () => {
-  it('scopes to a single padded date when every tracked game is on the same day', () => {
+describe('scoreboardUrls', () => {
+  const at = (when) => [{ id: 'g', away: 'a', home: 'b', when }];
+  const days = (urls) => urls.map((u) => u.match(/dates=(\d+)$/)?.[1] ?? null);
+
+  it('asks for exactly the one ESPN day a same-day slate falls on', () => {
     const games = [
-      { id: 'g1', away: 'a', home: 'b', when: '2026-09-12T16:00:00Z' },
-      { id: 'g2', away: 'c', home: 'd', when: '2026-09-12T23:00:00Z' },
+      { id: 'g1', away: 'a', home: 'b', when: '2026-09-19T16:00:00Z' }, // noon ET
+      { id: 'g2', away: 'c', home: 'd', when: '2026-09-19T23:30:00Z' }, // 7:30pm ET
     ];
-    // Same UTC day for both, +/- 1 day padding -> 20260911-20260913.
-    expect(scoreboardUrl(games)).toMatch(/&dates=20260911-20260913$/);
+    expect(days(scoreboardUrls(games))).toEqual(['20260919']);
   });
 
-  it('spans a padded range covering every tracked game when they land on different days', () => {
+  it("uses ESPN's US-Eastern calendar day, not the UTC day -- a Saturday-night game after 8pm ET is still Saturday", () => {
+    // Confirmed live 2026-09-19: dates=20260919 returned events from 15:30Z Sat through 03:00Z Sun,
+    // and dates=20260920 returned none. Texas kicked off 2026-09-20T00:00Z (8pm ET Saturday).
+    expect(days(scoreboardUrls(at('2026-09-20T00:00:00Z')))).toEqual(['20260919']);
+    // Friday-night game that lands on Saturday in UTC (10:30pm ET Fri)
+    expect(days(scoreboardUrls(at('2026-09-19T02:30:00Z')))).toEqual(['20260918']);
+  });
+
+  it('follows the Eastern offset through DST (EST is UTC-5, not UTC-4, in winter)', () => {
+    // 04:30Z on Dec 6 is 11:30pm EST Dec 5. A hardcoded UTC-4 would call it 12:30am Dec 6.
+    expect(days(scoreboardUrls(at('2026-12-06T04:30:00Z')))).toEqual(['20261205']);
+  });
+
+  it('returns one URL per distinct day, sorted, when a slate spans several days', () => {
     const games = [
-      { id: 'g1', away: 'a', home: 'b', when: '2026-09-11T23:00:00Z' }, // Friday
-      { id: 'g2', away: 'c', home: 'd', when: '2026-09-14T18:00:00Z' }, // Monday
+      { id: 'g1', away: 'a', home: 'b', when: '2026-09-20T00:00:00Z' }, // Sat 8pm ET
+      { id: 'g2', away: 'c', home: 'd', when: '2026-09-19T02:30:00Z' }, // Fri 10:30pm ET
+      { id: 'g3', away: 'e', home: 'f', when: '2026-09-19T16:00:00Z' }, // Sat noon ET
     ];
-    expect(scoreboardUrl(games)).toMatch(/&dates=20260910-20260915$/);
+    expect(days(scoreboardUrls(games))).toEqual(['20260918', '20260919']);
+  });
+
+  it('also asks for the previous ESPN day for a kickoff just after midnight ET (in case ESPN buckets it with the night before)', () => {
+    // 04:00Z = 12:00am ET Sunday; 6h earlier is 6pm ET Saturday.
+    expect(days(scoreboardUrls(at('2026-09-20T04:00:00Z')))).toEqual(['20260919', '20260920']);
+  });
+
+  it('REGRESSION 2026-09-19: never emits a dates=A-B range -- ESPN answers every range with HTTP 400 "Failed to get events endpoint", which blacked out every live score', () => {
+    const games = [
+      { id: 'g1', away: 'a', home: 'b', when: '2026-09-11T23:00:00Z' },
+      { id: 'g2', away: 'c', home: 'd', when: '2026-09-20T00:00:00Z' },
+    ];
+    for (const url of scoreboardUrls(games)) expect(url).not.toMatch(/dates=\d{8}-\d{8}/);
+  });
+
+  it('keeps groups=80 on every URL', () => {
+    for (const url of scoreboardUrls(at('2026-09-19T16:00:00Z'))) expect(url).toContain('groups=80');
   });
 
   it('falls back to the plain dateless URL when no game has a parseable `when`', () => {
-    const games = [{ id: 'g1', away: 'a', home: 'b', when: null }];
-    expect(scoreboardUrl(games)).not.toMatch(/dates=/);
-    expect(scoreboardUrl(games)).toMatch(/groups=80&limit=150$/);
+    const urls = scoreboardUrls(at(null));
+    expect(urls).toHaveLength(1);
+    expect(urls[0]).not.toMatch(/dates=/);
+    expect(urls[0]).toMatch(/groups=80&limit=150$/);
+  });
+});
+
+describe('fetchScoreboard', () => {
+  const games = [
+    { id: 'g1', away: 'a', home: 'b', when: '2026-09-19T02:30:00Z' }, // ESPN day 20260918
+    { id: 'g2', away: 'c', home: 'd', when: '2026-09-19T16:00:00Z' }, // ESPN day 20260919
+  ];
+  const okJson = (events) => Promise.resolve({ ok: true, json: () => Promise.resolve({ events }) });
+  const bad = (status) => Promise.resolve({ ok: false, status });
+
+  it('merges the events from every day it fetched', async () => {
+    const fetchFn = (url) => (url.endsWith('20260918') ? okJson([{ id: 'e1' }]) : okJson([{ id: 'e2' }, { id: 'e3' }]));
+    const merged = await fetchScoreboard(games, fetchFn);
+    expect(merged.events.map((e) => e.id).sort()).toEqual(['e1', 'e2', 'e3']);
   });
 
-  it('confirmed live 2026-09-12: this is the exact shape that fixed a real missed game (#5 Indiana vs Howard, an FBS-vs-FCS matchup ESPN\'s dateless default silently omitted while it was genuinely in progress)', () => {
-    const games = [{ id: 'howard-indiana', away: 'howard', home: 'indiana', when: '2026-09-12T16:00:00Z' }];
-    expect(scoreboardUrl(games)).toContain('groups=80');
-    expect(scoreboardUrl(games)).toMatch(/dates=20260911-20260913$/);
+  it('still returns the days that worked when one day fails -- one bad day must not black out the rest', async () => {
+    const fetchFn = (url) => (url.endsWith('20260918') ? bad(400) : okJson([{ id: 'e2' }]));
+    const merged = await fetchScoreboard(games, fetchFn);
+    expect(merged.events.map((e) => e.id)).toEqual(['e2']);
+  });
+
+  it("throws when every day fails, so the caller's backoff/retry path still runs", async () => {
+    await expect(fetchScoreboard(games, () => bad(400))).rejects.toThrow(/HTTP 400/);
   });
 });

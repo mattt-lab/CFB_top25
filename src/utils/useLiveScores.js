@@ -29,26 +29,55 @@ function safeScore(v) {
   return Number.isFinite(n) ? n : null;
 }
 
-function espnDateParam(date) {
-  return `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(2, '0')}${String(date.getUTCDate()).padStart(2, '0')}`;
+// ESPN files every event under a US-Eastern calendar day -- confirmed live 2026-09-19:
+// dates=20260919 returned events from 15:30Z Saturday through 03:00Z Sunday (8pm-11pm ET Saturday
+// games included) and dates=20260920 returned none. So the day to ask for is a kickoff's Eastern
+// date, NOT its UTC date; Intl handles the EDT/EST switch instead of a hardcoded offset.
+const ESPN_DAY = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit',
+});
+const espnDay = (ms) => ESPN_DAY.format(ms).replaceAll('-', '');
+// A kickoff just after midnight ET (a late West-coast/Hawaii start) might be filed under the
+// night before -- no such game was on the board to check, so also ask for the day 6h earlier
+// rather than assume. For any ordinary kickoff both land on the same day, i.e. no extra request.
+const LATE_NIGHT_LOOKBACK_MS = 6 * 60 * 60 * 1000;
+
+// One URL per ESPN day the tracked games fall on. Never a `dates=A-B` range: as of 2026-09-19 ESPN
+// answers EVERY range (even last week's known-good 20260911-20260913, even 20260919-20260919) with
+// HTTP 400 {"message":"Failed to get events endpoint."} while single-day queries still return 200 --
+// which is what silently blacked out every live score in the app until this was found. Explicit
+// per-day dates are still needed (rather than the dateless default) because ESPN's dateless
+// "current window" can silently OMIT a real, in-progress game -- confirmed live 2026-09-12 with
+// #5 Indiana vs FCS Howard. Falls back to the plain dateless URL only if no tracked game has a
+// parseable `when` at all.
+export function scoreboardUrls(games) {
+  const days = new Set();
+  for (const g of games) {
+    const t = Date.parse(g.when);
+    if (Number.isNaN(t)) continue;
+    days.add(espnDay(t));
+    days.add(espnDay(t - LATE_NIGHT_LOOKBACK_MS));
+  }
+  if (!days.size) return [SCOREBOARD_BASE_URL];
+  return [...days].sort().map((d) => `${SCOREBOARD_BASE_URL}&dates=${d}`);
 }
 
-// Confirmed live 2026-09-12: ESPN's DATELESS scoreboard (no `dates` param -- what this used to
-// always send) applies some undocumented "current window" heuristic that can silently OMIT a
-// real, currently-relevant game. #5 Indiana hosting FCS Howard was missing entirely from the
-// dateless groups=80 response while genuinely in progress -- the exact same groups=80 query WITH
-// an explicit dates= range correctly included it (state "in", real score). Scoping every fetch to
-// the actual span of tracked kickoffs, padded a day on each side (the exact boundary logic behind
-// ESPN's default omission isn't documented, and the padding costs nothing), closes that gap for
-// good instead of hoping an undocumented default happens to cover whatever's being tracked.
-// Falls back to the plain dateless URL only if no tracked game has a parseable `when` at all.
-export function scoreboardUrl(games) {
-  const times = games.map((g) => Date.parse(g.when)).filter((t) => !Number.isNaN(t));
-  if (!times.length) return SCOREBOARD_BASE_URL;
-  const dayMs = 24 * 60 * 60 * 1000;
-  const from = espnDateParam(new Date(Math.min(...times) - dayMs));
-  const to = espnDateParam(new Date(Math.max(...times) + dayMs));
-  return `${SCOREBOARD_BASE_URL}&dates=${from === to ? from : `${from}-${to}`}`;
+// Fetches every day scoreboardUrls() asks for and merges their events into one scoreboard-shaped
+// object. A day that fails is skipped (its games just keep their last committed status) as long as
+// at least one other day worked -- one bad day must not black out the rest. Throws only when EVERY
+// day failed, so the hook's backoff/retry path below still runs for a real outage.
+export async function fetchScoreboard(games, fetchFn = fetch) {
+  const settled = await Promise.allSettled(scoreboardUrls(games).map(async (url) => {
+    const res = await fetchFn(url);
+    if (!res.ok) throw new Error(`ESPN scoreboard HTTP ${res.status} (${url})`);
+    return res.json();
+  }));
+  const fulfilled = settled.filter((s) => s.status === 'fulfilled');
+  if (!fulfilled.length) throw settled[0].reason;
+  for (const s of settled) {
+    if (s.status === 'rejected') console.warn('useLiveScores: one scoreboard day failed, using the rest', s.reason);
+  }
+  return { events: fulfilled.flatMap((s) => s.value?.events ?? []) };
 }
 
 // Pure: given our marquee games[] and a raw ESPN scoreboard response, returns
@@ -209,9 +238,7 @@ export function useLiveScores(games) {
     async function tick() {
       timer = null;
       try {
-        const res = await fetch(scoreboardUrl(gamesRef.current));
-        if (!res.ok) throw new Error(`ESPN scoreboard HTTP ${res.status}`);
-        const data = await res.json();
+        const data = await fetchScoreboard(gamesRef.current);
         if (cancelled) return;
         const next = matchLiveGames(gamesRef.current, data);
         overlayRef.current = next;

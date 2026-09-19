@@ -14,7 +14,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
-import { buildEventsByEspnTeamId, findEspnEventId, buildScoreboardUrl } from './lib/espn-match.mjs';
+import { buildEventsByEspnTeamId, findEspnEventId, buildScoreboardUrls } from './lib/espn-match.mjs';
 import { buildGameStory, hasGameStory, buildPregameContext } from './lib/espn-game-story.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -130,15 +130,22 @@ function toGameFacts(g, current) {
 // this feature existed -- never blocks the other ~23 games in the same run.
 async function fetchEspnEnrichment(games) {
   const enrichment = new Map();
-  let scoreboard;
-  try {
-    const res = await fetch(buildScoreboardUrl(games, ESPN_SCOREBOARD_BASE_URL));
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    scoreboard = await res.json();
-  } catch (err) {
-    console.error(`ESPN scoreboard fetch failed, skipping all recap/predictor enrichment this run: ${err.message}`);
+  // One request per ESPN day (see buildScoreboardUrls -- ESPN rejects multi-day ranges). A day that
+  // fails is skipped as long as another worked; only a total failure skips the whole run.
+  const settled = await Promise.allSettled(buildScoreboardUrls(games, ESPN_SCOREBOARD_BASE_URL).map(async (url) => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status} (${url})`);
+    return res.json();
+  }));
+  const days = settled.filter((s) => s.status === 'fulfilled').map((s) => s.value);
+  for (const s of settled) {
+    if (s.status === 'rejected') console.warn(`ESPN scoreboard day failed, continuing with the rest: ${s.reason.message}`);
+  }
+  if (!days.length) {
+    console.error(`ESPN scoreboard fetch failed, skipping all recap/predictor enrichment this run: ${settled[0].reason.message}`);
     return enrichment;
   }
+  const scoreboard = { events: days.flatMap((d) => d.events ?? []) };
   const eventsByEspnTeamId = buildEventsByEspnTeamId(scoreboard);
 
   let matched = 0;

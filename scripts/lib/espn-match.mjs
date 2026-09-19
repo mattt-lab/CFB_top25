@@ -53,25 +53,36 @@ export function findEspnEventId(game, eventsByEspnTeamId, espnTeamMap) {
   return best.id;
 }
 
-function espnDateParam(date) {
-  return `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(2, '0')}${String(date.getUTCDate()).padStart(2, '0')}`;
-}
+// ESPN files every event under a US-Eastern calendar day -- confirmed live 2026-09-19:
+// dates=20260919 returned events from 15:30Z Saturday through 03:00Z Sunday (8pm-11pm ET Saturday
+// games included) and dates=20260920 returned none. Same reasoning, same code, as
+// src/utils/useLiveScores.js's scoreboardUrls() (this file's own client-side counterpart).
+const ESPN_DAY = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit',
+});
+const espnDay = (ms) => ESPN_DAY.format(ms).replaceAll('-', '');
+// A kickoff just after midnight ET might be filed under the night before -- no such game was on
+// the board to check, so also ask for the day 6h earlier rather than assume (same day, i.e. no
+// extra request, for any ordinary kickoff).
+const LATE_NIGHT_LOOKBACK_MS = 6 * 60 * 60 * 1000;
 
-// Confirmed live 2026-09-12: ESPN's DATELESS scoreboard (no `dates` param) applies some
-// undocumented "current window" heuristic that can silently OMIT a real, currently-relevant
-// game -- a ranked FBS team hosting an FCS opponent was missing entirely from the dateless
-// response while genuinely in progress, though the exact same query WITH an explicit dates=
-// range correctly included it. Scopes every fetch to the actual span of tracked kickoffs, padded
-// a day on each side, instead of hoping the undocumented default happens to cover whatever's
-// being enriched this run. Same fix, same reasoning, as src/utils/useLiveScores.js's
-// scoreboardUrl() (this file's own client-side counterpart) -- `baseUrl` is passed in rather than
-// hardcoded here since the actual endpoint string lives in narrate.mjs, matching where
+// One URL per ESPN day the tracked games fall on. Never a `dates=A-B` range: as of 2026-09-19 ESPN
+// answers EVERY range with HTTP 400 {"message":"Failed to get events endpoint."} while single-day
+// queries still return 200 -- narrate.mjs's fetchEspnEnrichment caught that 400 and silently
+// skipped every recap/predictor for the run. Explicit per-day dates (rather than the dateless
+// default) are still needed because ESPN's dateless "current window" can silently OMIT a real
+// game -- confirmed live 2026-09-12 with a ranked FBS team hosting an FCS opponent. Falls back to
+// the plain base URL only if no tracked game has a parseable `when` at all. `baseUrl` is passed in
+// rather than hardcoded here since the actual endpoint string lives in narrate.mjs, matching where
 // espnSummaryUrl's own URL construction already lives.
-export function buildScoreboardUrl(games, baseUrl) {
-  const times = games.map((g) => Date.parse(g.when)).filter((t) => !Number.isNaN(t));
-  if (!times.length) return baseUrl;
-  const dayMs = 24 * 60 * 60 * 1000;
-  const from = espnDateParam(new Date(Math.min(...times) - dayMs));
-  const to = espnDateParam(new Date(Math.max(...times) + dayMs));
-  return `${baseUrl}&dates=${from === to ? from : `${from}-${to}`}`;
+export function buildScoreboardUrls(games, baseUrl) {
+  const days = new Set();
+  for (const g of games) {
+    const t = Date.parse(g.when);
+    if (Number.isNaN(t)) continue;
+    days.add(espnDay(t));
+    days.add(espnDay(t - LATE_NIGHT_LOOKBACK_MS));
+  }
+  if (!days.size) return [baseUrl];
+  return [...days].sort().map((d) => `${baseUrl}&dates=${d}`);
 }

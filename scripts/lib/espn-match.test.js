@@ -2,7 +2,7 @@
 // src/utils/useLiveScores.test.js's matchLiveGames tests, adapted for the simpler
 // (id-only, no live status) server-side lookup.
 import { describe, it, expect } from 'vitest';
-import { buildEventsByEspnTeamId, findEspnEventId, buildScoreboardUrl } from './espn-match.mjs';
+import { buildEventsByEspnTeamId, findEspnEventId, buildScoreboardUrls } from './espn-match.mjs';
 
 const TEAM_MAP = { 'ohio-state': '194', michigan: '130', clemson: '228' };
 
@@ -68,30 +68,50 @@ describe('findEspnEventId', () => {
 
 const BASE = 'https://example.com/scoreboard?groups=80&limit=150';
 
-describe('buildScoreboardUrl', () => {
-  it('scopes to a single padded date when every tracked game is on the same day', () => {
+describe('buildScoreboardUrls', () => {
+  const at = (when) => [{ id: 'g', away: 'a', home: 'b', when }];
+
+  it('asks for exactly the one ESPN day a same-day slate falls on', () => {
     const games = [
-      { id: 'g1', away: 'a', home: 'b', when: '2026-09-12T16:00:00Z' },
-      { id: 'g2', away: 'c', home: 'd', when: '2026-09-12T23:00:00Z' },
+      { id: 'g1', away: 'a', home: 'b', when: '2026-09-19T16:00:00Z' },
+      { id: 'g2', away: 'c', home: 'd', when: '2026-09-19T23:30:00Z' },
     ];
-    expect(buildScoreboardUrl(games, BASE)).toBe(`${BASE}&dates=20260911-20260913`);
+    expect(buildScoreboardUrls(games, BASE)).toEqual([`${BASE}&dates=20260919`]);
   });
 
-  it('spans a padded range covering every tracked game when they land on different days', () => {
+  it("uses ESPN's US-Eastern calendar day, not the UTC day (confirmed live 2026-09-19: an 8pm ET Saturday kickoff is filed under Saturday)", () => {
+    expect(buildScoreboardUrls(at('2026-09-20T00:00:00Z'), BASE)).toEqual([`${BASE}&dates=20260919`]);
+    expect(buildScoreboardUrls(at('2026-09-19T02:30:00Z'), BASE)).toEqual([`${BASE}&dates=20260918`]);
+  });
+
+  it('follows the Eastern offset through DST (EST is UTC-5 in winter)', () => {
+    expect(buildScoreboardUrls(at('2026-12-06T04:30:00Z'), BASE)).toEqual([`${BASE}&dates=20261205`]);
+  });
+
+  it('returns one URL per distinct day, sorted', () => {
+    const games = [
+      { id: 'g1', away: 'a', home: 'b', when: '2026-09-20T00:00:00Z' },
+      { id: 'g2', away: 'c', home: 'd', when: '2026-09-19T02:30:00Z' },
+      { id: 'g3', away: 'e', home: 'f', when: '2026-09-19T16:00:00Z' },
+    ];
+    expect(buildScoreboardUrls(games, BASE)).toEqual([`${BASE}&dates=20260918`, `${BASE}&dates=20260919`]);
+  });
+
+  it('also asks for the previous ESPN day for a kickoff just after midnight ET', () => {
+    expect(buildScoreboardUrls(at('2026-09-20T04:00:00Z'), BASE)).toEqual([
+      `${BASE}&dates=20260919`, `${BASE}&dates=20260920`,
+    ]);
+  });
+
+  it('REGRESSION 2026-09-19: never emits a dates=A-B range -- ESPN answers every range with HTTP 400, which silently skipped all recap/predictor enrichment', () => {
     const games = [
       { id: 'g1', away: 'a', home: 'b', when: '2026-09-11T23:00:00Z' },
-      { id: 'g2', away: 'c', home: 'd', when: '2026-09-14T18:00:00Z' },
+      { id: 'g2', away: 'c', home: 'd', when: '2026-09-20T00:00:00Z' },
     ];
-    expect(buildScoreboardUrl(games, BASE)).toBe(`${BASE}&dates=20260910-20260915`);
+    for (const url of buildScoreboardUrls(games, BASE)) expect(url).not.toMatch(/dates=\d{8}-\d{8}/);
   });
 
   it('falls back to the plain base URL when no game has a parseable `when`', () => {
-    const games = [{ id: 'g1', away: 'a', home: 'b', when: null }];
-    expect(buildScoreboardUrl(games, BASE)).toBe(BASE);
-  });
-
-  it('confirmed live 2026-09-12: this is the exact shape that fixed a real missed game (#5 Indiana vs Howard, an FBS-vs-FCS matchup ESPN\'s dateless default silently omitted while it was genuinely in progress)', () => {
-    const games = [{ id: 'howard-indiana', away: 'howard', home: 'indiana', when: '2026-09-12T16:00:00Z' }];
-    expect(buildScoreboardUrl(games, BASE)).toBe(`${BASE}&dates=20260911-20260913`);
+    expect(buildScoreboardUrls(at(null), BASE)).toEqual([BASE]);
   });
 });
