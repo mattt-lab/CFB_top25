@@ -460,3 +460,28 @@ branding change doesn't break joins.
 | `games[].blurb`, `rankedNextGames[].blurb`, `teams[].nextGame.blurb`, `predictions[].blurb`, `fieldStorylines[].blurb`, `teams[].bubbleNote.blurb`, all `blurbSource` fields | Stage 2 narration (task #7), with a deterministic-line fallback on failure -- status-aware: a pregame preview for scheduled games, a postgame recap for final ones. `teams[].nextGame.blurb` is copied from whichever of `games[]`/`rankedNextGames[]` matches that team's next game by `cfbdId`, not narrated a second time |
 | `games[]`/`allGames[].cfbdId`/`status`/`awayScore`/`homeScore`, `teams[].nextGame.cfbdId`/`status`/`awayScore`/`homeScore` | fetch script (`"scheduled"`/`"final"` only, from `/games`) -- see "Game status lifecycle" above |
 | `games[]`'s `status`/`period`/`clock`/`awayScore`/`homeScore` as actually RENDERED on the homepage marquee, while a game is live | `src/utils/useLiveScores.js`, client-side only, from ESPN's public scoreboard -- never written to `data/current.json`; see "Game status lifecycle" above |
+
+## Pick 'em snapshots (`data/pickem-snapshots/`)
+
+A frozen record of what the Top 25 Pick 'em page projected for a week, so it can be checked against
+the poll that actually came out. **Not** written by the pipeline -- taken by hand once a slate is
+decided: `node scripts/snapshot-pickem.mjs [--force] [--require-complete]` writes
+`{season}-wk{NN}.json` (refuses to overwrite without `--force`; `--require-complete` writes nothing
+if any ranked team's game isn't final). `current.json` rolls to next week's slate, so the pre-game
+lines and final scores here can't be recovered later.
+
+- `currentOrder` / `projectedOrder` -- the poll the week started with and the model's re-sort, with
+  every ranked team's real result as its "pick" (same code as the page: `src/utils/pickemModel.js`).
+- `teams[]` -- per ranked team: ranks, `move`, `outcome`, the model `inputs`, and `game` with the
+  score, `spread`, `overUnder`, `expectedMargin` (+ = favored by that many), `surprise`
+  (`margin - expectedMargin`; + = beat the line), `coveredSpread`, `upsetWin`/`upsetLoss`, and
+  `resultSource` (`cfbd`, or `espn` when the committed data hadn't marked the game final yet).
+- `games[]` -- the whole slate with lines and results (unranked teams too -- how newcomers crash the
+  poll). Lines come from CFBD, parsed by `src/utils/spread.js`.
+- `complete` / `notFinal` -- whether every ranked team's game was final when it was taken.
+
+`node scripts/review-pickem.mjs [--week N] [--write]` compares a snapshot with the next week's poll
+(`data/rankings/{season}-wk{N+1}.json`): projected vs actual order against a "leave the poll alone"
+baseline, and how each result compared with its line vs how the poll moved. Exits 3 if that poll
+isn't in the data yet. The model only re-sorts the 25 already ranked, so exits and newcomers are
+reported separately, not scored as rank error.
