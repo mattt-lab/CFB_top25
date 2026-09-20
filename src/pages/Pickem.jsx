@@ -4,6 +4,7 @@ import {
   WEEK_IDX_MAX, WEEKLY_ORDER, teams, teamById, allGames, nextGameParts, deltaLabel, dirFor,
 } from '../data/teams.js';
 import { projectOrder, MIRROR } from '../utils/projectTop25.js';
+import { buildPickemContext, autoPicksFor } from '../utils/pickemModel.js';
 import { useLiveScores } from '../utils/useLiveScores.js';
 import TeamMark from '../components/TeamMark.jsx';
 
@@ -17,35 +18,12 @@ const OUTCOMES = [
 // Current Top 25 only -- Pick 'em is deliberately a current-week-only page (no week travel; see
 // Layout's WEEK_TRAVEL_PATTERNS comment), so it reads WEEK_IDX_MAX directly like Conferences does.
 const CURRENT_ORDER = WEEKLY_ORDER[WEEK_IDX_MAX];
-const RANKED = {};
-CURRENT_ORDER.forEach((id) => { RANKED[id] = true; });
-
-// { teamId: opponentTeamId } for THIS week's slate, from allGames (the full ~90-100 game slate,
-// not the marquee 6) -- module-level since the slate is fixed for the session.
-const OPP_ID = {};
-allGames.forEach((g) => {
-  OPP_ID[g.away] = g.home;
-  OPP_ID[g.home] = g.away;
-});
-
-// Head-to-head map restricted to games where BOTH teams are in the current Top 25 -- these are the
-// picks that auto-sync (calling one side calls the other) and get the winner-above-loser hard
-// constraint in the model.
-const H2H = {};
-allGames.forEach((g) => {
-  if (RANKED[g.away] && RANKED[g.home]) {
-    H2H[g.away] = g.home;
-    H2H[g.home] = g.away;
-  }
-});
-
-// teamId -> that team's allGames entry this week (the static, build-time snapshot). Used as the
-// base for the live-merged version built inside the component -- see liveGameByTeam.
-const GAME_BY_TEAM = {};
-allGames.forEach((g) => {
-  GAME_BY_TEAM[g.away] = g;
-  GAME_BY_TEAM[g.home] = g;
-});
+// This week's slate, keyed for the model -- built by the same pure module the Node snapshot script
+// (scripts/snapshot-pickem.mjs) uses, so a snapshot is exactly what this page computes. Module-level
+// since the slate is fixed for the session.
+const {
+  h2h: H2H, gameByTeam: GAME_BY_TEAM, getOpponentInfo,
+} = buildPickemContext(CURRENT_ORDER, allGames, teamById);
 
 // Distinct games (deduped by id) for the current Top 25's matchups, so useLiveScores can track
 // them for live-final detection -- GAME_BY_TEAM maps both sides of a game to the SAME object, so
@@ -53,34 +31,6 @@ allGames.forEach((g) => {
 const PICKEM_GAMES = [...new Map(
   CURRENT_ORDER.map((id) => GAME_BY_TEAM[id]).filter(Boolean).map((g) => [g.id, g]),
 ).values()];
-
-// Real result -> pick category, once a team's game is final. Margin >= 14 either way counts as a
-// blowout (the user's own threshold) -- ties are impossible in football, so margin is never 0 for
-// a final game. Returns null for a bye week or a game that hasn't finished yet -- those stay
-// user-assignable via the chips. Takes the game object directly (not a teamId lookup) so it works
-// the same whether `g` is the static snapshot or the live-merged version.
-function autoResultFor(g, teamId) {
-  if (!g || g.status !== 'final' || g.awayScore == null || g.homeScore == null) return null;
-  const isHome = g.home === teamId;
-  const mine = isHome ? g.homeScore : g.awayScore;
-  const theirs = isHome ? g.awayScore : g.homeScore;
-  const margin = mine - theirs;
-  if (margin > 0) return margin >= 14 ? 'blowoutWin' : 'win';
-  return Math.abs(margin) >= 14 ? 'blowoutLoss' : 'loss';
-}
-
-// Opponent-quality resolver for the model: poll rank straight off the slate entry, SP+ rank via
-// the opponent's own team record (may be absent for a non-Power-4 unranked opponent -- degrades
-// to null, which the model treats as a generic unranked team).
-function getOpponentInfo(teamId) {
-  const oppId = OPP_ID[teamId];
-  if (!oppId) return null;
-  const idx = CURRENT_ORDER.indexOf(oppId);
-  return {
-    oppPollRank: idx === -1 ? null : idx + 1,
-    oppSpRank: teamById(oppId)?.sp ?? null,
-  };
-}
 
 export default function Pickem() {
   // The static build-time snapshot only ever says 'scheduled' or 'final' (see
@@ -102,14 +52,7 @@ export default function Pickem() {
   // overlay, not just the static snapshot) gets its real result pre-filled. Recomputed whenever
   // the live overlay updates, so a game that goes final while the page is open transitions from
   // chips to a locked real result live, not just on the next full page load.
-  const autoPicks = useMemo(() => {
-    const next = {};
-    CURRENT_ORDER.forEach((id) => {
-      const result = autoResultFor(liveGameByTeam[id], id);
-      if (result) next[id] = result;
-    });
-    return next;
-  }, [liveGameByTeam]);
+  const autoPicks = useMemo(() => autoPicksFor(CURRENT_ORDER, liveGameByTeam), [liveGameByTeam]);
 
   // Manual (user-clicked) picks only -- kept separate from autoPicks so a game newly going final
   // mid-session cleanly overrides whatever the user had guessed, without needing to reconcile two

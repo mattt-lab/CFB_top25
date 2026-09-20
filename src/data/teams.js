@@ -3,6 +3,7 @@
 // doesn't need to change shape. See docs/data-schema.md for the authoritative schema this file
 // targets.
 import raw from '../../data/current.json';
+import { parseSpread } from '../utils/spread.js';
 
 export const WEEKS = Array.from({ length: raw.meta.currentWeek }, (_, i) => i + 1);
 export const WEEK_IDX_MIN = Math.min(...raw.meta.weeksAvailable) - 1; // array index for the first week with ANY poll
@@ -349,28 +350,11 @@ export function leadingScoreLabel(g) {
   return `${p.leaderName} ${p.leaderScore}–${p.trailerScore}`;
 }
 
-// Which side the betting line favors, resolved by checking whether CFBD's pre-formatted spread
-// string (e.g. "Ohio State -6.5") starts with either team's resolved name -- there's no structured
-// numeric field, just this string (see fetch-cfb-data.mjs's spread comment). Returns null (not a
-// guess) when there's no line, or the string matches neither name -- a genuine pick'em line, or a
-// name-formatting mismatch between the odds provider and our own team names.
-//
-// One team's name can be a strict prefix of the other's ("Texas" vs. "Texas A&M"/"Texas State"/
-// "Texas Tech" -- all real matchups, Texas-A&M is a rivalry game in data/rivalries.json), so a
-// spread favoring the LONGER-named team ("Texas A&M -3.5") also satisfies startsWith() for the
-// shorter one purely by coincidence. When both names match, the longer name is the real one --
-// the string has to be at least that long for the longer match to succeed at all, so it can't be
-// a coincidental prefix collision the way the shorter match can.
+// Which side the betting line favors -- the parsing (and the "Texas" vs "Texas A&M" prefix-collision
+// handling) lives in src/utils/spread.js so the Node scripts read the line identically. Returns
+// null (not a guess) when there's no line or it matches neither team.
 function favoredSide(g) {
-  if (!g.spread) return null;
-  const awayName = g.awayTeam?.name;
-  const homeName = g.homeTeam?.name;
-  const awayMatch = !!(awayName && g.spread.startsWith(awayName));
-  const homeMatch = !!(homeName && g.spread.startsWith(homeName));
-  if (awayMatch && homeMatch) return awayName.length >= homeName.length ? 'away' : 'home';
-  if (awayMatch) return 'away';
-  if (homeMatch) return 'home';
-  return null;
+  return parseSpread(g.spread, g.awayTeam?.name, g.homeTeam?.name).side;
 }
 
 // "Potential upset" -- the underdog (per the betting line) is doing better than the line implies.
