@@ -381,6 +381,69 @@ describe('isPotentialUpset', () => {
     };
     expect(isPotentialUpset(g)).toBe(false);
   });
+
+  // Fourth-quarter/OT cases. Fixture: "Somebody U" (home) is the -14 favorite; "Nobody State" (away)
+  // is the underdog. `dog`/`fav` are the two teams' scores.
+  const live = (period, dog, fav) => ({
+    status: 'in_progress', period, clock: '5:00',
+    away: 'nobody', awayTeam: { name: 'Nobody State' }, awayScore: dog,
+    home: 'somebody', homeTeam: { name: 'Somebody U' }, homeScore: fav,
+    spread: 'Somebody U -14',
+  });
+
+  // REGRESSION 2026-09-19: the Q4 rule was Math.abs(fav - dog) <= 7, i.e. "the game is close EITHER
+  // way" -- so an underdog leading by MORE than 7 fell outside it and got no flag. Kentucky (Texas
+  // A&M -16.5) led 31-21 with 1:57 left and Ole Miss (LSU -3) led 32-24 in Q4, and neither showed
+  // a fire icon, while an underdog leading by 3 did.
+  it('flags the underdog leading by MORE than a touchdown in Q4 -- the bigger the lead, the bigger the upset', () => {
+    const kentucky = {
+      status: 'in_progress', period: 4, clock: '1:57',
+      away: 'kentucky', awayTeam: { name: 'Kentucky' }, awayScore: 31,
+      home: 'texas-a-m', homeTeam: { name: 'Texas A&M' }, homeScore: 21,
+      spread: 'Texas A&M -16.5',
+    };
+    const oleMiss = {
+      status: 'in_progress', period: 4, clock: '6:14',
+      away: 'lsu', awayTeam: { name: 'LSU' }, awayScore: 24,
+      home: 'ole-miss', homeTeam: { name: 'Ole Miss' }, homeScore: 32,
+      spread: 'LSU -3',
+    };
+    expect(isPotentialUpset(kentucky)).toBe(true);
+    expect(isPotentialUpset(oleMiss)).toBe(true);
+    expect(isPotentialUpset(live(4, 24, 10))).toBe(true);
+  });
+
+  it('flags the underdog trailing by a touchdown or less in Q4 (still in it), but not by more', () => {
+    expect(isPotentialUpset(live(4, 17, 20))).toBe(true);  // down 3
+    expect(isPotentialUpset(live(4, 13, 20))).toBe(true);  // down exactly 7
+    expect(isPotentialUpset(live(4, 12, 20))).toBe(false); // down 8 -- two scores
+  });
+
+  it('does not flag a favorite that is comfortably winning in Q4', () => {
+    const tennessee = {
+      status: 'in_progress', period: 4, clock: '0:23',
+      away: 'kennesaw-state', awayTeam: { name: 'Kennesaw State' }, awayScore: 9,
+      home: 'tennessee', homeTeam: { name: 'Tennessee' }, homeScore: 42,
+      spread: 'Tennessee -35.5',
+    };
+    expect(isPotentialUpset(tennessee)).toBe(false);
+  });
+
+  it('treats overtime like Q4 -- underdog ahead or within a touchdown', () => {
+    expect(isPotentialUpset(live(5, 27, 24))).toBe(true);
+    expect(isPotentialUpset(live(5, 21, 24))).toBe(true);
+  });
+
+  it('flags the underdog tied or ahead in Q3, but not while trailing', () => {
+    expect(isPotentialUpset(live(3, 14, 14))).toBe(true);
+    expect(isPotentialUpset(live(3, 17, 14))).toBe(true);
+    expect(isPotentialUpset(live(3, 13, 14))).toBe(false);
+  });
+
+  it('does not flag a final where the favorite won', () => {
+    const g = { ...live(4, 6, 14), status: 'final' };
+    expect(isPotentialUpset(g)).toBe(false);
+  });
 });
 
 describe('periodLabel', () => {

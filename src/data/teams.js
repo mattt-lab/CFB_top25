@@ -374,8 +374,9 @@ function favoredSide(g) {
 }
 
 // "Potential upset" -- the underdog (per the betting line) is doing better than the line implies.
-// While live: ahead in the first half (period 1-2), tied or better in Q3 (period 3), or within 7
-// points in Q4 or OT (period >= 4). Once final: the underdog won outright. Needs a resolvable
+// While live: ahead in the first half (period 1-2), tied or better in Q3 (period 3), or in Q4/OT
+// (period >= 4) ahead by any amount OR trailing by no more than 7 (still one score away). Once
+// final: the underdog won outright. Needs a resolvable
 // favorite (see favoredSide) and, for the live checks, a known period -- degrades to false rather
 // than guessing when either is missing.
 export function isPotentialUpset(g) {
@@ -393,7 +394,9 @@ export function isPotentialUpset(g) {
   if (g.status !== 'in_progress' || !g.period) return false;
   if (g.period <= 2) return dogScore > favScore;
   if (g.period === 3) return dogScore >= favScore;
-  return Math.abs(favScore - dogScore) <= 7; // period >= 4 -- Q4 or OT
+  // period >= 4 -- Q4 or OT. NOT Math.abs(favScore - dogScore) <= 7: that's "close either way", which
+  // silently dropped an underdog LEADING by more than a touchdown -- the biggest upsets of all.
+  return dogScore - favScore >= -7;
 }
 
 // Last-two-non-null-values trend for a team's own authored poll array (AP/Coaches/CFP).
