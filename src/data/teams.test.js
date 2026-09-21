@@ -352,14 +352,20 @@ describe('isPotentialUpset', () => {
     expect(isPotentialUpset(g)).toBe(false);
   });
 
-  it('flags a live first-half lead by the underdog as a potential upset', () => {
-    const g = {
-      status: 'in_progress', period: 1, clock: '10:00',
-      away: 'nobody', awayTeam: { name: 'Nobody State' }, awayScore: 10,
-      home: 'somebody', homeTeam: { name: 'Somebody U' }, homeScore: 3,
+  // Changed 2026-09-21: replaying a week of real games showed a first-half underdog lead (even a
+  // 3-0 field goal) flagged ~half of all games at some point, and the favorite went on to win 15 of
+  // the 19 games flagged in Q1. Only games still interesting AFTER halftime get the fire icon.
+  it('never flags a first-half lead, however big -- including at halftime itself', () => {
+    const g = (period, clock, dog, fav) => ({
+      status: 'in_progress', period, clock,
+      away: 'nobody', awayTeam: { name: 'Nobody State' }, awayScore: dog,
+      home: 'somebody', homeTeam: { name: 'Somebody U' }, homeScore: fav,
       spread: 'Somebody U -14',
-    };
-    expect(isPotentialUpset(g)).toBe(true);
+    });
+    expect(isPotentialUpset(g(1, '10:00', 10, 3))).toBe(false);
+    expect(isPotentialUpset(g(1, '2:00', 21, 0))).toBe(false);
+    expect(isPotentialUpset(g(2, '5:00', 24, 3))).toBe(false);
+    expect(isPotentialUpset(g(2, '0:00', 24, 3))).toBe(false); // halftime: period stays 2, clock 0:00
   });
 
   it('flags an outright underdog win once the game is final', () => {
@@ -438,6 +444,35 @@ describe('isPotentialUpset', () => {
     expect(isPotentialUpset(live(3, 14, 14))).toBe(true);
     expect(isPotentialUpset(live(3, 17, 14))).toBe(true);
     expect(isPotentialUpset(live(3, 13, 14))).toBe(false);
+  });
+
+  // Changed 2026-09-21: in Q3 a "tiny" underdog (3 points or fewer -- a coin-flip line) leading isn't
+  // an upset worth a fire icon. Four of a week's eight real upsets were tiny underdogs, so this is
+  // deliberately Q3-only: Q4/OT and finals still flag them (LSU -3 losing to Ole Miss still counts).
+  describe('tiny underdogs (3 points or fewer)', () => {
+    const withSpread = (g, spread) => ({ ...g, spread });
+    it('are ignored in Q3 even when leading', () => {
+      expect(isPotentialUpset(withSpread(live(3, 17, 14), 'Somebody U -3'))).toBe(false);
+      expect(isPotentialUpset(withSpread(live(3, 17, 14), 'Somebody U -1.5'))).toBe(false);
+      expect(isPotentialUpset(withSpread(live(3, 14, 14), 'Somebody U -2.5'))).toBe(false); // tied too
+    });
+
+    it('stop being tiny at 3.5 -- a real underdog leading in Q3 is flagged', () => {
+      expect(isPotentialUpset(withSpread(live(3, 17, 14), 'Somebody U -3.5'))).toBe(true);
+      expect(isPotentialUpset(withSpread(live(3, 17, 14), 'Somebody U -7'))).toBe(true);
+    });
+
+    it('are still flagged in Q4/OT and once final', () => {
+      expect(isPotentialUpset(withSpread(live(4, 17, 14), 'Somebody U -3'))).toBe(true);
+      expect(isPotentialUpset(withSpread(live(5, 24, 21), 'Somebody U -2.5'))).toBe(true);
+      expect(isPotentialUpset({ ...withSpread(live(4, 24, 21), 'Somebody U -3'), status: 'final' })).toBe(true);
+    });
+
+    it('cannot be judged when the line has no number, so Q3 does not flag on a guess', () => {
+      expect(isPotentialUpset(withSpread(live(3, 17, 14), 'Somebody U'))).toBe(false);
+      // ...but the size only matters in Q3: Q4 doesn't need it
+      expect(isPotentialUpset(withSpread(live(4, 17, 14), 'Somebody U'))).toBe(true);
+    });
   });
 
   it('does not flag a final where the favorite won', () => {

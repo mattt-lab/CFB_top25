@@ -350,22 +350,28 @@ export function leadingScoreLabel(g) {
   return `${p.leaderName} ${p.leaderScore}–${p.trailerScore}`;
 }
 
-// Which side the betting line favors -- the parsing (and the "Texas" vs "Texas A&M" prefix-collision
-// handling) lives in src/utils/spread.js so the Node scripts read the line identically. Returns
-// null (not a guess) when there's no line or it matches neither team.
-function favoredSide(g) {
-  return parseSpread(g.spread, g.awayTeam?.name, g.homeTeam?.name).side;
-}
+// A "tiny" underdog is one the line gives 3 points or fewer -- a coin-flip game, where the dog
+// winning isn't much of an upset. 3.5 and up is a real underdog. Only used for Q3 (see below).
+const TINY_UNDERDOG_MAX_POINTS = 3;
 
-// "Potential upset" -- the underdog (per the betting line) is doing better than the line implies.
-// While live: ahead in the first half (period 1-2), tied or better in Q3 (period 3), or in Q4/OT
-// (period >= 4) ahead by any amount OR trailing by no more than 7 (still one score away). Once
-// final: the underdog won outright. Needs a resolvable
-// favorite (see favoredSide) and, for the live checks, a known period -- degrades to false rather
-// than guessing when either is missing.
+// "Potential upset" -- the underdog (per the betting line, not the poll) is doing better than the
+// line implies. The favorite is resolved by src/utils/spread.js (the same parser the Node scripts
+// use); no line, or one matching neither team, means no flag rather than a guess.
+//
+// While live, and only AFTER halftime:
+//   Q1-Q2  never -- including halftime itself (period stays 2, clock 0:00). A first-half lead, even
+//          a 3-0 field goal, flagged about half of a real week's games at some point and the favorite
+//          won 15 of the 19 flagged in Q1, so it was noise, not signal.
+//   Q3     the underdog is tied or ahead AND is not a tiny underdog (line > 3 points). An unknown
+//          line size can't be judged tiny or not, so it doesn't flag (same "no guessing" convention).
+//   Q4/OT  the underdog is ahead by any amount OR behind by no more than 7 (one score away). The
+//          tiny-underdog exclusion deliberately does NOT apply here or to finals: a 3-point dog
+//          beating the favorite late is still an upset by the line, and LSU -3 losing to Ole Miss
+//          should still get its fire once it matters.
+// Once final: the underdog won outright. Needs a known period for the live checks.
 export function isPotentialUpset(g) {
   if (g.awayScore == null || g.homeScore == null) return false;
-  const favored = favoredSide(g);
+  const { side: favored, points } = parseSpread(g.spread, g.awayTeam?.name, g.homeTeam?.name);
   if (!favored) return false;
   const favScore = favored === 'away' ? g.awayScore : g.homeScore;
   const dogScore = favored === 'away' ? g.homeScore : g.awayScore;
@@ -376,8 +382,8 @@ export function isPotentialUpset(g) {
   // period-0 game is essentially always still 0-0, so dogScore > favScore below would already
   // read false on its own).
   if (g.status !== 'in_progress' || !g.period) return false;
-  if (g.period <= 2) return dogScore > favScore;
-  if (g.period === 3) return dogScore >= favScore;
+  if (g.period <= 2) return false; // first half (and halftime) -- see the rule above
+  if (g.period === 3) return dogScore >= favScore && points != null && points > TINY_UNDERDOG_MAX_POINTS;
   // period >= 4 -- Q4 or OT. NOT Math.abs(favScore - dogScore) <= 7: that's "close either way", which
   // silently dropped an underdog LEADING by more than a touchdown -- the biggest upsets of all.
   return dogScore - favScore >= -7;
