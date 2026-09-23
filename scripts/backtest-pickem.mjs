@@ -1,0 +1,216 @@
+#!/usr/bin/env node
+// Runs a pre-registered Pick 'em tuning experiment (data/pickem-backtest/experiment-N.json): tunes
+// on a past season's cached CFBD data, checks on this season's weeks, and writes
+// data/pickem-backtest/experiment-N.results.md/.json. Reads only local files; no API calls.
+//
+// Usage: node scripts/backtest-pickem.mjs [--experiment experiment-1] [--draws 10000]
+//
+// 2026 weeks come from the live snapshot (data/pickem-snapshots/) when there is one, else the git
+// rebuild (data/pickem-backtest/, scripts/reconstruct-pickem-week.mjs); each is scored against the
+// next week's AP poll in data/rankings/.
+
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { PARAMS_V1 } from './lib/pickem-model-params.mjs';
+import { evaluate, replayWeek, rootMoverMae } from './lib/pickem-backtest.mjs';
+import { forwardSelect } from './lib/pickem-tuning.mjs';
+import { buildHistoryWeeks } from './lib/pickem-history.mjs';
+import { tier, surpriseBin, teamWeekRows, meanBy } from './lib/pickem-describe.mjs';
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const args = process.argv.slice(2);
+const opt = (name, dflt) => { const i = args.indexOf(name); return i === -1 ? dflt : args[i + 1]; };
+const readJson = (p) => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
+const pad = (n) => String(n).padStart(2, '0');
+
+const expId = opt('--experiment', 'experiment-1');
+const spec = readJson(`data/pickem-backtest/${expId}.json`);
+const draws = Number(opt('--draws', 10000));
+const OPTS = { draws, seed: 20260923 };
+
+// ---- data ----------------------------------------------------------------------------------------
+const tuneSeason = spec.data.tuning.season;
+const checkSeason = spec.data.check.season;
+const current = readJson('data/current.json');
+const names = Object.fromEntries(Object.entries(current.teams).map(([id, t]) => [id, t.name]));
+
+const check = [];
+for (let week = 1; ; week++) {
+  const live = `data/pickem-snapshots/${checkSeason}-wk${pad(week)}.json`;
+  const rebuilt = `data/pickem-backtest/${checkSeason}-wk${pad(week)}.json`;
+  const next = `data/rankings/${checkSeason}-wk${pad(week + 1)}.json`;
+  const path = existsSync(join(ROOT, live)) ? live : existsSync(join(ROOT, rebuilt)) ? rebuilt : null;
+  if (!path || !existsSync(join(ROOT, next))) break;
+  const actualOrder = readJson(next).polls?.ap;
+  if (!actualOrder?.length) break;
+  check.push({ ...readJson(path), actualOrder, file: path });
+}
+
+const rawPath = `data/pickem-history/${tuneSeason}-raw.json`;
+if (!existsSync(join(ROOT, rawPath))) {
+  console.error(`${rawPath} is missing -- run scripts/fetch-pickem-history.mjs --season ${tuneSeason} first.`);
+  process.exit(1);
+}
+const raw = readJson(rawPath);
+for (const g of raw.games) { names[String(g.homeId)] ??= g.homeTeam; names[String(g.awayId)] ??= g.awayTeam; }
+const { records: tuning, stats } = buildHistoryWeeks(raw);
+const nameOf = (id) => names[id] ?? id;
+
+// ---- experiment ----------------------------------------------------------------------------------
+const candidates = spec.candidates.map(({ setting, noChange, grid }) => ({ setting, noChange, grid }));
+const result = forwardSelect(tuning, check, PARAMS_V1, candidates, OPTS);
+const tuned = result.params;
+
+// Honest estimate of the whole procedure: re-run the selection with each tuning week held out.
+const nested = tuning.map((rec, i) => {
+  const rest = tuning.filter((_, j) => j !== i);
+  const fold = forwardSelect(rest, check, PARAMS_V1, candidates, { ...OPTS, draws: Math.min(draws, 2000) });
+  const base = evaluate([rec], PARAMS_V1).wModel;
+  const cand = evaluate([rec], fold.params).wModel;
+  return { week: rec.week, selected: fold.selected, base, cand, delta: base - cand };
+});
+
+// ---- report --------------------------------------------------------------------------------------
+const r2 = (x) => (x == null || !Number.isFinite(x) ? 'n/a' : String(Math.round(x * 100) / 100));
+const pct = (x) => (x == null ? 'n/a' : `${Math.round(x * 1000) / 10}%`);
+const signed = (x) => (x == null ? 'n/a' : `${x > 0 ? '+' : ''}${r2(x)}`);
+const settingsOf = (p) => candidates.filter((c) => p[c.setting] !== c.noChange).map((c) => `${c.setting}=${p[c.setting]}`).join(', ') || 'none (V1)';
+
+function weekTable(records) {
+  const v1 = evaluate(records, PARAMS_V1);
+  const tn = evaluate(records, tuned);
+  const rows = records.map((rec, i) => {
+    const a = v1.weeks[i];
+    const b = tn.weeks[i];
+    const mv1 = rootMoverMae(rec.currentOrder, a.projected, rec.actualOrder);
+    const mtn = rootMoverMae(rec.currentOrder, b.projected, rec.actualOrder);
+    return { week: rec.week, w: a.w, dBase: a.dBase, v1: a.dModel, tuned: b.dModel, v1Flips: `${a.flipsRight}/${a.flipsMade}`, tunedFlips: `${b.flipsRight}/${b.flipsMade}`, movers: mv1.n, maeBase: mv1.baseline, maeV1: mv1.model, maeTuned: mtn.model, exits: a.exits.length, entrants: a.entrants.length };
+  });
+  return { v1, tn, rows };
+}
+
+const T25 = weekTable(tuning);
+const T26 = weekTable(check);
+const rowsTune = teamWeekRows(tuning, { V1: PARAMS_V1, tuned });
+const rowsCheck = teamWeekRows(check, { V1: PARAMS_V1, tuned });
+const out = [];
+const p = (s = '') => out.push(s);
+
+p(`# ${expId} results (generated by scripts/backtest-pickem.mjs)`);
+p();
+p(`Generated ${new Date().toISOString()} from \`data/pickem-backtest/${expId}.json\`. Bootstrap draws: ${draws}, seed ${OPTS.seed}.`);
+p();
+p('## Data');
+p();
+p(`- **Tuning, ${tuneSeason}:** ${stats.transitions} AP poll transitions, ${stats.rankedTeamWeeks} ranked team-weeks, ${stats.rankedGames} ranked games (${stats.rankedFinal} final, ${stats.rankedWithLine} with a line, ${stats.rankedOpponentsWithElo} opponents with a pre-game Elo rank). Teams with two games in one CFBD week: ${stats.doubleGames}. Fetched ${raw.fetchedAt}; CFBD calls ${raw.calls.length} (remaining before/after: ${raw.remainingCalls.before ?? '?'} / ${raw.remainingCalls.after ?? '?'}).`);
+p(`- **Check, ${checkSeason}:** ${check.map((c) => `week ${c.week} -> ${c.week + 1} (${c.reconstructed ? `rebuilt from ${c.reconstructed.commit.slice(0, 7)}` : 'live snapshot'})`).join('; ')}.`);
+p(`- **Weights:** transitions out of poll weeks 1-2 count 0.5, week 3 on count 1.`);
+p();
+p('## Result');
+p();
+p(`**Selected:** ${result.selected.length ? result.selected.map((s) => `\`${s.setting} = ${s.value}\``).join(', then ') : 'nothing -- no candidate passed every rule; the model stays at V1'}.`);
+p();
+p('| | Weighted real swaps | V1 errors | Tuned errors | V1 skill | Tuned skill |');
+p('|---|---|---|---|---|---|');
+p(`| ${tuneSeason} (in-sample) | ${r2(T25.v1.wBase)} | ${r2(T25.v1.wModel)} | ${r2(T25.tn.wModel)} | ${pct(T25.v1.skill)} | ${pct(T25.tn.skill)} |`);
+p(`| ${checkSeason} weeks 1-3 (check) | ${r2(T26.v1.wBase)} | ${r2(T26.v1.wModel)} | ${r2(T26.tn.wModel)} | ${pct(T26.v1.skill)} | ${pct(T26.tn.skill)} |`);
+p();
+const nestedSum = nested.reduce((s, n) => s + n.delta, 0);
+p(`**Nested cross-validation (the honest out-of-sample number):** re-running the entire selection with each ${tuneSeason} transition held out and scoring that transition with whatever it picked, the tuned procedure cuts weighted errors by ${r2(nestedSum)} (${pct(nestedSum / T25.v1.wModel)} of V1's ${r2(T25.v1.wModel)}). Held-out weeks helped / hurt / unchanged: ${nested.filter((n) => n.delta > 0).length} / ${nested.filter((n) => n.delta < 0).length} / ${nested.filter((n) => n.delta === 0).length}. Settings picked per fold: ${Object.entries(nested.reduce((m, n) => { const k = n.selected.map((s) => `${s.setting}=${s.value}`).join('+') || 'none'; m[k] = (m[k] ?? 0) + 1; return m; }, {})).map(([k, v]) => `${k} (${v})`).join('; ')}.`);
+p();
+
+for (const [label, T] of [[`${tuneSeason} transitions`, T25], [`${checkSeason} transitions`, T26]]) {
+  p(`### ${label}: pairwise errors and root movers`);
+  p();
+  p('| Poll wk | Weight | Real swaps | V1 errors | Tuned errors | V1 flips right/made | Tuned flips right/made | Root movers | Root-mover MAE: no change / V1 / tuned | Exits | Entrants |');
+  p('|---|---|---|---|---|---|---|---|---|---|---|');
+  for (const r of T.rows) p(`| ${r.week} | ${r.w} | ${r.dBase} | ${r.v1} | ${r.tuned} | ${r.v1Flips} | ${r.tunedFlips} | ${r.movers} | ${r2(r.maeBase)} / ${r2(r.maeV1)} / ${r2(r.maeTuned)} | ${r.exits} | ${r.entrants} |`);
+  p();
+}
+
+p('## Rounds (every candidate tried)');
+p();
+result.rounds.forEach((round, i) => {
+  p(`### Round ${i + 1} -- on top of: ${settingsOf(round.base)}`);
+  p();
+  p('| Setting | Error curve (value: weighted errors) | Best | Reported (1-SE) | R1 held-out gain (5th pct) | R2 early / late | R3 2026 base -> cand | R4 min gain without one team | Pass |');
+  p('|---|---|---|---|---|---|---|---|---|');
+  for (const t of round.results) {
+    const { R1, R2, R3, R4 } = t.rules;
+    p(`| ${t.setting} | ${t.curve.map((c) => `${c.value}: ${r2(c.E)}`).join(', ')} | ${t.best} | ${t.value} | ${signed(R1.sumDelta)} (${signed(R1.ci5)}) ${R1.pass ? '✓' : '✗'} | ${R2.early} / ${R2.late} ${R2.pass ? '✓' : '✗'} | ${r2(R3.eBase)} -> ${r2(R3.eCand)} ${R3.pass ? '✓' : '✗'} | ${signed(R4.minImprovement)} (${nameOf(R4.worstTeam)}) ${R4.pass ? '✓' : '✗'} | ${t.pass ? '**yes**' : 'no'} |`);
+  }
+  p();
+  p(`Chosen: ${round.chosen ?? 'none'}.`);
+  p();
+});
+
+p('## Descriptive cuts (not used for any decision)');
+p();
+p(`### How much the ${tuneSeason} poll reshuffled, by poll week`);
+p();
+p('| Poll wk | Real swaps | Mean abs move (teams in both polls) | Exits |');
+p('|---|---|---|---|');
+for (const wk of [...new Set(rowsTune.map((r) => r.week))]) {
+  const rs = rowsTune.filter((r) => r.week === wk);
+  const stay = rs.filter((r) => !r.exited);
+  p(`| ${wk} | ${T25.rows.find((r) => r.week === wk).dBase} | ${r2(stay.reduce((s, r) => s + Math.abs(r.actualMove), 0) / stay.length)} | ${rs.filter((r) => r.exited).length} |`);
+}
+p();
+const moveFields = {
+  real: (r) => r.actualMove, V1: (r) => r.projMove.V1, tuned: (r) => r.projMove.tuned, exitRate: (r) => (r.exited ? 1 : 0),
+};
+function cutTable(title, rows, keyFn) {
+  p(`### ${title}`);
+  p();
+  p('| Group | n | Real move | V1 projected | Tuned projected | Exit rate |');
+  p('|---|---|---|---|---|---|');
+  for (const g of meanBy(rows, keyFn, moveFields).sort((a, b) => String(a.key).localeCompare(String(b.key), undefined, { numeric: true }))) {
+    p(`| ${g.key} | ${g.n} | ${signed(g.real)} | ${signed(g.V1)} | ${signed(g.tuned)} | ${pct(g.exitRate)} |`);
+  }
+  p();
+}
+const losses = rowsTune.filter((r) => r.outcome === 'loss' || r.outcome === 'blowoutLoss');
+cutTable(`${tuneSeason} losses by opponent and the loser's rank tier (moves in rank slots; exits = fell to #26)`, losses,
+  (r) => `${r.oppRanked ? 'to ranked' : 'to unranked'}, was ${tier(r.currentRank)}`);
+cutTable(`${tuneSeason} wins by result against the line`, rowsTune.filter((r) => r.outcome === 'win' || r.outcome === 'blowoutWin'), (r) => surpriseBin(r.surprise));
+cutTable(`${tuneSeason} losses by result against the line`, losses, (r) => surpriseBin(r.surprise));
+
+const blowoutWins = rowsTune.filter((r) => r.margin != null && r.margin >= 14);
+const fellAnyway = blowoutWins.filter((r) => r.rootMover && r.actualMove < 0);
+const exits = rowsTune.filter((r) => r.exited);
+const stayed = rowsTune.filter((r) => !r.exited && r.surprise != null);
+const meanSurprise = (rs) => { const v = rs.filter((r) => r.surprise != null); return v.length ? v.reduce((s, r) => s + r.surprise, 0) / v.length : null; };
+p(`### The Week 1 doc's failure modes, across ${tuneSeason}`);
+p();
+p(`- **A blowout win (14+) that still lost real ground** (a root mover that fell): ${fellAnyway.length} of ${blowoutWins.length} blowout wins by ranked teams (${pct(fellAnyway.length / blowoutWins.length)}).`);
+p(`- **Falling out of the poll:** ${exits.length} exits over ${stats.transitions} transitions; ${exits.filter((r) => r.outcome === 'win' || r.outcome === 'blowoutWin').length} of them after a win, ${exits.filter((r) => r.outcome === 'loss' || r.outcome === 'blowoutLoss').length} after a loss, ${exits.filter((r) => !r.outcome).length} idle. Mean surprise vs the line: exits ${signed(meanSurprise(exits))}, teams that stayed ${signed(meanSurprise(stayed))}. Exiting teams each model projected at #25, the lowest slot it can express: V1 ${exits.filter((r) => r.proj.V1 >= 25).length}, tuned ${exits.filter((r) => r.proj.tuned >= 25).length}.`);
+p();
+p(`### ${checkSeason}: root movers and exits, V1 vs tuned`);
+p();
+p('| Wk | Team | Result | vs line | Was | Real | V1 projected | Tuned projected |');
+p('|---|---|---|---|---|---|---|---|');
+for (const r of rowsCheck.filter((x) => x.rootMover || x.exited)) {
+  const res = r.margin == null ? 'bye' : `${r.margin > 0 ? 'W' : 'L'} by ${Math.abs(r.margin)}`;
+  p(`| ${r.week} | ${r.name} | ${res} | ${signed(r.surprise)} | ${r.currentRank} | ${r.actualRank ?? 'out'} | ${r.proj.V1} | ${r.proj.tuned} |`);
+}
+p();
+
+const report = out.join('\n');
+writeFileSync(join(ROOT, `data/pickem-backtest/${expId}.results.md`), `${report}\n`);
+writeFileSync(join(ROOT, `data/pickem-backtest/${expId}.results.json`), `${JSON.stringify({
+  generatedAt: new Date().toISOString(), spec: expId, draws, seed: OPTS.seed, stats,
+  selected: result.selected, params: tuned,
+  rounds: result.rounds.map((r) => ({ base: r.base, chosen: r.chosen, results: r.results })),
+  nested,
+  weeks: { [tuneSeason]: T25.rows, [checkSeason]: T26.rows },
+  skill: { [tuneSeason]: { v1: T25.v1.skill, tuned: T25.tn.skill }, [checkSeason]: { v1: T26.v1.skill, tuned: T26.tn.skill } },
+}, null, 2)}\n`);
+console.log(report);
+console.log(`\nWrote data/pickem-backtest/${expId}.results.md and .results.json`);
+
+// Guard: the tuned projections must come from the same replay the tests pin to production.
+if (check.some((c) => JSON.stringify(replayWeek(c, PARAMS_V1)) !== JSON.stringify(c.projectedOrder))) {
+  console.error('WARNING: a check week no longer replays to its stored projection at V1 -- investigate before trusting these numbers.');
+  process.exitCode = 4;
+}

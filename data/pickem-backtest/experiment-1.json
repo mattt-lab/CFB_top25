@@ -1,0 +1,61 @@
+{
+  "id": "experiment-1",
+  "writtenAt": "2026-09-23",
+  "writtenBefore": "any 2025 data was fetched or looked at; committed before the fetch so git history shows the order",
+  "question": "Can the Top 25 Pick 'em model predict the next AP poll's order better, without overfitting, by changing at most three settings?",
+  "data": {
+    "tuning": {
+      "season": 2025,
+      "transitions": "every consecutive pair of regular-season AP polls (poll week N -> poll week N+1), scored with poll week N's games",
+      "source": "CFBD /rankings (seasonType=regular), /games (seasonType=regular, classification=fbs), /lines (seasonType=regular); fetched once, cached in data/pickem-history/2025-raw.json",
+      "teamIds": "CFBD numeric team id",
+      "line": "first provider found in ['consensus','DraftKings','ESPN Bet','Bovada','Caesars'], else the first listed (same order as scripts/fetch-cfb-data.mjs); formattedSpread parsed with src/utils/spread.js",
+      "opponentQualityStandIn": "an unranked opponent's quality uses its rank by pre-game Elo among FBS teams that week (a team with no game that week keeps its latest earlier postgame Elo); live 2026 data uses SP+ rank here",
+      "computerRankStandIn": "a team's own computer rank is that Elo rank alone (live 2026 data averages SP+/FPI/Elo ranks)",
+      "qualityWins": "wins through week N over opponents ranked 20 or better in the AP poll in force for that game's week (scripts/lib/game-log.mjs QUALITY_WIN_MAX_RANK)",
+      "outcome": "src/utils/pickemModel.js autoResultFor on the final score (blowout = 14+)",
+      "twoGamesInOneWeek": "use the later game by start date; count reported",
+      "alignmentCheck": "for every transition, ranked teams that lost that week must on average fall in the next poll (exits count as #26); otherwise the builder stops"
+    },
+    "check": {
+      "season": 2026,
+      "transitions": [
+        "week 1 -> 2: data/pickem-backtest/2026-wk01.json, rebuilt from commit 3502887",
+        "week 2 -> 3: data/pickem-backtest/2026-wk02.json, rebuilt from commit 44bcb4b",
+        "week 3 -> 4: data/pickem-snapshots/2026-wk03.json, live snapshot"
+      ],
+      "actualPoll": "data/rankings/2026-wk{N+1}.json polls.ap"
+    }
+  },
+  "metric": {
+    "name": "weighted pairwise order errors",
+    "pairs": "every pair of teams in poll week N; teams missing from poll N+1 are tied just below it; a pair of two such teams is skipped; entrants are not scored",
+    "D_base": "pairs whose order really changed (the leave-the-poll-unchanged baseline's errors)",
+    "D_model": "pairs the projection puts in a different order than poll N+1",
+    "weights": { "pollWeeks1and2": 0.5, "pollWeek3on": 1.0 },
+    "objective": "E = sum over transitions of weight x D_model (lower is better)",
+    "skill": "1 - sum(weight x D_model) / sum(weight x D_base)",
+    "alsoReported": "root movers (longest-increasing-subsequence method, unchanged-rank rule for ties) and their mean absolute rank error, for continuity with the weekly docs"
+  },
+  "baseModel": "PARAMS_V1 in scripts/lib/pickem-model-params.mjs, test-pinned to production src/utils/projectTop25.js",
+  "candidates": [
+    { "setting": "driftScale", "meaning": "multiply every team's drift", "noChange": 1, "grid": [1, 1.25, 1.5, 2, 2.5, 3] },
+    { "setting": "unrankedLossPenalty", "meaning": "extra drop (rank slots) for a loss to a team outside poll week N", "noChange": 0, "grid": [0, 2, 4, 6, 8, 10, 12] },
+    { "setting": "surpriseK", "meaning": "drift += k x clamp(actual margin - line's expected margin, +/-21) for final games with a line; a loss still can't be net positive", "noChange": 0, "grid": [0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4] }
+  ],
+  "fitting": "a setting is fit on a set of transitions by taking the grid value with the lowest E; ties go to the value nearest noChange",
+  "passRules": {
+    "R1_crossValidation": "hold out each 2025 transition in turn, fit on the rest, score the held-out one; the summed held-out improvement over the base model must be > 0 and its 5th percentile over 10,000 bootstrap resamples of transitions (seed 20260923) must be > 0",
+    "R2_stability": "fit separately on 2025 transitions out of poll weeks 3-8 and out of poll weeks 9+; neither may land on noChange, and the two must be at most one grid step apart or within 2x of each other measured as distance from noChange",
+    "R3_carriesTo2026": "at the reported value, weighted D_model over the three 2026 transitions must not exceed the base model's",
+    "R4_notOneTeam": "at the reported value, the 2025 improvement must stay > 0 after removing every pair involving any single team, for each team in turn",
+    "R5_reportedValue": "over all 2025 transitions, take the best grid value; report the value nearest noChange whose E is no more than the best's plus one bootstrap standard error of their paired per-transition difference"
+  },
+  "forwardSelection": "round 1 tests each setting on the base model; the passing setting with the largest summed held-out improvement (R1) is kept at its reported value; later rounds test the remaining settings on top of it; stop when none passes or after 3 settings",
+  "notTested": [
+    "line terms that treat wins and losses differently or depend on rank",
+    "re-tuning any other constant",
+    "the 14-point blowout threshold",
+    "predicting exits or entrants"
+  ]
+}
