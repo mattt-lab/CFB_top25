@@ -44,6 +44,16 @@ describe('replayWeek', () => {
   });
 });
 
+describe('2026 week 2 rebuilt from git', () => {
+  it("matches the Week 2 doc's Projected column (docs/pickem-snapshots/2026-week2-vs-projected.md)", () => {
+    expect(readJson('data/pickem-backtest/2026-wk02.json').projectedOrder).toEqual([
+      'texas', 'georgia', 'notre-dame', 'ohio-state', 'indiana', 'miami', 'lsu', 'texas-a-m', 'ole-miss',
+      'alabama', 'oregon', 'texas-tech', 'byu', 'usc', 'oklahoma', 'penn-state', 'smu', 'tennessee',
+      'washington', 'utah', 'iowa', 'missouri', 'houston', 'louisville', 'virginia',
+    ]);
+  });
+});
+
 describe('every recorded week', () => {
   const recorded = [
     readJson('data/pickem-backtest/2026-wk01.json'),
