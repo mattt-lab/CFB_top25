@@ -16,6 +16,10 @@ export const MIRROR = {
 
 const WINS = { blowoutWin: true, win: true };
 
+// Real AP voters drop a losing team about 2.5x as far as the base loss formula in driftFor, for
+// losses to ranked and unranked opponents alike (backtested against the full 2024 and 2025 polls).
+const LOSS_SCALE = 2.5;
+
 function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
 
 // How good is the opponent, on a 0..1 scale? Poll rank if ranked, else SP+ rank, else assume a
@@ -51,6 +55,7 @@ function driftFor(outcome, currentRank, team, oppInfo) {
   // Losses: worse opponents hurt more; blowouts hurt more still.
   let magnitude = 1.25 + (1 - q) * 3.25;
   if (outcome === 'blowoutLoss') magnitude *= 1.6;
+  magnitude *= LOSS_SCALE;
   // Resume cushion: quality wins already banked soften the fall -- but a loss can never be a
   // net positive, no matter how strong the resume (clamped at 0 before the computer nudge,
   // which is itself <= 0 on losses).

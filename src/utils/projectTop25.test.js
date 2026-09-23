@@ -1,7 +1,7 @@
 // Unit tests for the pure Pick 'em projection model. All fixtures are small synthetic 8-team
 // orders (NOT the real imported data/current.json) so every case is hand-checkable: with no
-// opponent info a generic win drifts +0.5 and a generic close loss drifts -4.5, which makes the
-// expected landing spots easy to reason about below.
+// opponent info a generic win drifts +0.5 and a generic close loss drifts -11.25 (4.5 x the 2.5
+// loss scale), which makes the expected landing spots easy to reason about below.
 import { describe, it, expect } from 'vitest';
 import { projectOrder, MIRROR } from './projectTop25.js';
 
@@ -67,9 +67,17 @@ describe('projectOrder', () => {
     expect(upset.indexOf('t5')).toBeLessThan(ORDER.indexOf('t5'));
   });
 
+  it('drops a loser 2.5x the base loss magnitude: a generic close loss sinks #2 below all of #3-#8', () => {
+    // Base magnitude against a generic unranked opponent is 1.25 + 3.25 = 4.5; scaled x2.5 that's
+    // 11.25 slots, so t2's key (2 + 11.25) lands below every team that held position.
+    expect(projectOrder(ORDER, { t2: 'loss' }, mkTeams())).toEqual(['t1', 't3', 't4', 't5', 't6', 't7', 't8', 't2']);
+  });
+
   it('falls further on a blowout loss than on a close loss to the same opponent', () => {
     const teams = mkTeams();
-    const oppInfo = { getOpponentInfo: resolverFrom({ t2: { oppPollRank: null, oppSpRank: null } }) };
+    // A loss to #1, so the scaled drops (3.26 close, 5.22 blowout) land mid-table instead of both
+    // bottoming out at #8.
+    const oppInfo = { getOpponentInfo: resolverFrom({ t2: { oppPollRank: 1, oppSpRank: null } }) };
     const close = projectOrder(ORDER, { t2: 'loss' }, teams, oppInfo);
     const blowout = projectOrder(ORDER, { t2: 'blowoutLoss' }, teams, oppInfo);
     expect(blowout.indexOf('t2')).toBeGreaterThan(close.indexOf('t2'));
@@ -91,8 +99,10 @@ describe('projectOrder', () => {
     const qualityGames = [
       { tag: 'quality' }, { tag: 'quality' }, { tag: 'quality' }, { tag: '' },
     ];
-    const withResume = projectOrder(ORDER, { t2: 'loss' }, mkTeams({ t2: { games: qualityGames } }));
-    const withoutResume = projectOrder(ORDER, { t2: 'loss' }, mkTeams());
+    // A loss to #1 (drift -3.26), so the 1.2 cushion shows up as a place in an 8-team fixture.
+    const oppInfo = { getOpponentInfo: resolverFrom({ t2: { oppPollRank: 1, oppSpRank: null } }) };
+    const withResume = projectOrder(ORDER, { t2: 'loss' }, mkTeams({ t2: { games: qualityGames } }), oppInfo);
+    const withoutResume = projectOrder(ORDER, { t2: 'loss' }, mkTeams(), oppInfo);
     expect(withResume.indexOf('t2')).toBeLessThan(withoutResume.indexOf('t2'));
   });
 
@@ -129,7 +139,7 @@ describe('projectOrder', () => {
 
   it('never turns a loss into a rise, even with a max cushion and computer backing', () => {
     // Best possible loss: close, to the #1 team, with a maxed-out quality-win cushion (capped at
-    // 1.2, below the 1.25 minimum loss magnitude) and computers that love the team (loss nudge 0).
+    // 1.2, below the 3.125 minimum loss magnitude) and computers that love the team (loss nudge 0).
     const manyQuality = Array.from({ length: 10 }, () => ({ tag: 'quality' }));
     const projected = projectOrder(
       ORDER,
