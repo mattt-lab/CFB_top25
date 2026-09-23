@@ -1,0 +1,208 @@
+{
+  "generatedAt": "2026-09-23T15:15:48.134Z",
+  "spec": "experiment-2",
+  "draws": 10000,
+  "seed": 20260923,
+  "holdoutStats": {
+    "transitions": 15,
+    "rankedTeamWeeks": 376,
+    "rankedGames": 309,
+    "rankedFinal": 309,
+    "rankedWithLine": 306,
+    "rankedOpponentsWithElo": 291,
+    "doubleGames": 1
+  },
+  "steps": [
+    {
+      "step": 1,
+      "from": "V1",
+      "to": "P4",
+      "skipped": false,
+      "eCurrent": 279.5,
+      "eCandidate": 234,
+      "delta": 45.5,
+      "ci5": 25,
+      "early": 19.5,
+      "late": 26,
+      "minWithoutOneTeam": 37,
+      "worstTeam": "130",
+      "pass": true
+    },
+    {
+      "step": 2,
+      "from": "P4",
+      "to": "LS",
+      "skipped": false,
+      "eCurrent": 234,
+      "eCandidate": 205.5,
+      "delta": 28.5,
+      "ci5": 4.5,
+      "early": 20.5,
+      "late": 8,
+      "minWithoutOneTeam": 21.5,
+      "worstTeam": "333",
+      "pass": true
+    },
+    {
+      "step": 3,
+      "from": "LS",
+      "to": "LSW",
+      "skipped": false,
+      "eCurrent": 205.5,
+      "eCandidate": 211,
+      "delta": -5.5,
+      "ci5": -13,
+      "early": -5.5,
+      "late": 0,
+      "minWithoutOneTeam": -6.5,
+      "worstTeam": "251",
+      "pass": false
+    },
+    {
+      "step": 4,
+      "from": "LS",
+      "to": "LS + penalty 4",
+      "skipped": false,
+      "eCurrent": 205.5,
+      "eCandidate": 238.5,
+      "delta": -33,
+      "ci5": -51,
+      "early": -8,
+      "late": -25,
+      "minWithoutOneTeam": -37,
+      "worstTeam": "130",
+      "pass": false
+    }
+  ],
+  "guard": {
+    "eV1": 41,
+    "path": [
+      {
+        "name": "LS",
+        "eCheck": 34.5
+      }
+    ],
+    "steppedBack": false
+  },
+  "recommendation": {
+    "name": "LS",
+    "params": {
+      "oppQualityScale": 60,
+      "winBase": 0.5,
+      "winQualitySlope": 2.5,
+      "blowoutWinMult": 1.5,
+      "lossBase": 1.25,
+      "lossWeakOppSlope": 3.25,
+      "blowoutLossMult": 1.6,
+      "cushionPerQualityWin": 0.4,
+      "cushionMax": 1.2,
+      "compDivisor": 8,
+      "compMax": 0.75,
+      "driftScale": 1,
+      "unrankedLossPenalty": 0,
+      "surpriseK": 0,
+      "surpriseCap": 21,
+      "lossScale": 2.5,
+      "earlyWinScale": 1,
+      "earlyThroughWeek": 8
+    }
+  },
+  "seasons": {
+    "holdout": {
+      "no change": {
+        "wModel": 487.5,
+        "skill": 0,
+        "mae": 2.301449275362319,
+        "rm": 3.627329192546584
+      },
+      "V1": {
+        "wModel": 279.5,
+        "skill": 0.42666666666666664,
+        "mae": 1.4318840579710146,
+        "rm": 2.1180124223602483
+      },
+      "P4": {
+        "wModel": 234,
+        "skill": 0.52,
+        "mae": 1.23768115942029,
+        "rm": 1.8819875776397517
+      },
+      "LS": {
+        "wModel": 205.5,
+        "skill": 0.5784615384615385,
+        "mae": 1.1159420289855073,
+        "rm": 1.639751552795031
+      },
+      "LSW": {
+        "wModel": 211,
+        "skill": 0.5671794871794872,
+        "mae": 1.1304347826086956,
+        "rm": 1.608695652173913
+      }
+    },
+    "check": {
+      "no change": {
+        "wModel": 64,
+        "skill": 0,
+        "mae": 2.0985915492957745,
+        "rm": 4.545454545454546
+      },
+      "V1": {
+        "wModel": 41,
+        "skill": 0.359375,
+        "mae": 1.4366197183098592,
+        "rm": 2.772727272727273
+      },
+      "P4": {
+        "wModel": 35.5,
+        "skill": 0.4453125,
+        "mae": 1.2112676056338028,
+        "rm": 2.1818181818181817
+      },
+      "LS": {
+        "wModel": 34.5,
+        "skill": 0.4609375,
+        "mae": 1.1408450704225352,
+        "rm": 2.090909090909091
+      },
+      "LSW": {
+        "wModel": 34.5,
+        "skill": 0.4609375,
+        "mae": 1.1830985915492958,
+        "rm": 2.0454545454545454
+      }
+    },
+    "context": {
+      "no change": {
+        "wModel": 503.5,
+        "skill": 0,
+        "mae": 2.253731343283582,
+        "rm": 3.753623188405797
+      },
+      "V1": {
+        "wModel": 314.5,
+        "skill": 0.3753723932472691,
+        "mae": 1.498507462686567,
+        "rm": 2.152173913043478
+      },
+      "P4": {
+        "wModel": 275.5,
+        "skill": 0.4528301886792453,
+        "mae": 1.3522388059701493,
+        "rm": 2.0144927536231885
+      },
+      "LS": {
+        "wModel": 218.5,
+        "skill": 0.5660377358490566,
+        "mae": 1.1582089552238806,
+        "rm": 1.6376811594202898
+      },
+      "LSW": {
+        "wModel": 213,
+        "skill": 0.576961271102284,
+        "mae": 1.1432835820895522,
+        "rm": 1.5507246376811594
+      }
+    }
+  }
+}

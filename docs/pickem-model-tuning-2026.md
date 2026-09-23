@@ -1,17 +1,51 @@
-# Pick 'em model tuning, round 1 (2026-09-23)
+# Pick 'em model tuning: experiments 1 and 2 (2026-09-23)
 
 **Status: analysis only.** Nothing on the live site changed. The work lives on branch
 `worktree-pickem-tuning`, and the model at `src/utils/projectTop25.js` is untouched.
 
 **Question.** The weekly reviews (`docs/pickem-snapshots/`) kept showing the same misses. Can the
-Pick 'em projection predict the next AP poll's order better by changing at most three settings,
+Pick 'em projection predict the next AP poll's order better by changing only a few settings,
 without fitting noise?
 
-**Where the numbers live.** Machine-written results:
-`data/pickem-backtest/experiment-1.results.md` / `.json`. Reproduce with
-`node scripts/backtest-pickem.mjs`, which reads only local files and makes no API calls.
+**Where the numbers live.** Machine-written results are in `data/pickem-backtest/experiment-1.results.md`
+and `experiment-2.results.md` (each with a `.json`). Reproduce them with
+`node scripts/backtest-pickem.mjs` and `node scripts/holdout-pickem.mjs`. Both read only local files
+and make no API calls.
 
-## TL;DR
+## Bottom line (both experiments)
+
+**Recommendation: `lossScale = 2.5`.** Every loss drops a team 2.5× as far as the model does today.
+Nothing else changes: no betting line, no penalty, no week-dependent settings.
+
+- **How it was chosen.**
+  - Experiment 1 tuned on 2025 with rules committed in advance, and kept only a small
+    unranked-loss penalty.
+  - Exploring 2025 afterwards pointed at loss scaling. That was post-hoc, so not evidence.
+  - Experiment 2 fixed every value from 2025, committed the rules, then fetched **2024**, a season
+    nothing had been tuned on. Loss scaling beat both the current model and the penalty there, and
+    passed every rule.
+  - Adding the early-season win scale or the penalty on top made 2024 *worse*, so both were
+    rejected.
+- **How it performs** (average rank miss over teams in both polls; pairwise = weighted ordering
+  errors):
+
+  | Season | Role | Current model | Loss ×2.5 | Change |
+  |---|---|---|---|---|
+  | 2024 | untouched holdout | 1.43 spots (279.5 pairwise) | **1.12** (205.5) | −22% (−26% pairwise) |
+  | 2026 Wks 1–3 | never used for fitting | 1.44 (41) | **1.14** (34.5) | −21% (−16%) |
+  | 2025 | where values were fit | 1.50 (314.5) | 1.16 (218.5) | −23% (−31%) |
+
+  Teams that genuinely moved (root movers): 2024 2.12 → 1.64, 2026 2.77 → 2.09.
+- **What it fixes, and what it doesn't.**
+  - Oregon Week 2 (real #21) projects to #18 instead of #11. Texas A&M Week 3 (real #23) projects
+    to #18 instead of #14.
+  - Losses still stop short of what voters do to losses near the bottom of the poll, where most
+    losers simply drop out, which the model can't express.
+  - Ugly-win exits (Michigan, Washington, Oklahoma this year) are untouched.
+- **Watch-outs.** Loss scaling overshoots conference-championship losers: voters and the committee
+  go easy on title-game losses. The CFP-ranking weeks are mixed evidence (see Experiment 2).
+
+## Experiment 1 summary (2025 tuning; superseded by the bottom line)
 
 - **One change passed every pre-registered rule: `unrankedLossPenalty = 4`.** A loss to a team
   outside the Top 25 costs 4 extra rank slots. The drift-scale and betting-line candidates both
@@ -159,6 +193,51 @@ missed it by 14+ fell 1.1 spots on average (model +0.2), for example Clemson #8 
 The penalty moves the unranked-loss cases the right way, but still only about half as far as
 voters did. The early-season ugly-win exits remain untouched, since no candidate addressed them.
 
+## Experiment 2: confirming on 2024
+
+Spec: `data/pickem-backtest/experiment-2.json`.
+- **Order of events:** the spec was committed in `4acdb0f`, before 2024 existed locally. The 2024
+  data was fetched in `361ca48` (3 CFBD calls; 746 left).
+- **Holdout data:** 15 AP transitions and 376 ranked team-weeks. All 309 ranked games were final
+  and 306 had a line. It passed the same alignment check as 2025.
+- **Fitting:** none in this experiment. Each model's values were fixed from 2025 beforehand, and
+  2024 could only confirm or reject them in a fixed chain. A step's candidate replaces the current
+  model only if all of these hold on 2024:
+  - weighted errors fall;
+  - the 5th percentile of a 10,000-draw bootstrap (resampling whole weeks) is above 0;
+  - neither half of the season gets worse;
+  - the gain survives removing any one team.
+
+| Step | Current → candidate | 2024 weighted errors | Gain (5th pct) | Weeks 1–8 / 9+ | Result |
+|---|---|---|---|---|---|
+| 1 | V1 → penalty 4 | 279.5 → 234 | +45.5 (+25) | +19.5 / +26 | **adopted**: experiment 1's pick holds on a new season |
+| 2 | penalty 4 → loss ×2.5 | 234 → 205.5 | +28.5 (+4.5) | +20.5 / +8 | **adopted** |
+| 3 | loss ×2.5 → + early-season win ×1.25 | 205.5 → 211 | −5.5 (−13) | −5.5 / 0 | rejected |
+| 4 | loss ×2.5 → + penalty 4 | 205.5 → 238.5 | −33 (−51) | −8 / −25 | rejected |
+
+- **The 2026 guard passed:** loss ×2.5 makes 34.5 weighted errors on 2026 Weeks 1–3, against V1's
+  41.
+- **Week by week in 2024:** loss ×2.5 beat V1 in 12 of 15 weeks, tied in 2, and lost only the
+  conference-championship transition (10 → 15).
+- **The 2024 loss table looks like 2025's.** Real drops are about double V1's, and loss ×2.5 lands
+  on them. For example, #6–10 teams that lost to ranked opponents fell 7.4 spots; V1 said 4.0 and
+  loss ×2.5 says 7.0.
+- **Penalty and loss scaling don't stack.** Once every loss is scaled, adding the penalty
+  over-punishes losses to unranked teams. That's why step 4 failed.
+
+**CFP-ranking weeks** (a safety check, not part of the decision; about 5 transitions per season).
+From about Week 10 the site re-sorts the committee's rankings.
+
+| Season | V1 | Penalty 4 | Loss ×2.5 |
+|---|---|---|---|
+| 2024 CFP, weighted errors / avg miss | 98 / 1.33 | 83 / 1.20 | **77 / 1.16** |
+| 2025 CFP | **62 / 0.98** | 69 / 1.05 | 67 / 1.04 (root movers 1.45 → **1.26**) |
+
+- **2024:** clearly better.
+- **2025:** slightly worse on pairs, better on teams that really moved.
+- **Both seasons:** the championship-week transition is where loss scaling hurts most. Too little
+  evidence to act on, but worth checking in the weekly reviews once the CFP rankings take over.
+
 ## What this changes in the Week 1–3 conclusions
 
 - **"Should the model use the betting line?"**
@@ -186,30 +265,80 @@ voters did. The early-season ugly-win exits remain untouched, since no candidate
 
 ## Recommendations (to discuss before anything ships)
 
-1. **Safe to ship now: `unrankedLossPenalty = 4`.**
-   - It's the only change that passed every pre-registered rule.
-   - It's easy to explain: "losing to an unranked team costs about 4 extra spots."
-   - It needs a footnote update at `Pickem.jsx:170`.
-   - Expected gain is about 5–10% fewer ordering errors, and in 2026 so far the average miss goes
-     from 1.44 to 1.21 spots.
-2. **Worth one more test first: a loss scale of about 2× (all losses), plus possibly an
-   early-season win scale.**
-   - Pre-register these as experiment 2 and test them on a season nothing has touched: 2024, 3
-     CFBD calls.
-   - If they hold up, ship them together with the penalty. Their potential is roughly double the
-     penalty's gain.
-3. **Consider a drop-out mechanism.** "Ranked 16–25 and lost" predicts 82% of exits, and exits are
-   23% of the error. It's a page change, not a constant, so it's a product decision.
-4. **Plumbing:**
-   - `review-pickem.mjs --params <file>` now scores a challenger next to the live model every week.
-     That's the rollback signal once something ships.
-   - The weekly task should rebuild a missed week from git (`reconstruct-pickem-week.mjs --week N`)
-     instead of trying the new week on Tuesdays.
+1. **Ship `lossScale = 2.5`.**
+   - **The change:** in `projectTop25.js`, multiply the loss magnitude by 2.5. That's the same as
+     `lossBase` 3.125 and `lossWeakOppSlope` 8.125; the quality-win cushion and computer nudge stay
+     as they are.
+   - **The page:** there's no new input, so the footnote at `Pickem.jsx:170` stays accurate. Losses
+     you pick by hand on the page move teams 2.5× further too, which matches how voters behave.
+   - **Tests:** those that pin today's loss drift get updated deliberately. For example, a generic
+     close loss becomes −11.25 instead of −4.5.
+   - **After shipping:** bump the version. The weekly review then scores V1 as the challenger, and
+     the rollback rule applies: revert if V1 beats the live model in 2 of the first 3 weeks.
+2. **Don't add the betting line or the unranked-loss penalty.** The line failed on held-out data
+   twice. The penalty stops helping once losses are scaled.
+3. **Later, not now:**
+   - **A drop-out mechanism.** "Ranked 16–25 and lost" predicted 82% of 2025 exits, and exits are
+     about a quarter of the error.
+   - **A gentler conference-championship week.** That's where loss scaling overshoots.
+   - **Re-checking the CFP weeks** once the committee rankings take over.
+
+## The weekly task: recommendation
+
+**What's broken.** `cfb-pickem-week3-review` (Tuesdays about 3:04 PM PT) can no longer do its job.
+- **It can't capture the week.** Step 2 snapshots `currentWeek`. By Tuesday the pipeline has
+  already rolled forward to the next, unplayed week; Week 3 → 4 rolled on Monday at 11:36 AM PT. So
+  step 2 fails every Tuesday. Step 3 then finds nothing new, and the task reports "nothing to do"
+  forever. That's what happened today. The Week 3 snapshot exists only because it was taken by
+  hand on Saturday night.
+- **Its method is outdated.**
+  - The hand-graded root-mover method is where the docs' errors crept in (USC's line, the
+    mislabeled 3.36).
+  - The "does the line help?" question it exists to answer is now settled: it doesn't, and losses
+    matter instead.
+  - The throwaway `k·surprise` regression in step 5 is superseded by the backtests.
+
+**Recommendation: keep the Tuesday schedule, but capture from git and score with the scripts.**
+1. **Capture.** Find the newest week N whose next poll is in `data/rankings/` but which has no
+   record in either `data/pickem-snapshots/` or `data/pickem-backtest/`. Run
+   `node scripts/reconstruct-pickem-week.mjs --week N`.
+   - It uses git only, with no API calls. Rebuilding Week 3 this way gave exactly the live
+     projection.
+   - Exit code 2 means no commit has every ranked game final. Report that and skip the week.
+2. **Score.** Run `node scripts/review-pickem.mjs --week N --write --params <challenger>`.
+   - After loss scaling ships, the challenger is V1, and the pairwise section's live-vs-V1 row is
+     the rollback signal.
+   - If it doesn't ship, the challenger is loss ×2.5, running in shadow.
+3. **Write up briefly.** Skip the full hand-graded doc. Write a short note with the review's
+   numbers, a few sentences on what really moved and why, and a running table of live vs V1 per
+   week. Flag the rollback trigger when it's met.
+4. **Watch the CFP switch (about Week 10).** Snapshots then re-sort the committee's rankings, and
+   the review compares them with the next CFP ranking automatically. Call out whether loss scaling
+   is holding up there, especially in championship week.
+5. **Keep the constraints:** no commits or pushes, no paid APIs, and never touch the frozen
+   snapshots. Rebuilt weeks only ever go to `data/pickem-backtest/`.
+
+**Why not add a Sunday live-capture task instead?**
+- It adds a second schedule.
+- It depends on when the poll lands. Week 1's came on a Tuesday.
+- It captures nothing a git rebuild doesn't.
+
+**What has to happen first, before Tuesday 9/29 3:04 PM PT, or that run finds nothing again:**
+- **`review-pickem.mjs`** must also look in `data/pickem-backtest/` (it only reads
+  `data/pickem-snapshots/` today) and write its review next to whichever file it read.
+- **This branch** must be merged to `main` and pushed. It holds tooling, data and docs only, with
+  no `src/` changes. The task runs on `main` with fast-forward-only merges, so it can't sit on
+  local-only commits.
+- **The task prompt itself** needs updating along these lines.
+
+Week 4 stays recoverable from git regardless.
 
 ## Caveats
 
-- **One tuning season.** 2025 and 2026 are both 12-team-playoff seasons, but different voters and
-  seasons can differ.
+- **Two seasons of evidence (2025 tuning, 2024 holdout) plus three 2026 weeks.** All three are
+  12-team-playoff seasons, but voters and seasons can still differ.
+- **Data quirks in 2024:** a 26-team Week 6 AP poll (a tie at #25), and one hurricane-cancelled
+  game between unranked teams. Neither affects the ranked results.
 - **Stand-ins.** 2025 uses Elo in place of SP+/FPI. The rebuilt 2026 weeks carry post-game FPI/Elo
   updates (the Week 3 projection was identical either way).
 - **CFP switch.** Around Week 10 the site switches to CFP rankings, and this was all tuned on AP
@@ -223,6 +352,10 @@ voters did. The early-season ugly-win exits remain untouched, since no candidate
   2. `node scripts/review-pickem.mjs --week 3 --params <file>`, where the file looks like
      `{ "label": "penalty 4", "params": { "unrankedLossPenalty": 4 } }`.
   3. `node scripts/reconstruct-pickem-week.mjs --week N`
-- **Don't re-fetch 2025.** `data/pickem-history/2025-raw.json` is the permanent cache.
+- **Don't re-fetch 2025 or 2024.** `data/pickem-history/2025-raw.json` and `2024-raw.json` are the
+  permanent caches.
+- **Experiment 2:** `node scripts/holdout-pickem.mjs`.
+- **The CFP check** (exploratory) fed each season's CFP polls through the same builder, relabeled
+  as the poll to re-sort.
 - **Exploratory numbers** (loss scale, per-season-part fits, exit rates) came from throwaway
   scripts. Anything that ships from them goes through a new pre-registered experiment file first.
