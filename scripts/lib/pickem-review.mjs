@@ -12,6 +12,12 @@
 // Scope limit worth knowing: the model only re-sorts the 25 teams already ranked, so it can never
 // predict a team dropping out or an unranked team entering -- those are reported separately
 // (`dropped`, `entered`) rather than counted against its rank error.
+//
+// A third lens, pairwise order (scripts/lib/pickem-backtest.mjs), ignores the passive ripple of a
+// zero-sum poll without hand-picked "root movers", and can score a challenger model replayed from
+// the snapshot's stored inputs next to the one the page actually showed.
+
+import { pairwiseScore, replayWeek, rootMoverMae, rootMovers } from './pickem-backtest.mjs';
 
 const round = (x, d = 2) => (x == null || !Number.isFinite(x) ? null : Math.round(x * 10 ** d) / 10 ** d);
 const mean = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
@@ -52,7 +58,13 @@ export function spearman(orderA, orderB) {
   return 1 - (6 * d2) / (n * (n * n - 1));
 }
 
-export function reviewSnapshot(snapshot, actualOrder) {
+function pairwiseSummary(snapshot, projectedOrder, actualOrder) {
+  const { pairs, dBase, dModel, flipsMade, flipsRight } = pairwiseScore(snapshot.currentOrder, projectedOrder, actualOrder);
+  return { pairs, dBase, dModel, flipsMade, flipsRight };
+}
+
+// challenger: { label, params } -- a full params object for scripts/lib/pickem-model-params.mjs.
+export function reviewSnapshot(snapshot, actualOrder, { challenger = null } = {}) {
   const actualRank = new Map(actualOrder.map((id, i) => [id, i + 1]));
   const rows = snapshot.teams.map((t) => {
     const ar = actualRank.get(t.id) ?? null;
@@ -151,10 +163,27 @@ export function reviewSnapshot(snapshot, actualOrder) {
     };
   };
 
+  // ---- 3. pairwise order, optionally against a challenger
+  const pairwise = pairwiseSummary(snapshot, snapshot.projectedOrder, actualOrder);
+  const moverSummary = {
+    ...rootMoverMae(snapshot.currentOrder, snapshot.projectedOrder, actualOrder),
+    ids: rootMovers(snapshot.currentOrder, actualOrder).movers,
+  };
+  let challengerReview = null;
+  if (challenger) {
+    const projectedOrder = replayWeek(snapshot, challenger.params);
+    challengerReview = {
+      label: challenger.label, params: challenger.params, projectedOrder,
+      pairwise: pairwiseSummary(snapshot, projectedOrder, actualOrder),
+      rootMovers: rootMoverMae(snapshot.currentOrder, projectedOrder, actualOrder),
+    };
+  }
+
   return {
     week: snapshot.week, season: snapshot.season, pollSource: snapshot.pollSource,
     snapshotGeneratedAt: snapshot.generatedAt,
     rows, accuracy, biggestMisses, lineLens, correlations, voterSurprises,
+    pairwise, rootMovers: moverSummary, challenger: challengerReview,
     dropped: dropped.map((r) => ({ ...describeTeam(r.id), name: r.name, currentRank: r.currentRank, projectedRank: r.projectedRank })),
     entered: entered.map((id) => ({ ...describeTeam(id), actualRank: actualRank.get(id) })),
   };
@@ -216,6 +245,28 @@ export function renderReport(review, nameOf = (id) => id) {
     ? 'Voters against the line (beat it by 7+ but did not rise, or missed by 7+ but did not fall): '
       + review.voterSurprises.map((r) => `${r.name} (${signed(r.surprise)} vs line, ${mv(r.actualMove)})`).join('; ') + '.'
     : 'No team beat/missed the line by 7+ and moved the opposite way.');
+  out.push('');
+
+  const P = review.pairwise;
+  const M = review.rootMovers;
+  const ch = review.challenger;
+  const share = (wrong) => (P.dBase ? `${round((1 - wrong / P.dBase) * 100, 1)}%` : 'n/a');
+  const num = (x) => round(x) ?? 'n/a';
+  const col = (s) => (ch ? ` ${s} |` : '');
+  out.push('## 3. Pairwise order (ignores passive ripple)');
+  out.push('');
+  out.push('Every pair of teams from this poll, scored against the next one: did the projection keep them in the real order? '
+    + 'Teams that fell out count as tied just below the poll; entrants are not scored. "Share of the real reshuffle '
+    + 'captured" is 1 - wrong pairs / pairs that really swapped.');
+  out.push('');
+  out.push(`| | Model | No-change baseline |${col(ch?.label)}`);
+  out.push(`|---|---|---|${ch ? '---|' : ''}`);
+  out.push(`| Wrong pairs (of ${P.pairs}) | ${P.dModel} | ${P.dBase} |${col(ch?.pairwise.dModel)}`);
+  out.push(`| Share of the real reshuffle captured | ${share(P.dModel)} | 0% |${col(ch && share(ch.pairwise.dModel))}`);
+  out.push(`| Flips right / made | ${P.flipsRight}/${P.flipsMade} | -- |${col(ch && `${ch.pairwise.flipsRight}/${ch.pairwise.flipsMade}`)}`);
+  out.push(`| Root movers (n=${M.n}): mean abs rank error | ${num(M.model)} | ${num(M.baseline)} |${col(ch && num(ch.rootMovers.model))}`);
+  out.push('');
+  out.push(`Root movers (order against their neighbours really changed): ${M.ids.length ? M.ids.map(nameOf).join(', ') : 'none'}.`);
   out.push('');
   return out.join('\n');
 }

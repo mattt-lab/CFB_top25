@@ -1,0 +1,1450 @@
+{
+  "generatedAt": "2026-09-23T14:46:05.327Z",
+  "spec": "experiment-1",
+  "draws": 10000,
+  "seed": 20260923,
+  "stats": {
+    "transitions": 15,
+    "rankedTeamWeeks": 375,
+    "rankedGames": 315,
+    "rankedFinal": 315,
+    "rankedWithLine": 314,
+    "rankedOpponentsWithElo": 293,
+    "doubleGames": 2
+  },
+  "selected": [
+    {
+      "setting": "unrankedLossPenalty",
+      "value": 4
+    }
+  ],
+  "params": {
+    "oppQualityScale": 60,
+    "winBase": 0.5,
+    "winQualitySlope": 2.5,
+    "blowoutWinMult": 1.5,
+    "lossBase": 1.25,
+    "lossWeakOppSlope": 3.25,
+    "blowoutLossMult": 1.6,
+    "cushionPerQualityWin": 0.4,
+    "cushionMax": 1.2,
+    "compDivisor": 8,
+    "compMax": 0.75,
+    "driftScale": 1,
+    "unrankedLossPenalty": 4,
+    "surpriseK": 0,
+    "surpriseCap": 21
+  },
+  "rounds": [
+    {
+      "base": {
+        "oppQualityScale": 60,
+        "winBase": 0.5,
+        "winQualitySlope": 2.5,
+        "blowoutWinMult": 1.5,
+        "lossBase": 1.25,
+        "lossWeakOppSlope": 3.25,
+        "blowoutLossMult": 1.6,
+        "cushionPerQualityWin": 0.4,
+        "cushionMax": 1.2,
+        "compDivisor": 8,
+        "compMax": 0.75,
+        "driftScale": 1,
+        "unrankedLossPenalty": 0,
+        "surpriseK": 0,
+        "surpriseCap": 21
+      },
+      "chosen": "unrankedLossPenalty",
+      "results": [
+        {
+          "setting": "driftScale",
+          "curve": [
+            {
+              "value": 1,
+              "E": 314.5
+            },
+            {
+              "value": 1.25,
+              "E": 289
+            },
+            {
+              "value": 1.5,
+              "E": 281
+            },
+            {
+              "value": 2,
+              "E": 256
+            },
+            {
+              "value": 2.5,
+              "E": 305.5
+            },
+            {
+              "value": 3,
+              "E": 358.5
+            }
+          ],
+          "best": 2,
+          "value": 2,
+          "oneSe": [
+            {
+              "index": 0,
+              "E": 314.5,
+              "excess": 58.5,
+              "se": 21.92367782279013,
+              "ok": false
+            },
+            {
+              "index": 1,
+              "E": 289,
+              "excess": 33,
+              "se": 17.06625113960298,
+              "ok": false
+            },
+            {
+              "index": 2,
+              "E": 281,
+              "excess": 25,
+              "se": 14.28425628970573,
+              "ok": false
+            },
+            {
+              "index": 3,
+              "E": 256,
+              "excess": 0,
+              "se": 0,
+              "ok": true
+            },
+            {
+              "index": 4,
+              "E": 305.5,
+              "excess": 49.5,
+              "se": 13.818060406493348,
+              "ok": false
+            },
+            {
+              "index": 5,
+              "E": 358.5,
+              "excess": 102.5,
+              "se": 17.331713113177766,
+              "ok": false
+            }
+          ],
+          "rules": {
+            "R1": {
+              "n": 15,
+              "folds": [
+                {
+                  "index": 0,
+                  "fittedIndex": 3,
+                  "delta": 3.5
+                },
+                {
+                  "index": 1,
+                  "fittedIndex": 3,
+                  "delta": 8
+                },
+                {
+                  "index": 2,
+                  "fittedIndex": 3,
+                  "delta": 12
+                },
+                {
+                  "index": 3,
+                  "fittedIndex": 3,
+                  "delta": 5
+                },
+                {
+                  "index": 4,
+                  "fittedIndex": 3,
+                  "delta": 9
+                },
+                {
+                  "index": 5,
+                  "fittedIndex": 3,
+                  "delta": 9
+                },
+                {
+                  "index": 6,
+                  "fittedIndex": 3,
+                  "delta": 9
+                },
+                {
+                  "index": 7,
+                  "fittedIndex": 3,
+                  "delta": 5
+                },
+                {
+                  "index": 8,
+                  "fittedIndex": 3,
+                  "delta": 3
+                },
+                {
+                  "index": 9,
+                  "fittedIndex": 3,
+                  "delta": 6
+                },
+                {
+                  "index": 10,
+                  "fittedIndex": 3,
+                  "delta": 1
+                },
+                {
+                  "index": 11,
+                  "fittedIndex": 3,
+                  "delta": 4
+                },
+                {
+                  "index": 12,
+                  "fittedIndex": 3,
+                  "delta": -6
+                },
+                {
+                  "index": 13,
+                  "fittedIndex": 3,
+                  "delta": -1
+                },
+                {
+                  "index": 14,
+                  "fittedIndex": 3,
+                  "delta": -9
+                }
+              ],
+              "sumDelta": 58.5,
+              "ci5": 21,
+              "pass": true
+            },
+            "R2": {
+              "early": 2,
+              "late": 1.25,
+              "pass": false
+            },
+            "R3": {
+              "eBase": 41,
+              "eCand": 35.5,
+              "pass": true
+            },
+            "R4": {
+              "improvement": 58.5,
+              "minImprovement": 45,
+              "worstTeam": "251",
+              "pass": true
+            }
+          },
+          "pass": false
+        },
+        {
+          "setting": "unrankedLossPenalty",
+          "curve": [
+            {
+              "value": 0,
+              "E": 314.5
+            },
+            {
+              "value": 2,
+              "E": 295
+            },
+            {
+              "value": 4,
+              "E": 275.5
+            },
+            {
+              "value": 6,
+              "E": 271
+            },
+            {
+              "value": 8,
+              "E": 270
+            },
+            {
+              "value": 10,
+              "E": 277
+            },
+            {
+              "value": 12,
+              "E": 283
+            }
+          ],
+          "best": 8,
+          "value": 4,
+          "oneSe": [
+            {
+              "index": 0,
+              "E": 314.5,
+              "excess": 44.5,
+              "se": 23.090797029065467,
+              "ok": false
+            },
+            {
+              "index": 1,
+              "E": 295,
+              "excess": 25,
+              "se": 21.685537038311914,
+              "ok": false
+            },
+            {
+              "index": 2,
+              "E": 275.5,
+              "excess": 5.5,
+              "se": 15.206349334324191,
+              "ok": true
+            },
+            {
+              "index": 3,
+              "E": 271,
+              "excess": 1,
+              "se": 11.545090357376997,
+              "ok": true
+            },
+            {
+              "index": 4,
+              "E": 270,
+              "excess": 0,
+              "se": 0,
+              "ok": true
+            },
+            {
+              "index": 5,
+              "E": 277,
+              "excess": 7,
+              "se": 7.884159995840137,
+              "ok": true
+            },
+            {
+              "index": 6,
+              "E": 283,
+              "excess": 13,
+              "se": 11.795520829535429,
+              "ok": false
+            }
+          ],
+          "rules": {
+            "R1": {
+              "n": 15,
+              "folds": [
+                {
+                  "index": 0,
+                  "fittedIndex": 4,
+                  "delta": 0
+                },
+                {
+                  "index": 1,
+                  "fittedIndex": 3,
+                  "delta": 7
+                },
+                {
+                  "index": 2,
+                  "fittedIndex": 3,
+                  "delta": 9
+                },
+                {
+                  "index": 3,
+                  "fittedIndex": 4,
+                  "delta": 0
+                },
+                {
+                  "index": 4,
+                  "fittedIndex": 4,
+                  "delta": 1
+                },
+                {
+                  "index": 5,
+                  "fittedIndex": 3,
+                  "delta": 10
+                },
+                {
+                  "index": 6,
+                  "fittedIndex": 4,
+                  "delta": 7
+                },
+                {
+                  "index": 7,
+                  "fittedIndex": 4,
+                  "delta": 0
+                },
+                {
+                  "index": 8,
+                  "fittedIndex": 4,
+                  "delta": 1
+                },
+                {
+                  "index": 9,
+                  "fittedIndex": 4,
+                  "delta": -1
+                },
+                {
+                  "index": 10,
+                  "fittedIndex": 4,
+                  "delta": 0
+                },
+                {
+                  "index": 11,
+                  "fittedIndex": 4,
+                  "delta": 1
+                },
+                {
+                  "index": 12,
+                  "fittedIndex": 4,
+                  "delta": 1
+                },
+                {
+                  "index": 13,
+                  "fittedIndex": 4,
+                  "delta": 0
+                },
+                {
+                  "index": 14,
+                  "fittedIndex": 4,
+                  "delta": -5
+                }
+              ],
+              "sumDelta": 31,
+              "ci5": 6,
+              "pass": true
+            },
+            "R2": {
+              "early": 8,
+              "late": 4,
+              "pass": true
+            },
+            "R3": {
+              "eBase": 41,
+              "eCand": 35.5,
+              "pass": true
+            },
+            "R4": {
+              "improvement": 39,
+              "minImprovement": 32.5,
+              "worstTeam": "201",
+              "pass": true
+            }
+          },
+          "pass": true
+        },
+        {
+          "setting": "surpriseK",
+          "curve": [
+            {
+              "value": 0,
+              "E": 314.5
+            },
+            {
+              "value": 0.05,
+              "E": 297.5
+            },
+            {
+              "value": 0.1,
+              "E": 286.5
+            },
+            {
+              "value": 0.15,
+              "E": 287.5
+            },
+            {
+              "value": 0.2,
+              "E": 310.5
+            },
+            {
+              "value": 0.3,
+              "E": 402
+            },
+            {
+              "value": 0.4,
+              "E": 485
+            }
+          ],
+          "best": 0.1,
+          "value": 0.1,
+          "oneSe": [
+            {
+              "index": 0,
+              "E": 314.5,
+              "excess": 28,
+              "se": 10.477653972144681,
+              "ok": false
+            },
+            {
+              "index": 1,
+              "E": 297.5,
+              "excess": 11,
+              "se": 9.552338009094788,
+              "ok": false
+            },
+            {
+              "index": 2,
+              "E": 286.5,
+              "excess": 0,
+              "se": 0,
+              "ok": true
+            },
+            {
+              "index": 3,
+              "E": 287.5,
+              "excess": 1,
+              "se": 12.72915943807789,
+              "ok": true
+            },
+            {
+              "index": 4,
+              "E": 310.5,
+              "excess": 24,
+              "se": 19.38694277058649,
+              "ok": false
+            },
+            {
+              "index": 5,
+              "E": 402,
+              "excess": 115.5,
+              "se": 29.060873397017836,
+              "ok": false
+            },
+            {
+              "index": 6,
+              "E": 485,
+              "excess": 198.5,
+              "se": 40.66777960963074,
+              "ok": false
+            }
+          ],
+          "rules": {
+            "R1": {
+              "n": 15,
+              "folds": [
+                {
+                  "index": 0,
+                  "fittedIndex": 2,
+                  "delta": 4.5
+                },
+                {
+                  "index": 1,
+                  "fittedIndex": 2,
+                  "delta": 4.5
+                },
+                {
+                  "index": 2,
+                  "fittedIndex": 2,
+                  "delta": -2
+                },
+                {
+                  "index": 3,
+                  "fittedIndex": 2,
+                  "delta": 2
+                },
+                {
+                  "index": 4,
+                  "fittedIndex": 2,
+                  "delta": 1
+                },
+                {
+                  "index": 5,
+                  "fittedIndex": 2,
+                  "delta": 3
+                },
+                {
+                  "index": 6,
+                  "fittedIndex": 2,
+                  "delta": 3
+                },
+                {
+                  "index": 7,
+                  "fittedIndex": 2,
+                  "delta": 2
+                },
+                {
+                  "index": 8,
+                  "fittedIndex": 3,
+                  "delta": -4
+                },
+                {
+                  "index": 9,
+                  "fittedIndex": 2,
+                  "delta": 3
+                },
+                {
+                  "index": 10,
+                  "fittedIndex": 2,
+                  "delta": 3
+                },
+                {
+                  "index": 11,
+                  "fittedIndex": 3,
+                  "delta": 3
+                },
+                {
+                  "index": 12,
+                  "fittedIndex": 3,
+                  "delta": -8
+                },
+                {
+                  "index": 13,
+                  "fittedIndex": 2,
+                  "delta": -2
+                },
+                {
+                  "index": 14,
+                  "fittedIndex": 3,
+                  "delta": -2
+                }
+              ],
+              "sumDelta": 11,
+              "ci5": -12,
+              "pass": false
+            },
+            "R2": {
+              "early": 0.15,
+              "late": 0.1,
+              "pass": true
+            },
+            "R3": {
+              "eBase": 41,
+              "eCand": 38.5,
+              "pass": true
+            },
+            "R4": {
+              "improvement": 28,
+              "minImprovement": 21.5,
+              "worstTeam": "2633",
+              "pass": true
+            }
+          },
+          "pass": false
+        }
+      ]
+    },
+    {
+      "base": {
+        "oppQualityScale": 60,
+        "winBase": 0.5,
+        "winQualitySlope": 2.5,
+        "blowoutWinMult": 1.5,
+        "lossBase": 1.25,
+        "lossWeakOppSlope": 3.25,
+        "blowoutLossMult": 1.6,
+        "cushionPerQualityWin": 0.4,
+        "cushionMax": 1.2,
+        "compDivisor": 8,
+        "compMax": 0.75,
+        "driftScale": 1,
+        "unrankedLossPenalty": 4,
+        "surpriseK": 0,
+        "surpriseCap": 21
+      },
+      "chosen": null,
+      "results": [
+        {
+          "setting": "driftScale",
+          "curve": [
+            {
+              "value": 1,
+              "E": 275.5
+            },
+            {
+              "value": 1.25,
+              "E": 258.5
+            },
+            {
+              "value": 1.5,
+              "E": 267
+            },
+            {
+              "value": 2,
+              "E": 257.5
+            },
+            {
+              "value": 2.5,
+              "E": 310.5
+            },
+            {
+              "value": 3,
+              "E": 364.5
+            }
+          ],
+          "best": 2,
+          "value": 1,
+          "oneSe": [
+            {
+              "index": 0,
+              "E": 275.5,
+              "excess": 18,
+              "se": 22.140139656289385,
+              "ok": true
+            },
+            {
+              "index": 1,
+              "E": 258.5,
+              "excess": 1,
+              "se": 15.567914688550943,
+              "ok": true
+            },
+            {
+              "index": 2,
+              "E": 267,
+              "excess": 9.5,
+              "se": 11.71157753838062,
+              "ok": true
+            },
+            {
+              "index": 3,
+              "E": 257.5,
+              "excess": 0,
+              "se": 0,
+              "ok": true
+            },
+            {
+              "index": 4,
+              "E": 310.5,
+              "excess": 53,
+              "se": 12.486061364177383,
+              "ok": false
+            },
+            {
+              "index": 5,
+              "E": 364.5,
+              "excess": 107,
+              "se": 14.046322388440375,
+              "ok": false
+            }
+          ],
+          "rules": {
+            "R1": {
+              "n": 15,
+              "folds": [
+                {
+                  "index": 0,
+                  "fittedIndex": 1,
+                  "delta": 2
+                },
+                {
+                  "index": 1,
+                  "fittedIndex": 1,
+                  "delta": 1
+                },
+                {
+                  "index": 2,
+                  "fittedIndex": 1,
+                  "delta": 3
+                },
+                {
+                  "index": 3,
+                  "fittedIndex": 1,
+                  "delta": 2
+                },
+                {
+                  "index": 4,
+                  "fittedIndex": 1,
+                  "delta": 3
+                },
+                {
+                  "index": 5,
+                  "fittedIndex": 1,
+                  "delta": 3
+                },
+                {
+                  "index": 6,
+                  "fittedIndex": 1,
+                  "delta": 3
+                },
+                {
+                  "index": 7,
+                  "fittedIndex": 3,
+                  "delta": -1
+                },
+                {
+                  "index": 8,
+                  "fittedIndex": 1,
+                  "delta": 0
+                },
+                {
+                  "index": 9,
+                  "fittedIndex": 3,
+                  "delta": 0
+                },
+                {
+                  "index": 10,
+                  "fittedIndex": 3,
+                  "delta": -7
+                },
+                {
+                  "index": 11,
+                  "fittedIndex": 1,
+                  "delta": 2
+                },
+                {
+                  "index": 12,
+                  "fittedIndex": 3,
+                  "delta": -9
+                },
+                {
+                  "index": 13,
+                  "fittedIndex": 3,
+                  "delta": -1
+                },
+                {
+                  "index": 14,
+                  "fittedIndex": 3,
+                  "delta": -9
+                }
+              ],
+              "sumDelta": -8,
+              "ci5": -36,
+              "pass": false
+            },
+            "R2": {
+              "early": 2,
+              "late": 1,
+              "pass": false
+            },
+            "R3": {
+              "eBase": 35.5,
+              "eCand": 35.5,
+              "pass": true
+            },
+            "R4": {
+              "improvement": 0,
+              "minImprovement": 0,
+              "worstTeam": "251",
+              "pass": false
+            }
+          },
+          "pass": false
+        },
+        {
+          "setting": "surpriseK",
+          "curve": [
+            {
+              "value": 0,
+              "E": 275.5
+            },
+            {
+              "value": 0.05,
+              "E": 266
+            },
+            {
+              "value": 0.1,
+              "E": 261
+            },
+            {
+              "value": 0.15,
+              "E": 278
+            },
+            {
+              "value": 0.2,
+              "E": 307
+            },
+            {
+              "value": 0.3,
+              "E": 402.5
+            },
+            {
+              "value": 0.4,
+              "E": 489
+            }
+          ],
+          "best": 0.1,
+          "value": 0.05,
+          "oneSe": [
+            {
+              "index": 0,
+              "E": 275.5,
+              "excess": 14.5,
+              "se": 12.141973104792406,
+              "ok": false
+            },
+            {
+              "index": 1,
+              "E": 266,
+              "excess": 5,
+              "se": 10.606165714338216,
+              "ok": true
+            },
+            {
+              "index": 2,
+              "E": 261,
+              "excess": 0,
+              "se": 0,
+              "ok": true
+            },
+            {
+              "index": 3,
+              "E": 278,
+              "excess": 17,
+              "se": 10.630372918670348,
+              "ok": false
+            },
+            {
+              "index": 4,
+              "E": 307,
+              "excess": 46,
+              "se": 18.580522737264502,
+              "ok": false
+            },
+            {
+              "index": 5,
+              "E": 402.5,
+              "excess": 141.5,
+              "se": 31.51469880226525,
+              "ok": false
+            },
+            {
+              "index": 6,
+              "E": 489,
+              "excess": 228,
+              "se": 40.24494876925552,
+              "ok": false
+            }
+          ],
+          "rules": {
+            "R1": {
+              "n": 15,
+              "folds": [
+                {
+                  "index": 0,
+                  "fittedIndex": 2,
+                  "delta": 5.5
+                },
+                {
+                  "index": 1,
+                  "fittedIndex": 2,
+                  "delta": 3
+                },
+                {
+                  "index": 2,
+                  "fittedIndex": 2,
+                  "delta": -3
+                },
+                {
+                  "index": 3,
+                  "fittedIndex": 2,
+                  "delta": 2
+                },
+                {
+                  "index": 4,
+                  "fittedIndex": 2,
+                  "delta": 0
+                },
+                {
+                  "index": 5,
+                  "fittedIndex": 2,
+                  "delta": 2
+                },
+                {
+                  "index": 6,
+                  "fittedIndex": 2,
+                  "delta": 4
+                },
+                {
+                  "index": 7,
+                  "fittedIndex": 2,
+                  "delta": 1
+                },
+                {
+                  "index": 8,
+                  "fittedIndex": 2,
+                  "delta": 0
+                },
+                {
+                  "index": 9,
+                  "fittedIndex": 2,
+                  "delta": 2
+                },
+                {
+                  "index": 10,
+                  "fittedIndex": 2,
+                  "delta": 0
+                },
+                {
+                  "index": 11,
+                  "fittedIndex": 1,
+                  "delta": 1
+                },
+                {
+                  "index": 12,
+                  "fittedIndex": 2,
+                  "delta": -5
+                },
+                {
+                  "index": 13,
+                  "fittedIndex": 2,
+                  "delta": -2
+                },
+                {
+                  "index": 14,
+                  "fittedIndex": 2,
+                  "delta": -2
+                }
+              ],
+              "sumDelta": 8.5,
+              "ci5": -9,
+              "pass": false
+            },
+            "R2": {
+              "early": 0.05,
+              "late": 0,
+              "pass": false
+            },
+            "R3": {
+              "eBase": 35.5,
+              "eCand": 34.5,
+              "pass": true
+            },
+            "R4": {
+              "improvement": 9.5,
+              "minImprovement": 4,
+              "worstTeam": "2633",
+              "pass": true
+            }
+          },
+          "pass": false
+        }
+      ]
+    }
+  ],
+  "nested": [
+    {
+      "week": 1,
+      "selected": [
+        {
+          "setting": "unrankedLossPenalty",
+          "value": 4
+        }
+      ],
+      "base": 15.5,
+      "cand": 15.5,
+      "delta": 0
+    },
+    {
+      "week": 2,
+      "selected": [
+        {
+          "setting": "unrankedLossPenalty",
+          "value": 4
+        }
+      ],
+      "base": 20,
+      "cand": 14,
+      "delta": 6
+    },
+    {
+      "week": 3,
+      "selected": [
+        {
+          "setting": "unrankedLossPenalty",
+          "value": 4
+        }
+      ],
+      "base": 30,
+      "cand": 23,
+      "delta": 7
+    },
+    {
+      "week": 4,
+      "selected": [
+        {
+          "setting": "unrankedLossPenalty",
+          "value": 4
+        }
+      ],
+      "base": 24,
+      "cand": 24,
+      "delta": 0
+    },
+    {
+      "week": 5,
+      "selected": [
+        {
+          "setting": "unrankedLossPenalty",
+          "value": 4
+        }
+      ],
+      "base": 27,
+      "cand": 24,
+      "delta": 3
+    },
+    {
+      "week": 6,
+      "selected": [
+        {
+          "setting": "unrankedLossPenalty",
+          "value": 4
+        }
+      ],
+      "base": 46,
+      "cand": 39,
+      "delta": 7
+    },
+    {
+      "week": 7,
+      "selected": [],
+      "base": 17,
+      "cand": 17,
+      "delta": 0
+    },
+    {
+      "week": 8,
+      "selected": [],
+      "base": 25,
+      "cand": 25,
+      "delta": 0
+    },
+    {
+      "week": 9,
+      "selected": [],
+      "base": 13,
+      "cand": 13,
+      "delta": 0
+    },
+    {
+      "week": 10,
+      "selected": [],
+      "base": 26,
+      "cand": 26,
+      "delta": 0
+    },
+    {
+      "week": 11,
+      "selected": [
+        {
+          "setting": "unrankedLossPenalty",
+          "value": 4
+        }
+      ],
+      "base": 16,
+      "cand": 13,
+      "delta": 3
+    },
+    {
+      "week": 12,
+      "selected": [
+        {
+          "setting": "unrankedLossPenalty",
+          "value": 4
+        }
+      ],
+      "base": 21,
+      "cand": 20,
+      "delta": 1
+    },
+    {
+      "week": 13,
+      "selected": [
+        {
+          "setting": "surpriseK",
+          "value": 0.1
+        }
+      ],
+      "base": 10,
+      "cand": 12,
+      "delta": -2
+    },
+    {
+      "week": 14,
+      "selected": [
+        {
+          "setting": "unrankedLossPenalty",
+          "value": 4
+        }
+      ],
+      "base": 17,
+      "cand": 17,
+      "delta": 0
+    },
+    {
+      "week": 15,
+      "selected": [
+        {
+          "setting": "driftScale",
+          "value": 2
+        }
+      ],
+      "base": 7,
+      "cand": 16,
+      "delta": -9
+    }
+  ],
+  "weeks": {
+    "2025": [
+      {
+        "week": 1,
+        "w": 0.5,
+        "dBase": 48,
+        "v1": 31,
+        "tuned": 31,
+        "v1Flips": "17/17",
+        "tunedFlips": "19/21",
+        "movers": 19,
+        "maeBase": 3.263157894736842,
+        "maeV1": 1.9473684210526316,
+        "maeTuned": 1.7894736842105263,
+        "exits": 2,
+        "entrants": 2
+      },
+      {
+        "week": 2,
+        "w": 0.5,
+        "dBase": 55,
+        "v1": 40,
+        "tuned": 28,
+        "v1Flips": "15/15",
+        "tunedFlips": "27/27",
+        "movers": 11,
+        "maeBase": 3.6363636363636362,
+        "maeV1": 3.090909090909091,
+        "maeTuned": 2.727272727272727,
+        "exits": 3,
+        "entrants": 3
+      },
+      {
+        "week": 3,
+        "w": 1,
+        "dBase": 54,
+        "v1": 30,
+        "tuned": 23,
+        "v1Flips": "25/26",
+        "tunedFlips": "32/33",
+        "movers": 5,
+        "maeBase": 5.4,
+        "maeV1": 3.4,
+        "maeTuned": 3.4,
+        "exits": 3,
+        "entrants": 3
+      },
+      {
+        "week": 4,
+        "w": 1,
+        "dBase": 45,
+        "v1": 24,
+        "tuned": 24,
+        "v1Flips": "23/25",
+        "tunedFlips": "23/25",
+        "movers": 11,
+        "maeBase": 4.2727272727272725,
+        "maeV1": 2.4545454545454546,
+        "maeTuned": 2.4545454545454546,
+        "exits": 2,
+        "entrants": 2
+      },
+      {
+        "week": 5,
+        "w": 1,
+        "dBase": 48,
+        "v1": 27,
+        "tuned": 24,
+        "v1Flips": "26/31",
+        "tunedFlips": "29/34",
+        "movers": 14,
+        "maeBase": 4.285714285714286,
+        "maeV1": 2.357142857142857,
+        "maeTuned": 2.2142857142857144,
+        "exits": 2,
+        "entrants": 2
+      },
+      {
+        "week": 6,
+        "w": 1,
+        "dBase": 59,
+        "v1": 46,
+        "tuned": 39,
+        "v1Flips": "18/23",
+        "tunedFlips": "26/32",
+        "movers": 7,
+        "maeBase": 3.2857142857142856,
+        "maeV1": 1.7142857142857142,
+        "maeTuned": 1.7142857142857142,
+        "exits": 2,
+        "entrants": 2
+      },
+      {
+        "week": 7,
+        "w": 1,
+        "dBase": 35,
+        "v1": 17,
+        "tuned": 12,
+        "v1Flips": "18/18",
+        "tunedFlips": "23/23",
+        "movers": 10,
+        "maeBase": 3.1,
+        "maeV1": 1.6,
+        "maeTuned": 1.3,
+        "exits": 5,
+        "entrants": 5
+      },
+      {
+        "week": 8,
+        "w": 1,
+        "dBase": 46,
+        "v1": 25,
+        "tuned": 22,
+        "v1Flips": "24/27",
+        "tunedFlips": "30/36",
+        "movers": 11,
+        "maeBase": 4.909090909090909,
+        "maeV1": 2.5454545454545454,
+        "maeTuned": 2.1818181818181817,
+        "exits": 4,
+        "entrants": 4
+      },
+      {
+        "week": 9,
+        "w": 1,
+        "dBase": 22,
+        "v1": 13,
+        "tuned": 12,
+        "v1Flips": "12/15",
+        "tunedFlips": "13/16",
+        "movers": 7,
+        "maeBase": 2.4285714285714284,
+        "maeV1": 1.2857142857142858,
+        "maeTuned": 1.2857142857142858,
+        "exits": 4,
+        "entrants": 4
+      },
+      {
+        "week": 10,
+        "w": 1,
+        "dBase": 50,
+        "v1": 26,
+        "tuned": 22,
+        "v1Flips": "30/36",
+        "tunedFlips": "36/44",
+        "movers": 11,
+        "maeBase": 6.181818181818182,
+        "maeV1": 2.8181818181818183,
+        "maeTuned": 2.4545454545454546,
+        "exits": 1,
+        "entrants": 1
+      },
+      {
+        "week": 11,
+        "w": 1,
+        "dBase": 27,
+        "v1": 16,
+        "tuned": 13,
+        "v1Flips": "16/21",
+        "tunedFlips": "20/26",
+        "movers": 6,
+        "maeBase": 3.6666666666666665,
+        "maeV1": 2,
+        "maeTuned": 1.8333333333333333,
+        "exits": 3,
+        "entrants": 3
+      },
+      {
+        "week": 12,
+        "w": 1,
+        "dBase": 21,
+        "v1": 21,
+        "tuned": 20,
+        "v1Flips": "10/20",
+        "tunedFlips": "11/21",
+        "movers": 4,
+        "maeBase": 4.25,
+        "maeV1": 3,
+        "maeTuned": 3,
+        "exits": 4,
+        "entrants": 4
+      },
+      {
+        "week": 13,
+        "w": 1,
+        "dBase": 16,
+        "v1": 10,
+        "tuned": 8,
+        "v1Flips": "10/14",
+        "tunedFlips": "12/16",
+        "movers": 8,
+        "maeBase": 2.375,
+        "maeV1": 1.125,
+        "maeTuned": 0.875,
+        "exits": 2,
+        "entrants": 2
+      },
+      {
+        "week": 14,
+        "w": 1,
+        "dBase": 15,
+        "v1": 17,
+        "tuned": 17,
+        "v1Flips": "9/20",
+        "tunedFlips": "9/20",
+        "movers": 7,
+        "maeBase": 2,
+        "maeV1": 2.142857142857143,
+        "maeTuned": 2.142857142857143,
+        "exits": 3,
+        "entrants": 3
+      },
+      {
+        "week": 15,
+        "w": 1,
+        "dBase": 14,
+        "v1": 7,
+        "tuned": 10,
+        "v1Flips": "11/15",
+        "tunedFlips": "11/18",
+        "movers": 7,
+        "maeBase": 2.4285714285714284,
+        "maeV1": 0.7142857142857143,
+        "maeTuned": 1.2857142857142858,
+        "exits": 0,
+        "entrants": 0
+      }
+    ],
+    "2026": [
+      {
+        "week": 1,
+        "w": 0.5,
+        "dBase": 22,
+        "v1": 19,
+        "tuned": 19,
+        "v1Flips": "3/3",
+        "tunedFlips": "3/3",
+        "movers": 7,
+        "maeBase": 2.142857142857143,
+        "maeV1": 1.7142857142857142,
+        "maeTuned": 1.7142857142857142,
+        "exits": 1,
+        "entrants": 1
+      },
+      {
+        "week": 2,
+        "w": 0.5,
+        "dBase": 44,
+        "v1": 29,
+        "tuned": 22,
+        "v1Flips": "16/17",
+        "tunedFlips": "23/24",
+        "movers": 9,
+        "maeBase": 5.444444444444445,
+        "maeV1": 3.4444444444444446,
+        "maeTuned": 2.2222222222222223,
+        "exits": 1,
+        "entrants": 1
+      },
+      {
+        "week": 3,
+        "w": 1,
+        "dBase": 31,
+        "v1": 17,
+        "tuned": 15,
+        "v1Flips": "15/16",
+        "tunedFlips": "17/18",
+        "movers": 6,
+        "maeBase": 6,
+        "maeV1": 3,
+        "maeTuned": 2.6666666666666665,
+        "exits": 2,
+        "entrants": 2
+      }
+    ]
+  },
+  "skill": {
+    "2025": {
+      "v1": 0.3753723932472691,
+      "tuned": 0.4528301886792453
+    },
+    "2026": {
+      "v1": 0.359375,
+      "tuned": 0.4453125
+    }
+  }
+}

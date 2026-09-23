@@ -1,5 +1,14 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { PARAMS_V1 } from './pickem-model-params.mjs';
 import { pearson, slope, spearman, reviewSnapshot, renderReport } from './pickem-review.mjs';
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
+const readJson = (p) => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
+const WK3 = readJson('data/pickem-snapshots/2026-wk03.json');
+const WK4_AP = readJson('data/rankings/2026-wk04.json').polls.ap;
 
 describe('stats helpers', () => {
   it('pearson: perfect, inverse, and undefined cases', () => {
@@ -108,6 +117,21 @@ describe('reviewSnapshot', () => {
   });
 });
 
+describe('reviewSnapshot pairwise lens', () => {
+  it('scores pairs of teams, which passive ripple cannot move', () => {
+    // Real swaps: (a,b) (a,d) (a,e) (b,e) (c,d) (c,e) (d,e); the projection flips all seven right.
+    expect(reviewSnapshot(SNAP, ACTUAL).pairwise).toEqual({ pairs: 10, dBase: 7, dModel: 0, flipsMade: 7, flipsRight: 7 });
+  });
+
+  it('scores a challenger model from the snapshot\'s stored inputs', () => {
+    const r = reviewSnapshot(WK3, WK4_AP, { challenger: { label: 'penalty 4', params: { ...PARAMS_V1, unrankedLossPenalty: 4 } } });
+    expect(r.pairwise.dModel).toBe(17);
+    expect(r.challenger.pairwise.dModel).toBe(15);
+    expect(r.challenger.rootMovers).toMatchObject({ n: 6, baseline: 6 });
+    expect(r.challenger.rootMovers.model).toBeCloseTo(16 / 6, 10);
+  });
+});
+
 describe('renderReport', () => {
   it('produces the markdown sections a reader needs', () => {
     const md = renderReport(reviewSnapshot(SNAP, ACTUAL), (id) => id.toUpperCase());
@@ -116,5 +140,14 @@ describe('renderReport', () => {
     expect(md).toContain('## 2. Against the betting line');
     expect(md).toContain('| Mean abs rank error | 0.25 | 2.25 |');
     expect(md).toContain('Dropped out of the poll');
+    expect(md).toContain('## 3. Pairwise order');
+    expect(md).toContain('| Wrong pairs (of 10) | 0 | 7 |');
+  });
+
+  it('adds a challenger column when one was scored', () => {
+    const md = renderReport(reviewSnapshot(WK3, WK4_AP, { challenger: { label: 'penalty 4', params: { ...PARAMS_V1, unrankedLossPenalty: 4 } } }));
+    expect(md).toContain('| | Model | No-change baseline | penalty 4 |');
+    // 25 teams -> 300 pairs, minus Oklahoma-Virginia (both fell out, no real order between them).
+    expect(md).toContain('| Wrong pairs (of 299) | 17 | 31 | 15 |');
   });
 });
