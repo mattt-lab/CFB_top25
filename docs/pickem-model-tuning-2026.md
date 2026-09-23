@@ -1,7 +1,9 @@
 # Pick 'em model tuning: experiments 1 and 2 (2026-09-23)
 
-**Status: analysis only.** Nothing on the live site changed. The work lives on branch
-`worktree-pickem-tuning`, and the model at `src/utils/projectTop25.js` is untouched.
+**Status:** `lossScale = 2.5` **shipped 2026-09-23** in `3e5c069` (v0.19.16). The rest of this is
+analysis, and the tooling lives on branch `worktree-pickem-tuning`. That branch was rebased onto the
+shipped fix, which changed its commit hashes. The hashes cited below are the rebased ones; parent
+order, not timestamps, is what shows each experiment's rules were committed before its data.
 
 **Question.** The weekly reviews (`docs/pickem-snapshots/`) kept showing the same misses. Can the
 Pick 'em projection predict the next AP poll's order better by changing only a few settings,
@@ -80,8 +82,8 @@ Nothing else changes: no betting line, no penalty, no week-dependent settings.
 ## How it was tested, and why it's hard to fool
 
 - **Pre-registered.**
-  - The rules were committed before the 2025 data was fetched (`88f7303`); the data came after
-    (`f240a05`).
+  - The rules were committed before the 2025 data was fetched (`158c0c9`); the data came after
+    (`72fd655`).
   - They cover the metric, weights, candidate settings, grids and pass rules:
     `data/pickem-backtest/experiment-1.json`.
 - **The baseline is the real model.** `scripts/lib/pickem-model-params.mjs` is a tunable copy of
@@ -196,8 +198,8 @@ voters did. The early-season ugly-win exits remain untouched, since no candidate
 ## Experiment 2: confirming on 2024
 
 Spec: `data/pickem-backtest/experiment-2.json`.
-- **Order of events:** the spec was committed in `4acdb0f`, before 2024 existed locally. The 2024
-  data was fetched in `361ca48` (3 CFBD calls; 746 left).
+- **Order of events:** the spec was committed in `b616d4b`, before 2024 existed locally. The 2024
+  data was fetched in `87df0ab` (3 CFBD calls; 746 left).
 - **Holdout data:** 15 AP transitions and 376 ranked team-weeks. All 309 ranked games were final
   and 306 had a line. It passed the same alignment check as 2025.
 - **Fitting:** none in this experiment. Each model's values were fixed from 2025 beforehand, and
@@ -265,7 +267,7 @@ From about Week 10 the site re-sorts the committee's rankings.
 
 ## Recommendations (to discuss before anything ships)
 
-1. **Ship `lossScale = 2.5`.**
+1. **Ship `lossScale = 2.5`.** *(Done: `3e5c069`, v0.19.16.)*
    - **The change:** in `projectTop25.js`, multiply the loss magnitude by 2.5. That's the same as
      `lossBase` 3.125 and `lossWeakOppSlope` 8.125; the quality-win cushion and computer nudge stay
      as they are.

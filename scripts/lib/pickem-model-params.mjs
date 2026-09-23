@@ -26,6 +26,10 @@ export const PARAMS_V1 = Object.freeze({
   earlyThroughWeek: 8,
 });
 
+// What src/utils/projectTop25.js runs now: V1 with every loss scaled 2.5x (experiment 2). Weeks
+// snapshotted before that change still replay to their stored projections with PARAMS_V1.
+export const PARAMS_LIVE = Object.freeze({ ...PARAMS_V1, lossScale: 2.5 });
+
 function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
 
 function opponentQuality(P, info) {

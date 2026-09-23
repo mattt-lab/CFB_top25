@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectOrder } from '../../src/utils/projectTop25.js';
-import { PARAMS_V1 } from './pickem-model-params.mjs';
+import { PARAMS_V1, PARAMS_LIVE } from './pickem-model-params.mjs';
 import { buildHistoryWeeks } from './pickem-history.mjs';
 import {
   weekWeight, replayInputs, replayWeek, pairwiseScore, rootMovers, rootMoverMae, evaluate,
@@ -25,9 +25,11 @@ describe('replayWeek', () => {
     expect(replayWeek(WK3, PARAMS_V1)).toEqual(WK3.projectedOrder);
   });
 
-  it('feeds production projectOrder the same inputs (V1 copy and production agree)', () => {
+  it('feeds production projectOrder the same inputs, which now projects what PARAMS_LIVE does', () => {
     const { currentOrder, picks, teams, opts } = replayInputs(WK3);
-    expect(projectOrder(currentOrder, picks, teams, opts)).toEqual(WK3.projectedOrder);
+    const live = projectOrder(currentOrder, picks, teams, opts);
+    expect(live).toEqual(replayWeek(WK3, PARAMS_LIVE));
+    expect(live).not.toEqual(WK3.projectedOrder); // the frozen snapshot came from the pre-change model
   });
 
   it('uses the Elo rank as the opponent-quality stand-in when a record has no SP+ rank', () => {
@@ -55,21 +57,28 @@ describe('2026 week 2 rebuilt from git', () => {
 });
 
 describe('every recorded week', () => {
-  const recorded = [
+  // 2026 files were written by the pre-change model; past seasons are rebuilt with today's.
+  const frozen = [
     readJson('data/pickem-backtest/2026-wk01.json'),
     readJson('data/pickem-backtest/2026-wk02.json'),
     WK3,
+  ];
+  const rebuilt = [
     ...buildHistoryWeeks(readJson('data/pickem-history/2025-raw.json')).records,
     ...buildHistoryWeeks(readJson('data/pickem-history/2024-raw.json')).records,
   ];
 
-  it('replays through production projectOrder and the V1 copy to the stored projection', () => {
-    expect(recorded.length).toBe(33);
-    for (const rec of recorded) {
+  it('replays through production projectOrder exactly as the PARAMS_LIVE copy does', () => {
+    expect(frozen.length + rebuilt.length).toBe(33);
+    for (const rec of [...frozen, ...rebuilt]) {
       const { currentOrder, picks, teams, opts } = replayInputs(rec);
-      expect(projectOrder(currentOrder, picks, teams, opts)).toEqual(rec.projectedOrder);
-      expect(replayWeek(rec, PARAMS_V1)).toEqual(rec.projectedOrder);
+      expect(projectOrder(currentOrder, picks, teams, opts)).toEqual(replayWeek(rec, PARAMS_LIVE));
     }
+  });
+
+  it('reproduces each stored projection with the params that produced it', () => {
+    for (const rec of frozen) expect(replayWeek(rec, PARAMS_V1)).toEqual(rec.projectedOrder);
+    for (const rec of rebuilt) expect(replayWeek(rec, PARAMS_LIVE)).toEqual(rec.projectedOrder);
   });
 });
 

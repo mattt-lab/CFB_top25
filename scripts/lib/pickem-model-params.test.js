@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { projectOrder } from '../../src/utils/projectTop25.js';
-import { PARAMS_V1, driftWith, projectOrderWith } from './pickem-model-params.mjs';
+import { PARAMS_V1, PARAMS_LIVE, driftWith, projectOrderWith } from './pickem-model-params.mjs';
 
 function mulberry32(seed) {
   let a = seed >>> 0;
@@ -50,14 +50,14 @@ function randomScenario(rand) {
   return { order, teams, picks, info, lines, h2h };
 }
 
-describe('projectOrderWith at PARAMS_V1', () => {
+describe('projectOrderWith at PARAMS_LIVE', () => {
   it('reproduces production projectOrder exactly on 2000 random 25-team weeks', () => {
     const rand = mulberry32(20260923);
     for (let n = 0; n < 2000; n++) {
       const s = randomScenario(rand);
       const opts = { getOpponentInfo: (id) => s.info[id] ?? null, h2h: s.h2h };
       const prod = projectOrder(s.order, s.picks, s.teams, opts);
-      const mine = projectOrderWith(PARAMS_V1, s.order, s.picks, s.teams, {
+      const mine = projectOrderWith(PARAMS_LIVE, s.order, s.picks, s.teams, {
         ...opts, getLineInfo: (id) => s.lines[id] ?? null,
       });
       expect(mine).toEqual(prod);

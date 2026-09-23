@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { PARAMS_V1 } from './pickem-model-params.mjs';
+import { PARAMS_LIVE } from './pickem-model-params.mjs';
 import { replayWeek } from './pickem-backtest.mjs';
 import { buildHistoryWeeks } from './pickem-history.mjs';
 
@@ -88,8 +88,8 @@ describe('buildHistoryWeeks', () => {
     expect(team(wk2, 1).inputs.qualityWins).toBe(0);
   });
 
-  it('replays to its own projection at PARAMS_V1', () => {
-    for (const r of records) expect(replayWeek(r, PARAMS_V1)).toEqual(r.projectedOrder);
+  it('replays to its own projection with the live params (buildSnapshot runs production)', () => {
+    for (const r of records) expect(replayWeek(r, PARAMS_LIVE)).toEqual(r.projectedOrder);
   });
 
   it('stops when ranked losers did not fall on average (misaligned weeks)', () => {
