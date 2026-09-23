@@ -4,6 +4,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectOrder } from '../../src/utils/projectTop25.js';
 import { PARAMS_V1 } from './pickem-model-params.mjs';
+import { buildHistoryWeeks } from './pickem-history.mjs';
 import {
   weekWeight, replayInputs, replayWeek, pairwiseScore, rootMovers, rootMoverMae, evaluate,
 } from './pickem-backtest.mjs';
@@ -40,6 +41,24 @@ describe('replayWeek', () => {
     expect(replayInputs(record).opts.getOpponentInfo('a')).toEqual({ oppPollRank: null, oppSpRank: 5 });
     expect(replayInputs(record).opts.getLineInfo('a')).toEqual({ margin: -3, expectedMargin: 7 });
     expect(replayInputs(record).opts.getLineInfo('b')).toBeNull();
+  });
+});
+
+describe('every recorded week', () => {
+  const recorded = [
+    readJson('data/pickem-backtest/2026-wk01.json'),
+    readJson('data/pickem-backtest/2026-wk02.json'),
+    WK3,
+    ...buildHistoryWeeks(readJson('data/pickem-history/2025-raw.json')).records,
+  ];
+
+  it('replays through production projectOrder and the V1 copy to the stored projection', () => {
+    expect(recorded.length).toBe(18);
+    for (const rec of recorded) {
+      const { currentOrder, picks, teams, opts } = replayInputs(rec);
+      expect(projectOrder(currentOrder, picks, teams, opts)).toEqual(rec.projectedOrder);
+      expect(replayWeek(rec, PARAMS_V1)).toEqual(rec.projectedOrder);
+    }
   });
 });
 
