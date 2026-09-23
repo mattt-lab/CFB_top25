@@ -60,10 +60,11 @@ describe('every recorded week', () => {
     readJson('data/pickem-backtest/2026-wk02.json'),
     WK3,
     ...buildHistoryWeeks(readJson('data/pickem-history/2025-raw.json')).records,
+    ...buildHistoryWeeks(readJson('data/pickem-history/2024-raw.json')).records,
   ];
 
   it('replays through production projectOrder and the V1 copy to the stored projection', () => {
-    expect(recorded.length).toBe(18);
+    expect(recorded.length).toBe(33);
     for (const rec of recorded) {
       const { currentOrder, picks, teams, opts } = replayInputs(rec);
       expect(projectOrder(currentOrder, picks, teams, opts)).toEqual(rec.projectedOrder);
