@@ -44,9 +44,9 @@ at **[mattt-lab.github.io/CFB_top25](https://mattt-lab.github.io/CFB_top25/)**.
 - **Pin your teams** — star any team (in the Top 25 or conference standings tables, or at the
   top-right of its own team page) to add it to "Your Teams" on the homepage: one full-width card per
   pinned team, laid out like the "biggest games" cards — kickoff, network and the star up top, the
-  matchup with both records, the spread and over/under (or the live/final score), then the same
-  AI-written analysis blurb the marquee panel gets whenever that game involves a currently-ranked
-  team.
+  matchup with both records (each team links to its own page), the spread and over/under (or the
+  live/final score), then the same AI-written analysis blurb the marquee panel gets whenever that
+  game involves a currently-ranked team.
 - **Honest about gaps** — every panel that depends on data that doesn't exist yet (SP+ before it's
   published, trend history before week 2, an AI recap before it's had a moment to write one) says so
   explicitly instead of rendering a wall of blank dashes.

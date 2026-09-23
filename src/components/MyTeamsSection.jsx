@@ -59,6 +59,18 @@ export default function MyTeamsSection() {
           const mine = homeAway === 'home' ? homeScore : awayScore;
           const theirs = homeAway === 'home' ? awayScore : homeScore;
           const matchedGame = t.nextGame ? gamesByCfbdId.get(t.nextGame.cfbdId) : null;
+          const opponentInner = (
+            <>
+              <span className="team-inline">
+                {opponentRank != null && <span className="r">#{opponentRank}</span>}
+                {opponentTeam && <TeamMark team={opponentTeam} />}
+                {opponentName}
+              </span>
+              {opponentTeam?.record && (
+                <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({opponentTeam.record})</span>
+              )}
+            </>
+          );
           return (
             // Same three-part shape as "This week's biggest games" below it, reusing its
             // .game-card/.game-meta/.game-teams/.game-line/.game-impl classes directly: kickoff +
@@ -104,16 +116,18 @@ export default function MyTeamsSection() {
                 {opponentName ? (
                   <>
                     <div className="game-at">{vsAt}</div>
-                    <span className="game-team">
-                      <span className="team-inline">
-                        {opponentRank != null && <span className="r">#{opponentRank}</span>}
-                        {opponentTeam && <TeamMark team={opponentTeam} />}
-                        {opponentName}
-                      </span>
-                      {opponentTeam?.record && (
-                        <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 12 }}> ({opponentTeam.record})</span>
-                      )}
-                    </span>
+                    {/* A real link to the opponent's page, lifted above the card's stretched click
+                        target (.above-row-link, theme.css) the same way the star is -- without
+                        that, the overlay from the pinned team's link above swallows the click. Only
+                        when the opponent actually has a team page: an unresolved FCS foe (no entry
+                        in teams{}) stays plain text, since /team/<unknown> just bounces to "/". */}
+                    {opponentTeam ? (
+                      <Link className="game-team above-row-link" to={`/team/${opponentTeam.id}`} state={{ from: 'top25' }}>
+                        {opponentInner}
+                      </Link>
+                    ) : (
+                      <span className="game-team">{opponentInner}</span>
+                    )}
                   </>
                 ) : (
                   <span style={{ color: 'var(--muted)' }}>Bye week</span>

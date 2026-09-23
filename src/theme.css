@@ -221,6 +221,10 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
    the Safari containing-block bug above, so the stretched-link trick stays safe to use here. */
 .row-link { position: static; color: inherit; text-decoration: none; }
 .row-link::after { content: ''; position: absolute; inset: 0; }
+/* Anything inside a stretched-link card that needs its OWN click target (the opponent's name in "Your
+   Teams", alongside the pin star's own z-index above) has to paint above the .row-link::after
+   overlay, or the overlay swallows the click and it navigates to the pinned team instead. */
+.above-row-link { position: relative; z-index: 2; }
 
 .delta-rows { display: flex; flex-direction: column; gap: 12px; }
 .delta-row { display: grid; grid-template-columns: 78px 1fr 46px; align-items: center; gap: 10px; }

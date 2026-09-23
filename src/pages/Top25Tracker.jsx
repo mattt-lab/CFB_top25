@@ -35,7 +35,6 @@ export default function Top25Tracker() {
       <div className="page-title">
         <div className="eyebrow">Week {currentWeekNumber}</div>
         <h1>CFB This Week</h1>
-        <p>This week's biggest games and what the model expects next.</p>
       </div>
 
       <MyTeamsSection />
