@@ -9,20 +9,19 @@
 // rebuild (data/pickem-backtest/, scripts/reconstruct-pickem-week.mjs); each is scored against the
 // next week's AP poll in data/rankings/.
 
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PARAMS_V1 } from './lib/pickem-model-params.mjs';
 import { evaluate, replayWeek, rootMoverMae } from './lib/pickem-backtest.mjs';
 import { forwardSelect } from './lib/pickem-tuning.mjs';
-import { buildHistoryWeeks } from './lib/pickem-history.mjs';
+import { loadHistorySeason, loadSeasonWeeks, readJsonAt } from './lib/pickem-data.mjs';
 import { tier, surpriseBin, teamWeekRows, meanBy } from './lib/pickem-describe.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const opt = (name, dflt) => { const i = args.indexOf(name); return i === -1 ? dflt : args[i + 1]; };
-const readJson = (p) => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
-const pad = (n) => String(n).padStart(2, '0');
+const readJson = (p) => readJsonAt(ROOT, p);
 
 const expId = opt('--experiment', 'experiment-1');
 const spec = readJson(`data/pickem-backtest/${expId}.json`);
@@ -34,27 +33,14 @@ const tuneSeason = spec.data.tuning.season;
 const checkSeason = spec.data.check.season;
 const current = readJson('data/current.json');
 const names = Object.fromEntries(Object.entries(current.teams).map(([id, t]) => [id, t.name]));
-
-const check = [];
-for (let week = 1; ; week++) {
-  const live = `data/pickem-snapshots/${checkSeason}-wk${pad(week)}.json`;
-  const rebuilt = `data/pickem-backtest/${checkSeason}-wk${pad(week)}.json`;
-  const next = `data/rankings/${checkSeason}-wk${pad(week + 1)}.json`;
-  const path = existsSync(join(ROOT, live)) ? live : existsSync(join(ROOT, rebuilt)) ? rebuilt : null;
-  if (!path || !existsSync(join(ROOT, next))) break;
-  const actualOrder = readJson(next).polls?.ap;
-  if (!actualOrder?.length) break;
-  check.push({ ...readJson(path), actualOrder, file: path });
-}
-
-const rawPath = `data/pickem-history/${tuneSeason}-raw.json`;
-if (!existsSync(join(ROOT, rawPath))) {
-  console.error(`${rawPath} is missing -- run scripts/fetch-pickem-history.mjs --season ${tuneSeason} first.`);
+const check = loadSeasonWeeks(ROOT, checkSeason);
+const history = loadHistorySeason(ROOT, tuneSeason);
+if (!history) {
+  console.error(`data/pickem-history/${tuneSeason}-raw.json is missing -- run scripts/fetch-pickem-history.mjs --season ${tuneSeason} first.`);
   process.exit(1);
 }
-const raw = readJson(rawPath);
-for (const g of raw.games) { names[String(g.homeId)] ??= g.homeTeam; names[String(g.awayId)] ??= g.awayTeam; }
-const { records: tuning, stats } = buildHistoryWeeks(raw);
+const { raw, records: tuning, stats } = history;
+for (const [id, n] of Object.entries(history.names)) names[id] ??= n;
 const nameOf = (id) => names[id] ?? id;
 
 // ---- experiment ----------------------------------------------------------------------------------

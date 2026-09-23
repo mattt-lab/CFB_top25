@@ -119,6 +119,36 @@ describe('driftWith candidate settings', () => {
     }
   });
 
+  it('lossScale multiplies the loss magnitude, not the quality-win cushion', () => {
+    // q = 1 - 40/60; magnitude 1.25 + (2/3) * 3.25 = 3.4167; one quality win = 0.4 cushion.
+    const oneQualityWin = { ...plainTeam, games: [{ tag: 'quality' }] };
+    expect(driftWith(PARAMS_V1, 'loss', 5, oneQualityWin, unrankedOpp, null)).toBeCloseTo(-3.4167 + 0.4, 3);
+    expect(driftWith({ ...PARAMS_V1, lossScale: 2 }, 'loss', 5, oneQualityWin, unrankedOpp, null)).toBeCloseTo(-6.8333 + 0.4, 3);
+    expect(driftWith({ ...PARAMS_V1, lossScale: 2 }, 'win', 5, oneQualityWin, unrankedOpp, null))
+      .toBe(driftWith(PARAMS_V1, 'win', 5, oneQualityWin, unrankedOpp, null));
+  });
+
+  it('earlyWinScale multiplies wins only, and only through earlyThroughWeek', () => {
+    const P = { ...PARAMS_V1, earlyWinScale: 2, earlyThroughWeek: 8 };
+    const win = driftWith(PARAMS_V1, 'win', 5, plainTeam, unrankedOpp, null);
+    expect(driftWith(P, 'win', 5, plainTeam, unrankedOpp, null, 8)).toBeCloseTo(2 * win, 10);
+    expect(driftWith(P, 'win', 5, plainTeam, unrankedOpp, null, 9)).toBe(win);
+    expect(driftWith(P, 'win', 5, plainTeam, unrankedOpp, null)).toBe(win);
+    expect(driftWith(P, 'loss', 5, plainTeam, unrankedOpp, null, 3))
+      .toBe(driftWith(PARAMS_V1, 'loss', 5, plainTeam, unrankedOpp, null, 3));
+  });
+
+  it('projectOrderWith passes opts.week through to the early-season win scale', () => {
+    // Weak opponents (q = 0): a win drifts 0.5, a blowout 0.75; b is idle. V1 keys a 0.5, b 2,
+    // c 2.25 -> a, b, c. Tripled early-season wins: a -0.5, b 2, c 0.75 -> c passes idle b.
+    const order = ['a', 'b', 'c'];
+    const picks = { a: 'win', c: 'blowoutWin' };
+    const info = () => ({ oppPollRank: null, oppSpRank: 100 });
+    const P = { ...PARAMS_V1, earlyWinScale: 3, earlyThroughWeek: 8 };
+    expect(projectOrderWith(P, order, picks, {}, { getOpponentInfo: info, week: 12 })).toEqual(['a', 'b', 'c']);
+    expect(projectOrderWith(P, order, picks, {}, { getOpponentInfo: info, week: 2 })).toEqual(['a', 'c', 'b']);
+  });
+
   it('a loss never drifts above a win against the same opponent and line', () => {
     const P = { ...PARAMS_V1, surpriseK: 0.4, unrankedLossPenalty: 12, driftScale: 3 };
     for (const expectedMargin of [-20, -3, 0.5, 14, 40]) {

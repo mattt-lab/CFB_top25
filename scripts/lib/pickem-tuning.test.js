@@ -1,40 +1,15 @@
 import { describe, it, expect } from 'vitest';
 import { PARAMS_V1 } from './pickem-model-params.mjs';
-import { replayWeek } from './pickem-backtest.mjs';
 import {
-  mulberry32, errorMatrix, fitIndex, crossValidate, stability, oneSeChoice, carryOver, notOneTeam,
+  errorMatrix, fitIndex, crossValidate, stability, oneSeChoice, carryOver, notOneTeam,
   testCandidate, forwardSelect,
 } from './pickem-tuning.mjs';
+import { syntheticSeason as season } from './pickem-synthetic.fixture.mjs';
 
 const PENALTY = { setting: 'unrankedLossPenalty', noChange: 0, grid: [0, 2, 4, 6, 8, 10, 12] };
 const SCALE = { setting: 'driftScale', noChange: 1, grid: [1, 1.25, 1.5, 2, 2.5, 3] };
 const SURPRISE = { setting: 'surpriseK', noChange: 0, grid: [0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4] };
 const FAST = { draws: 2000, seed: 7 };
-
-const IDS = Array.from({ length: 12 }, (_, i) => `t${String(i + 1).padStart(2, '0')}`);
-
-// A synthetic week whose "real" next poll is produced by a known voter model (`truth`), so a
-// setting's right answer is known in advance. `loser` pins every loss on one team.
-function makeWeek(rand, week, truth, { loser = null } = {}) {
-  const currentOrder = [...IDS].sort(() => rand() - 0.5);
-  const teams = currentOrder.map((id) => {
-    const loses = loser ? id === loser : rand() < 0.25;
-    const outcome = loses ? (rand() < 0.5 ? 'loss' : 'blowoutLoss') : (rand() < 0.5 ? 'win' : 'blowoutWin');
-    const margin = loses ? -1 - Math.floor(rand() * 20) : 1 + Math.floor(rand() * 30);
-    return {
-      id, outcome,
-      inputs: { sp: null, fpi: null, elo: null, qualityWins: 0, oppPollRank: null, oppSpRank: 20 + Math.floor(rand() * 80) },
-      game: { opponent: `opp-${id}`, margin, expectedMargin: Math.floor(rand() * 30) - 5 + 0.5 },
-    };
-  });
-  const record = { season: 2025, week, currentOrder, teams };
-  return { ...record, actualOrder: replayWeek(record, truth) };
-}
-
-function season(seed, truthFor, opts = {}) {
-  const rand = mulberry32(seed);
-  return Array.from({ length: 14 }, (_, i) => makeWeek(rand, i + 1, truthFor(i + 1), opts));
-}
 
 const withPenalty = (p) => ({ ...PARAMS_V1, unrankedLossPenalty: p });
 const PENALTY_SEASON = season(11, () => withPenalty(6));

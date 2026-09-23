@@ -43,7 +43,9 @@ export function replayInputs(record) {
   }
   return {
     currentOrder, picks, teams,
-    opts: { getOpponentInfo: (id) => info[id] ?? null, h2h, getLineInfo: (id) => lines[id] ?? null },
+    opts: {
+      getOpponentInfo: (id) => info[id] ?? null, h2h, getLineInfo: (id) => lines[id] ?? null, week: record.week ?? null,
+    },
   };
 }
 

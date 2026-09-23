@@ -21,6 +21,9 @@ export const PARAMS_V1 = Object.freeze({
   unrankedLossPenalty: 0,
   surpriseK: 0,
   surpriseCap: 21,
+  lossScale: 1,
+  earlyWinScale: 1,
+  earlyThroughWeek: 8,
 });
 
 function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
@@ -50,6 +53,7 @@ function driftV1(P, outcome, currentRank, team, oppInfo) {
 
   let magnitude = P.lossBase + (1 - q) * P.lossWeakOppSlope;
   if (outcome === 'blowoutLoss') magnitude *= P.blowoutLossMult;
+  magnitude *= P.lossScale;
   const qualityWins = (team?.games ?? []).filter((g) => g.tag === 'quality').length;
   const cushion = Math.min(qualityWins * P.cushionPerQualityWin, P.cushionMax);
   let drift = Math.min(-magnitude + cushion, 0);
@@ -58,10 +62,12 @@ function driftV1(P, outcome, currentRank, team, oppInfo) {
 }
 
 // lineInfo: { margin, expectedMargin } from this team's side, or null when there's no line or the
-// game isn't final -- the surprise term then contributes nothing.
-export function driftWith(P, outcome, currentRank, team, oppInfo, lineInfo) {
+// game isn't final -- the surprise term then contributes nothing. week: the poll week being
+// re-sorted, for the early-season win scale (unknown week = no early-season scaling).
+export function driftWith(P, outcome, currentRank, team, oppInfo, lineInfo, week = null) {
   const isLoss = !WINS[outcome];
   let drift = P.driftScale * driftV1(P, outcome, currentRank, team, oppInfo);
+  if (!isLoss && week != null && week <= P.earlyThroughWeek) drift *= P.earlyWinScale;
   if (isLoss && oppInfo?.oppPollRank == null) drift -= P.unrankedLossPenalty;
   const surprise = lineInfo?.margin != null && lineInfo?.expectedMargin != null
     ? lineInfo.margin - lineInfo.expectedMargin
@@ -72,14 +78,14 @@ export function driftWith(P, outcome, currentRank, team, oppInfo, lineInfo) {
 }
 
 export function projectOrderWith(P, currentOrder, picks, teams, opts = {}) {
-  const { getOpponentInfo, h2h, getLineInfo } = opts;
+  const { getOpponentInfo, h2h, getLineInfo, week = null } = opts;
 
   const scored = currentOrder.map((id, i) => {
     const currentRank = i + 1;
     const outcome = picks[id];
     const drift = outcome
       ? driftWith(P, outcome, currentRank, teams?.[id],
-        getOpponentInfo ? getOpponentInfo(id) : null, getLineInfo ? getLineInfo(id) : null)
+        getOpponentInfo ? getOpponentInfo(id) : null, getLineInfo ? getLineInfo(id) : null, week)
       : 0;
     return { id, currentRank, key: currentRank - drift };
   });

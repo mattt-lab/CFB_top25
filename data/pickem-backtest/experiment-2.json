@@ -1,0 +1,42 @@
+{
+  "id": "experiment-2",
+  "writtenAt": "2026-09-23",
+  "writtenBefore": "any 2024 data was fetched or looked at; committed before the fetch so git history shows the order",
+  "question": "Do the loss-scale and early-season win-scale changes found by exploring 2025 hold up on a season none of them was tuned on?",
+  "why": "Experiment 1 selected only unrankedLossPenalty=4. Exploring 2025 afterwards (post-hoc, so not evidence) suggested every loss is under-punished 2-3x and early-season wins are under-moved. Every value below was fit on 2025; 2024 only confirms or rejects.",
+  "data": {
+    "holdout": {
+      "season": 2024,
+      "construction": "identical to experiment-1's tuning data: scripts/fetch-pickem-history.mjs (CFBD /rankings, /games, /lines, regular season), scripts/lib/pickem-history.mjs (same Elo stand-ins, provider order, quality-win rule, and alignment check)"
+    },
+    "check": {
+      "season": 2026,
+      "transitions": "poll weeks 1-3 (weeks 1-2 rebuilt from git, week 3 live snapshot), each against the next AP poll"
+    },
+    "context": { "season": 2025, "use": "where the values were fit; reported for reference, not evidence" }
+  },
+  "metric": "weighted pairwise order errors, exactly as experiment-1 (transitions out of poll weeks 1-2 weigh 0.5, later 1.0; exits tied just below #25; entrants not scored)",
+  "models": {
+    "P4": {
+      "params": { "unrankedLossPenalty": 4 },
+      "source": "experiment-1's selection"
+    },
+    "LS": {
+      "params": { "lossScale": 2.5 },
+      "source": "2025, one-standard-error rule (experiment-1 R5) over lossScale [1, 1.5, 2, 2.5, 3, 3.5, 4]; best 3, reported 2.5"
+    },
+    "LSW": {
+      "params": { "lossScale": 2.5, "earlyWinScale": 1.25, "earlyThroughWeek": 8 },
+      "source": "2025, same rule over earlyWinScale [1, 1.25, 1.5, 2, 2.5, 3] on top of LS; best and reported 1.25; the week-8 boundary comes from experiment-1's early (3-8) / late (9+) split"
+    }
+  },
+  "chain": [
+    { "step": 1, "candidate": "P4", "asks": "does experiment-1's pick beat V1 on a new season?" },
+    { "step": 2, "candidate": "LS", "asks": "does loss scaling beat whatever step 1 left in place?" },
+    { "step": 3, "candidate": "LSW", "onlyIfCurrent": ["LS"], "asks": "does the early-season win scale add to loss scaling?" },
+    { "step": 4, "label": "penalty 4", "adds": { "unrankedLossPenalty": 4 }, "onlyIfCurrent": ["LS", "LSW"], "asks": "does the unranked-loss penalty still add anything on top? (2025 said no)" }
+  ],
+  "passRule": "a step's candidate replaces the current model only if, on 2024: weighted errors fall (delta > 0); the 5th percentile of the summed improvement over 10,000 bootstrap resamples of 2024 transitions (seed 20260923) is > 0; neither half of the season (poll weeks 1-8, 9+) gets worse; and the improvement stays > 0 after removing every pair involving any single team",
+  "checkGuard": "the final model's weighted errors on 2026 weeks 1-3 must not exceed V1's; if they do, fall back through the adopted models to the last one that passes",
+  "outcome": "the chain's final model is the recommendation; every model's numbers on 2024, 2026 and 2025 are reported either way"
+}

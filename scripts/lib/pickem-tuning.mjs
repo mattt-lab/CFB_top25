@@ -17,7 +17,8 @@ export function mulberry32(seed) {
 
 const sum = (xs) => xs.reduce((a, b) => a + b, 0);
 
-function bootstrapSums(values, { draws = 10000, seed = 20260923 } = {}) {
+// Sorted sums of `values` resampled with replacement (one sum per draw).
+export function bootstrapSums(values, { draws = 10000, seed = 20260923 } = {}) {
   const rand = mulberry32(seed);
   const n = values.length;
   const sums = new Array(draws);
@@ -100,8 +101,14 @@ export function carryOver(check, base, candidate, value) {
 
 // R4: remove every pair involving one team (perTeam holds half of each wrong pair) and re-check.
 export function notOneTeam(records, base, candidate, value) {
-  const b = evaluate(records, base).weeks;
-  const c = evaluate(records, withSetting(base, candidate, value)).weeks;
+  return improvementWithoutEachTeam(records, base, withSetting(base, candidate, value));
+}
+
+// Weighted improvement of candParams over baseParams, and the smallest it gets when every pair
+// involving any one team is removed.
+export function improvementWithoutEachTeam(records, baseParams, candParams) {
+  const b = evaluate(records, baseParams).weeks;
+  const c = evaluate(records, candParams).weeks;
   const improvement = sum(b.map((wb, i) => wb.w * (wb.dModel - c[i].dModel)));
   const teams = [...new Set(records.flatMap((r) => r.currentOrder))];
   let minImprovement = Infinity;
