@@ -5,7 +5,7 @@ import { describe, it, expect } from 'vitest';
 import {
   arrowGlyph, dirFor, trendColor, deltaLabel, computerRatingNote, byRankAsc, trendOf, formatKickoff, isToday,
   americanOdds, nextGameParts, gameStatusBadge, leadingScoreLabel, confSlugFor, confByRouteSlug, confRecord,
-  isPotentialUpset, periodLabel,
+  gameAlert, periodLabel,
 } from './teams.js';
 
 describe('americanOdds', () => {
@@ -335,149 +335,116 @@ describe('isToday', () => {
   });
 });
 
-describe('isPotentialUpset', () => {
-  // Regression for the "Texas" / "Texas A&M" name-prefix collision: a spread favoring the
-  // LONGER name ("Texas A&M -3.5") also satisfies startsWith() for the shorter "Texas" purely by
-  // coincidence. Texas A&M is genuinely favored here and is winning big -- exactly as expected,
-  // not an upset -- but the pre-fix code resolved the favorite as "Texas" (checked first, shorter
-  // match), which made Texas A&M's real, unsurprising lead look like the underdog blowing out the
-  // favorite. Texas-Texas A&M is a real rivalry game (see data/rivalries.json), not a hypothetical.
-  it('resolves the favorite as the longer name when both team names are startsWith matches', () => {
-    const g = {
-      status: 'in_progress', period: 2, clock: '5:00',
-      away: 'texas', awayTeam: { name: 'Texas' }, awayScore: 3,
-      home: 'texas-a-m', homeTeam: { name: 'Texas A&M' }, homeScore: 21,
-      spread: 'Texas A&M -3.5',
-    };
-    expect(isPotentialUpset(g)).toBe(false);
+describe('gameAlert', () => {
+  // A live/final game between "Away U" and "Home U". Ranks null = unranked. Scores are away/home.
+  const game = ({
+    awayRank = null, homeRank = null, away = 0, home = 0, period = 4, status = 'in_progress',
+    spread = null, awayName = 'Away U', homeName = 'Home U', clock = '5:00',
+  } = {}) => ({
+    status, period, clock, awayRank, homeRank,
+    awayTeam: { name: awayName }, homeTeam: { name: homeName },
+    awayScore: away, homeScore: home, spread,
   });
 
-  // Changed 2026-09-21: replaying a week of real games showed a first-half underdog lead (even a
-  // 3-0 field goal) flagged ~half of all games at some point, and the favorite went on to win 15 of
-  // the 19 games flagged in Q1. Only games still interesting AFTER halftime get the fire icon.
-  it('never flags a first-half lead, however big -- including at halftime itself', () => {
-    const g = (period, clock, dog, fav) => ({
-      status: 'in_progress', period, clock,
-      away: 'nobody', awayTeam: { name: 'Nobody State' }, awayScore: dog,
-      home: 'somebody', homeTeam: { name: 'Somebody U' }, homeScore: fav,
-      spread: 'Somebody U -14',
+  // Replaces the old betting-line-only isPotentialUpset (2026-09-26): a game with a ranked team in it
+  // now takes its underdog from the POLL, not the line -- #21 Florida (a 3.5-pt favorite) blowing out
+  // #4 Ole Miss got no alert under the line rule. Games with no ranked team still use the line.
+  describe('the four games that prompted the change (2026-09-26, Q4)', () => {
+    it('#21 Florida 38-21 over #4 Ole Miss is an upset, even though the line made Florida the favorite', () => {
+      const g = game({ awayRank: 4, homeRank: 21, away: 21, home: 38, awayName: 'Ole Miss', homeName: 'Florida', spread: 'Florida -3.5' });
+      expect(gameAlert(g)).toBe('upset');
     });
-    expect(isPotentialUpset(g(1, '10:00', 10, 3))).toBe(false);
-    expect(isPotentialUpset(g(1, '2:00', 21, 0))).toBe(false);
-    expect(isPotentialUpset(g(2, '5:00', 24, 3))).toBe(false);
-    expect(isPotentialUpset(g(2, '0:00', 24, 3))).toBe(false); // halftime: period stays 2, clock 0:00
-  });
-
-  it('flags an outright underdog win once the game is final', () => {
-    const g = {
-      status: 'final',
-      away: 'nobody', awayTeam: { name: 'Nobody State' }, awayScore: 24,
-      home: 'somebody', homeTeam: { name: 'Somebody U' }, homeScore: 17,
-      spread: 'Somebody U -14',
-    };
-    expect(isPotentialUpset(g)).toBe(true);
-  });
-
-  it('degrades to false rather than guessing when the spread favors neither known name', () => {
-    const g = {
-      status: 'in_progress', period: 1,
-      away: 'a', awayTeam: { name: 'Team A' }, awayScore: 10,
-      home: 'b', homeTeam: { name: 'Team B' }, homeScore: 0,
-      spread: 'Pick \'em',
-    };
-    expect(isPotentialUpset(g)).toBe(false);
-  });
-
-  // Fourth-quarter/OT cases. Fixture: "Somebody U" (home) is the -14 favorite; "Nobody State" (away)
-  // is the underdog. `dog`/`fav` are the two teams' scores.
-  const live = (period, dog, fav) => ({
-    status: 'in_progress', period, clock: '5:00',
-    away: 'nobody', awayTeam: { name: 'Nobody State' }, awayScore: dog,
-    home: 'somebody', homeTeam: { name: 'Somebody U' }, homeScore: fav,
-    spread: 'Somebody U -14',
-  });
-
-  // REGRESSION 2026-09-19: the Q4 rule was Math.abs(fav - dog) <= 7, i.e. "the game is close EITHER
-  // way" -- so an underdog leading by MORE than 7 fell outside it and got no flag. Kentucky (Texas
-  // A&M -16.5) led 31-21 with 1:57 left and Ole Miss (LSU -3) led 32-24 in Q4, and neither showed
-  // a fire icon, while an underdog leading by 3 did.
-  it('flags the underdog leading by MORE than a touchdown in Q4 -- the bigger the lead, the bigger the upset', () => {
-    const kentucky = {
-      status: 'in_progress', period: 4, clock: '1:57',
-      away: 'kentucky', awayTeam: { name: 'Kentucky' }, awayScore: 31,
-      home: 'texas-a-m', homeTeam: { name: 'Texas A&M' }, homeScore: 21,
-      spread: 'Texas A&M -16.5',
-    };
-    const oleMiss = {
-      status: 'in_progress', period: 4, clock: '6:14',
-      away: 'lsu', awayTeam: { name: 'LSU' }, awayScore: 24,
-      home: 'ole-miss', homeTeam: { name: 'Ole Miss' }, homeScore: 32,
-      spread: 'LSU -3',
-    };
-    expect(isPotentialUpset(kentucky)).toBe(true);
-    expect(isPotentialUpset(oleMiss)).toBe(true);
-    expect(isPotentialUpset(live(4, 24, 10))).toBe(true);
-  });
-
-  it('flags the underdog trailing by a touchdown or less in Q4 (still in it), but not by more', () => {
-    expect(isPotentialUpset(live(4, 17, 20))).toBe(true);  // down 3
-    expect(isPotentialUpset(live(4, 13, 20))).toBe(true);  // down exactly 7
-    expect(isPotentialUpset(live(4, 12, 20))).toBe(false); // down 8 -- two scores
-  });
-
-  it('does not flag a favorite that is comfortably winning in Q4', () => {
-    const tennessee = {
-      status: 'in_progress', period: 4, clock: '0:23',
-      away: 'kennesaw-state', awayTeam: { name: 'Kennesaw State' }, awayScore: 9,
-      home: 'tennessee', homeTeam: { name: 'Tennessee' }, homeScore: 42,
-      spread: 'Tennessee -35.5',
-    };
-    expect(isPotentialUpset(tennessee)).toBe(false);
-  });
-
-  it('treats overtime like Q4 -- underdog ahead or within a touchdown', () => {
-    expect(isPotentialUpset(live(5, 27, 24))).toBe(true);
-    expect(isPotentialUpset(live(5, 21, 24))).toBe(true);
-  });
-
-  it('flags the underdog tied or ahead in Q3, but not while trailing', () => {
-    expect(isPotentialUpset(live(3, 14, 14))).toBe(true);
-    expect(isPotentialUpset(live(3, 17, 14))).toBe(true);
-    expect(isPotentialUpset(live(3, 13, 14))).toBe(false);
-  });
-
-  // Changed 2026-09-21: in Q3 a "tiny" underdog (3 points or fewer -- a coin-flip line) leading isn't
-  // an upset worth a fire icon. Four of a week's eight real upsets were tiny underdogs, so this is
-  // deliberately Q3-only: Q4/OT and finals still flag them (LSU -3 losing to Ole Miss still counts).
-  describe('tiny underdogs (3 points or fewer)', () => {
-    const withSpread = (g, spread) => ({ ...g, spread });
-    it('are ignored in Q3 even when leading', () => {
-      expect(isPotentialUpset(withSpread(live(3, 17, 14), 'Somebody U -3'))).toBe(false);
-      expect(isPotentialUpset(withSpread(live(3, 17, 14), 'Somebody U -1.5'))).toBe(false);
-      expect(isPotentialUpset(withSpread(live(3, 14, 14), 'Somebody U -2.5'))).toBe(false); // tied too
+    it('#18 Michigan 19-14 over #17 Iowa is only a tight game -- adjacent ranks, no underdog', () => {
+      expect(gameAlert(game({ awayRank: 17, homeRank: 18, away: 14, home: 19, spread: 'Home U -5.5' }))).toBe('tight');
     });
-
-    it('stop being tiny at 3.5 -- a real underdog leading in Q3 is flagged', () => {
-      expect(isPotentialUpset(withSpread(live(3, 17, 14), 'Somebody U -3.5'))).toBe(true);
-      expect(isPotentialUpset(withSpread(live(3, 17, 14), 'Somebody U -7'))).toBe(true);
+    it('#15 Utah 24-17 over unranked Iowa State is only a tight game -- the higher-ranked team is winning', () => {
+      expect(gameAlert(game({ awayRank: 15, homeRank: null, away: 24, home: 17, spread: 'Away U -7.5' }))).toBe('tight');
     });
-
-    it('are still flagged in Q4/OT and once final', () => {
-      expect(isPotentialUpset(withSpread(live(4, 17, 14), 'Somebody U -3'))).toBe(true);
-      expect(isPotentialUpset(withSpread(live(5, 24, 21), 'Somebody U -2.5'))).toBe(true);
-      expect(isPotentialUpset({ ...withSpread(live(4, 24, 21), 'Somebody U -3'), status: 'final' })).toBe(true);
-    });
-
-    it('cannot be judged when the line has no number, so Q3 does not flag on a guess', () => {
-      expect(isPotentialUpset(withSpread(live(3, 17, 14), 'Somebody U'))).toBe(false);
-      // ...but the size only matters in Q3: Q4 doesn't need it
-      expect(isPotentialUpset(withSpread(live(4, 17, 14), 'Somebody U'))).toBe(true);
+    it('#2 Georgia 41-6 over unranked Oklahoma gets nothing', () => {
+      expect(gameAlert(game({ awayRank: null, homeRank: 2, away: 6, home: 41, spread: 'Home U -13.5' }))).toBeNull();
     });
   });
 
-  it('does not flag a final where the favorite won', () => {
-    const g = { ...live(4, 6, 14), status: 'final' };
-    expect(isPotentialUpset(g)).toBe(false);
+  describe('who the underdog is when a ranked team is playing (the poll decides, the line is ignored)', () => {
+    it('an unranked team ahead of a ranked one is an upset', () => {
+      expect(gameAlert(game({ awayRank: null, homeRank: 10, away: 17, home: 14, period: 3 }))).toBe('upset');
+    });
+    it('the lower-ranked team is the underdog when both are ranked, from a 2-spot gap up', () => {
+      expect(gameAlert(game({ awayRank: 10, homeRank: 12, away: 14, home: 17, period: 3 }))).toBe('upset'); // gap 2
+      expect(gameAlert(game({ awayRank: 10, homeRank: 11, away: 14, home: 17, period: 3 }))).toBeNull();     // gap 1: no underdog
+    });
+    it('ignores the line, even when the line makes the higher-ranked team the underdog', () => {
+      // #5 is +7 on the line against an unranked team but is still the higher-ranked side, so its lead is no upset
+      expect(gameAlert(game({ awayRank: 5, homeRank: null, away: 24, home: 17, period: 3, spread: 'Home U -7' }))).toBeNull();
+    });
+    it('does not fall back to the line for adjacent ranks -- there is simply no underdog', () => {
+      // line makes #17 the favorite, #18 leads by 12 in Q4: neither an upset nor tight
+      expect(gameAlert(game({ awayRank: 17, homeRank: 18, away: 10, home: 22, spread: 'Away U -3' }))).toBeNull();
+    });
+  });
+
+  describe('a game with no ranked team uses the betting line', () => {
+    it('ignores a tiny underdog (3 points or fewer) leading in Q3, but not 3.5 or more', () => {
+      expect(gameAlert(game({ away: 17, home: 14, period: 3, spread: 'Home U -3' }))).toBeNull();
+      expect(gameAlert(game({ away: 17, home: 14, period: 3, spread: 'Home U -3.5' }))).toBe('upset');
+    });
+    it('cannot judge a line with no number in Q3, so it does not flag on a guess', () => {
+      expect(gameAlert(game({ away: 17, home: 14, period: 3, spread: 'Home U' }))).toBeNull();
+    });
+    it('still flags a tiny underdog in Q4/OT and once final', () => {
+      expect(gameAlert(game({ away: 17, home: 14, spread: 'Home U -3' }))).toBe('upset');
+      expect(gameAlert(game({ away: 24, home: 21, status: 'final', spread: 'Home U -2.5' }))).toBe('upset');
+    });
+    it('has no underdog at all without a line -- never an upset, though it can still be tight', () => {
+      expect(gameAlert(game({ away: 30, home: 10 }))).toBeNull();
+      expect(gameAlert(game({ away: 20, home: 17 }))).toBe('tight');
+    });
+  });
+
+  describe('timing', () => {
+    it('never alerts in the first half, however big the lead -- including at halftime itself', () => {
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 21, home: 0, period: 1 }))).toBeNull();
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 24, home: 3, period: 2, clock: '5:00' }))).toBeNull();
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 24, home: 3, period: 2, clock: '0:00' }))).toBeNull();
+    });
+    it('Q3: the underdog tied or ahead is an upset; a close game is NOT tight yet', () => {
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 14, home: 14, period: 3 }))).toBe('upset');
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 10, home: 14, period: 3 }))).toBeNull();
+    });
+    it('Q4/OT: the underdog tied or ahead by any amount is an upset', () => {
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 35, home: 14 }))).toBe('upset');
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 14, home: 14 }))).toBe('upset');
+    });
+    it('Q4/OT: any game within 7 that is not an upset is tight -- 8 is not', () => {
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 10, home: 17 }))).toBe('tight'); // fav up 7
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 10, home: 18 }))).toBeNull();    // fav up 8
+      expect(gameAlert(game({ away: 20, home: 24 }))).toBe('tight');                              // no ranks, no line
+    });
+    it('treats overtime like Q4', () => {
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 27, home: 24, period: 5 }))).toBe('upset');
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 24, home: 27, period: 6 }))).toBe('tight');
+    });
+    it('upset outranks tight: an underdog leading by 3 in Q4 is an upset, not just a close game', () => {
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 17, home: 14 }))).toBe('upset');
+    });
+  });
+
+  describe('once final', () => {
+    it('the underdog winning is an upset (poll-based and line-based)', () => {
+      expect(gameAlert(game({ awayRank: 4, homeRank: 21, away: 21, home: 38, status: 'final' }))).toBe('upset');
+      expect(gameAlert(game({ away: 10, home: 7, status: 'final', spread: 'Home U -14' }))).toBe('upset');
+    });
+    it('a favorite winning gets nothing -- tight games stop being tight once they end', () => {
+      expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 20, home: 21, status: 'final' }))).toBeNull();
+      expect(gameAlert(game({ awayRank: 17, homeRank: 18, away: 20, home: 21, status: 'final' }))).toBeNull();
+      expect(gameAlert(game({ away: 20, home: 21, status: 'final' }))).toBeNull();
+    });
+  });
+
+  it('never alerts before kickoff, without scores, or with a "live" game that has no period yet', () => {
+    expect(gameAlert(game({ awayRank: null, homeRank: 4, away: null, home: null, status: 'scheduled', period: null }))).toBeNull();
+    expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 7, home: 0, period: null }))).toBeNull();
+    expect(gameAlert(game({ awayRank: null, homeRank: 4, away: 7, home: 0, period: 0 }))).toBeNull();
   });
 });
 

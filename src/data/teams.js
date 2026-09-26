@@ -351,42 +351,70 @@ export function leadingScoreLabel(g) {
 }
 
 // A "tiny" underdog is one the line gives 3 points or fewer -- a coin-flip game, where the dog
-// winning isn't much of an upset. 3.5 and up is a real underdog. Only used for Q3 (see below).
+// winning isn't much of an upset. 3.5 and up is a real underdog. Only used for Q3 and only in games
+// with no ranked team (see gameAlert): a game with a ranked team decides its underdog by rank.
 const TINY_UNDERDOG_MAX_POINTS = 3;
+// Two ranked teams need at least this many spots between them for one to count as the underdog --
+// #18 leading #17 isn't a story. An unranked team is always below a ranked one.
+const MIN_UNDERDOG_RANK_GAP = 2;
+// "Tight" = within one score.
+const TIGHT_GAME_MAX_MARGIN = 7;
 
-// "Potential upset" -- the underdog (per the betting line, not the poll) is doing better than the
-// line implies. The favorite is resolved by src/utils/spread.js (the same parser the Node scripts
-// use); no line, or one matching neither team, means no flag rather than a guess.
-//
-// While live, and only AFTER halftime:
-//   Q1-Q2  never -- including halftime itself (period stays 2, clock 0:00). A first-half lead, even
-//          a 3-0 field goal, flagged about half of a real week's games at some point and the favorite
-//          won 15 of the 19 flagged in Q1, so it was noise, not signal.
-//   Q3     the underdog is tied or ahead AND is not a tiny underdog (line > 3 points). An unknown
-//          line size can't be judged tiny or not, so it doesn't flag (same "no guessing" convention).
-//   Q4/OT  the underdog is ahead by any amount OR behind by no more than 7 (one score away). The
-//          tiny-underdog exclusion deliberately does NOT apply here or to finals: a 3-point dog
-//          beating the favorite late is still an upset by the line, and LSU -3 losing to Ole Miss
-//          should still get its fire once it matters.
-// Once final: the underdog won outright. Needs a known period for the live checks.
-export function isPotentialUpset(g) {
-  if (g.awayScore == null || g.homeScore == null) return false;
+// The underdog of a game, or { side: null } when there isn't a meaningful one.
+//  - A game with a ranked team in it: the POLL decides -- the lower-ranked side (unranked counts as
+//    lowest) is the underdog, given a gap of at least MIN_UNDERDOG_RANK_GAP. The betting line is
+//    ignored entirely: #21 Florida, a 3.5-pt favorite at home, blowing out #4 Ole Miss is an upset to
+//    anyone reading the poll, and under the old line-only rule it got no alert at all.
+//  - A game with no ranked team: fall back to the betting line (src/utils/spread.js, the parser the
+//    Node scripts use). No line, or one matching neither team, means no underdog rather than a guess.
+function underdogOf(g) {
+  const ar = g.awayRank ?? null;
+  const hr = g.homeRank ?? null;
+  if (ar != null || hr != null) {
+    const a = ar ?? Infinity;
+    const h = hr ?? Infinity;
+    if (Math.abs(a - h) < MIN_UNDERDOG_RANK_GAP) return { side: null }; // (Infinity - n is never < the gap)
+    return { side: a > h ? 'away' : 'home', mode: 'rank' };
+  }
   const { side: favored, points } = parseSpread(g.spread, g.awayTeam?.name, g.homeTeam?.name);
-  if (!favored) return false;
-  const favScore = favored === 'away' ? g.awayScore : g.homeScore;
-  const dogScore = favored === 'away' ? g.homeScore : g.awayScore;
+  if (!favored) return { side: null };
+  return { side: favored === 'away' ? 'home' : 'away', mode: 'line', points };
+}
 
-  if (g.status === 'final') return dogScore > favScore;
-  // !g.period (not just g.period == null) -- same "period 0 isn't a real quarter" convention
-  // gameStatusBadge uses, for consistency even though the practical impact here is small (a
-  // period-0 game is essentially always still 0-0, so dogScore > favScore below would already
-  // read false on its own).
-  if (g.status !== 'in_progress' || !g.period) return false;
-  if (g.period <= 2) return false; // first half (and halftime) -- see the rule above
-  if (g.period === 3) return dogScore >= favScore && points != null && points > TINY_UNDERDOG_MAX_POINTS;
-  // period >= 4 -- Q4 or OT. NOT Math.abs(favScore - dogScore) <= 7: that's "close either way", which
-  // silently dropped an underdog LEADING by more than a touchdown -- the biggest upsets of all.
-  return dogScore - favScore >= -7;
+// The live/final alert for a game: 'upset' (shown as 🔥), 'tight' (👀), or null. Only games in the
+// second half or later can alert -- a first-half lead, even a 3-0 field goal, flagged about half of a
+// real week's games and the favorite won 15 of the 19 flagged in Q1, so it was noise, not signal.
+//
+//   'upset'  the underdog (see underdogOf) is winning or tied:
+//              Q3      tied or ahead -- but in a line-based game, not for a tiny underdog (line of 3
+//                      or fewer), and not at all if the line has no number to judge by
+//              Q4/OT   tied or ahead by any amount (a 3-point dog is still an upset by then)
+//              final   the underdog won outright
+//   'tight'  Q4/OT, still within one score, and not already an upset -- in ANY game, ranked or not.
+//            Live only: once a game ends it is an upset or nothing, however close it was.
+//   'upset' outranks 'tight', so a row never shows both. A game with no known period yet ("live"
+//   before ESPN has real clock data, or period 0) never alerts -- same "Q0 isn't a real quarter"
+//   convention gameStatusBadge uses.
+export function gameAlert(g) {
+  if (g.awayScore == null || g.homeScore == null) return null;
+  const u = underdogOf(g);
+  const dogScore = u.side === 'away' ? g.awayScore : g.homeScore;
+  const favScore = u.side === 'away' ? g.homeScore : g.awayScore;
+
+  if (g.status === 'final') return u.side && dogScore > favScore ? 'upset' : null;
+  if (g.status !== 'in_progress' || !g.period) return null;
+  if (g.period <= 2) return null; // first half (and halftime) -- see the rule above
+
+  if (u.side) {
+    const dogAhead = dogScore >= favScore;
+    if (g.period === 3) {
+      if (dogAhead && (u.mode === 'rank' || (u.points != null && u.points > TINY_UNDERDOG_MAX_POINTS))) return 'upset';
+    } else if (dogAhead) {
+      return 'upset';
+    }
+  }
+  if (g.period >= 4 && Math.abs(g.awayScore - g.homeScore) <= TIGHT_GAME_MAX_MARGIN) return 'tight';
+  return null;
 }
 
 // Last-two-non-null-values trend for a team's own authored poll array (AP/Coaches/CFP).

@@ -42,7 +42,7 @@ export default function UpNext() {
           // slate (pickDayGames's own todayKey check, same local-date comparison), so that's
           // every row; when showing the rolled-forward day instead, none of these games are
           // today, so the weekday correctly stays -- no separate flag needed here.
-          <GameSlateTable games={sortedGames} showUpset showNetwork />
+          <GameSlateTable games={sortedGames} showAlerts showNetwork />
         )}
       </section>
     </div>

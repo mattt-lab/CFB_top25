@@ -2,7 +2,7 @@
 // structured numeric field for the line, just this string (see fetch-cfb-data.mjs's spread
 // comment), so the favorite is resolved by checking whether it starts with either team's name.
 // Lives in its own module (no imports, no data/current.json) so both the site (teams.js's
-// isPotentialUpset) and the Node scripts (Pick 'em snapshot/review) read the line identically.
+// gameAlert's line fallback) and the Node scripts (Pick 'em snapshot/review) read the line identically.
 //
 // Returns { side: 'away' | 'home' | null, points: number | null }. side is null (not a guess) when
 // there's no line, or the string matches neither name -- a genuine pick'em line, or a

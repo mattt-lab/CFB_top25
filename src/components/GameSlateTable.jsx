@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { formatKickoff, isToday, gameStatusBadge, leadingScoreLabel, leadingScoreParts, isPotentialUpset } from '../data/teams.js';
+import { formatKickoff, isToday, gameStatusBadge, leadingScoreLabel, leadingScoreParts, gameAlert } from '../data/teams.js';
 import TeamMark from './TeamMark.jsx';
 
 // "#8 Michigan" / "Ball State" -- rank omitted for unranked side. Guards on the resolved team
@@ -28,9 +28,9 @@ function ScoreCell({ g }) {
 
 // Shared by RankedMatchupsTable (Top 25 Full Slate) and UpNext -- both are "list of games, kickoff
 // column, score column" tables that differ only in which games they pass in and whether the
-// upset flag applies. Callers are responsible for sorting `games` and merging any live-score
-// overlay onto them before passing in.
-export default function GameSlateTable({ games, showUpset = false, showNetwork = false }) {
+// alerts (🔥 upset / 👀 tight game, see gameAlert in teams.js) apply. Callers are responsible for
+// sorting `games` and merging any live-score overlay onto them before passing in.
+export default function GameSlateTable({ games, showAlerts = false, showNetwork = false }) {
   if (games.length === 0) return null;
   return (
     <div style={{ overflowX: 'auto' }}>
@@ -41,9 +41,9 @@ export default function GameSlateTable({ games, showUpset = false, showNetwork =
         <tbody>
           {games.map((g) => {
             const badge = gameStatusBadge(g.status, g.period, g.clock);
-            const upset = showUpset && isPotentialUpset(g);
+            const alert = showAlerts ? gameAlert(g) : null;
             return (
-              <tr key={g.id} className={upset ? 'upset-row' : undefined}>
+              <tr key={g.id} className={alert === 'upset' ? 'upset-row' : undefined}>
                 <td>
                   <TeamCell id={g.away} rank={g.awayRank} team={g.awayTeam} /> at{' '}
                   <TeamCell id={g.home} rank={g.homeRank} team={g.homeTeam} />
@@ -87,7 +87,10 @@ export default function GameSlateTable({ games, showUpset = false, showNetwork =
                   )}
                 </td>
                 <td className="tabnum">
-                  {upset && <span role="img" aria-label="Potential upset">🔥 </span>}
+                  {alert === 'upset' && (
+                    <span role="img" aria-label={g.status === 'final' ? 'Upset' : 'Upset underway'} title={g.status === 'final' ? 'Upset' : 'Upset underway'}>🔥 </span>
+                  )}
+                  {alert === 'tight' && <span role="img" aria-label="Tight game" title="Tight game">👀 </span>}
                   <ScoreCell g={g} />
                 </td>
               </tr>

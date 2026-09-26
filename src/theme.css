@@ -383,7 +383,8 @@ table.data-table tbody tr.row-click:hover { background: var(--panel-2); }
    badge-status/live context it's nested in, so it never needs its own color rule). */
 .live-score-num { font-size: 15px; font-weight: 800; letter-spacing: normal; text-transform: none; }
 
-/* Potential-upset row flag (RankedMatchupsTable/GameSlateTable) -- a translucent accent tint works
+/* Upset row flag (🔥 only -- a 👀 tight game gets its icon but no tint, so the tint keeps meaning
+   "upset"; see gameAlert in teams.js). RankedMatchupsTable/GameSlateTable. A translucent accent tint works
    unmodified in both themes since --accent itself already flips light/dark, unlike a fixed color
    that would need separate light/dark values. */
 table.data-table tbody tr.upset-row { background: color-mix(in srgb, var(--accent) 14%, transparent); }

@@ -9,15 +9,14 @@ at **[mattt-lab.github.io/CFB_top25](https://mattt-lab.github.io/CFB_top25/)**.
 - **This Week** — your pinned teams' status, this week's biggest games (live scores, spreads, and
   TV/streaming info), short AI-written notes on the week's most interesting storylines, and a
   compact **Full Slate** table of every ranked team's matchup this week sorted by kickoff — flagged
-  with 🔥 when an underdog (per the betting line) is making a game interesting *after halftime*:
-  tied or ahead in Q3 (unless it's a coin-flip line of 3 points or fewer), ahead or within a score
-  in Q4/OT, and an outright win once final. Nothing is flagged in the first half. See
-  [Live scoring](#live-scoring-client-side-not-a-server-poller) for the exact rule.
+  with 🔥 (an upset is underway, or just happened) or 👀 (a tight game in Q4/OT), only after
+  halftime — nothing alerts in the first half. See
+  [Live scoring](#live-scoring-client-side-not-a-server-poller) for the exact rules.
 - **Top 25** — the full current AP/Coaches/CFP-resolved ranking board: rank, week-over-week trend, a
   multi-week rank sparkline, and playoff/title odds for all 25 teams.
 - **Up Next** — every game on today's schedule, not just ranked teams, live scores included and
   finished games sorted to the bottom; rolls forward to the next day with games if today's slate is
-  empty. Same 🔥 upset flag as the Full Slate; a same-day kickoff shows just its time and network.
+  empty. Same 🔥/👀 alerts as the Full Slate; a same-day kickoff shows just its time and network.
 - **Playoff Watch** — a real, computed projection of the 12-team CFP field: straight seeding since
   2025 (the top-4 teams by overall rank get the bye, not necessarily conference champions), the 5
   highest-ranked champions guaranteed a spot, the at-large seeds, and who's on the bubble —
@@ -125,21 +124,32 @@ everywhere (`Q4 4:00`, or `Halftime` at period 2 with the clock at 0:00). ESPN c
 progress" before it has a real period — a literal "Q0" — so a live game with no period is treated as
 not started rather than shown as live.
 
-The 🔥 upset flag (Full Slate and Up Next) comes from `isPotentialUpset()` in `src/data/teams.js`.
-It works from the betting line, not the poll rank: the favorite is resolved from CFBD's spread
-string (`src/utils/spread.js`, shared with the Pick 'em scripts), and the flag means the
-*underdog* is doing better than the line implies — only after halftime:
+The alerts (Full Slate and Up Next) come from `gameAlert()` in `src/data/teams.js`. Only games in
+the second half or later can alert, and a row never shows both icons:
 
-| State | Flagged when the underdog is |
-|---|---|
-| Q1–Q2 (including halftime) | never |
-| Q3 | tied or ahead — but not a tiny underdog (a line of 3 points or fewer) |
-| Q4 / OT | ahead by any amount, or behind by no more than 7 |
-| Final | the winner |
+- **🔥 Upset underway** — the underdog is tied or ahead. It stays on the row once the game is final
+  if the underdog won. The row also gets a tint.
+- **👀 Tight game** — Q4 or overtime, within 7 points, and not already an upset. Live only: it
+  disappears when the game ends, leaving 🔥 or nothing. No tint.
 
-No line, or a line that matches neither team's name, means no flag rather than a guess. Replayed
-against a real week of play-by-play, first-half leads flagged about half of all games and the
-favorite usually won, which is why they're ignored.
+Who the underdog is depends on the game. If a ranked team is playing, the **poll** decides: the
+lower-ranked side is the underdog (an unranked team counts as lowest), and it takes a gap of at
+least 2 spots, so #18 leading #17 isn't an upset. The betting line is ignored there. If no ranked
+team is playing, it falls back to the **betting line** (CFBD's spread string, parsed by
+`src/utils/spread.js`, shared with the Pick 'em scripts); no line means no underdog, though 👀 can
+still fire.
+
+| State | 🔥 when the underdog is | 👀 when |
+|---|---|---|
+| Q1–Q2 (including halftime) | never | never |
+| Q3 | tied or ahead (in a line-based game, not a tiny underdog: a line of 3 points or fewer) | never |
+| Q4 / OT | tied or ahead | the game is within 7 |
+| Final | the winner | never |
+
+Replayed against a real week of play-by-play, 🔥 fired at some point in about a quarter of games,
+the underdog won 47% of those, and every real upset was caught; 👀 fired in about a third of games
+and 79% of those ended within 8 points. First-half alerts were dropped after they fired in about
+half of all games and the favorite usually won.
 
 ### Pick 'em snapshots and review
 

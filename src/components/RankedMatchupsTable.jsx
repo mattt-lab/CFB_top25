@@ -3,7 +3,7 @@ import GameSlateTable from './GameSlateTable.jsx';
 
 export default function RankedMatchupsTable({ games }) {
   // Static current.json data is only ever 'scheduled'/'final' (see useLiveScores.js's header
-  // comment) -- without this overlay, the table's live badge/score/upset-flag code paths would
+  // comment) -- without this overlay, the table's live badge/score/alert (🔥/👀) code paths would
   // never actually fire. `games` already carries {id, away, home}, exactly what the hook expects.
   const liveOverlay = useLiveScores(games);
   const liveGames = games.map((g) => ({ ...g, ...(liveOverlay[g.id] ?? {}) }));
@@ -22,7 +22,7 @@ export default function RankedMatchupsTable({ games }) {
           No ranked matchups on the board this week.
         </p>
       ) : (
-        <GameSlateTable games={liveGames} showUpset showNetwork />
+        <GameSlateTable games={liveGames} showAlerts showNetwork />
       )}
     </section>
   );
