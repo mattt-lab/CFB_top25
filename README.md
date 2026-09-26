@@ -83,7 +83,10 @@ sitting stale until the next day's run, via this pipeline's own `/games` call. T
 commits with its own `GITHUB_TOKEN`, and GitHub's anti-recursion
 rule means a `GITHUB_TOKEN` push does *not* trigger another workflow's `on: push` listener — so it
 explicitly dispatches `deploy-pages.yml` itself after a real data change, rather than relying on the
-push to cascade. See below for how *in-game* state gets on the page sooner than that.
+push to cascade. If the CFBD fetch step fails, the workflow waits 12 minutes and retries it once (a
+momentary CFBD or runner-network problem usually clears by then); if the retry fails too, the run
+fails and GitHub emails you as before. See below for how *in-game* state gets on the page sooner
+than that.
 
 ### Live scoring: client-side, not a server poller
 

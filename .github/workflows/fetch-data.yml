@@ -58,10 +58,27 @@ jobs:
           cache: npm
       - run: npm ci
 
+      # One retry, 12 minutes after a failure. The 2026-09-26 scheduled run (13:00 UTC cron, started
+      # 17:01 UTC) died here after 9 seconds
+      # with no code change since the run before it, and re-running the identical step against the
+      # identical commit minutes later succeeded -- a momentary CFBD/runner-network problem. Waiting
+      # 12 minutes (not seconds) gives a short outage time to clear. Safe to re-run: the script
+      # writes three files -- the per-week rankings and ratings snapshots (each only if it doesn't
+      # already exist, so a second pass leaves whatever the first pass wrote untouched) and
+      # data/current.json last -- so a retry just finishes what the first attempt didn't. A retry
+      # costs at most 8 more CFBD calls, and only when the first attempt failed. If the retry fails
+      # too, this step (and so the run) fails exactly as before, so the failure email still
+      # arrives. The ::warning keeps a retried-then-green run visible on the run page instead of
+      # silently green.
       - name: Fetch CFBD data
         env:
           CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
-        run: node scripts/fetch-cfb-data.mjs
+        run: |
+          node scripts/fetch-cfb-data.mjs || {
+            echo "::warning title=CFBD fetch retried::The first attempt failed (its error is above). Waiting 12 minutes, then retrying once."
+            sleep 720
+            node scripts/fetch-cfb-data.mjs
+          }
 
       - name: Stage 1 -- deterministic scoring
         run: node scripts/score.mjs
