@@ -72,6 +72,8 @@ stages that are deliberately never allowed to blur together:
    fails for any reason, a plain deterministic sentence built from the same facts ships instead, so
    a bad API day never means blank text. Which path produced any given blurb is recorded
    (`blurbSource`) and disclosed to readers in the site's own footnote.
+   A blurb is only rewritten when the facts it was written from change (`data/narration-cache.json`),
+   so a finished game's recap is written once, not on every run.
 
 A single GitHub Actions workflow runs this once daily (13:00 UTC), plus a Monday-only run
 (19:30 UTC) to catch weeks whose slate runs into Sunday/Monday and pushes the AP/Coaches poll's

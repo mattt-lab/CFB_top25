@@ -119,6 +119,21 @@ for a game that only just went final), that one game's blurb quietly falls back 
 spread-preview/bare-score-recap treatment this file used before this enrichment step existed;
 never blocks the rest of the run.
 
+## Blurb reuse (`data/narration-cache.json`)
+
+`narrate.mjs` only pays for items whose facts changed. The cache maps `"section:id"` (e.g.
+`games:2026-wk9-florida-georgia`, `predictions:kentucky`) to `{ hash, blurb }`, plus a top-level
+`promptKey` (a hash of the model, system prompt and tool schema). It is separate from `current.json`
+because `fetch-cfb-data.mjs` rebuilds that file from scratch every run.
+
+A blurb is reused only if the item's `hash` still matches: the exact facts sent to the model (including
+the ESPN recap/predictor enrichment, so a recap article that appears hours after a final is still
+written once), and for storylines/notes the facts of the games involving the same team(s). ESPN win
+percentages are rounded to whole numbers for hashing, since they drift by tenths between runs. Changing
+the model or prompt changes `promptKey` and regenerates everything. Fallback blurbs are never cached, so
+a failed API call is retried on the next run, and entries for items no longer in the facts are pruned.
+Each run logs "reusing N of M blurbs" and, when it calls the model, the token usage.
+
 ## `data/current.json`
 
 ```jsonc

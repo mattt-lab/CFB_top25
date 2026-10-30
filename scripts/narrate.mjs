@@ -16,10 +16,15 @@ import { dirname, join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
 import { buildEventsByEspnTeamId, findEspnEventId, buildScoreboardUrls } from './lib/espn-match.mjs';
 import { buildGameStory, hasGameStory, buildPregameContext } from './lib/espn-game-story.mjs';
+import { SECTIONS, keyOf, planNarration, buildCache, promptKey, countItems } from './lib/narration-cache.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const CURRENT_PATH = join(ROOT, 'data', 'current.json');
+// Blurbs already written, keyed by a hash of the facts they were written from -- see
+// scripts/lib/narration-cache.mjs. Lives outside current.json because fetch-cfb-data.mjs rebuilds that
+// file from scratch every run.
+const CACHE_PATH = join(ROOT, 'data', 'narration-cache.json');
 const espnTeamMap = JSON.parse(readFileSync(join(ROOT, 'src', 'data', 'espnTeamMap.json'), 'utf8'));
 
 const MODEL = 'claude-opus-5';
@@ -374,11 +379,13 @@ async function fetchBlurbs(facts) {
     messages: [
       {
         role: 'user',
-        content: `Write blurbs for these games, ranked-team next games, predictions, field storylines, and bubble notes:\n\n${JSON.stringify(facts, null, 2)}`,
+        content: `Write blurbs for these games, ranked-team next games, predictions, field storylines, and bubble notes (any section may be empty -- return an empty array for it):\n\n${JSON.stringify(facts, null, 2)}`,
       },
     ],
   });
 
+  const u = response.usage ?? {};
+  console.log(`Narration usage: ${u.input_tokens ?? '?'} input / ${u.output_tokens ?? '?'} output tokens (${MODEL}).`);
   const toolUse = response.content.find((b) => b.type === 'tool_use' && b.name === 'write_blurbs');
   if (!toolUse) throw new Error('No write_blurbs tool call in response');
   return toolUse.input;
@@ -398,19 +405,49 @@ async function main() {
 
   const facts = buildFacts(current);
 
-  let result = null;
-  if (
-    !facts.games.length && !facts.rankedNextGames.length && !facts.predictions.length
-    && !facts.fieldStorylines.length && !facts.bubbleNotes.length
-  ) {
-    console.log('Nothing to narrate.');
+  // Reuse blurbs whose facts haven't changed; only the rest go to the model.
+  let cache = null;
+  try {
+    cache = JSON.parse(readFileSync(CACHE_PATH, 'utf8'));
+  } catch {
+    // no cache yet (first run) or unreadable -- narrate everything
+  }
+  const key = promptKey(MODEL, SYSTEM_PROMPT, TOOL);
+  const plan = planNarration(facts, cache, key);
+  const total = countItems(facts);
+  const pending = countItems(plan.toNarrate);
+  console.log(`Narration: reusing ${total - pending} of ${total} blurbs, writing ${pending} new.`);
+
+  let fresh = null;
+  if (pending === 0) {
+    console.log(total === 0 ? 'Nothing to narrate.' : 'Every blurb is unchanged -- no API call.');
   } else {
     try {
-      result = await fetchBlurbs(facts);
+      fresh = await fetchBlurbs(plan.toNarrate);
     } catch (err) {
-      console.error(`Narration API call failed, falling back to deterministic blurbs: ${err.message}`);
+      console.error(`Narration API call failed, falling back to deterministic blurbs for the changed items: ${err.message}`);
     }
   }
+
+  // Merge reused + newly written blurbs back into the { section: [{id|teamId, blurb}] } shape the code
+  // below already consumes. A reused blurb counts as 'llm' (an LLM wrote it). Items whose call failed
+  // get no blurb here, so they fall back below and are NOT cached -- they are retried next run.
+  const allBlurbs = new Map(plan.reused);
+  for (const section of SECTIONS) {
+    for (const row of fresh?.[section] ?? []) {
+      const k = `${section}:${keyOf(section, row)}`;
+      if (plan.hashes.has(k) && typeof row.blurb === 'string' && row.blurb.trim()) allBlurbs.set(k, row.blurb);
+    }
+  }
+  const result = Object.fromEntries(SECTIONS.map((section) => [
+    section,
+    (facts[section] ?? []).flatMap((item) => {
+      const blurb = allBlurbs.get(`${section}:${keyOf(section, item)}`);
+      if (!blurb) return [];
+      return [section === 'predictions' || section === 'bubbleNotes' ? { teamId: item.teamId, blurb } : { id: item.id, blurb }];
+    }),
+  ]));
+  writeFileSync(CACHE_PATH, JSON.stringify(buildCache(key, plan.hashes, allBlurbs), null, 1) + '\n');
 
   const gameBlurbs = new Map((result?.games ?? []).map((g) => [g.id, g.blurb]));
   const rankedNextGameBlurbs = new Map((result?.rankedNextGames ?? []).map((g) => [g.id, g.blurb]));
