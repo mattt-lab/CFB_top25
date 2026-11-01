@@ -1,22 +1,6 @@
 {
  "promptKey": "769284c8174095f6",
  "items": {
-  "predictions:kentucky": {
-   "hash": "a4488f3b7e7f66c0",
-   "blurb": "Kentucky climbed from 12th to 9th and now sits as the SEC's closest chaser behind Georgia, though the computers are cooler on the Wildcats than the poll is (31st in SP+, 24th in FPI)."
-  },
-  "predictions:tennessee": {
-   "hash": "17fb07be2e572ec5",
-   "blurb": "Tennessee slid from 11th to 16th in the poll even as the advanced numbers keep the Vols in the low teens (11th SP+, 12th FPI)."
-  },
-  "predictions:lsu": {
-   "hash": "bcae58edc230a616",
-   "blurb": "LSU moved up to 15th and the metrics think that's still too low -- third in SP+ and seventh in FPI make the Tigers one of the most underrated teams on the board."
-  },
-  "bubbleNotes:lsu": {
-   "hash": "e6b4e11ce2077a09",
-   "blurb": "LSU is the last team in the bubble group at 16, four spots from the field, but the Tigers moved up three and are headed the right direction."
-  },
   "games:2026-wk9-florida-georgia": {
    "hash": "c0bcdf74c7ac665e",
    "blurb": "Georgia turned four Florida giveaways into a 27-8 win in Atlanta, the biggest of them Chris Cole's 66-yard fumble return touchdown after Quintavius Johnson sacked Tramell Jones Jr. late in the first half. The Dawgs outrushed the Gators 217-48 and bounced back from their loss to Auburn; Florida didn't reach the end zone until the fourth quarter."
@@ -33,18 +17,6 @@
    "hash": "794a569b7040d40a",
    "blurb": "No. 6 Utah moved to 8-0 with a 49-25 win at Cincinnati, Devon Dampier throwing for 260 yards and two touchdowns while the defense chipped in a Rabbit Evans 51-yard fumble return and an Elijah Davis 39-yard pick-six. The Utes' 14-game winning streak is the longest active run in the FBS."
   },
-  "games:2026-wk9-mississippi-state-texas": {
-   "hash": "2e300bcd59f2a462",
-   "blurb": "Arch Manning threw three touchdown passes and Maraad Watson rumbled 61 yards with a fumble just before halftime as No. 11 Texas smothered Mississippi State 31-3. The Longhorns' defense did the heavy lifting again, holding the Bulldogs to a field goal and keeping Texas in the SEC race with a second straight win."
-  },
-  "games:2026-wk9-virginia-wake-forest": {
-   "hash": "498d81df02af4e42",
-   "blurb": "No. 14 Wake Forest ran its winning streak to five with a 51-7 demolition of Virginia, as Ty Clark III scored three short rushing touchdowns and Connor Calvert added three field goals. Gio Lopez threw a touchdown before leaving late in the third with an apparent leg injury, and the Cavaliers avoided a shutout only on Beau Pribula's 47-yard strike to Da'Shawn Martin."
-  },
-  "rankedNextGames:2026-wk9-smu-syracuse": {
-   "hash": "d3a3be7c294e8898",
-   "blurb": "Steve Angeli found tight end Noah Meyers from 2 yards out with 17 seconds left to cap an 11-play, 68-yard drive and lift Syracuse past No. 19 SMU 30-27. The Orange, who trailed 27-23 with 3:36 to go, got their first win over a ranked opponent since November 2024 while the Mustangs' two turnovers loomed large."
-  },
   "rankedNextGames:2026-wk9-notre-dame-navy": {
    "hash": "60fea9c9172c0d3f",
    "blurb": "CJ Carr threw for 210 yards and two touchdowns and Nolan James Jr. broke off scoring runs of 52 and 23 yards as No. 5 Notre Dame pulled away from Navy 35-13 in Foxborough. Leading just 14-13 at the break, the Irish scored on each of their first three second-half drives and held the Midshipmen to 56 yards after halftime."
@@ -53,57 +25,17 @@
    "hash": "37a2f891ccbf728f",
    "blurb": "No. 4 Indiana needed a 60-yard Paddy McAteer field goal as time expired just to reach overtime, then backup Grant Wilson — in for the injured Josh Hoover — hit Charlie Becker for 25 yards on the first snap of the extra period in a 23-16 escape. Minnesota had taken a 16-13 lead on Luke Drzewiecki's own career-long 60-yarder with 19 seconds left before the Hoosiers' defense closed it out with a fourth-down sack."
   },
-  "rankedNextGames:2026-wk9-ohio-state-usc": {
-   "hash": "01929d86d0a6a1fd",
-   "blurb": "USC stunned No. 2 Ohio State 30-18 at the Coliseum, with Trent Mosley catching a 69-yard touchdown on the second play from scrimmage and Jayden Maiava finishing with 222 yards and a score. The Trojans' defense kept the Buckeyes out of the end zone until Jeremiah Smith's 1-yard catch with 2:12 left, then recovered the onside kick and tacked on a field goal; freshman Luke Fahey threw for 260 in his first start for injured Julian Sayin."
+  "rankedNextGames:2026-wk9-wisconsin-iowa": {
+   "hash": "0e0352bd3ccdd6bd",
+   "blurb": "Iowa shut out No. 25 Wisconsin for the second straight year, winning 30-0 in the 100th meeting of the Heartland Trophy rivalry behind Hank Brown's 222 yards and two touchdown passes. The Hawkeyes forced three turnovers and held the Badgers to 235 total yards, 52 of them on the ground."
   },
   "rankedNextGames:2026-wk9-nevada-ucla": {
    "hash": "ca82852425bf22fd",
    "blurb": "No. 7 UCLA picked off Nevada three times in the first quarter alone — including a Derrick Barksdale 26-yard pick-six — and cruised to a 27-0 shutout, moving to 8-0 for the first time since 2005. Ty Dieffenbach threw for a score and ran for another, and the Bruins' fourth interception in the closing seconds sealed their first shutout at the Rose Bowl since 2007."
   },
-  "rankedNextGames:2026-wk9-texas-state-boise-state": {
-   "hash": "820fc26d50b93cee",
-   "blurb": "No. 20 Boise State lays 10 at home against Texas State with the total up at 63.5, so points should not be hard to come by. The Broncos can't afford a slip if they want to keep their at-large profile intact."
-  },
-  "rankedNextGames:2026-wk9-wisconsin-iowa": {
-   "hash": "0e0352bd3ccdd6bd",
-   "blurb": "Iowa shut out No. 25 Wisconsin for the second straight year, winning 30-0 in the 100th meeting of the Heartland Trophy rivalry behind Hank Brown's 222 yards and two touchdown passes. The Hawkeyes forced three turnovers and held the Badgers to 235 total yards, 52 of them on the ground."
-  },
-  "rankedNextGames:2026-wk9-arizona-state-byu": {
-   "hash": "43372615c2efd243",
-   "blurb": "Bear Bachmeier threw for 236 yards and a touchdown as No. 8 BYU held off Arizona State 27-20, shutting down the Sun Devils in the fourth quarter. After ASU erased a 14-point hole with two Jake Fette touchdown passes, Matthias Dunn's 45-yard field goal put the Cougars back ahead and Sione Moa's 1-yard plunge with 2:09 left sealed it."
-  },
-  "rankedNextGames:2026-wk9-miami-north-carolina": {
-   "hash": "417946c782e486bd",
-   "blurb": "No. 1 Miami survived at North Carolina 38-35, with Mark Fletcher Jr. scoring his third touchdown of the night on a 2-yard fourth-down run with 7:49 left. Marquise Lightfoot then stripped Billy Edwards Jr. from behind and Justin Scott recovered, a swing the Hurricanes turned into Darian Mensah's 9-yard touchdown to Malachi Toney to go up 10 with 2:33 to play."
-  },
   "rankedNextGames:2026-wk9-northwestern-oregon": {
    "hash": "7052ef45e2b0afad",
    "blurb": "Dylan Raiola threw for 336 yards and three touchdowns as Oregon rallied past No. 21 Northwestern 34-26 after trailing 20-13 at the half. Dakorien Moore had 128 yards and two scores, including a 75-yard strike in the fourth, and freshman Brandon Smith ran for the go-ahead touchdown after Jordon Davison left with a leg injury."
-  },
-  "rankedNextGames:2026-wk9-missouri-arkansas": {
-   "hash": "c292fc5c7c7d521a",
-   "blurb": "No. 23 Missouri turned four Arkansas turnovers into 24 points in a 34-10 road win, starting with Darris Smith's fumble recovery in the end zone for a touchdown late in the first quarter. Austin Simmons threw for 179 yards and two scores and Jamal Roberts piled up 158 total yards with two touchdowns of his own."
-  },
-  "rankedNextGames:2026-wk9-oklahoma-state-iowa-state": {
-   "hash": "de8e0e36ce09e819",
-   "blurb": "Kyle Konrardy drilled a 34-yard field goal as time expired to give Iowa State a 51-49 shootout win over No. 24 Oklahoma State in a game that produced 1,114 combined yards. The Cowboys had gone ahead 49-48 with 53 seconds left on Drew Mestemaker's fifth touchdown pass, but an unsportsmanlike conduct penalty on the ensuing kickoff handed the Cyclones the field position they needed."
-  },
-  "predictions:texas": {
-   "hash": "973db1960719cee0",
-   "blurb": "Texas jumped from 19th to 11th, and the metrics like the Longhorns even more than the voters do — both SP+ and FPI slot them eighth in the country."
-  },
-  "predictions:ucla": {
-   "hash": "dc6ee8fab39f1e80",
-   "blurb": "UCLA climbed from ninth to seventh, but the computers remain skeptical of the unbeaten Bruins: SP+ has them 17th and FPI all the way down at 31st."
-  },
-  "fieldStorylines:conf-race-big-ten": {
-   "hash": "73ce54d6d1a84c74",
-   "blurb": "The Big Ten's automatic bid is the tightest race on the board, with No. 2 Ohio State holding off No. 4 Indiana by just two spots in the pecking order. Nothing about that gap is safe."
-  },
-  "fieldStorylines:conf-race-big-12": {
-   "hash": "87001bbec082c037",
-   "blurb": "Utah sits sixth and BYU eighth, a two-spot gap at the top of the Big 12 with the league's auto bid hanging on it. Neither has much margin if the other keeps winning."
   },
   "fieldStorylines:conf-race-sec": {
    "hash": "194a8cb048175724",
@@ -113,6 +45,10 @@
    "hash": "d4c6632ab0be9945",
    "blurb": "Ole Miss sits 13th, just one spot outside the field, but the arrow is pointing down after a five-spot slide. They remain the first team in line if anyone ahead of them slips."
   },
+  "bubbleNotes:lsu": {
+   "hash": "e6b4e11ce2077a09",
+   "blurb": "LSU is the last team in the bubble group at 16, four spots from the field, but the Tigers moved up three and are headed the right direction."
+  },
   "bubbleNotes:texas-tech": {
    "hash": "aeedc3a4eea6671a",
    "blurb": "Texas Tech dropped five spots to 14th, two away from the bracket, and gets no favors next: a date with No. 22 Arizona is the kind of game that decides which side of the line they land on."
@@ -120,6 +56,70 @@
   "bubbleNotes:wake-forest": {
    "hash": "bc9f093e8158be7e",
    "blurb": "Wake Forest is the lone bubble team trending up, climbing three spots to 15th. They're still three places from the field, so the climb has to continue."
+  },
+  "games:2026-wk9-smu-syracuse": {
+   "hash": "d3a3be7c294e8898",
+   "blurb": "Syracuse stunned No. 19 SMU 30-27, with Steve Angeli finding tight end Noah Meyers from 2 yards out with 17 seconds left to cap an 11-play drive that started on the Orange 32 with 3:36 to go. SMU, a 8.5-point favorite, turned it over twice and watched a 27-23 lead evaporate in Syracuse's first win over a ranked team since November 2024."
+  },
+  "games:2026-wk9-mississippi-state-texas": {
+   "hash": "b268bafd55d31c6c",
+   "blurb": "Arch Manning threw three touchdown passes and No. 11 Texas smothered Mississippi State 31-3 in Austin. The swing play came just before halftime, when 333-pound defensive tackle Maraad Watson scooped a loose ball and rumbled 61 yards to the end zone, pushing the Longhorns to a second straight win and keeping them in the SEC race."
+  },
+  "rankedNextGames:2026-wk9-virginia-wake-forest": {
+   "hash": "498d81df02af4e42",
+   "blurb": "No. 14 Wake Forest blew the doors off Virginia 51-7, running its winning streak to five and covering the 13.5-point number several times over. Ty Clark III scored on three short runs and Connor Calvert added three field goals, with the Cavaliers avoiding a shutout only on Beau Pribula's 47-yard strike late in the third quarter."
+  },
+  "rankedNextGames:2026-wk9-ohio-state-usc": {
+   "hash": "84143fc49121a529",
+   "blurb": "USC knocked off No. 2 Ohio State 30-18 on a rain-soaked Halloween night at the Coliseum, with freshman Trent Mosley taking a screen 69 yards to the house on the second snap of the game. The Trojan defense kept the Buckeyes out of the end zone until the final three minutes against freshman starter Luke Fahey, and Ohio State's four Connor Hawkins field goals weren't close to enough as a 6.5-point favorite."
+  },
+  "rankedNextGames:2026-wk9-texas-state-boise-state": {
+   "hash": "0bb7154e249f6d8b",
+   "blurb": "No. 20 Boise State survived 46-45 after coughing up a 25-point halftime lead and watching Texas State score the first 36 points of the second half. Backup Max Cutforth threw three touchdown passes in the last seven minutes in relief of an injured Maddux Madsen, the last an 18-yarder to Akeem Wright with 2:40 left, in a game with three lead changes in the final five minutes."
+  },
+  "rankedNextGames:2026-wk9-arizona-state-byu": {
+   "hash": "31da9ce2c675d0e3",
+   "blurb": "No. 8 BYU held on 27-20 as Bear Bachmeier threw for 236 yards and a score, well short of the 17.5-point spread. Arizona State wiped out a 14-point deficit with two third-quarter touchdown passes from Jake Fette before Matthias Dunn's 45-yard field goal and Sione Moa's 1-yard plunge with 2:09 left put the Cougars away."
+  },
+  "rankedNextGames:2026-wk9-miami-north-carolina": {
+   "hash": "8f115ec06a3e77ea",
+   "blurb": "No. 1 Miami needed a late rally to escape Chapel Hill 38-35 after North Carolina grabbed a 28-24 lead with 11:46 to play. Mark Fletcher Jr. scored the go-ahead touchdown on a 2-yard fourth-down run with 7:49 left, and Marquise Lightfoot stripped Billy Edwards Jr. from behind on the next possession for the stop the Hurricane defense had been chasing all night."
+  },
+  "rankedNextGames:2026-wk9-missouri-arkansas": {
+   "hash": "5497555da77b4e10",
+   "blurb": "No. 23 Missouri turned four Arkansas turnovers into a 34-10 win in Fayetteville, cashing the 10.5-point number with room to spare. Austin Simmons threw for 179 yards and two scores and Jamal Roberts piled up 158 total yards and two touchdowns, while Darris Smith's end-zone fumble recovery got the Tigers rolling in the first quarter."
+  },
+  "rankedNextGames:2026-wk9-oklahoma-state-iowa-state": {
+   "hash": "8de530403f350aa7",
+   "blurb": "Kyle Konrardy drilled a 34-yard field goal as time expired to give Iowa State a 51-49 win over No. 24 Oklahoma State in a 1,114-yard track meet. The Cowboys had taken a 49-48 lead on Drew Mestemaker's fifth touchdown pass with 53 seconds left, but an unsportsmanlike conduct penalty on the scoring play handed the Cyclones the field position they needed."
+  },
+  "predictions:kentucky": {
+   "hash": "ee6f89b6949a257c",
+   "blurb": "Kentucky climbs three spots to No. 9, though the computers are nowhere near as sold: SP+ has the Wildcats 31st and FPI 26th, the widest gap between poll and model of anyone in the top 10."
+  },
+  "predictions:texas": {
+   "hash": "77a866d16c02006e",
+   "blurb": "Texas makes the week's biggest jump, from 19th to 11th, and the metrics say it's earned — SP+ has the Longhorns eighth and FPI seventh, both ahead of their poll slot."
+  },
+  "predictions:lsu": {
+   "hash": "23b22a389269f671",
+   "blurb": "LSU moves up to No. 15 with the models well out in front of the voters: SP+ ranks the Tigers third and FPI fifth."
+  },
+  "predictions:florida": {
+   "hash": "3669e76de81c99dd",
+   "blurb": "Florida edges up to No. 17, but SP+ (31st) and FPI (22nd) both see a team the poll is ahead of."
+  },
+  "predictions:ucla": {
+   "hash": "bce3f44caba3595a",
+   "blurb": "UCLA rises to No. 7, with SP+ at 17th and FPI at 28th suggesting the Bruins' resume is outrunning the underlying numbers."
+  },
+  "fieldStorylines:conf-race-big-ten": {
+   "hash": "02318ed5658b7bae",
+   "blurb": "The Big Ten's automatic bid is a two-team conversation right now, with No. 2 Ohio State holding the lead and No. 4 Indiana just two spots back in the field picture — close enough that one slip flips the order."
+  },
+  "fieldStorylines:conf-race-big-12": {
+   "hash": "b8b88f7e58ac1c5f",
+   "blurb": "Utah sits at No. 6 atop the Big 12's auto-bid race, but No. 8 BYU is only two spots behind, leaving the league's playoff slot very much undecided."
   }
  }
 }
