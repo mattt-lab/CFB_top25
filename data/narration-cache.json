@@ -1,117 +1,125 @@
 {
  "promptKey": "769284c8174095f6",
  "items": {
-  "games:2026-wk10-miami-notre-dame": {
-   "hash": "ea18fb4add7354a8",
-   "blurb": "No. 1 Miami heads to South Bend as a 4.5-point underdog against No. 6 Notre Dame, with ESPN's model giving the Irish a 61% edge at home. The Hurricanes' spot atop the rankings is on the line in the marquee game of the week, with a total of 57.5 hinting at points."
-  },
-  "games:2026-wk10-georgia-ole-miss": {
-   "hash": "ad6423fa808c413e",
-   "blurb": "No. 2 Georgia is a field goal favorite in Oxford against No. 12 Ole Miss, and ESPN still makes it close to a coin flip at 55.5-44.5. The Rebels can scramble the SEC picture with a win; the Bulldogs can all but lock their grip on it."
-  },
-  "games:2026-wk10-byu-utah": {
-   "hash": "30b34a95bd353f88",
-   "blurb": "The Holy War carries real weight this year: No. 8 BYU at No. 4 Utah, with the Utes laid 5.5 and favored by ESPN at 65.7%. A low total of 45.5 points to a grinder, and the Big 12 race runs straight through it."
-  },
-  "games:2026-wk10-kentucky-tennessee": {
-   "hash": "512efe3545cf8ca0",
-   "blurb": "No. 7 Kentucky visits No. 16 Tennessee as a 6-point underdog, with ESPN giving the Vols a 66.8% shot in Knoxville. The Wildcats' climb up the SEC ladder gets its stiffest road test yet."
-  },
-  "games:2026-wk10-alabama-lsu": {
-   "hash": "88253deac5ffbf51",
-   "blurb": "No. 9 Alabama goes to Baton Rouge for a rivalry night with No. 15 LSU favored by 4.5 and sitting at 57% in ESPN's model. Both teams need the result badly in a crowded SEC middle."
-  },
-  "games:2026-wk10-texas-missouri": {
-   "hash": "d383d3e955fd14c4",
-   "blurb": "No. 11 Texas is a 3.5-point favorite at No. 19 Missouri, though ESPN likes the Longhorns far more than the number does at 71.3%. With the total set at 46.5, this one profiles as a defensive slog with ranking stakes for both."
-  },
-  "rankedNextGames:2026-wk10-ucla-minnesota": {
-   "hash": "9b9d11b981fbef04",
-   "blurb": "No. 5 UCLA is a 6.5-point favorite at Minnesota with a tiny 38.5 total, so the Bruins may have to win this one ugly. ESPN gives them a 68% chance of keeping pace in the Big Ten race."
-  },
-  "rankedNextGames:2026-wk10-oregon-ohio-state": {
-   "hash": "eab61da39476a06c",
-   "blurb": "No. 10 Ohio State hosts Oregon as a 9.5-point favorite, with ESPN putting the Buckeyes at 83.1%. After a slide in the rankings, Ohio State needs a statement performance in front of its own crowd."
-  },
-  "rankedNextGames:2026-wk10-iowa-northwestern": {
-   "hash": "68d95f0150e047f5",
-   "blurb": "No. 20 Iowa at No. 23 Northwestern is the closest line on the board at 1.5, with the Wildcats a hair ahead in ESPN's model at 55.2%. The 42.5 total says whoever lands the one extra score probably wins it."
-  },
-  "rankedNextGames:2026-wk10-cincinnati-houston": {
-   "hash": "760e437bbbe23f46",
-   "blurb": "No. 18 Houston is a 10.5-point home favorite over Cincinnati with a 62.5 total that suggests plenty of scoring. ESPN has the Cougars at nearly 84% to hold serve."
-  },
-  "rankedNextGames:2026-wk10-west-virginia-texas-tech": {
-   "hash": "8068d2ceaa73cd1e",
-   "blurb": "No. 13 Texas Tech is laying 16.5 at home against West Virginia, with ESPN giving the Red Raiders an 89.4% chance. The 63.5 total points to a scoreboard-spinning afternoon in Lubbock."
-  },
-  "rankedNextGames:2026-wk10-virginia-tech-smu": {
-   "hash": "df3a0868c0836a84",
-   "blurb": "No. 24 SMU hosts Virginia Tech as a 6.5-point favorite and a 68.2% pick in ESPN's model. The Mustangs are only barely holding their spot in the rankings, so style points matter."
-  },
-  "rankedNextGames:2026-wk10-new-mexico-nevada": {
-   "hash": "d6490d6705097ff9",
-   "blurb": "No. 25 New Mexico hits the road at Nevada favored by 12.5, with ESPN giving the Lobos an 81% shot. A clean win keeps their first brush with the Top 25 alive."
-  },
   "rankedNextGames:2026-wk10-merrimack-wake-forest": {
    "hash": "e438a61a0860cdfd",
    "blurb": "No. 14 Wake Forest welcomes Merrimack in a no-line tune-up. The Demon Deacons just need a tidy, healthy afternoon before the schedule tightens again."
   },
-  "rankedNextGames:2026-wk10-boise-state-colorado-state": {
-   "hash": "425703eba54f01b7",
-   "blurb": "No. 21 Boise State is an 18.5-point favorite at Colorado State and a 93.1% pick per ESPN, with the total up at 68.5. Anything short of a comfortable win would be a problem for the Broncos."
-  },
-  "rankedNextGames:2026-wk10-tcu-arizona": {
-   "hash": "a8df716a98e10b47",
-   "blurb": "No. 22 Arizona hosts TCU as an 8.5-point favorite, with ESPN putting the Wildcats at 73.8%. A 44.5 total suggests Arizona will need its defense to cover the margin."
-  },
-  "predictions:ucla": {
-   "hash": "b1d334d7f53d3f6d",
-   "blurb": "UCLA climbed two spots to No. 5, but the computers remain unconvinced -- SP+ has the Bruins 17th and FPI 28th, the widest gap between poll and metrics in the top 10."
-  },
-  "predictions:kentucky": {
-   "hash": "d40f8388115a8f1d",
-   "blurb": "Kentucky is up to No. 7 from No. 9, yet sits 31st in SP+ and 26th in FPI. The models want proof, and a trip to Tennessee is the chance to supply it."
-  },
-  "predictions:ohio-state": {
-   "hash": "ce1a0278b09fe1bf",
-   "blurb": "Ohio State tumbled from No. 2 to No. 10 in the rankings but is still No. 1 in SP+ and No. 2 in FPI. By the numbers, this is the most underrated team in the country right now."
-  },
-  "predictions:utah": {
-   "hash": "b10bba9783d9c039",
-   "blurb": "Utah moved up to No. 4 with the metrics roughly on board, sitting 10th in both SP+ and FPI. Beating BYU would help close what's left of that gap."
-  },
-  "predictions:lsu": {
-   "hash": "c7a93a6f45ac88b5",
-   "blurb": "LSU held at No. 15 while ranking third in SP+ and fifth in FPI -- the models think the Tigers belong in the top five. Alabama at home is the resume game to back it up."
-  },
-  "fieldStorylines:conf-race-big-ten": {
-   "hash": "1b67afb2a0dac7b3",
-   "blurb": "The Big Ten's auto bid is the tightest race on the board: No. 3 Indiana leads with No. 5 UCLA just two spots behind. One stumble from the Hoosiers and the Bruins are right there."
-  },
-  "fieldStorylines:conf-race-big-12": {
-   "hash": "648104dd3cdc9765",
-   "blurb": "Utah holds the Big 12's auto bid at No. 4 with BYU four spots back at No. 8 -- and the two meet this week. The Holy War is effectively a playoff-seeding game."
-  },
-  "fieldStorylines:conf-race-sec": {
-   "hash": "5d38a9b6f246d5a0",
-   "blurb": "Georgia has the clearest cushion of any league leader, sitting at No. 2 with Kentucky five spots back at No. 7. The Bulldogs control the SEC's auto bid as long as they keep winning."
-  },
-  "bubbleNotes:ole-miss": {
-   "hash": "cd851e23aab1f27f",
-   "blurb": "Ole Miss sits at the 13 seed, one spot outside the field, and draws the toughest possible fix: No. 2 Georgia at home. Win and the Rebels are in; lose and the margin gets thin fast."
-  },
-  "bubbleNotes:lsu": {
-   "hash": "249ee04a80fa0c60",
-   "blurb": "LSU is the last team on the bubble at 16, four spots from the field, with No. 9 Alabama coming to Baton Rouge. It's a long climb, but there's no better opportunity on the schedule."
-  },
-  "bubbleNotes:texas-tech": {
-   "hash": "e51726cf9facefd7",
-   "blurb": "Texas Tech holds the 14 seed, two spots out of the field, and hasn't moved. The Red Raiders need results elsewhere as much as their own."
-  },
   "bubbleNotes:wake-forest": {
    "hash": "419b6a9a2a951c7d",
    "blurb": "Wake Forest is stuck at the 15 seed, three spots from the field with no upward movement. Staying put won't be enough much longer."
+  },
+  "games:2026-wk10-miami-notre-dame": {
+   "hash": "6a75a505cef69bfb",
+   "blurb": "No. 1 Miami heads to South Bend as a 5.5-point underdog against No. 4 Notre Dame, with ESPN giving the Irish a 61.3% edge at home. A total of 57.5 suggests points, and the loser's grip on a top-four bye gets a lot shakier."
+  },
+  "games:2026-wk10-byu-utah": {
+   "hash": "a3b32166202858bf",
+   "blurb": "The Holy War has real playoff weight this year: No. 7 BYU at No. 3 Utah, with the Utes laying 5.5 and holding a 65.7% win probability. The 48.5 total says both defenses are expected to show up."
+  },
+  "games:2026-wk10-georgia-ole-miss": {
+   "hash": "6c8b8bafd2416967",
+   "blurb": "No. 2 Georgia is a rare road favorite at just 3.5 over No. 12 Ole Miss, and ESPN's model has it close to a coin flip at 55.5-44.5. The Rebels can rewrite their entire postseason case in one night."
+  },
+  "games:2026-wk10-alabama-lsu": {
+   "hash": "94d847fc556e6cdd",
+   "blurb": "No. 9 Alabama visits No. 15 LSU in Baton Rouge with the Tigers favored by 5.5 and sitting at a 57% win probability. Both sides need this one to stay in the at-large conversation."
+  },
+  "games:2026-wk10-kentucky-tennessee": {
+   "hash": "b2c23f44aa80ffdc",
+   "blurb": "No. 8 Kentucky is a 6.5-point underdog at No. 16 Tennessee despite the ranking gap, with ESPN giving the Vols a 66.8% shot. A Wildcats loss would scramble the SEC picture behind Georgia."
+  },
+  "games:2026-wk10-texas-missouri": {
+   "hash": "53bbd5d6c86aa05a",
+   "blurb": "No. 10 Texas is a narrow 2.5-point pick at No. 19 Missouri, though ESPN's model is far bolder on the Longhorns at 71.3%. A 43.5 total points to a grind in Columbia."
+  },
+  "rankedNextGames:2026-wk10-oregon-ohio-state": {
+   "hash": "18b292f8d6eafc5c",
+   "blurb": "Oregon goes to Columbus as a 7-point underdog against No. 11 Ohio State, with ESPN giving the Buckeyes an 83.1% win probability. Ohio State needs clean wins to climb back up the rankings."
+  },
+  "rankedNextGames:2026-wk10-ucla-minnesota": {
+   "hash": "c51df96fbefcecf8",
+   "blurb": "No. 5 UCLA hits the road at Minnesota favored by 5.5, with a 67.9% win probability and a modest 39.5 total. The Bruins can't afford a slip with Indiana one spot behind them in the Big Ten race."
+  },
+  "rankedNextGames:2026-wk10-cincinnati-houston": {
+   "hash": "168c8435cbbe550c",
+   "blurb": "No. 17 Houston hosts Cincinnati as an 11.5-point favorite with the highest total on the board at 62.5. ESPN gives the Cougars an 83.9% chance to keep rolling."
+  },
+  "rankedNextGames:2026-wk10-oklahoma-florida": {
+   "hash": "c3d5da4122198fed",
+   "blurb": "No. 25 Florida is a 6-point home favorite over Oklahoma, with ESPN's model at 64% for the Gators. A loss likely knocks Florida straight back out of the poll."
+  },
+  "rankedNextGames:2026-wk10-new-mexico-nevada": {
+   "hash": "d94ad015a802f9d1",
+   "blurb": "No. 22 New Mexico visits Nevada laying 9.5 points and carrying an 81% win probability. The Lobos just need to handle business to protect their ranking."
+  },
+  "rankedNextGames:2026-wk10-west-virginia-texas-tech": {
+   "hash": "1e9c802e8d64c8ae",
+   "blurb": "No. 13 Texas Tech is a 16.5-point home favorite over West Virginia with an 89.4% win probability. The Red Raiders are two spots out of the field and need style points as much as the W."
+  },
+  "rankedNextGames:2026-wk10-boise-state-colorado-state": {
+   "hash": "3309145fc6a5b562",
+   "blurb": "No. 20 Boise State is a 17.5-point favorite at Colorado State, with ESPN giving the Broncos a 93.1% shot and the total up at 68.5. Anything close would be a problem."
+  },
+  "rankedNextGames:2026-wk10-tcu-arizona": {
+   "hash": "9d56f1443b706ddd",
+   "blurb": "No. 24 Arizona hosts TCU as an 8.5-point favorite with a 73.8% win probability. The Wildcats are trying to prove their late-season ranking is no fluke."
+  },
+  "rankedNextGames:2026-wk10-texas-a-m-south-carolina": {
+   "hash": "9fc0b2f0c52794c2",
+   "blurb": "No. 23 South Carolina is favored by 7.5 over Texas A&M, though ESPN's model sees it much tighter at 54.1-45.9. The Gamecocks' spot in the Top 25 is on the line."
+  },
+  "rankedNextGames:2026-wk10-iowa-northwestern": {
+   "hash": "aab5be0d3dc757e5",
+   "blurb": "No. 21 Iowa is a 2.5-point underdog at Northwestern, with ESPN giving the Wildcats a slim 55.2% edge. A loss to an unranked host would be costly for the Hawkeyes."
+  },
+  "predictions:ohio-state": {
+   "hash": "12c90285771f1391",
+   "blurb": "Ohio State tumbled from No. 2 to No. 11 in the poll, but the analytics haven't blinked: No. 1 in SP+ and No. 2 in FPI. If the metrics are right, the Buckeyes are the most underrated team in the country right now."
+  },
+  "predictions:ucla": {
+   "hash": "6e6542063d44b5a8",
+   "blurb": "UCLA climbed to No. 5 and leads the Big Ten race, yet the computers are skeptical -- 17th in SP+ and 28th in FPI. The resume is ahead of the profile."
+  },
+  "predictions:kentucky": {
+   "hash": "b6f9f19630be31d8",
+   "blurb": "Kentucky is up to No. 8, but SP+ (31) and FPI (26) both have the Wildcats outside the top 25 entirely. Saturday at Tennessee is a chance to settle the argument."
+  },
+  "predictions:utah": {
+   "hash": "7d1f104f525946dc",
+   "blurb": "Utah jumped from No. 6 to No. 3 and the models mostly agree it belongs, with matching No. 10 marks in SP+ and FPI. Beating BYU would push the resume closer to the ranking."
+  },
+  "predictions:lsu": {
+   "hash": "ba3468fbecded2d9",
+   "blurb": "LSU is stuck at No. 15 while SP+ (3) and FPI (5) both call it a top-five team. Hosting Alabama is exactly the kind of game that closes that gap."
+  },
+  "fieldStorylines:conf-race-big-ten": {
+   "hash": "beca9d3bce53ce3d",
+   "blurb": "The Big Ten's automatic bid is a one-spot fight: No. 5 UCLA leads, with No. 6 Indiana breathing down its neck. One stumble flips the league."
+  },
+  "fieldStorylines:matchup-2026-wk10-miami-notre-dame": {
+   "hash": "07f9603905148c50",
+   "blurb": "No. 1 Miami at No. 4 Notre Dame is a bye-line elimination game in everything but name -- both sit in the top-four band, and only one walks out with that cushion intact."
+  },
+  "fieldStorylines:conf-race-big-12": {
+   "hash": "823014507eb8021b",
+   "blurb": "Utah holds the Big 12 lead at No. 3 with BYU four spots back at No. 7 -- and the two meet head-to-head this week, so the gap gets settled on the field."
+  },
+  "fieldStorylines:conf-race-sec": {
+   "hash": "f2f5678955ced0f7",
+   "blurb": "Georgia has the SEC's auto bid comfortably at No. 2, six spots clear of No. 8 Kentucky. The Bulldogs' trip to Ole Miss is the clearest path to tightening it."
+  },
+  "bubbleNotes:ole-miss": {
+   "hash": "430b5014104aca41",
+   "blurb": "Ole Miss sits at the 13 seed, one spot outside the field, and draws No. 2 Georgia next. Win it and the Rebels aren't on the bubble anymore."
+  },
+  "bubbleNotes:lsu": {
+   "hash": "b66b65a4dc3da1f1",
+   "blurb": "LSU is the last team in the bubble band at No. 16, four spots from the field, with No. 9 Alabama coming to Baton Rouge. It's the best possible chance to move."
+  },
+  "bubbleNotes:texas-tech": {
+   "hash": "ae07b965d1dfdf1c",
+   "blurb": "Texas Tech holds at the 14 seed, two spots from the field, with no ranked opponent on deck -- the Red Raiders will need help or dominance to climb."
   }
  }
 }
