@@ -1,14 +1,6 @@
 {
  "promptKey": "769284c8174095f6",
  "items": {
-  "rankedNextGames:2026-wk10-merrimack-wake-forest": {
-   "hash": "e438a61a0860cdfd",
-   "blurb": "No. 14 Wake Forest welcomes Merrimack in a no-line tune-up. The Demon Deacons just need a tidy, healthy afternoon before the schedule tightens again."
-  },
-  "bubbleNotes:wake-forest": {
-   "hash": "419b6a9a2a951c7d",
-   "blurb": "Wake Forest is stuck at the 15 seed, three spots from the field with no upward movement. Staying put won't be enough much longer."
-  },
   "games:2026-wk10-miami-notre-dame": {
    "hash": "6a75a505cef69bfb",
    "blurb": "No. 1 Miami heads to South Bend as a 5.5-point underdog against No. 4 Notre Dame, with ESPN giving the Irish a 61.3% edge at home. A total of 57.5 suggests points, and the loser's grip on a top-four bye gets a lot shakier."
@@ -65,9 +57,9 @@
    "hash": "9d56f1443b706ddd",
    "blurb": "No. 24 Arizona hosts TCU as an 8.5-point favorite with a 73.8% win probability. The Wildcats are trying to prove their late-season ranking is no fluke."
   },
-  "rankedNextGames:2026-wk10-texas-a-m-south-carolina": {
-   "hash": "9fc0b2f0c52794c2",
-   "blurb": "No. 23 South Carolina is favored by 7.5 over Texas A&M, though ESPN's model sees it much tighter at 54.1-45.9. The Gamecocks' spot in the Top 25 is on the line."
+  "rankedNextGames:2026-wk10-merrimack-wake-forest": {
+   "hash": "e438a61a0860cdfd",
+   "blurb": "No. 14 Wake Forest welcomes Merrimack in a no-line tune-up. The Demon Deacons just need a tidy, healthy afternoon before the schedule tightens again."
   },
   "rankedNextGames:2026-wk10-iowa-northwestern": {
    "hash": "aab5be0d3dc757e5",
@@ -120,6 +112,14 @@
   "bubbleNotes:texas-tech": {
    "hash": "ae07b965d1dfdf1c",
    "blurb": "Texas Tech holds at the 14 seed, two spots from the field, with no ranked opponent on deck -- the Red Raiders will need help or dominance to climb."
+  },
+  "bubbleNotes:wake-forest": {
+   "hash": "419b6a9a2a951c7d",
+   "blurb": "Wake Forest is stuck at the 15 seed, three spots from the field with no upward movement. Staying put won't be enough much longer."
+  },
+  "rankedNextGames:2026-wk10-texas-a-m-south-carolina": {
+   "hash": "f9895d691f03d94f",
+   "blurb": "No. 23 South Carolina lays seven at home against Texas A&M in a game the market and the model don't quite agree on -- ESPN gives the Gamecocks just a 54.1% edge despite the touchdown spread. With a 51.5 total pointing to a grinder, the Aggies only need to keep it close to make the Gamecocks sweat their ranking."
   }
  }
 }
