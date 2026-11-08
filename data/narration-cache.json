@@ -1,13 +1,9 @@
 {
  "promptKey": "769284c8174095f6",
  "items": {
-  "rankedNextGames:2026-wk10-tcu-arizona": {
-   "hash": "b54b85f07e937666",
-   "blurb": "Arizona pulled off a wild 29-28 finish, scoring on a Noah Fifita 15-yard touchdown pass to Quincy Craig with 1:45 left, failing the two-pointer, then recovering an onside pooch kick to set up Michael Salgado-Medina's 37-yard field goal with 39 seconds to go. TCU had led 28-20 in the fourth behind Jaden Craig's second rushing score, and Hudson Hooper's 93-yard pick-six in the second quarter looked like the game's defining play until Tyrese Boss sealed it with a late interception."
-  },
-  "games:2026-wk10-miami-notre-dame": {
-   "hash": "1ca4397d564191ea",
-   "blurb": "Notre Dame built a 24-3 cushion behind three CJ Carr touchdown passes — two to Micah Gilbert — and then survived a furious Miami rally to win 31-24, with Darian Mensah throwing three second-half-fueled TDs of his own. The Irish defense had the final say: Luke Talich, who picked Mensah off in the third quarter, broke up a fourth-down end-zone throw to Elija Lofton with 3:36 left to seal it."
+  "games:2026-wk10-kentucky-tennessee": {
+   "hash": "7bab0de095e0c436",
+   "blurb": "Daune Morris ripped off a 66-yard touchdown run in the first quarter and Tennessee's defense did the rest in a 34-6 rout of Kentucky, forcing three turnovers and holding the Wildcats to two red-zone field goals. DeSean Bishop added 109 yards and two fourth-quarter scores as Kentucky's six-game winning streak ended in Knoxville."
   },
   "games:2026-wk10-byu-utah": {
    "hash": "c8b07efe5b9215c6",
@@ -17,77 +13,37 @@
    "hash": "7815e5d152871c16",
    "blurb": "Keelon Russell played through an ankle injury to throw three touchdown passes — to Josh Ford, Cederian Morgan and Kaleb Edwards — as Alabama pulled away from LSU 31-13 in Baton Rouge. The Tide defense did the rest, stuffing LSU on all four fourth-down tries and intercepting Sam Leavitt despite his 380 passing yards."
   },
-  "games:2026-wk10-kentucky-tennessee": {
-   "hash": "7bab0de095e0c436",
-   "blurb": "Daune Morris ripped off a 66-yard touchdown run in the first quarter and Tennessee's defense did the rest in a 34-6 rout of Kentucky, forcing three turnovers and holding the Wildcats to two red-zone field goals. DeSean Bishop added 109 yards and two fourth-quarter scores as Kentucky's six-game winning streak ended in Knoxville."
-  },
   "games:2026-wk10-oregon-ohio-state": {
    "hash": "e99858de735a52e7",
    "blurb": "Down 14-0 after two Bo Jackson touchdown runs, Oregon scored on four of its next five possessions and never looked back in a 41-28 win in Columbus. Dylan Raiola threw for 257 yards and two scores and Dierre Hill Jr. ran for two more, including a 48-yarder, as the Buckeyes dropped a second straight game."
-  },
-  "games:2026-wk10-georgia-ole-miss": {
-   "hash": "96581ddb9447e737",
-   "blurb": "Georgia buried Ole Miss 42-7, scoring on nearly every turn behind Gunner Stockton, who threw four touchdown passes — three to Talyn Taylor, covering 58, 6 and 65 yards — and ran for a 15-yard score himself. The Rebels didn't reach the end zone until the fourth quarter and coughed up two turnovers along the way."
   },
   "rankedNextGames:2026-wk10-texas-missouri": {
    "hash": "b8a05df60b09a7e3",
    "blurb": "Arch Manning threw for 297 yards and three touchdowns as Texas scored the last three TDs of the game to beat Missouri 34-20 in Columbia. The clincher came after Graceson Littleton's late interception off a tipped Austin Simmons pass, which set up Raleek Brown's 8-yard run to put it away."
   },
-  "rankedNextGames:2026-wk10-ucla-minnesota": {
-   "hash": "6fd37d5ee521c545",
-   "blurb": "UCLA stayed unbeaten at 9-0 with a 34-20 win at Minnesota, powered by two 75-yard fourth-quarter touchdown bombs from Ty Dieffenbach to Aidan Mizell on back-to-back one-play possessions. Wayne Knight added 109 rushing yards and his 15th score of the season as the Bruins overcame two turnovers to hold their Big Ten lead."
-  },
   "rankedNextGames:2026-wk10-cincinnati-houston": {
    "hash": "d4f8c8044d556127",
    "blurb": "Re'Shaun Sanford II broke a 24-all tie with a 51-yard touchdown run with 5:10 to play and Houston held on to beat Cincinnati 31-24. Conner Weigman threw for 227 yards and two scores to Amare Thomas, and the Cougars sealed it when a replay review ruled a Cincinnati swing pass backward and awarded them the recovery."
   },
-  "rankedNextGames:2026-wk10-west-virginia-texas-tech": {
-   "hash": "9ab9a78738455436",
-   "blurb": "Texas Tech is a 16.5-point favorite at home against West Virginia with the total up at 68.5, a get-right spot for a Red Raiders team sitting on the playoff bubble. Anything short of a comfortable win would sting in the committee's eyes."
-  },
-  "rankedNextGames:2026-wk10-oklahoma-florida": {
-   "hash": "a11fd9f772e9bcdd",
-   "blurb": "Oklahoma's defense smothered Florida in a 23-7 win, forcing two turnovers including a Courtland Guillory end-zone interception that killed the Gators' best drive of the night. John Mateer threw a pair of short touchdown passes under new play-caller Jason Witten, the last one capping a 20-play, 89-yard march that ate nearly 13 minutes."
-  },
-  "rankedNextGames:2026-wk10-iowa-northwestern": {
-   "hash": "576408a80939ded8",
-   "blurb": "Iowa handed Northwestern its first loss at the new Ryan Field, 24-10, as Hank Brown ran for a 21-yard score and threw a 24-yard touchdown to Tony Diaz to cap a 97-yard drive. Braeden Jackson's 96-yard kickoff return broke it open, and the Hawkeyes' defense piled up six sacks while keeping the Wildcats out of the red zone until the fourth quarter."
-  },
-  "rankedNextGames:2026-wk10-boise-state-colorado-state": {
-   "hash": "db3dcb75b4e62226",
-   "blurb": "Backup quarterback Max Cutforth went 16 of 19 for 317 yards with four touchdown passes and a scoring run as Boise State rolled Colorado State 64-38 for its eighth straight win. Dylan Riley piled up 300 all-purpose yards and three touchdowns, starting with a 73-yard catch-and-run on the second play of the game."
+  "rankedNextGames:2026-wk10-ucla-minnesota": {
+   "hash": "6fd37d5ee521c545",
+   "blurb": "UCLA stayed unbeaten at 9-0 with a 34-20 win at Minnesota, powered by two 75-yard fourth-quarter touchdown bombs from Ty Dieffenbach to Aidan Mizell on back-to-back one-play possessions. Wayne Knight added 109 rushing yards and his 15th score of the season as the Bruins overcame two turnovers to hold their Big Ten lead."
   },
   "rankedNextGames:2026-wk10-merrimack-wake-forest": {
    "hash": "4d79c391e0d1f6f7",
    "blurb": "Wake Forest did exactly what a 46.5-point favorite should do and then some, shutting out Merrimack 77-0. Business handled before a tougher stretch ahead."
   },
+  "rankedNextGames:2026-wk10-tcu-arizona": {
+   "hash": "b54b85f07e937666",
+   "blurb": "Arizona pulled off a wild 29-28 finish, scoring on a Noah Fifita 15-yard touchdown pass to Quincy Craig with 1:45 left, failing the two-pointer, then recovering an onside pooch kick to set up Michael Salgado-Medina's 37-yard field goal with 39 seconds to go. TCU had led 28-20 in the fourth behind Jaden Craig's second rushing score, and Hudson Hooper's 93-yard pick-six in the second quarter looked like the game's defining play until Tyrese Boss sealed it with a late interception."
+  },
   "rankedNextGames:2026-wk10-texas-a-m-south-carolina": {
    "hash": "8e79e88aac878ceb",
    "blurb": "LaNorris Sellers threw for 251 yards and a touchdown and then iced it with a 41-yard touchdown run on a bad ankle inside the final two minutes as South Carolina beat Texas A&M 17-9. The Gamecocks held the Aggies to three David Olano field goals and no touchdowns for their fourth straight win."
   },
-  "predictions:ohio-state": {
-   "hash": "f9575bad6a0e8fb6",
-   "blurb": "A brutal tumble from No. 2 to No. 12, even as the advanced numbers refuse to budge — Ohio State is still SP+'s top team and second in FPI. The metrics think the Buckeyes are better than their current slot; the committee needs to see it on the field."
-  },
-  "predictions:kentucky": {
-   "hash": "771c56435357b586",
-   "blurb": "Kentucky climbed to No. 6 from No. 9, but the computers are the dissenting vote: 31st in SP+ and 26th in FPI. That is one of the widest gaps between ranking and rating in the entire Top 25."
-  },
-  "predictions:notre-dame": {
-   "hash": "85e60bec0a27add6",
-   "blurb": "The Irish slid from No. 5 to No. 11 in the rankings while sitting first in FPI and third in SP+. By the numbers, there may not be a more underrated team in the country."
-  },
-  "predictions:wake-forest": {
-   "hash": "faa5c9e28ba5382a",
-   "blurb": "Wake Forest dipped a pair of spots to No. 16, with the models split — 11th in FPI but only 25th in SP+. The ACC schedule ahead will settle the argument."
-  },
   "predictions:utah": {
    "hash": "3c5afdf7b81123e5",
    "blurb": "Utah jumped from No. 6 to No. 3, comfortably ahead of where the metrics have the Utes at 10th in both SP+ and FPI. Undefeated buys you the benefit of the doubt."
-  },
-  "fieldStorylines:conf-race-sec": {
-   "hash": "f32e2d680f502358",
-   "blurb": "The SEC's automatic bid runs through Georgia at No. 2, with Alabama three spots back at No. 5 — close enough that one Bulldogs stumble flips the league's playoff representative."
   },
   "fieldStorylines:conf-race-big-ten": {
    "hash": "c5db18084e511f82",
@@ -105,13 +61,57 @@
    "hash": "6b6ad4260c1edea2",
    "blurb": "LSU nudged up a spot to the 15 seed but remains three places from the field, and the schedule offers no mercy: a date with the No. 5 team is next. Win it and the entire picture changes."
   },
-  "bubbleNotes:texas-tech": {
-   "hash": "bc6b64e5d2b022e4",
-   "blurb": "Texas Tech slipped two spots to the 16 seed, now four places outside the field and running out of runway. An unranked opponent is next, which means style points are all they can bank."
-  },
   "bubbleNotes:tennessee": {
    "hash": "5e1ee6eb703b210e",
    "blurb": "Tennessee is the best-trending team on the bubble, up three spots to the 14 seed and just two away from the field. A date with the No. 6 team is next — exactly the kind of win that would force the committee's hand."
+  },
+  "games:2026-wk10-miami-notre-dame": {
+   "hash": "75214418e5da3f7c",
+   "blurb": "CJ Carr threw for 319 yards and three touchdowns -- two to Micah Gilbert, one to Jordan Faison -- as Notre Dame built a 21-point cushion and survived No. 1 Miami 31-24 in South Bend. The Hurricanes, playing without injured receiver Malachi Toney, forced the issue late behind three Darian Mensah touchdown passes but committed two turnovers and never led, with Luke Talich's interception and a disputed late breakup helping seal it."
+  },
+  "games:2026-wk10-georgia-ole-miss": {
+   "hash": "25fcf691da45da2a",
+   "blurb": "Gunner Stockton threw four touchdown passes and ran for a fifth as Georgia buried Ole Miss 42-7 in Oxford, piling up 482 total yards and a 28-0 halftime lead. Talyn Taylor caught three of those scores, including a 65-yarder, and the Rebels -- who coughed up two turnovers -- saw their 16-game home winning streak end."
+  },
+  "rankedNextGames:2026-wk10-west-virginia-texas-tech": {
+   "hash": "c04a29f68915eff8",
+   "blurb": "Thomas Castellanos threw a career-high five touchdown passes, the last a 5-yarder to Kenny Johnson with 2:44 left, as No. 15 Texas Tech outlasted West Virginia 53-48 in a 1,220-yard Big 12 track meet. The Red Raiders led by 14 at the half, fell behind by seven in the fourth, then got a third-and-1 stuff of Cam Cook and a 69-yard answering drive to stay on course in the league race."
+  },
+  "rankedNextGames:2026-wk10-oklahoma-florida": {
+   "hash": "eac147d4ce56819f",
+   "blurb": "Oklahoma, a four-point underdog, smothered No. 24 Florida 23-7 in the Swamp, holding the Gators to 203 yards and forcing two turnovers. John Mateer threw two short touchdown passes under interim play-caller Jason Witten, the second to Isaiah Sategna III capping an 89-yard, 20-play drive that ate nearly 13 minutes of clock."
+  },
+  "rankedNextGames:2026-wk10-iowa-northwestern": {
+   "hash": "d6d9e942b415e1e2",
+   "blurb": "No. 19 Iowa won at Northwestern 24-10 behind Hank Brown, who ran 21 yards for a score and threw a 24-yard touchdown to Tony Diaz, plus Braeden Jackson's 96-yard kickoff return. The Hawkeyes' defense did the rest with six sacks, keeping the Wildcats out of the red zone until the fourth quarter despite Iowa's two turnovers."
+  },
+  "rankedNextGames:2026-wk10-boise-state-colorado-state": {
+   "hash": "6323eac4e5f7bbb8",
+   "blurb": "Backup quarterback Max Cutforth threw four touchdown passes and ran for another in place of the injured Maddux Madsen as No. 25 Boise State rolled past Colorado State 64-38 for its eighth straight win. Dylan Riley piled up 300 all-purpose yards and three scores, including a 73-yard catch-and-run on the game's second snap, as the Broncos racked up 669 total yards."
+  },
+  "predictions:kentucky": {
+   "hash": "36f57522b24eeede",
+   "blurb": "Kentucky climbs from No. 9 to No. 6, though the computers remain unconvinced -- SP+ has the Wildcats 31st and FPI 35th, one of the widest gaps between poll standing and metrics in the field."
+  },
+  "predictions:ohio-state": {
+   "hash": "269ac4934fd302b9",
+   "blurb": "A brutal tumble from No. 2 to No. 12 for Ohio State, but the advanced numbers still love the Buckeyes: No. 1 in SP+ and No. 5 in FPI say they're far from done."
+  },
+  "predictions:notre-dame": {
+   "hash": "3953186866c97894",
+   "blurb": "Notre Dame jumps from No. 5 to No. 11 in the metrics' eyes -- wait, the Irish fall in the poll even as FPI ranks them No. 1 overall and SP+ has them third, a resume-versus-quality argument waiting to happen."
+  },
+  "predictions:wake-forest": {
+   "hash": "a87f14d0be9bcf8f",
+   "blurb": "Wake Forest slips two spots to No. 16, and the models are split on whether that's fair: FPI has the Deacons 13th, SP+ a more skeptical 25th."
+  },
+  "fieldStorylines:conf-race-sec": {
+   "hash": "9445f27f229f4291",
+   "blurb": "The SEC's automatic bid runs through No. 2 Georgia, with No. 5 Alabama lurking just three spots back -- close enough that one Bulldog slip flips the league's playoff representative."
+  },
+  "bubbleNotes:texas-tech": {
+   "hash": "aaa94090c922590b",
+   "blurb": "Texas Tech sits 16th, the last team on the bubble and four spots from the field, and the Red Raiders are trending the wrong way after dropping two places in the latest look."
   }
  }
 }
