@@ -1,117 +1,117 @@
 {
  "promptKey": "769284c8174095f6",
  "items": {
-  "games:2026-wk10-miami-notre-dame": {
-   "hash": "841bc81d436378d3",
-   "blurb": "The No. 1 team in the country walks into South Bend as a 7-point underdog, with ESPN's model giving Notre Dame a 60.5% edge. A total of 54.5 suggests points are available, and Miami's hold on the top spot is the thing on the line."
-  },
-  "games:2026-wk10-georgia-ole-miss": {
-   "hash": "99ffb955284ef335",
-   "blurb": "No. 2 Georgia is a 3.5-point favorite on the road against No. 10 Ole Miss, one of the few spots all year the Bulldogs are close to a coin flip (55.5% per ESPN). A 56.5 total points to a shootout in Oxford with SEC positioning on the line."
-  },
-  "rankedNextGames:2026-wk10-cincinnati-houston": {
-   "hash": "a7732dcce438c598",
-   "blurb": "No. 17 Houston hosts Cincinnati as a 10.5-point favorite with an 83.9% win probability, and the 61.5 total is the highest on the board this week. Style points matter for the Cougars' ranking."
-  },
-  "predictions:notre-dame": {
-   "hash": "34353a88acb29665",
-   "blurb": "Notre Dame dropped from No. 5 to No. 11 while sitting No. 1 in FPI and No. 3 in SP+. Hosting No. 1 Miami as a favorite is the quickest route back up."
-  },
-  "games:2026-wk10-byu-utah": {
-   "hash": "61d1d7a2f8c9c458",
-   "blurb": "The Holy War arrives with real Big 12 weight: No. 3 Utah hosts No. 9 BYU as a 4-point favorite with the total sitting at a modest 49.5. The league's top two teams meet with the conference's automatic bid pointed squarely at the winner."
-  },
-  "games:2026-wk10-alabama-lsu": {
-   "hash": "8e12de5e0fe2e108",
-   "blurb": "No. 5 Alabama heads to Baton Rouge as a 6-point underdog to No. 14 LSU, with ESPN's model giving the Tigers a 56.9% edge in this one. A rivalry night with a 53.5 total, and the loser's SEC race math gets a lot harder."
-  },
-  "games:2026-wk10-kentucky-tennessee": {
-   "hash": "eef30845765946c3",
-   "blurb": "No. 6 Kentucky is the higher-ranked team but a 6-point road dog at No. 13 Tennessee, where ESPN gives the Vols a 66.7% shot. Tennessee needs this to climb out of the bubble; Kentucky needs it to protect a top-10 spot."
-  },
-  "games:2026-wk10-oregon-ohio-state": {
-   "hash": "dc18c453b9728811",
-   "blurb": "No. 12 Ohio State lays 7.5 at home against No. 23 Oregon with a tight 44.5 total, and ESPN pegs the Buckeyes at 83.2%. Ohio State is trying to steady itself after a tumble in the rankings; Oregon would love to be the team that finishes the slide."
-  },
-  "rankedNextGames:2026-wk10-texas-missouri": {
-   "hash": "3a34c4cfb579b90c",
-   "blurb": "No. 7 Texas visits No. 18 Missouri as a 2.5-point favorite, the kind of line that says this is a coin flip in Columbia. The 44.5 total suggests both defenses show up."
-  },
-  "rankedNextGames:2026-wk10-ucla-minnesota": {
-   "hash": "1381ec2154e7c704",
-   "blurb": "No. 8 UCLA goes to Minnesota favored by just 3.5 with a 38.5 total, pointing to a grinder. The Bruins are chasing Indiana in the Big Ten and can't afford a slip here."
-  },
-  "rankedNextGames:2026-wk10-west-virginia-texas-tech": {
-   "hash": "adb228bafe149ac5",
-   "blurb": "No. 15 Texas Tech is a 16.5-point home favorite over West Virginia with a 66.5 total, and ESPN gives the Red Raiders an 89.4% chance. Sitting on the back edge of the bubble, Tech needs the style points as much as the win."
-  },
-  "rankedNextGames:2026-wk10-oklahoma-florida": {
-   "hash": "5f6f4cb5808ec199",
-   "blurb": "No. 24 Florida hosts Oklahoma as a 4.5-point favorite, with ESPN's model liking the Gators at 64.2%. A win keeps Florida in the rankings conversation; a loss likely ends it."
-  },
-  "rankedNextGames:2026-wk10-iowa-northwestern": {
-   "hash": "15538c0f8a7cca19",
-   "blurb": "No. 19 Iowa is a 3-point favorite at Northwestern, though ESPN actually leans Wildcats at 55.2% — a rare split between the line and the model. The 42.5 total fits the matchup."
-  },
-  "rankedNextGames:2026-wk10-boise-state-colorado-state": {
-   "hash": "aa895a214515e29b",
-   "blurb": "No. 25 Boise State is a 16.5-point favorite at Colorado State with the total up at 68.5, and ESPN gives the Broncos a 93.3% shot. Business trip for a team trying to hold its place at the back of the Top 25."
-  },
   "rankedNextGames:2026-wk10-tcu-arizona": {
    "hash": "b54b85f07e937666",
    "blurb": "Arizona pulled off a wild 29-28 finish, scoring on a Noah Fifita 15-yard touchdown pass to Quincy Craig with 1:45 left, failing the two-pointer, then recovering an onside pooch kick to set up Michael Salgado-Medina's 37-yard field goal with 39 seconds to go. TCU had led 28-20 in the fourth behind Jaden Craig's second rushing score, and Hudson Hooper's 93-yard pick-six in the second quarter looked like the game's defining play until Tyrese Boss sealed it with a late interception."
   },
+  "games:2026-wk10-miami-notre-dame": {
+   "hash": "1ca4397d564191ea",
+   "blurb": "Notre Dame built a 24-3 cushion behind three CJ Carr touchdown passes — two to Micah Gilbert — and then survived a furious Miami rally to win 31-24, with Darian Mensah throwing three second-half-fueled TDs of his own. The Irish defense had the final say: Luke Talich, who picked Mensah off in the third quarter, broke up a fourth-down end-zone throw to Elija Lofton with 3:36 left to seal it."
+  },
+  "games:2026-wk10-byu-utah": {
+   "hash": "c8b07efe5b9215c6",
+   "blurb": "Utah trailed 20-14 at the half and then took the Holy War over completely, shutting out BYU after the break for a 28-20 win. Devon Dampier accounted for four touchdowns — two passes to Braden Pegan, two runs of his own — while the Utes picked off Bear Bachmeier four times, including twice in the end zone in the fourth quarter, to stay unbeaten."
+  },
+  "games:2026-wk10-alabama-lsu": {
+   "hash": "7815e5d152871c16",
+   "blurb": "Keelon Russell played through an ankle injury to throw three touchdown passes — to Josh Ford, Cederian Morgan and Kaleb Edwards — as Alabama pulled away from LSU 31-13 in Baton Rouge. The Tide defense did the rest, stuffing LSU on all four fourth-down tries and intercepting Sam Leavitt despite his 380 passing yards."
+  },
+  "games:2026-wk10-kentucky-tennessee": {
+   "hash": "7bab0de095e0c436",
+   "blurb": "Daune Morris ripped off a 66-yard touchdown run in the first quarter and Tennessee's defense did the rest in a 34-6 rout of Kentucky, forcing three turnovers and holding the Wildcats to two red-zone field goals. DeSean Bishop added 109 yards and two fourth-quarter scores as Kentucky's six-game winning streak ended in Knoxville."
+  },
+  "games:2026-wk10-oregon-ohio-state": {
+   "hash": "e99858de735a52e7",
+   "blurb": "Down 14-0 after two Bo Jackson touchdown runs, Oregon scored on four of its next five possessions and never looked back in a 41-28 win in Columbus. Dylan Raiola threw for 257 yards and two scores and Dierre Hill Jr. ran for two more, including a 48-yarder, as the Buckeyes dropped a second straight game."
+  },
+  "games:2026-wk10-georgia-ole-miss": {
+   "hash": "96581ddb9447e737",
+   "blurb": "Georgia buried Ole Miss 42-7, scoring on nearly every turn behind Gunner Stockton, who threw four touchdown passes — three to Talyn Taylor, covering 58, 6 and 65 yards — and ran for a 15-yard score himself. The Rebels didn't reach the end zone until the fourth quarter and coughed up two turnovers along the way."
+  },
+  "rankedNextGames:2026-wk10-texas-missouri": {
+   "hash": "b8a05df60b09a7e3",
+   "blurb": "Arch Manning threw for 297 yards and three touchdowns as Texas scored the last three TDs of the game to beat Missouri 34-20 in Columbia. The clincher came after Graceson Littleton's late interception off a tipped Austin Simmons pass, which set up Raleek Brown's 8-yard run to put it away."
+  },
+  "rankedNextGames:2026-wk10-ucla-minnesota": {
+   "hash": "6fd37d5ee521c545",
+   "blurb": "UCLA stayed unbeaten at 9-0 with a 34-20 win at Minnesota, powered by two 75-yard fourth-quarter touchdown bombs from Ty Dieffenbach to Aidan Mizell on back-to-back one-play possessions. Wayne Knight added 109 rushing yards and his 15th score of the season as the Bruins overcame two turnovers to hold their Big Ten lead."
+  },
+  "rankedNextGames:2026-wk10-cincinnati-houston": {
+   "hash": "d4f8c8044d556127",
+   "blurb": "Re'Shaun Sanford II broke a 24-all tie with a 51-yard touchdown run with 5:10 to play and Houston held on to beat Cincinnati 31-24. Conner Weigman threw for 227 yards and two scores to Amare Thomas, and the Cougars sealed it when a replay review ruled a Cincinnati swing pass backward and awarded them the recovery."
+  },
+  "rankedNextGames:2026-wk10-west-virginia-texas-tech": {
+   "hash": "9ab9a78738455436",
+   "blurb": "Texas Tech is a 16.5-point favorite at home against West Virginia with the total up at 68.5, a get-right spot for a Red Raiders team sitting on the playoff bubble. Anything short of a comfortable win would sting in the committee's eyes."
+  },
+  "rankedNextGames:2026-wk10-oklahoma-florida": {
+   "hash": "a11fd9f772e9bcdd",
+   "blurb": "Oklahoma's defense smothered Florida in a 23-7 win, forcing two turnovers including a Courtland Guillory end-zone interception that killed the Gators' best drive of the night. John Mateer threw a pair of short touchdown passes under new play-caller Jason Witten, the last one capping a 20-play, 89-yard march that ate nearly 13 minutes."
+  },
+  "rankedNextGames:2026-wk10-iowa-northwestern": {
+   "hash": "576408a80939ded8",
+   "blurb": "Iowa handed Northwestern its first loss at the new Ryan Field, 24-10, as Hank Brown ran for a 21-yard score and threw a 24-yard touchdown to Tony Diaz to cap a 97-yard drive. Braeden Jackson's 96-yard kickoff return broke it open, and the Hawkeyes' defense piled up six sacks while keeping the Wildcats out of the red zone until the fourth quarter."
+  },
+  "rankedNextGames:2026-wk10-boise-state-colorado-state": {
+   "hash": "db3dcb75b4e62226",
+   "blurb": "Backup quarterback Max Cutforth went 16 of 19 for 317 yards with four touchdown passes and a scoring run as Boise State rolled Colorado State 64-38 for its eighth straight win. Dylan Riley piled up 300 all-purpose yards and three touchdowns, starting with a 73-yard catch-and-run on the second play of the game."
+  },
   "rankedNextGames:2026-wk10-merrimack-wake-forest": {
-   "hash": "027f4a26b733df4e",
-   "blurb": "No. 16 Wake Forest is favored by 46.5 over Merrimack, a get-right afternoon for a team that slipped two spots in the rankings. The only question is how long the starters stay on the field."
+   "hash": "4d79c391e0d1f6f7",
+   "blurb": "Wake Forest did exactly what a 46.5-point favorite should do and then some, shutting out Merrimack 77-0. Business handled before a tougher stretch ahead."
   },
   "rankedNextGames:2026-wk10-texas-a-m-south-carolina": {
-   "hash": "1e71f14334e3bf8b",
-   "blurb": "No. 21 South Carolina hosts Texas A&M as a 6.5-point favorite, with ESPN giving the Gamecocks a narrower 54.1% edge. A 52.5 total hints at points in Columbia."
+   "hash": "8e79e88aac878ceb",
+   "blurb": "LaNorris Sellers threw for 251 yards and a touchdown and then iced it with a 41-yard touchdown run on a bad ankle inside the final two minutes as South Carolina beat Texas A&M 17-9. The Gamecocks held the Aggies to three David Olano field goals and no touchdowns for their fourth straight win."
   },
   "predictions:ohio-state": {
-   "hash": "015db07a2d3ef8c3",
-   "blurb": "A brutal fall from No. 2 to No. 12 for Ohio State, but the computers haven't blinked — SP+ still has the Buckeyes first and FPI second. That gap between poll perception and model math makes them the most dangerous team outside the top 10."
+   "hash": "f9575bad6a0e8fb6",
+   "blurb": "A brutal tumble from No. 2 to No. 12, even as the advanced numbers refuse to budge — Ohio State is still SP+'s top team and second in FPI. The metrics think the Buckeyes are better than their current slot; the committee needs to see it on the field."
   },
   "predictions:kentucky": {
-   "hash": "cbe750ddacd386d5",
-   "blurb": "Kentucky climbed from No. 9 to No. 6, but the models are deeply skeptical: 31st in SP+ and 26th in FPI. A trip to Tennessee will tell us which number is closer to the truth."
+   "hash": "771c56435357b586",
+   "blurb": "Kentucky climbed to No. 6 from No. 9, but the computers are the dissenting vote: 31st in SP+ and 26th in FPI. That is one of the widest gaps between ranking and rating in the entire Top 25."
+  },
+  "predictions:notre-dame": {
+   "hash": "85e60bec0a27add6",
+   "blurb": "The Irish slid from No. 5 to No. 11 in the rankings while sitting first in FPI and third in SP+. By the numbers, there may not be a more underrated team in the country."
   },
   "predictions:wake-forest": {
-   "hash": "e781467534821426",
-   "blurb": "Wake Forest slid from No. 14 to No. 16 despite an FPI that likes them at 11th. SP+ is the dissenter at 25th, leaving the Demon Deacons a bit of a split decision."
+   "hash": "faa5c9e28ba5382a",
+   "blurb": "Wake Forest dipped a pair of spots to No. 16, with the models split — 11th in FPI but only 25th in SP+. The ACC schedule ahead will settle the argument."
   },
   "predictions:utah": {
-   "hash": "ce58c45baef1ae4d",
-   "blurb": "Utah jumped from No. 6 to No. 3 while both models hold steady at 10th. The Holy War is the Utes' chance to prove the poll, not the computers, has it right."
+   "hash": "3c5afdf7b81123e5",
+   "blurb": "Utah jumped from No. 6 to No. 3, comfortably ahead of where the metrics have the Utes at 10th in both SP+ and FPI. Undefeated buys you the benefit of the doubt."
   },
   "fieldStorylines:conf-race-sec": {
-   "hash": "aff47deb0344fe5b",
-   "blurb": "Georgia at No. 2 holds the SEC's auto bid, with Alabama three spots back at No. 5 — close enough that one Saturday flips it. The Tide's trip to LSU is the next domino."
+   "hash": "f32e2d680f502358",
+   "blurb": "The SEC's automatic bid runs through Georgia at No. 2, with Alabama three spots back at No. 5 — close enough that one Bulldogs stumble flips the league's playoff representative."
   },
   "fieldStorylines:conf-race-big-ten": {
-   "hash": "473c5b6870acbb2f",
-   "blurb": "Indiana sits at No. 4 atop the Big Ten with UCLA four spots behind at No. 8. The Bruins control their own climb, but they have to keep winning to stay in range."
+   "hash": "c5db18084e511f82",
+   "blurb": "Indiana holds the Big Ten's auto bid at No. 4 with UCLA four spots behind at No. 8. The Bruins have the resume momentum; they just need the Hoosiers to slip."
   },
   "fieldStorylines:conf-race-big-12": {
-   "hash": "ad16fdd32f8b6403",
-   "blurb": "Utah's No. 3 ranking gives it a six-spot cushion over No. 9 BYU in the Big 12 race — and the two meet head-to-head this week. The gap can close in a hurry."
+   "hash": "09eadc6802b638a9",
+   "blurb": "Utah sits at No. 3 and controls the Big 12's automatic bid, with BYU six spots back at No. 9 — the widest leader-chaser gap among the power leagues right now."
   },
   "bubbleNotes:ohio-state": {
-   "hash": "f769a5699275d15f",
-   "blurb": "Ohio State tumbled 10 spots to the 13 seed, now one place outside the field. No. 23 Oregon comes to Columbus next, a chance to stop the bleeding immediately."
+   "hash": "9d0292a345e88542",
+   "blurb": "Ohio State is the 13 seed, one spot outside the field after a 10-place freefall — no team on the bubble is trending worse. Next up is a matchup with a No. 23-ranked opponent, a game the Buckeyes can't afford to treat as a formality."
   },
   "bubbleNotes:lsu": {
-   "hash": "c492c80ae0632f5a",
-   "blurb": "LSU nudged up a spot to the 15 seed but still sits three places out of the field. Hosting No. 5 Alabama is exactly the kind of result that would fix that."
+   "hash": "6b6ad4260c1edea2",
+   "blurb": "LSU nudged up a spot to the 15 seed but remains three places from the field, and the schedule offers no mercy: a date with the No. 5 team is next. Win it and the entire picture changes."
   },
   "bubbleNotes:texas-tech": {
-   "hash": "f048bbf3200f6dc6",
-   "blurb": "Texas Tech slipped two spots to the 16 seed, four places from the field and running out of runway. The Red Raiders need wins and help."
+   "hash": "bc6b64e5d2b022e4",
+   "blurb": "Texas Tech slipped two spots to the 16 seed, now four places outside the field and running out of runway. An unranked opponent is next, which means style points are all they can bank."
   },
   "bubbleNotes:tennessee": {
-   "hash": "fa0ba53c2f955ba9",
-   "blurb": "Tennessee is trending the right way, up three to the 14 seed and two spots from the field. No. 6 Kentucky visits next with a chance to push the Vols all the way in."
+   "hash": "5e1ee6eb703b210e",
+   "blurb": "Tennessee is the best-trending team on the bubble, up three spots to the 14 seed and just two away from the field. A date with the No. 6 team is next — exactly the kind of win that would force the committee's hand."
   }
  }
 }
