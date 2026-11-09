@@ -45,6 +45,9 @@ export function replayInputs(record) {
     currentOrder, picks, teams,
     opts: {
       getOpponentInfo: (id) => info[id] ?? null, h2h, getLineInfo: (id) => lines[id] ?? null, week: record.week ?? null,
+      // Each team's losses once this week's games are in (attached by the loaders), for the
+      // loss-count terms; records without it replay exactly as before.
+      losses: record.lossesAfter ?? null,
     },
   };
 }

@@ -1,0 +1,42 @@
+{
+  "id": "experiment-3",
+  "writtenAt": "2026-11-09",
+  "writtenBefore": "any 2023 data was fetched or looked at; committed before the fetch so git history shows the order",
+  "question": "Does pulling every ranked team down by its number of losses (so close calls break toward the better record) beat the live model on a season it wasn't tuned on?",
+  "why": "The Nov 6 cohort analysis (2024-2026, descriptive) found voters sort by loss count more than the live model does: about 40% of the live model's wrong pairs had voters putting the fewer-loss team on top, more than half of them in weeks where the more-loss team didn't lose, and the model leaves a top-10 team's 2nd loss too high (5.3 fewer-loss teams still below it vs 3.1 real). A per-game loss term can't see a team's record in a week it wins or has a bye; this term applies every week. The user's starting idea was narrower (a 3rd loss drops a team below the 2-loss teams), so that version is tested too.",
+  "data": {
+    "holdout": {
+      "season": 2023,
+      "construction": "identical to experiments 1-2: scripts/fetch-pickem-history.mjs (CFBD /rankings, /games, /lines, regular season), scripts/lib/pickem-history.mjs (same Elo stand-ins, quality-win rule, and alignment check); losses per team counted from that season's regular-season finals through each poll week's games"
+    },
+    "check": {
+      "season": 2026,
+      "transitions": "poll weeks 1-9 (week 3 live snapshot, the rest rebuilt from git), each against the next AP poll from data/current.json; losses from current.json's game logs"
+    },
+    "context": { "season": 2025, "use": "2024 and 2025 together are where the values were fit (scripts/fit-loss-pull.mjs); 2025 is reported for reference, not evidence" }
+  },
+  "metric": "weighted pairwise order errors, exactly as experiments 1-2 (transitions out of poll weeks 1-2 weigh 0.5, later 1.0; exits tied just below #25; entrants not scored)",
+  "baseline": {
+    "name": "LIVE",
+    "params": { "lossScale": 2.5 },
+    "source": "what src/utils/projectTop25.js runs now (experiment 2's pick)"
+  },
+  "models": {
+    "LP": {
+      "params": { "lossScale": 2.5, "lossCountPull": 0.75 },
+      "source": "2024+2025, one-standard-error rule over lossCountPull [0, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4] on LIVE; best 1 (380.5 vs 424 weighted errors), reported 0.75 (386). Refitting lossScale with the pull in place kept 2.5."
+    },
+    "L3": {
+      "params": { "lossScale": 2.5, "lossPullFrom3": 1 },
+      "source": "the narrower 3rd-loss version: 2024+2025, same rule over lossPullFrom3 [0, 0.5, 1, 2, 3, 4, 6, 8] on LIVE; best and reported 1 (410 vs 424)"
+    }
+  },
+  "chain": [
+    { "step": 1, "candidate": "LP", "asks": "does a per-loss pull on every team beat the live model on a new season?" },
+    { "step": 2, "candidate": "L3", "onlyIfCurrent": ["LIVE"], "asks": "if the broad pull failed, does the narrow 3rd-loss pull pass?" },
+    { "step": 3, "label": "3rd-loss extra 1", "adds": { "lossPullFrom3": 1 }, "onlyIfCurrent": ["LP"], "asks": "does an extra 3rd-loss pull add anything on top of LP? (2024+2025 said no: 386 at 0 and at 1)" }
+  ],
+  "passRule": "a step's candidate replaces the current model only if, on 2023: weighted errors fall (delta > 0); the 5th percentile of the summed improvement over 10,000 bootstrap resamples of 2023 transitions (seed 20260923) is > 0; neither half of the season (poll weeks 1-8, 9+) gets worse; and the improvement stays > 0 after removing every pair involving any single team",
+  "checkGuard": "the final model's weighted errors on 2026 weeks 1-9 must not exceed LIVE's; if they do, fall back through the adopted models to the last one that passes",
+  "outcome": "the chain's final model is the recommendation; nothing ships to the live page without the user's go-ahead; every model's numbers on 2023, 2026 and 2025 are reported either way"
+}

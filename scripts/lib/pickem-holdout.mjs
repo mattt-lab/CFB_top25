@@ -26,11 +26,15 @@ export function compareOnHoldout(records, currentParams, candidateParams, opts =
   };
 }
 
-// Walks the spec's chain from V1: each step's candidate replaces the current model only if it
-// passes compareOnHoldout against it. The final model must also not make the check season worse
-// than V1; if it does, fall back through the adopted models until one doesn't.
-export function runChain(holdout, check, { models, chain }, opts = {}) {
-  let current = { name: 'V1', params: { ...PARAMS_V1 } };
+// Walks the spec's chain from the baseline (V1 unless the spec names one): each step's candidate
+// replaces the current model only if it passes compareOnHoldout against it. The final model must
+// also not make the check season worse than the baseline; if it does, fall back through the
+// adopted models until one doesn't.
+export function runChain(holdout, check, { models, chain, baseline = null }, opts = {}) {
+  const base = baseline
+    ? { name: baseline.name, params: { ...PARAMS_V1, ...baseline.params } }
+    : { name: 'V1', params: { ...PARAMS_V1 } };
+  let current = base;
   const adopted = [current];
   const steps = [];
   for (const step of chain) {
@@ -48,7 +52,7 @@ export function runChain(holdout, check, { models, chain }, opts = {}) {
       adopted.push(cand);
     }
   }
-  const eV1 = evaluate(check, PARAMS_V1).wModel;
+  const eV1 = evaluate(check, base.params).wModel;
   const path = [];
   let final = adopted[0];
   for (let i = adopted.length - 1; i >= 0; i--) {
@@ -56,5 +60,5 @@ export function runChain(holdout, check, { models, chain }, opts = {}) {
     path.push({ name: adopted[i].name, eCheck });
     if (eCheck <= eV1) { final = adopted[i]; break; }
   }
-  return { steps, final, guard: { eV1, path, steppedBack: final !== current } };
+  return { steps, final, guard: { eV1, baseline: base.name, path, steppedBack: final !== current } };
 }

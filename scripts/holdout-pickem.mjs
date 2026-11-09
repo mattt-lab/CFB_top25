@@ -35,10 +35,12 @@ const names = { ...holdout.names, ...(context?.names ?? {}), ...Object.fromEntri
 const chainSpec = {
   models: Object.fromEntries(Object.entries(spec.models).map(([k, m]) => [k, m.params])),
   chain: spec.chain,
+  baseline: spec.baseline ?? null,
 };
 const result = runChain(holdout.records, check, chainSpec, OPTS);
 
-const MODELS = { V1: PARAMS_V1, ...Object.fromEntries(Object.entries(chainSpec.models).map(([k, p]) => [k, { ...PARAMS_V1, ...p }])) };
+const BASE = spec.baseline ? { [spec.baseline.name]: { ...PARAMS_V1, ...spec.baseline.params } } : {};
+const MODELS = { V1: PARAMS_V1, ...BASE, ...Object.fromEntries(Object.entries(chainSpec.models).map(([k, p]) => [k, { ...PARAMS_V1, ...p }])) };
 if (!(result.final.name in MODELS)) MODELS[result.final.name] = result.final.params;
 
 // ---- summaries -----------------------------------------------------------------------------------
@@ -84,20 +86,23 @@ p(`- **Context, ${spec.data.context.season}:** where the values were fit (not ev
 p();
 p('## Decision chain');
 p();
-p('| Step | Current -> candidate | Weighted errors (2024) | Gain | 5th pct | Weeks 1-8 / 9+ | Min gain without one team | Result |');
+const HS = spec.data.holdout.season;
+const CS = spec.data.check.season;
+const CW = check.length ? `wk${check[0].week}-${check.at(-1).week}` : 'none';
+p(`| Step | Current -> candidate | Weighted errors (${HS}) | Gain | 5th pct | Weeks 1-8 / 9+ | Min gain without one team | Result |`);
 p('|---|---|---|---|---|---|---|---|');
 for (const s of result.steps) {
   if (s.skipped) { p(`| ${s.step} | ${s.from} -> ${s.to} | | | | | | skipped (not on top of ${s.from}) |`); continue; }
   p(`| ${s.step} | ${s.from} -> ${s.to} | ${r2(s.eCurrent)} -> ${r2(s.eCandidate)} | ${signed(s.delta)} | ${signed(s.ci5)} | ${signed(s.early)} / ${signed(s.late)} | ${signed(s.minWithoutOneTeam)} (${names[s.worstTeam] ?? s.worstTeam}) | ${s.pass ? '**adopted**' : 'rejected'} |`);
 }
 p();
-p(`2026 guard: V1 makes ${r2(result.guard.eV1)} weighted errors on 2026 weeks 1-3; ${result.guard.path.map((g) => `${g.name} ${r2(g.eCheck)}`).join(', ')}.${result.guard.steppedBack ? ' Stepped back.' : ''}`);
+p(`${CS} guard: ${result.guard.baseline} makes ${r2(result.guard.eV1)} weighted errors on ${CS} ${CW}; ${result.guard.path.map((g) => `${g.name} ${r2(g.eCheck)}`).join(', ')}.${result.guard.steppedBack ? ' Stepped back.' : ''}`);
 p();
 p(`**Recommendation: ${result.final.name}** -- ${Object.entries(result.final.params).filter(([k, v]) => PARAMS_V1[k] !== v).map(([k, v]) => `${k}=${v}`).join(', ') || 'no change from V1'}.`);
 p();
 p('## Every model, every season');
 p();
-p('| Model | 2024 weighted errors (skill) | 2024 avg rank miss | 2024 root-mover miss | 2026 wk1-3 errors (skill) | 2026 avg miss | 2026 root-mover miss | 2025 errors (skill) |');
+p(`| Model | ${HS} weighted errors (skill) | ${HS} avg rank miss | ${HS} root-mover miss | ${CS} ${CW} errors (skill) | ${CS} avg miss | ${CS} root-mover miss | ${spec.data.context.season} errors (skill) |`);
 p('|---|---|---|---|---|---|---|---|');
 for (const name of Object.keys(S.holdout.table)) {
   const h = S.holdout.table[name];
@@ -106,7 +111,7 @@ for (const name of Object.keys(S.holdout.table)) {
   p(`| ${name} | ${r2(h.wModel)} (${pct(h.skill)}) | ${r2(h.mae)} | ${r2(h.rm)} | ${r2(c.wModel)} (${pct(c.skill)}) | ${r2(c.mae)} | ${r2(c.rm)} | ${x ? `${r2(x.wModel)} (${pct(x.skill)})` : 'n/a'} |`);
 }
 p();
-p(`Average rank miss is over teams in both polls (2024: ${S.holdout.n}; 2026: ${S.check.n}); root movers 2024: ${S.holdout.movers}, 2026: ${S.check.movers}.`);
+p(`Average rank miss is over teams in both polls (${HS}: ${S.holdout.n}; ${CS}: ${S.check.n}); root movers ${HS}: ${S.holdout.movers}, ${CS}: ${S.check.movers}.`);
 p();
 p(`### ${spec.data.holdout.season} week by week (weighted pairwise errors)`);
 p();

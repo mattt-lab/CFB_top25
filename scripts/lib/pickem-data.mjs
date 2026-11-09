@@ -11,18 +11,30 @@ export function readJsonAt(root, path) {
   return JSON.parse(readFileSync(join(root, path), 'utf8'));
 }
 
-// Consecutive weeks from week 1 while both the week's record and the next AP poll exist.
+// Consecutive weeks from week 1 while both the week's record and the next AP poll exist. Some
+// data/rankings week files were written before that week's AP poll came out and hold only the
+// Coaches poll (they're write-once), so for the current season the AP order falls back to
+// data/current.json's rankingsByWeek, which keeps updating. Each record also gets lossesAfter
+// (team -> losses through that week's games) from current.json's game logs when it's this season.
 export function loadSeasonWeeks(root, season) {
+  const cur = existsSync(join(root, 'data/current.json')) ? readJsonAt(root, 'data/current.json') : null;
+  const isCurrent = cur?.meta?.season === season;
   const weeks = [];
   for (let week = 1; ; week++) {
     const live = `data/pickem-snapshots/${season}-wk${pad(week)}.json`;
     const rebuilt = `data/pickem-backtest/${season}-wk${pad(week)}.json`;
     const next = `data/rankings/${season}-wk${pad(week + 1)}.json`;
     const path = existsSync(join(root, live)) ? live : existsSync(join(root, rebuilt)) ? rebuilt : null;
-    if (!path || !existsSync(join(root, next))) break;
-    const actualOrder = readJsonAt(root, next).polls?.ap;
+    if (!path) break;
+    let actualOrder = existsSync(join(root, next)) ? readJsonAt(root, next).polls?.ap : null;
+    if (!actualOrder?.length && isCurrent) actualOrder = cur.rankingsByWeek?.[String(week + 1)]?.ap;
     if (!actualOrder?.length) break;
-    weeks.push({ ...readJsonAt(root, path), actualOrder, file: path });
+    const record = { ...readJsonAt(root, path), actualOrder, file: path };
+    if (isCurrent) {
+      record.lossesAfter = Object.fromEntries(record.currentOrder.map((id) => [id,
+        (cur.teams[id]?.games ?? []).filter((g) => g.res === 'L' && g.wk <= week).length]));
+    }
+    weeks.push(record);
   }
   return weeks;
 }

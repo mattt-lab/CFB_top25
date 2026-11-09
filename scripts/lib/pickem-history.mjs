@@ -68,6 +68,12 @@ export function buildHistoryWeeks(raw) {
     return new Map(vals.map(([id], i) => [id, i + 1]));
   }
 
+  // Regular-season losses in games played through `week` (what voters see in poll week + 1).
+  function lossesThrough(id, week) {
+    return (gamesOf[id] ?? []).filter((g) => g.wk <= week && final(g)
+      && (g.home === id ? g.homePoints < g.awayPoints : g.awayPoints < g.homePoints)).length;
+  }
+
   function qualityWins(id, week) {
     return (gamesOf[id] ?? []).filter((g) => {
       if (g.wk > week || !final(g)) return false;
@@ -128,7 +134,8 @@ export function buildHistoryWeeks(raw) {
       throw new Error(`Week alignment check failed for ${raw.season} poll week ${N}: ranked losers did not fall on `
         + `average in poll week ${N + 1} (moves ${moves.join(', ')}). Games and polls may be off by a week.`);
     }
-    records.push({ ...snapshot, source: `cfbd-${raw.season}`, actualOrder: next });
+    const lossesAfter = Object.fromEntries(order.map((id) => [id, lossesThrough(id, N)]));
+    records.push({ ...snapshot, source: `cfbd-${raw.season}`, actualOrder: next, lossesAfter });
   }
 
   const ranked = records.flatMap((r) => r.teams.filter((t) => t.game));

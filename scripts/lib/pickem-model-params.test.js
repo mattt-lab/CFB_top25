@@ -157,4 +157,21 @@ describe('driftWith candidate settings', () => {
       expect(win).toBeGreaterThan(loss);
     }
   });
+
+  it('lossCountPull sinks every team, byes included, by its loss count; off without opts.losses', () => {
+    const order = ['a', 'b', 'c'];
+    const losses = { a: 2, b: 0, c: 0 };
+    const P = { ...PARAMS_LIVE, lossCountPull: 1.5 };
+    // a (#1, 2 losses) keys at 1 + 3 = 4, behind b (2) and c (3); nobody played.
+    expect(projectOrderWith(P, order, {}, {}, { losses })).toEqual(['b', 'c', 'a']);
+    expect(projectOrderWith(P, order, {}, {})).toEqual(order);
+    expect(projectOrderWith(PARAMS_LIVE, order, {}, {}, { losses })).toEqual(order);
+  });
+
+  it('lossPullFrom3 only counts losses beyond the second', () => {
+    const order = ['a', 'b'];
+    const P = { ...PARAMS_LIVE, lossPullFrom3: 2 };
+    expect(projectOrderWith(P, order, {}, {}, { losses: { a: 2, b: 0 } })).toEqual(['a', 'b']);
+    expect(projectOrderWith(P, order, {}, {}, { losses: { a: 3, b: 0 } })).toEqual(['b', 'a']);
+  });
 });

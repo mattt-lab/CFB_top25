@@ -24,6 +24,11 @@ export const PARAMS_V1 = Object.freeze({
   lossScale: 1,
   earlyWinScale: 1,
   earlyThroughWeek: 8,
+  // Experiment 3: every ranked team (byes included) sinks this many slots per loss on its season
+  // record, so close calls break toward the team with fewer losses; lossPullFrom3 adds more per
+  // loss beyond the second. Both need opts.losses; 0 = off.
+  lossCountPull: 0,
+  lossPullFrom3: 0,
 });
 
 // What src/utils/projectTop25.js runs now: V1 with every loss scaled 2.5x (experiment 2). Weeks
@@ -82,7 +87,12 @@ export function driftWith(P, outcome, currentRank, team, oppInfo, lineInfo, week
 }
 
 export function projectOrderWith(P, currentOrder, picks, teams, opts = {}) {
-  const { getOpponentInfo, h2h, getLineInfo, week = null } = opts;
+  const { getOpponentInfo, h2h, getLineInfo, week = null, losses = null } = opts;
+  const lossPull = (id) => {
+    const n = losses?.[id];
+    if (n == null) return 0;
+    return P.lossCountPull * n + P.lossPullFrom3 * Math.max(0, n - 2);
+  };
 
   const scored = currentOrder.map((id, i) => {
     const currentRank = i + 1;
@@ -91,7 +101,7 @@ export function projectOrderWith(P, currentOrder, picks, teams, opts = {}) {
       ? driftWith(P, outcome, currentRank, teams?.[id],
         getOpponentInfo ? getOpponentInfo(id) : null, getLineInfo ? getLineInfo(id) : null, week)
       : 0;
-    return { id, currentRank, key: currentRank - drift };
+    return { id, currentRank, key: currentRank - drift + lossPull(id) };
   });
 
   scored.sort((a, b) => a.key - b.key || a.currentRank - b.currentRank);
