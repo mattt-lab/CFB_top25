@@ -61,14 +61,6 @@
    "hash": "95c8e99c95bdca70",
    "blurb": "No. 16 Iowa is a 16.5-point favorite over Purdue, the biggest spread on the Hawkeyes' slate in a while, and ESPN backs it at 87%. A get-right spot if there ever was one."
   },
-  "rankedNextGames:2026-wk11-tennessee-texas-a-m": {
-   "hash": "ba62df4a24537c63",
-   "blurb": "No. 9 Tennessee is only a 2.5-point favorite at Texas A&M with a modest 42.5 total. ESPN leans Vols at 58.6%, but a hostile road environment keeps this one tight."
-  },
-  "rankedNextGames:2026-wk11-alabama-vanderbilt": {
-   "hash": "323f4a1f45d3a4c4",
-   "blurb": "No. 7 Alabama is a 16.5-point favorite at Vanderbilt and a 94.8% pick in ESPN's model. The Tide are the SEC's closest chaser to Georgia and can't afford to let this one get interesting."
-  },
   "rankedNextGames:2026-wk11-boston-college-notre-dame": {
    "hash": "844fff20ea2b3675",
    "blurb": "No. 3 Notre Dame lays 29.5 against Boston College with ESPN giving the Irish a 98.5% shot. This is about avoiding a scare, not surviving one."
@@ -109,10 +101,6 @@
    "hash": "b9aa777d8ad08785",
    "blurb": "The Big Ten's auto bid is the tightest race in the sport: No. 4 UCLA leads with No. 6 Indiana just two spots behind. Every Saturday from here is effectively a tiebreaker."
   },
-  "fieldStorylines:conf-race-sec": {
-   "hash": "c4a65bd8da958592",
-   "blurb": "Georgia sits atop the SEC at No. 1 with No. 7 Alabama the nearest chaser, a six-spot cushion for the Bulldogs. The Tide need help as much as wins."
-  },
   "fieldStorylines:conf-race-acc": {
    "hash": "cebcb9008cf2bf1f",
    "blurb": "No. 5 Miami controls the ACC's automatic bid with No. 11 Wake Forest six spots back. The Deacs can't just keep winning -- they need the Hurricanes to slip."
@@ -136,6 +124,18 @@
   "bubbleNotes:kentucky": {
    "hash": "bd21e1b9eca19b24",
    "blurb": "Kentucky's seven-spot fall drops the Wildcats to the No. 14 seed, two outside the field. They were comfortably in not long ago; now they're scrambling."
+  },
+  "rankedNextGames:2026-wk11-tennessee-texas-a-m": {
+   "hash": "a2aa6736e85662ef",
+   "blurb": "No. 9 Tennessee heads to College Station as a 2.5-point favorite, with ESPN's model giving the Vols a 58.6% shot in what projects as a grinder at a 43.5 total. A road win keeps Tennessee's résumé humming; a slip to an unranked Texas A&M is the kind of result that lingers in November."
+  },
+  "rankedNextGames:2026-wk11-alabama-vanderbilt": {
+   "hash": "ee6e19a32065d63c",
+   "blurb": "No. 7 Alabama is a 15.5-point favorite at Vanderbilt, and ESPN pegs the Tide at a 94.8% chance to handle it. With a 50.5 total, the real question is whether Alabama covers comfortably enough to keep climbing in the SEC pecking order."
+  },
+  "fieldStorylines:conf-race-sec": {
+   "hash": "7bb7a57bc3c829ae",
+   "blurb": "The SEC's automatic bid isn't much of a race right now: No. 1 Georgia sits six spots clear of No. 7 Alabama, the closest thing to a chaser. The Tide need help as much as they need wins to close that gap."
   }
  }
 }
