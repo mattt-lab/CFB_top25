@@ -1,17 +1,9 @@
 {
  "promptKey": "769284c8174095f6",
  "items": {
-  "games:2026-wk11-florida-kentucky": {
-   "hash": "55eed6772201a221",
-   "blurb": "No. 13 Kentucky lays just 3.5 at home against an unranked Florida team, and ESPN's model makes it close to a coin flip at 53.8%. With the Wildcats sitting on the bubble, a stumble here would be costly."
-  },
   "games:2026-wk11-usc-indiana": {
    "hash": "7dc58b3b78aa348d",
    "blurb": "No. 15 USC heads to No. 6 Indiana as a 7.5-point underdog with ESPN giving the Hoosiers a 78% shot. The Trojans are chasing their way into the field, and few résumé wins available anywhere are bigger than this one."
-  },
-  "games:2026-wk11-texas-lsu": {
-   "hash": "c28cb69c282e9d75",
-   "blurb": "No. 8 Texas visits No. 24 LSU with the Tigers favored by 3.5 at home in a game ESPN sees as essentially even (52.6%). A low total of 46.5 points to a grinder, and the Longhorns can't afford a slip in the SEC pecking order."
   },
   "games:2026-wk11-utah-arizona": {
    "hash": "ef27d220786a7c03",
@@ -25,10 +17,6 @@
    "hash": "c472538d23d34238",
    "blurb": "No. 4 UCLA hosts Illinois as a 10-point favorite with ESPN giving the Bruins a 74% shot. UCLA holds the Big Ten lead and can't afford to let an unranked visitor hang around."
   },
-  "rankedNextGames:2026-wk11-ole-miss-oklahoma": {
-   "hash": "cfebc57370759e84",
-   "blurb": "No. 19 Ole Miss is a 1.5-point favorite at Oklahoma, with ESPN nudging the Rebels to 57.4%. A true toss-up in Norman with the total set at 48.5."
-  },
   "rankedNextGames:2026-wk11-oregon-state-boise-state": {
    "hash": "5b7a3dc617846a8a",
    "blurb": "No. 17 Boise State hosts Oregon State as a 13.5-point favorite with an eye-catching 65.5 total. ESPN gives the Broncos an 81.6% shot to keep rolling."
@@ -41,14 +29,6 @@
    "hash": "fe9bf346c230bd23",
    "blurb": "No. 10 Texas Tech is a 3.5-point underdog at Oklahoma State in a game with a 72.5 total -- expect points. The Red Raiders are chasing Utah in the Big 12, making this a dangerous road trip."
   },
-  "rankedNextGames:2026-wk11-northwestern-ohio-state": {
-   "hash": "852397248cb2c0ae",
-   "blurb": "No. 21 Ohio State lays 12.5 at home against Northwestern with ESPN giving the Buckeyes an 85.5% shot. After a tumble in the rankings, they need a clean afternoon."
-  },
-  "rankedNextGames:2026-wk11-houston-colorado": {
-   "hash": "f0046f5df98952ea",
-   "blurb": "No. 14 Houston is a 10.5-point favorite at Colorado and an 83% pick by ESPN's model. The Cougars are trending up on the bubble and this is a game they're expected to handle."
-  },
   "rankedNextGames:2026-wk11-michigan-oregon": {
    "hash": "6d9d53c1ff9756cb",
    "blurb": "No. 18 Oregon hosts Michigan as an 11.5-point favorite with a stingy 38.5 total suggesting a defensive afternoon. ESPN gives the Ducks an 85.9% shot at home."
@@ -60,6 +40,14 @@
   "rankedNextGames:2026-wk11-purdue-iowa": {
    "hash": "95c8e99c95bdca70",
    "blurb": "No. 16 Iowa is a 16.5-point favorite over Purdue, the biggest spread on the Hawkeyes' slate in a while, and ESPN backs it at 87%. A get-right spot if there ever was one."
+  },
+  "rankedNextGames:2026-wk11-tennessee-texas-a-m": {
+   "hash": "a2aa6736e85662ef",
+   "blurb": "No. 9 Tennessee heads to College Station as a 2.5-point favorite, with ESPN's model giving the Vols a 58.6% shot in what projects as a grinder at a 43.5 total. A road win keeps Tennessee's résumé humming; a slip to an unranked Texas A&M is the kind of result that lingers in November."
+  },
+  "rankedNextGames:2026-wk11-alabama-vanderbilt": {
+   "hash": "ee6e19a32065d63c",
+   "blurb": "No. 7 Alabama is a 15.5-point favorite at Vanderbilt, and ESPN pegs the Tide at a 94.8% chance to handle it. With a 50.5 total, the real question is whether Alabama covers comfortably enough to keep climbing in the SEC pecking order."
   },
   "rankedNextGames:2026-wk11-boston-college-notre-dame": {
    "hash": "844fff20ea2b3675",
@@ -77,29 +65,21 @@
    "hash": "0e6c8717ae5787c6",
    "blurb": "No. 23 New Mexico lays 14 at home against UNLV with ESPN giving the hosts an 86.7% shot. The newly ranked Lobos need to keep protecting their home field."
   },
-  "predictions:kentucky": {
-   "hash": "a739c273d497d5a3",
-   "blurb": "Kentucky tumbled from No. 6 to No. 13, and the computers aren't buying the top-10 version either -- SP+ has the Wildcats 41st and FPI 35th."
-  },
   "predictions:boise-state": {
    "hash": "1690cf55582cd147",
    "blurb": "Boise State jumped from No. 25 to No. 17, though the metrics remain skeptical of the Pac-12 riser at 26th in SP+ and 33rd in FPI."
-  },
-  "predictions:lsu": {
-   "hash": "9b79e358f7f4dd7a",
-   "blurb": "LSU slid ten spots to No. 24, but SP+ and FPI both still slot the Tigers seventh -- the biggest gap between poll and projection on the board."
   },
   "predictions:ucla": {
    "hash": "bf1eb796c9755281",
    "blurb": "UCLA climbed to No. 4 from No. 8, and while SP+ is on board at 11th, FPI is a tougher sell at 27th."
   },
-  "predictions:ohio-state": {
-   "hash": "b2d9f0a3380f9eb5",
-   "blurb": "Ohio State fell from No. 12 to No. 21, yet the models think the Buckeyes are still elite: third in SP+ and fifth in FPI."
-  },
   "fieldStorylines:conf-race-big-ten": {
    "hash": "b9aa777d8ad08785",
    "blurb": "The Big Ten's auto bid is the tightest race in the sport: No. 4 UCLA leads with No. 6 Indiana just two spots behind. Every Saturday from here is effectively a tiebreaker."
+  },
+  "fieldStorylines:conf-race-sec": {
+   "hash": "7bb7a57bc3c829ae",
+   "blurb": "The SEC's automatic bid isn't much of a race right now: No. 1 Georgia sits six spots clear of No. 7 Alabama, the closest thing to a chaser. The Tide need help as much as they need wins to close that gap."
   },
   "fieldStorylines:conf-race-acc": {
    "hash": "cebcb9008cf2bf1f",
@@ -117,25 +97,45 @@
    "hash": "51bbe3bcb3dc63dd",
    "blurb": "BYU slipped three spots to the No. 13 seed, leaving the Cougars first team out and one place from the field. The margin for error is gone."
   },
+  "games:2026-wk11-florida-kentucky": {
+   "hash": "51c997b1e51af8ee",
+   "blurb": "No. 13 Kentucky lays just 3.5 at home against an unranked Florida team ESPN still gives a 46% shot, so the Wildcats' margin for error is thinner than the ranking suggests. With a total of 52.5, this looks like the kind of coin-flip night that can swing Kentucky's whole postseason case."
+  },
+  "games:2026-wk11-texas-lsu": {
+   "hash": "d73796b950ac99d4",
+   "blurb": "No. 8 Texas heads to Baton Rouge as a 4-point underdog to No. 24 LSU, with ESPN's model splitting it nearly down the middle at 52.6-47.4. The 46.5 total points to a grinder, and a Longhorns slip here would be the kind of loss that reshuffles the top of the SEC picture."
+  },
+  "rankedNextGames:2026-wk11-ole-miss-oklahoma": {
+   "hash": "ee9d7f7408abf623",
+   "blurb": "No. 19 Ole Miss is a 1.5-point favorite in Norman, roughly a 57% play by ESPN's numbers against an unranked but dangerous Oklahoma side. Total of 49.5 suggests neither defense is expected to fully lock things down."
+  },
+  "rankedNextGames:2026-wk11-northwestern-ohio-state": {
+   "hash": "9b6d3d95bd92562f",
+   "blurb": "No. 21 Ohio State is a 12.5-point favorite over Northwestern at home, with ESPN giving the Buckeyes an 85.5% win probability. With a 45.5 total, this is a game Ohio State needs to win cleanly rather than survive."
+  },
+  "rankedNextGames:2026-wk11-houston-colorado": {
+   "hash": "017051e95beb534c",
+   "blurb": "No. 14 Houston goes to Boulder favored by 10 and carrying an 83% win probability in ESPN's model. The Cougars are climbing, and a tidy road win over Colorado keeps that momentum intact."
+  },
+  "predictions:kentucky": {
+   "hash": "9ef9df5ca7c0f175",
+   "blurb": "Kentucky took a steep tumble from No. 6 to No. 13, and the advanced numbers aren't exactly rushing to the rescue -- 41st in SP+ and 35th in FPI. The Wildcats need results to start matching the ranking."
+  },
+  "predictions:lsu": {
+   "hash": "ce2bdae6666ba2a1",
+   "blurb": "LSU slid from 14th to 24th in the polls, but the metrics love them anyway: seventh in both SP+ and FPI. That's a team the rankings may be undervaluing."
+  },
+  "predictions:ohio-state": {
+   "hash": "864076a55d2028de",
+   "blurb": "Ohio State dropped nine spots to No. 21 despite sitting third in SP+ and fifth in FPI. By the analytics, the Buckeyes are still playing like a top-five team."
+  },
   "bubbleNotes:houston": {
-   "hash": "323ed4a6fe9bae76",
-   "blurb": "Houston moved up three to the No. 15 seed, three spots shy of the field. The Cougars are trending the right direction with work left to do."
+   "hash": "6fe97432b3958116",
+   "blurb": "Houston jumped three spots to the 15 seed, trending in the right direction but still three spots outside the field. The Cougars are close enough that one more clean weekend changes the conversation."
   },
   "bubbleNotes:kentucky": {
-   "hash": "bd21e1b9eca19b24",
-   "blurb": "Kentucky's seven-spot fall drops the Wildcats to the No. 14 seed, two outside the field. They were comfortably in not long ago; now they're scrambling."
-  },
-  "rankedNextGames:2026-wk11-tennessee-texas-a-m": {
-   "hash": "a2aa6736e85662ef",
-   "blurb": "No. 9 Tennessee heads to College Station as a 2.5-point favorite, with ESPN's model giving the Vols a 58.6% shot in what projects as a grinder at a 43.5 total. A road win keeps Tennessee's résumé humming; a slip to an unranked Texas A&M is the kind of result that lingers in November."
-  },
-  "rankedNextGames:2026-wk11-alabama-vanderbilt": {
-   "hash": "ee6e19a32065d63c",
-   "blurb": "No. 7 Alabama is a 15.5-point favorite at Vanderbilt, and ESPN pegs the Tide at a 94.8% chance to handle it. With a 50.5 total, the real question is whether Alabama covers comfortably enough to keep climbing in the SEC pecking order."
-  },
-  "fieldStorylines:conf-race-sec": {
-   "hash": "7bb7a57bc3c829ae",
-   "blurb": "The SEC's automatic bid isn't much of a race right now: No. 1 Georgia sits six spots clear of No. 7 Alabama, the closest thing to a chaser. The Tide need help as much as they need wins to close that gap."
+   "hash": "ac122a01d33f6352",
+   "blurb": "Kentucky tumbled seven spots to the 14 seed and now sits two spots shy of the field. The Wildcats have gone from comfortable to firmly on the bubble, and the arrow is pointing the wrong way."
   }
  }
 }
