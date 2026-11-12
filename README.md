@@ -80,7 +80,9 @@ A single GitHub Actions workflow runs this once daily (13:00 UTC), plus a Monday
 release later than usual, and two Saturday-only runs (00:00 and 06:00 UTC — 8pm and 2am ET) since
 Saturday carries the large majority of each week's games and the single daily run fires before
 nearly any of them have even kicked off — those two catch final scores the same night instead of
-sitting stale until the next day's run, via this pipeline's own `/games` call. That workflow
+sitting stale until the next day's run, via this pipeline's own `/games` call. A Tuesday-night run
+(02:30 UTC Wednesday — 9:30pm ET Tuesday) picks up the CFP committee's ranking the night it comes
+out, so Playoff Watch doesn't wait for the next morning's run. That workflow
 commits with its own `GITHUB_TOKEN`, and GitHub's anti-recursion
 rule means a `GITHUB_TOKEN` push does *not* trigger another workflow's `on: push` listener — so it
 explicitly dispatches `deploy-pages.yml` itself after a real data change, rather than relying on the
@@ -203,8 +205,8 @@ documented in [`docs/data-schema.md`](docs/data-schema.md).
   schedule; and the pipeline's pure `scripts/lib/` modules — ESPN matching and game stories, ranking
   math, poll classification, and the Pick 'em snapshot/review)
 - **oxlint** for linting
-- **GitHub Actions**: one workflow for the data pipeline (daily, plus a Monday extra run and two
-  Saturday-night catch-up runs), one
+- **GitHub Actions**: one workflow for the data pipeline (daily, plus a Monday extra run, a
+  Tuesday-night CFP run, and two Saturday-night catch-up runs), one
   that builds and deploys the site on every push to `main` (including an explicit dispatch from the
   data workflow itself, since its own commits don't trigger that push listener), and a
   manually-triggered one to refresh team logos

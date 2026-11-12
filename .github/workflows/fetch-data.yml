@@ -37,6 +37,12 @@ on:
     # primetime/night window, including West Coast late kickoffs.
     - cron: '0 0 * * 0'
     - cron: '0 6 * * 0'
+    # Tuesday-night run for the CFP committee rankings, 02:30 UTC Wednesday = 9:30pm ET Tuesday
+    # (10:30pm before DST ends). The committee releases its ranking Tuesday evening, and without
+    # this run nothing fetched it until the next 13:00 UTC run -- which GitHub started ~7 hours
+    # late on 2026-11-11, so Playoff Watch sat on last week's ranking for ~18 hours. Outside CFP
+    # season it's just one more no-op run a week.
+    - cron: '30 2 * * 3'
   workflow_dispatch: {}
 
 permissions:
