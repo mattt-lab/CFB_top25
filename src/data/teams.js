@@ -381,6 +381,10 @@ function underdogOf(g) {
   return { side: favored === 'away' ? 'home' : 'away', mode: 'line', points };
 }
 
+// MIRRORED IN aink-gameday/src/alerts.mjs (github.com/mattt-lab/aink-gameday) -- if you change gameAlert,
+// underdogOf or their constants (TINY_UNDERDOG_MAX_POINTS, MIN_UNDERDOG_RANK_GAP, TIGHT_GAME_MAX_MARGIN),
+// re-port them there so the e-ink display flags the same games as the site.
+//
 // The live/final alert for a game: 'upset' (shown as 🔥), 'tight' (👀), or null. Only games in the
 // second half or later can alert -- a first-half lead, even a 3-0 field goal, flagged about half of a
 // real week's games and the favorite won 15 of the 19 flagged in Q1, so it was noise, not signal.

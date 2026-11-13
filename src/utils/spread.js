@@ -1,3 +1,6 @@
+// MIRRORED IN aink-gameday/src/alerts.mjs (github.com/mattt-lab/aink-gameday) -- if you change parseSpread,
+// re-port it there too.
+//
 // Pure parser for CFBD's pre-formatted betting-line string (e.g. "Ohio State -6.5"). There is no
 // structured numeric field for the line, just this string (see fetch-cfb-data.mjs's spread
 // comment), so the favorite is resolved by checking whether it starts with either team's name.

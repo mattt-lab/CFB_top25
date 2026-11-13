@@ -273,10 +273,15 @@ Each run logs "reusing N of M blurbs" and, when it calls the model, the token us
   // for every conference would meaningfully multiply Claude calls for text that mostly restates
   // what's already on the card (rank, record, spread), so non-marquee entries keep
   // `stakesScore`/`blurb`/`blurbSource` at their fetch-time null/unset values forever.
+  //
+  // CONSUMED BY aink-gameday (github.com/mattt-lab/aink-gameday), which reads this file from raw
+  // GitHub: allGames[].cfbdId (joined to ESPN event ids), when, network, away/home, awayRank/homeRank,
+  // spread, meta.currentWeek, teams[id].name, and stakesScore via games[]/rankedNextGames[] (by
+  // cfbdId). Check that project when renaming or changing any of these fields.
   "allGames": [
     {
       "id": "2026-wk12-osu-mich",
-      "cfbdId": 401628383,          // CFBD's own numeric game id -- kept for identity/debugging, not currently joined against by anything
+      "cfbdId": 401628383,          // CFBD's own numeric game id (== ESPN event id) -- joined against by aink-gameday, see above
       "away": "ohio-state", "awayRank": 1,
       "home": "michigan", "homeRank": 8,
       "when": "2026-11-29T17:00:00Z",
