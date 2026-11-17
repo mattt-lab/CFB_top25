@@ -101,7 +101,8 @@ export default function PlayoffWatch() {
           return (
             <div className="matchup-card" key={ai}>
               <TeamRow o={a} seedNum={5 + ai} />
-              <div className="matchup-vs">FIRST ROUND · ON CAMPUS</div>
+              {/* The higher seed (always `a`, seeds 5-8) hosts the first-round game on its campus. */}
+              <div className="matchup-vs">FIRST ROUND · AT {a.team.name.toUpperCase()}</div>
               <TeamRow o={b} seedNum={5 + bi} />
             </div>
           );
