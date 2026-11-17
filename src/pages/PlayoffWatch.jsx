@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import {
   WEEK_IDX_MAX, computeField, primaryLabel, PRIMARY_SOURCE_BY_WEEK, fieldStorylines,
-  confRaceInfo, confSlugFor,
+  confRaceInfo, confSlugFor, PLAYOFF_PICTURE_IS_EARLY,
 } from '../data/teams.js';
 import TeamMark from '../components/TeamMark.jsx';
 
@@ -33,10 +33,10 @@ export default function PlayoffWatch() {
         <p>Who's in, who's got a bye, and who's still fighting for the last spot — if the field were set today.</p>
       </div>
 
-      {/* Same "no committee yet" condition as the pre-committee footnote at the bottom of this
-          page, so both agree. See PLAYOFF_PICTURE_IS_EARLY in teams.js for the nav tab's version
-          of this same check. */}
-      {weekSource !== 'CFP Committee' && (
+      {/* Same "no committee yet" condition as the footnote at the bottom of this page and the nav
+          tab (PLAYOFF_PICTURE_IS_EARLY in teams.js). Once the committee has ranked any week, a
+          week without its ranking is just the Sunday-to-Tuesday gap before the next release. */}
+      {PLAYOFF_PICTURE_IS_EARLY && (
         <div className="hist-banner">
           <span>
             ⚠ Too early to call — the CFP committee hasn't released a ranking yet, so every
@@ -44,6 +44,12 @@ export default function PlayoffWatch() {
             highest. Treat this as a rough early-season projection, not a real field.
           </span>
         </div>
+      )}
+      {!PLAYOFF_PICTURE_IS_EARLY && weekSource !== 'CFP Committee' && (
+        <p className="footnote">
+          The committee's Week {WEEK_IDX_MAX + 1} ranking comes out Tuesday night. Until then this
+          projection uses the {weekSource}, which already counts last weekend's games.
+        </p>
       )}
 
       <div className="bracket-label">Conference championship races</div>
@@ -143,7 +149,7 @@ export default function PlayoffWatch() {
         to whichever teams rank highest overall — a non-champion can out-seed a lower-ranked
         champion for the bye. Each conference's "champion" here is just its current highest-ranked
         team — real championship games haven't been played in this model.
-        {weekSource !== 'CFP Committee' && (
+        {PLAYOFF_PICTURE_IS_EARLY && (
           <> This week's ranking comes from the {weekSource} — the CFP committee hasn't released
           its first ranking of the season yet, so this is a projection, not an official field.</>
         )}

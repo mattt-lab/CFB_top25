@@ -43,7 +43,13 @@ export const CURRENT_PRIMARY_SOURCE = raw.meta.currentPrimarySource;
 // (Layout.jsx) -- deliberately NOT hidden/disabled, matching this site's existing "honest about
 // gaps" pattern elsewhere (see PlayoffWatch.jsx's own pre-committee footnote) rather than blocking
 // the page outright.
-export const PLAYOFF_PICTURE_IS_EARLY = CURRENT_PRIMARY_SOURCE !== 'cfp';
+//
+// Keyed on "has the committee ranked ANY week yet", not on the current week's source: every Sunday
+// the new AP poll opens a new week that has no committee ranking until Tuesday night, and checking
+// only the current week flipped the page back to "too early to call" for those ~2 days each week
+// (seen live, week 12, 2026-11-17).
+export const COMMITTEE_HAS_RANKED = Object.values(PRIMARY_SOURCE_BY_WEEK).includes('cfp');
+export const PLAYOFF_PICTURE_IS_EARLY = !COMMITTEE_HAS_RANKED;
 
 // ---- teams: every team gets a full entry in the real schema (no DETAILED/SUMMARY split) ----
 // Keyed by id already (schema: `teams` is an object keyed by slugify(name)) — just attach `id`
