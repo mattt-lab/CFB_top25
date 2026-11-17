@@ -1,22 +1,6 @@
 {
  "promptKey": "769284c8174095f6",
  "items": {
-  "games:2026-wk12-san-diego-state-boise-state": {
-   "hash": "70e3b9a96db1f1eb",
-   "blurb": "No. 15 Boise State is a 16.5-point home favorite with a 93.8% win probability against San Diego State, and the 62.5 total suggests points will come in bunches. Anything less than a comfortable win would be a blemish on the Broncos' resume."
-  },
-  "rankedNextGames:2026-wk12-georgia-south-carolina": {
-   "hash": "ef93f10747c79814",
-   "blurb": "No. 1 Georgia is a 16.5-point favorite in Columbia with ESPN giving the Bulldogs an 87% chance. Top-ranked teams get everyone's best shot on the road, and Georgia's SEC lead is on the line."
-  },
-  "rankedNextGames:2026-wk12-chattanooga-alabama": {
-   "hash": "32ebbfa5a724dd6e",
-   "blurb": "No. 7 Alabama hosts FCS Chattanooga with no line posted. It's a get-right Saturday for the Tide as they chase Georgia in the SEC race."
-  },
-  "fieldStorylines:conf-race-sec": {
-   "hash": "dc1abe121baf36e2",
-   "blurb": "No. 1 Georgia controls the SEC's automatic bid with No. 7 Alabama the nearest chaser, a six-spot cushion that still leaves the Tide in striking distance."
-  },
   "games:2026-wk12-kentucky-missouri": {
    "hash": "69bd48855561ff57",
    "blurb": "No. 17 Kentucky heads to Columbia as a 5.5-point underdog, with ESPN giving Missouri a 61.5% edge. A total of 48.5 suggests a grind, and the Wildcats can't afford another slip in the ranking."
@@ -93,6 +77,14 @@
    "hash": "6727a7fb3bf28b58",
    "blurb": "No. 23 Florida is favored by 13.5 over Vanderbilt in the Swamp, with ESPN giving the Gators an 84.7% shot. The total sits at a modest 47.5."
   },
+  "rankedNextGames:2026-wk12-georgia-south-carolina": {
+   "hash": "ef93f10747c79814",
+   "blurb": "No. 1 Georgia is a 16.5-point favorite in Columbia with ESPN giving the Bulldogs an 87% chance. Top-ranked teams get everyone's best shot on the road, and Georgia's SEC lead is on the line."
+  },
+  "rankedNextGames:2026-wk12-chattanooga-alabama": {
+   "hash": "32ebbfa5a724dd6e",
+   "blurb": "No. 7 Alabama hosts FCS Chattanooga with no line posted. It's a get-right Saturday for the Tide as they chase Georgia in the SEC race."
+  },
   "rankedNextGames:2026-wk12-wofford-ole-miss": {
    "hash": "7311defe9d5089ac",
    "blurb": "No. 25 Ole Miss hosts FCS Wofford in a game ESPN's model pegs at 99.7% for the Rebels. No line posted, and no suspense expected."
@@ -108,10 +100,6 @@
   "predictions:kentucky": {
    "hash": "1218fa1b17e3c04c",
    "blurb": "Kentucky slid from 11 to 17 this week, and the advanced numbers aren't rushing to defend the Wildcats -- 42nd in SP+ and 34th in FPI."
-  },
-  "predictions:boise-state": {
-   "hash": "f4f47910b62df114",
-   "blurb": "Boise State surged from 24 to 15, the week's biggest jump, backed up by a No. 22 SP+ mark. FPI is slightly cooler at 31st."
   },
   "predictions:ohio-state": {
    "hash": "22c2032f1a2d002f",
@@ -133,6 +121,10 @@
    "hash": "d71836a3f7bbca4b",
    "blurb": "No. 5 Miami controls the ACC's auto bid with No. 10 Wake Forest five spots back -- a workable cushion, but not one the Hurricanes can sit on."
   },
+  "fieldStorylines:conf-race-sec": {
+   "hash": "dc1abe121baf36e2",
+   "blurb": "No. 1 Georgia controls the SEC's automatic bid with No. 7 Alabama the nearest chaser, a six-spot cushion that still leaves the Tide in striking distance."
+  },
   "fieldStorylines:conf-race-big-12": {
    "hash": "55ec017a127aca9f",
    "blurb": "No. 2 Utah has the Big 12 bid in a comfortable grip, with No. 11 Texas Tech the nearest chaser nine spots down. The Red Raiders likely need help."
@@ -152,6 +144,14 @@
   "bubbleNotes:iowa": {
    "hash": "904eb41e7da8f256",
    "blurb": "Iowa moved up two to the 14 seed, two spots outside the field. Keep winning and the Hawkeyes are very much in this."
+  },
+  "games:2026-wk12-san-diego-state-boise-state": {
+   "hash": "55504af73322d7f8",
+   "blurb": "No. 15 Boise State hosts San Diego State as a 16.5-point favorite, with ESPN's model giving the Broncos a 93.8% shot at home. The total sits at 61.5, and anything short of a comfortable win would be a bad look for a team climbing the rankings."
+  },
+  "predictions:boise-state": {
+   "hash": "4e736a1cdc8d3b3a",
+   "blurb": "Boise State has surged from 24th to 15th, though the advanced numbers are still catching up: 22nd in SP+ and just 31st in FPI. The Pac-12 Broncos will need to keep winning to prove the poll jump wasn't ahead of itself."
   }
  }
 }
