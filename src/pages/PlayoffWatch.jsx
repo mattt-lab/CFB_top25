@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
 import {
   WEEK_IDX_MAX, computeField, primaryLabel, PRIMARY_SOURCE_BY_WEEK, fieldStorylines,
-  confRaceInfo, confSlugFor, PLAYOFF_PICTURE_IS_EARLY,
+  confRaceInfo, confSlugFor, PLAYOFF_PICTURE_IS_EARLY, SEASON,
 } from '../data/teams.js';
 import TeamMark from '../components/TeamMark.jsx';
+
+// First-round dates by season, from the CFP's published schedule (collegefootballplayoff.com,
+// announced 2026-06-01): one game Friday night, three Saturday. Which matchup plays when isn't set
+// until Selection Day, so only the window is shown. A season missing here just shows no dates --
+// add the next season's once the CFP announces it.
+const FIRST_ROUND_DATES = { 2026: 'Dec 18–19' };
 
 function TeamRow({ o, seedNum }) {
   return (
@@ -93,7 +99,9 @@ export default function PlayoffWatch() {
         })}
       </div>
 
-      <div className="bracket-label">First round — seeds 5–12</div>
+      <div className="bracket-label">
+        First round — seeds 5–12{FIRST_ROUND_DATES[SEASON] ? ` · ${FIRST_ROUND_DATES[SEASON]}` : ''} · higher seed hosts
+      </div>
       <div className="matchup-grid">
         {pairs.map(([ai, bi]) => {
           const a = field.seeds5to12[ai], b = field.seeds5to12[bi];
@@ -102,7 +110,7 @@ export default function PlayoffWatch() {
             <div className="matchup-card" key={ai}>
               <TeamRow o={a} seedNum={5 + ai} />
               {/* The higher seed (always `a`, seeds 5-8) hosts the first-round game on its campus. */}
-              <div className="matchup-vs">FIRST ROUND · AT {a.team.name.toUpperCase()}</div>
+              <div className="matchup-vs">AT {a.team.name.toUpperCase()}</div>
               <TeamRow o={b} seedNum={5 + bi} />
             </div>
           );
