@@ -66,7 +66,6 @@ export default function PlayoffWatch() {
             <Link className="conf-race-card" key={conf} to={`/conference/${confSlugFor(conf)}`}>
               <div className="cf">{conf}</div>
               <div className="ld"><span className="rank-prefix">#{leader.rank}</span><TeamMark team={leader.team} />{leader.team.name}</div>
-              {chaser && <div className="ch">Chasing: #{chaser.rank} {chaser.team.name}</div>}
               <div className="nt">
                 {chaser
                   ? `Leads #${chaser.rank} ${chaser.team.name} by ${gap} spot${gap === 1 ? '' : 's'} for the auto-bid.`
@@ -100,7 +99,7 @@ export default function PlayoffWatch() {
       </div>
 
       <div className="bracket-label">
-        First round — seeds 5–12{FIRST_ROUND_DATES[SEASON] ? ` · ${FIRST_ROUND_DATES[SEASON]}` : ''} · higher seed hosts
+        First round{FIRST_ROUND_DATES[SEASON] ? ` — ${FIRST_ROUND_DATES[SEASON]}` : ''} — seeds 5–12
       </div>
       <div className="matchup-grid">
         {pairs.map(([ai, bi]) => {
