@@ -1,21 +1,9 @@
 {
  "promptKey": "769284c8174095f6",
  "items": {
-  "rankedNextGames:2026-wk12-oregon-michigan-state": {
-   "hash": "9dd6b08cc691845c",
-   "blurb": "Oregon hammered Michigan State 45-7 in East Lansing, pushing its win streak to four with the playoff picture in mind. Brandon Smith ran for 121 yards and two scores filling in at running back before limping off, and kicker Gage Hurych added a 15-yard touchdown run on a fake field goal; the Spartans' lone answer was a Jaziun Patterson 1-yard plunge in a second half Oregon controlled."
-  },
-  "bubbleNotes:oregon": {
-   "hash": "11517cbd13cacddd",
-   "blurb": "Oregon moved up three to the 14 seed and now sits two spots from the bracket. The Ducks have won four straight and are making the committee think about it."
-  },
   "games:2026-wk12-kentucky-missouri": {
    "hash": "68b855c68d7e6b8f",
    "blurb": "Austin Simmons carved up Kentucky for 314 yards and four touchdown passes -- two of them to Donovan Olugbode, including a 60-yarder -- as Missouri rolled 28-14. The Wildcats coughed it up three times, and when Daeden Hopkins knocked the ball loose from Jovantae Barnes at the Missouri 15 late, No. 16 Kentucky's third straight loss was sealed."
-  },
-  "games:2026-wk12-georgia-south-carolina": {
-   "hash": "1add7445e69369cc",
-   "blurb": "South Carolina led 6-3 after a quarter and then disappeared, as No. 1 Georgia clamped down and pulled away 34-6 to clinch a spot in the SEC title game. Nate Frazier ran for 94 yards and a pair of short touchdowns, and Khalil Barnes picked off LaNorris Sellers inside the Georgia 20 to end the Gamecocks' best second-half chance."
   },
   "games:2026-wk12-ucla-michigan": {
    "hash": "e6709c188a5c87a3",
@@ -29,29 +17,21 @@
    "hash": "2af43673a6e3f545",
    "blurb": "No. 12 Texas Tech survived three Thomas Castellanos interceptions to grind out a 20-10 win at Baylor, with Malcolm Simmons' 48-yard touchdown catch providing the difference and J'Koby Williams running for 117 yards. The Red Raiders clinched back-to-back 10-win seasons and can punch their Big 12 title game ticket with a finale win over TCU."
   },
-  "games:2026-wk12-san-diego-state-boise-state": {
-   "hash": "25995d7f95be84bf",
-   "blurb": "No. 17 Boise State is a 20.5-point favorite at home against San Diego State with a 60.5 total, so the question is margin rather than outcome. A clean, convincing win is what the Broncos need to keep their profile pointed in the right direction."
+  "rankedNextGames:2026-wk12-byu-kansas": {
+   "hash": "00db5a8eab998dc5",
+   "blurb": "No. 10 BYU needed three overtimes to escape Kansas 31-29, with Bear Bachmeier finding Jojo Phillips in the back of the end zone for the decisive two-point conversion. The Cougars led 16-6 entering the fourth before the Jayhawks ripped off 10 straight points, and LJ Martin's 127 rushing yards helped keep BYU's playoff hopes breathing."
   },
   "rankedNextGames:2026-wk12-houston-west-virginia": {
    "hash": "390c9abfdf0b2280",
    "blurb": "Freshman Keisean Henderson, starting in place of the injured Conner Weigman, threw a 68-yard touchdown to Amare Thomas on his first attempt and later led the drive that set up Jonathan Dimas' 23-yard field goal as time expired in No. 20 Houston's 34-31 win. Makhi Hughes carried the load with a season-high 158 yards and three touchdowns as the Cougars erased a 10-point West Virginia lead."
   },
-  "rankedNextGames:2026-wk12-utah-tcu": {
-   "hash": "c0fff36a45bee095",
-   "blurb": "No. 2 Utah hits the road at TCU as a 9.5-point favorite in a game with a modest 46.5 total. The Utes are the Big 12's leader in the playoff picture, and a stumble in Fort Worth would open the door behind them."
-  },
-  "rankedNextGames:2026-wk12-byu-kansas": {
-   "hash": "00db5a8eab998dc5",
-   "blurb": "No. 10 BYU needed three overtimes to escape Kansas 31-29, with Bear Bachmeier finding Jojo Phillips in the back of the end zone for the decisive two-point conversion. The Cougars led 16-6 entering the fourth before the Jayhawks ripped off 10 straight points, and LJ Martin's 127 rushing yards helped keep BYU's playoff hopes breathing."
-  },
   "rankedNextGames:2026-wk12-iowa-illinois": {
    "hash": "f055c6d429de97fb",
    "blurb": "No. 15 Iowa shut Illinois out after halftime and pulled away 34-17, with L.J. Phillips Jr. rushing for 154 yards and the Hawkeyes outgaining the Illini 264-28 on the ground. Hank Brown capped a 19-play, 91-yard drive with a fourth-down touchdown run, and Jaylen Watson's 40-yard pick-six put a bow on a fourth straight win."
   },
-  "rankedNextGames:2026-wk12-arizona-kansas-state": {
-   "hash": "72ee831f5edc1085",
-   "blurb": "Down 28-13 with just over six minutes left in a rainstorm, No. 19 Arizona rallied and beat Kansas State 35-28 in overtime on Noah Fifita's 25-yard touchdown pass to Giovanni Richardson. Fifita threw for 323 yards and ran for 58 more, and the Wildcats sealed it by stopping Dillon Duff on fourth down at the 3."
+  "rankedNextGames:2026-wk12-oregon-michigan-state": {
+   "hash": "9dd6b08cc691845c",
+   "blurb": "Oregon hammered Michigan State 45-7 in East Lansing, pushing its win streak to four with the playoff picture in mind. Brandon Smith ran for 121 yards and two scores filling in at running back before limping off, and kicker Gage Hurych added a 15-yard touchdown run on a fake field goal; the Spartans' lone answer was a Jaziun Patterson 1-yard plunge in a second half Oregon controlled."
   },
   "rankedNextGames:2026-wk12-lsu-tennessee": {
    "hash": "32e72989982e1e64",
@@ -65,33 +45,25 @@
    "hash": "c12cc76f5219a6b3",
    "blurb": "No. 11 Wake Forest scored touchdowns on its first four drives, built a 29-0 lead and never looked back in a 50-29 win at Georgia Tech. Gio Lopez accounted for four touchdowns -- two passing, two rushing -- as the Demon Deacons extended the longest winning streak in program history to eight and locked up an ACC title game berth."
   },
-  "rankedNextGames:2026-wk12-smu-notre-dame": {
-   "hash": "5c6cff8868b38397",
-   "blurb": "No. 6 Notre Dame's defense did the heavy lifting in a 24-3 win over SMU, stopping six Mustangs drives in Irish territory and turning them away on downs three times. CJ Carr threw for 312 yards, including a one-handed 21-yard touchdown grab by Jordan Faison, and Jayden Sanders added a leaping end-zone interception."
-  },
   "rankedNextGames:2026-wk12-maryland-usc": {
    "hash": "4001e6a5bf2e53f1",
    "blurb": "No. 18 USC trailed Maryland at halftime to scattered boos at the Coliseum, then exploded for 22 points in just over five minutes to win 35-21. Trent Mosley caught two touchdown passes from Jayden Maiava, Waymond Jordan ran for two more, and the Trojan defense's three interceptions kept faint playoff hopes flickering."
-  },
-  "rankedNextGames:2026-wk12-vanderbilt-florida": {
-   "hash": "5dbbbc998616aee2",
-   "blurb": "No. 24 Florida rallied past Vanderbilt 34-27 on Jadan Baugh's 10-yard wildcat touchdown with 2:19 to play, set up by a tipped pass that caromed into Eric Singleton's hands for 37 yards. Aaron Philo accounted for 314 yards and two scores, and Myles Graham's 57-yard fumble return gave the Gators back-to-back wins for the first time since September."
   },
   "rankedNextGames:2026-wk12-texas-a-m-oklahoma": {
    "hash": "f0686d7da133234c",
    "blurb": "John Mateer shook off two early turnovers to throw three touchdown passes and run for another as No. 22 Oklahoma scored 28 unanswered in a 28-7 win over Texas A&M. The Sooners' defense forced eight punts and held the Aggies to 185 yards, with Courtland Guillory's interception setting up a one-play, 25-yard strike to Isaiah Sategna."
   },
-  "rankedNextGames:2026-wk12-virginia-tech-miami": {
-   "hash": "8a05e2367ad2b28d",
-   "blurb": "No. 7 Miami dug out of a 14-point hole to beat Virginia Tech 28-20 and clinch its spot in the ACC championship game. Mark Fletcher Jr. ran for all three Hurricanes touchdowns, including the go-ahead score on the first play of the fourth quarter to cap a 17-play, 90-yard drive, and Jake Weinberg's 59-yarder before halftime set a school record."
+  "rankedNextGames:2026-wk12-vanderbilt-florida": {
+   "hash": "5dbbbc998616aee2",
+   "blurb": "No. 24 Florida rallied past Vanderbilt 34-27 on Jadan Baugh's 10-yard wildcat touchdown with 2:19 to play, set up by a tipped pass that caromed into Eric Singleton's hands for 37 yards. Aaron Philo accounted for 314 yards and two scores, and Myles Graham's 57-yard fumble return gave the Gators back-to-back wins for the first time since September."
   },
   "rankedNextGames:2026-wk12-indiana-washington": {
    "hash": "2746159711c9d872",
    "blurb": "Washington tipped Paddy McAteer's 37-yard attempt wide in overtime to upset No. 8 Indiana 27-24 and send Husky Stadium onto the field. Demond Williams Jr. ran 65 yards for a score and threw the game-tying 20-yard touchdown to Decker DeGraaf in the fourth, leaving the Hoosiers needing help to reach the Big Ten title game and scrambling in the playoff picture."
   },
-  "rankedNextGames:2026-wk12-pittsburgh-louisville": {
-   "hash": "a5a552eb922235b6",
-   "blurb": "Lincoln Kienholz threw a season-high five touchdown passes and No. 23 Louisville forced four turnovers in a 42-10 thumping of Pitt. The Cardinals were in a 14-10 game at the break before Kienholz completed all nine of his second-half attempts for 149 yards, running their winning streak to six."
+  "rankedNextGames:2026-wk12-virginia-tech-miami": {
+   "hash": "8a05e2367ad2b28d",
+   "blurb": "No. 7 Miami dug out of a 14-point hole to beat Virginia Tech 28-20 and clinch its spot in the ACC championship game. Mark Fletcher Jr. ran for all three Hurricanes touchdowns, including the go-ahead score on the first play of the fourth quarter to cap a 17-play, 90-yard drive, and Jake Weinberg's 59-yarder before halftime set a school record."
   },
   "rankedNextGames:2026-wk12-chattanooga-alabama": {
    "hash": "92b7008f0af13521",
@@ -101,30 +73,6 @@
    "hash": "fb2f976ad260185a",
    "blurb": "Trinidad Chambliss was nearly perfect -- 19 of 20 for 367 yards and five touchdowns -- as No. 25 Ole Miss buried FCS Wofford 59-17 behind 789 total yards. The Rebels scored three times in their first 11 plays and led 49-3 at the half after back-to-back losses had knocked them out of the playoff race."
   },
-  "predictions:kentucky": {
-   "hash": "01cdbaeb08833454",
-   "blurb": "Kentucky slid from 11th to 16th, and the advanced numbers were never buying in -- SP+ has the Wildcats 42nd and FPI 34th. The models see a team that peaked early and is now being dragged back toward its resume."
-  },
-  "predictions:boise-state": {
-   "hash": "215e46a8983205ba",
-   "blurb": "Boise State jumped seven spots to No. 17, the biggest riser of the group, though SP+ (22nd) and FPI (31st) still rate the Broncos as more good than great. The Pac-12 schedule means the committee's eye test will matter more than the metrics."
-  },
-  "predictions:ohio-state": {
-   "hash": "197c9d2bfee2e1a4",
-   "blurb": "Ohio State climbed to No. 14 and remains the darling of the models, sitting 4th in SP+ and 5th in FPI. That's a profile the numbers love far more than the rankings do."
-  },
-  "predictions:ucla": {
-   "hash": "8b59784728dbaa19",
-   "blurb": "UCLA holds at No. 4 but has the widest gap on the board between ranking and resume metrics, with SP+ at 12th and FPI all the way down at 25th. The Bruins' ranking is built on results, not on how the computers see them playing."
-  },
-  "predictions:houston": {
-   "hash": "582f611958a68636",
-   "blurb": "Houston dropped from 14th to 20th, and the metrics are roughly in agreement -- 25th in SP+, 30th in FPI. The Cougars will need wins, not projections, to climb back."
-  },
-  "fieldStorylines:conf-race-sec": {
-   "hash": "d0e8001a048b20d3",
-   "blurb": "The SEC's automatic bid is the tightest race on the board: No. 1 Georgia leads with No. 3 Alabama just two spots behind. There's almost no cushion for the Bulldogs if they slip."
-  },
   "fieldStorylines:conf-race-big-ten": {
    "hash": "df99bdb4b8bd157f",
    "blurb": "UCLA sits atop the Big Ten at No. 4 with No. 8 Indiana four spots back in the chase for the league's automatic bid. Both just took losses, so the gap could close in a hurry."
@@ -133,13 +81,13 @@
    "hash": "87a9189871e7cc2d",
    "blurb": "No. 7 Miami holds the ACC's auto-bid position with No. 11 Wake Forest four spots behind -- and the two are headed for a title-game meeting in Charlotte. A four-spot gap is close enough that the trophy likely settles it."
   },
-  "fieldStorylines:conf-race-big-12": {
-   "hash": "770a0b4eb09aa6cd",
-   "blurb": "Utah has the most comfortable lead of any conference leader, sitting at No. 2 with next-best Big 12 team BYU eight spots back at No. 10. Barring a collapse, the Utes control the league's automatic bid."
-  },
   "bubbleNotes:ohio-state": {
    "hash": "91cba152d7514cdc",
    "blurb": "Ohio State sits 15th in the projected field, three spots outside the bracket, but has surged six places to get there. The Buckeyes are trending the right way with no ranked opponent on deck."
+  },
+  "bubbleNotes:oregon": {
+   "hash": "11517cbd13cacddd",
+   "blurb": "Oregon moved up three to the 14 seed and now sits two spots from the bracket. The Ducks have won four straight and are making the committee think about it."
   },
   "bubbleNotes:texas-tech": {
    "hash": "0a819e46169fddc9",
@@ -148,6 +96,58 @@
   "bubbleNotes:iowa": {
    "hash": "614a6076dcfcd21f",
    "blurb": "Iowa is the last of the four bubble teams at No. 16, four spots removed from the bracket and flat in the projection. With no ranked opponent ahead, the Hawkeyes will need chaos above them."
+  },
+  "games:2026-wk12-georgia-south-carolina": {
+   "hash": "d486466080c79746",
+   "blurb": "No. 1 Georgia punched its ticket to the SEC title game with a 34-6 win in Columbia, shaking off a sluggish first quarter in which South Carolina's Malik Orsan matched Peyton Woodring field goal for field goal. Nate Frazier's two short touchdown runs broke it open, Gunner Stockton threw for 281 yards and a 14-yard score to Craig Dandridge, and the Bulldog defense held the Gamecocks to 118 yards over the final three quarters. The 16.5-point spread proved conservative."
+  },
+  "games:2026-wk12-san-diego-state-boise-state": {
+   "hash": "afdb8f086cc8d0c5",
+   "blurb": "San Diego State scored nine points in the final two minutes and stunned No. 17 Boise State 22-20 on Cooper DiLeva's 42-yard field goal as time expired, a staggering result against a 20.5-point line. Jaylon Hawkins wrestled a 39-yard touchdown away from an apparent interception to pull the Aztecs within one, and after Boise State recovered an onside kick, Maddux Madsen was dropped for a loss on a fourth-and-3 gamble that ended the Broncos' 13-game streak of fourth-down conversions. Boise State turned it over three times and watched its playoff case take a serious hit."
+  },
+  "rankedNextGames:2026-wk12-utah-tcu": {
+   "hash": "c96bb9f541eaf190",
+   "blurb": "No. 2 Utah stayed unbeaten and clinched a Big 12 title game berth with a 38-17 win at TCU, its 17th straight victory overall. The Utes blew a 17-point halftime lead as Jeremy Payne ran for two scores, then answered with three touchdowns in the final 5:46 behind Hunter Andrews' go-ahead plunge and Devon Dampier's 85-yard strike to Larry Simmons; Dampier also hit Braden Pegan from 68 yards and ran for two scores of his own."
+  },
+  "rankedNextGames:2026-wk12-arizona-kansas-state": {
+   "hash": "712371b6ec02feed",
+   "blurb": "No. 19 Arizona rallied from down 28-17 with six minutes left and beat Kansas State 35-28 in overtime in a steady rain in Manhattan. Noah Fifita went 29 of 42 for 323 yards with a 35-yard touchdown to Isaiah Mizell and a two-point conversion to force the extra period, then found Giovanni Richardson from 25 yards in OT before the Wildcats were stopped on fourth down at the 3."
+  },
+  "rankedNextGames:2026-wk12-smu-notre-dame": {
+   "hash": "828c22192dc3e916",
+   "blurb": "No. 6 Notre Dame leaned on its defense in a 24-3 win over SMU, holding the Mustangs to their lowest point total in a decade and stopping six drives that reached Irish territory, including three fourth-down stands at the 19, the 2 and the 3. CJ Carr threw for 312 yards and a 21-yard touchdown to Jordan Faison as the Irish moved to 10-1."
+  },
+  "rankedNextGames:2026-wk12-pittsburgh-louisville": {
+   "hash": "fb0c0517b80c6e8f",
+   "blurb": "Lincoln Kienholz threw a season-high five touchdown passes and No. 23 Louisville forced four Pitt turnovers in a 42-10 rout, the Cardinals' sixth straight win. Pitt briefly tied it on Isaiah Neal's 31-yard fumble return, but Kienholz was perfect after halftime, hitting Lawayne McCoy and Tre Richardson for two scores apiece on a night that comfortably cleared the 10-point number."
+  },
+  "predictions:kentucky": {
+   "hash": "44decf21dfc67379",
+   "blurb": "Kentucky slid from 11th to 16th, and the metrics are considerably less impressed than the committee: 42nd in SP+ and 36th in FPI make the Wildcats the softest profile in this range."
+  },
+  "predictions:boise-state": {
+   "hash": "3bbd6abb93959b4f",
+   "blurb": "Boise State jumped from 24th to 17th in the poll, but the analytics still see a gap -- 22nd in SP+ and 33rd in FPI suggest the Broncos' ranking is running ahead of their underlying numbers."
+  },
+  "predictions:ohio-state": {
+   "hash": "ef10b16386044a1e",
+   "blurb": "Ohio State climbed from 20th to 14th and the models think there's more room to go: fourth in SP+ and sixth in FPI, far and away the biggest gap between rating and ranking on this list."
+  },
+  "predictions:ucla": {
+   "hash": "39e00f46aa9e6854",
+   "blurb": "UCLA holds at No. 4 for another week, though the metrics are cooler on the Bruins -- 12th in SP+ and 22nd in FPI."
+  },
+  "predictions:houston": {
+   "hash": "4600934958d7e4d8",
+   "blurb": "Houston tumbled from 14th to 20th, and SP+ (25th) and FPI (29th) both suggest the drop was overdue rather than an overcorrection."
+  },
+  "fieldStorylines:conf-race-sec": {
+   "hash": "d6e6cda885e225fc",
+   "blurb": "The SEC's automatic bid is the tightest race on the board: No. 1 Georgia leads, but No. 3 Alabama sits just two spots back, a gap that could vanish in a single afternoon."
+  },
+  "fieldStorylines:conf-race-big-12": {
+   "hash": "6373dfd61485dafc",
+   "blurb": "The Big 12 auto bid looks far more settled -- No. 2 Utah leads No. 10 BYU by eight spots, and the Cougars need help as much as they need wins."
   }
  }
 }
