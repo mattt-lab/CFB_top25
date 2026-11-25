@@ -1,30 +1,6 @@
 {
  "promptKey": "769284c8174095f6",
  "items": {
-  "games:2026-wk13-arizona-state-arizona": {
-   "hash": "2efdc3f5d36543aa",
-   "blurb": "The Territorial Cup lands in Tucson with No. 16 Arizona laying 8.5 and ESPN giving the Wildcats a 78% shot. A total of 53.5 suggests points are available, but Arizona State has to find them on the road to spoil a ranked rival's finish."
-  },
-  "games:2026-wk13-florida-florida-state": {
-   "hash": "29238581eaeeb042",
-   "blurb": "No. 20 Florida heads to Tallahassee favored by six, with ESPN giving the Gators a 64.7% edge over Florida State. A 53.5 total hints at a rivalry shootout, and the Gators' late-season climb is on the line."
-  },
-  "rankedNextGames:2026-wk13-auburn-alabama": {
-   "hash": "48b2fc66b0e44e3f",
-   "blurb": "The Iron Bowl in Tuscaloosa has No. 6 Alabama favored by 14.5 and sitting at 88.3% in ESPN's model. Auburn arrives as a heavy underdog, but rivalry week has a way of ignoring the number."
-  },
-  "rankedNextGames:2026-wk13-georgia-tech-georgia": {
-   "hash": "62af7fa25474597c",
-   "blurb": "No. 1 Georgia is a 35.5-point home favorite over Georgia Tech, with ESPN giving the Bulldogs a 98.3% win probability. Clean Old-Fashioned Hate projects as a formality on paper."
-  },
-  "rankedNextGames:2026-wk13-duke-wake-forest": {
-   "hash": "f6d6188042f719fa",
-   "blurb": "No. 8 Wake Forest hosts Duke laying 14.5 with a 78% win probability. The Demon Deacons are chasing Miami in the ACC, so a tidy win keeps the pressure on."
-  },
-  "predictions:florida": {
-   "hash": "29b552a44b42d384",
-   "blurb": "Florida moved up from 24th to 20th, with the metrics split -- 21st in FPI but all the way down at 47th in SP+."
-  },
   "games:2026-wk13-usc-ucla": {
    "hash": "796a2662f0b4dcc7",
    "blurb": "Rivalry week in Los Angeles, and the number crunchers can't separate them: USC is a 7-point favorite on the road, yet ESPN's model has No. 9 UCLA at 50.7% against No. 15 USC. With a 45.5 total, expect the kind of grinder where one possession decides the Big Ten pecking order."
@@ -33,9 +9,17 @@
    "hash": "4c07d60fcfa716bc",
    "blurb": "A true coin flip in Columbia: No. 23 Missouri is laying 2.5 at home while ESPN gives the Tigers just a 50.3% edge over No. 17 Oklahoma. The 41.5 total says points will be scarce, so field position and takeaways should decide which ranked SEC team keeps climbing."
   },
+  "games:2026-wk13-arizona-state-arizona": {
+   "hash": "2efdc3f5d36543aa",
+   "blurb": "The Territorial Cup lands in Tucson with No. 16 Arizona laying 8.5 and ESPN giving the Wildcats a 78% shot. A total of 53.5 suggests points are available, but Arizona State has to find them on the road to spoil a ranked rival's finish."
+  },
   "games:2026-wk13-nebraska-iowa": {
    "hash": "0c2e9be65fc22ca1",
    "blurb": "No. 25 Nebraska heads to Iowa City as a 4.5-point underdog against No. 13 Iowa, with ESPN giving the Hawkeyes a 58.5% shot. The 40.5 total fits the matchup — Iowa has a chance to firm up its playoff standing, and the Huskers can crash it with one upset."
+  },
+  "games:2026-wk13-florida-florida-state": {
+   "hash": "29238581eaeeb042",
+   "blurb": "No. 20 Florida heads to Tallahassee favored by six, with ESPN giving the Gators a 64.7% edge over Florida State. A 53.5 total hints at a rivalry shootout, and the Gators' late-season climb is on the line."
   },
   "games:2026-wk13-washington-oregon": {
    "hash": "6a3bbb6524701bb1",
@@ -44,10 +28,6 @@
   "rankedNextGames:2026-wk13-michigan-ohio-state": {
    "hash": "a2106bd336e69de4",
    "blurb": "No. 21 Ohio State hosts Michigan as a 10.5-point favorite with ESPN's model at 89.2% for the Buckeyes. The 37.5 total points to a defensive rivalry slog, and Ohio State badly needs the win after sliding in the rankings."
-  },
-  "rankedNextGames:2026-wk13-texas-texas-a-m": {
-   "hash": "125610c2792ef611",
-   "blurb": "No. 3 Texas goes to College Station favored by 11.5, with ESPN giving the Longhorns an 83.9% chance. A rivalry road trip with a 40.5 total is exactly the kind of spot that can wreck a top-three résumé."
   },
   "rankedNextGames:2026-wk13-louisville-kentucky": {
    "hash": "fe742d140f19a02f",
@@ -61,29 +41,17 @@
    "hash": "2b7a3a12a049d307",
    "blurb": "No. 14 Indiana is a 22.5-point favorite over Purdue, and ESPN's 94.9% number says the rivalry framing is the only drama here. After a six-spot tumble in the rankings, the Hoosiers need a convincing scoreline, not just a win."
   },
-  "rankedNextGames:2026-wk13-tennessee-vanderbilt": {
-   "hash": "3a098c83987c09f5",
-   "blurb": "No. 5 Tennessee visits Vanderbilt as a 13.5-point favorite with ESPN at 87.2% for the Vols. Anything short of a clean road win would be a costly blemish this deep into the season."
+  "rankedNextGames:2026-wk13-auburn-alabama": {
+   "hash": "48b2fc66b0e44e3f",
+   "blurb": "The Iron Bowl in Tuscaloosa has No. 6 Alabama favored by 14.5 and sitting at 88.3% in ESPN's model. Auburn arrives as a heavy underdog, but rivalry week has a way of ignoring the number."
   },
-  "rankedNextGames:2026-wk13-tcu-texas-tech": {
-   "hash": "e807555daf79ef9e",
-   "blurb": "No. 11 Texas Tech hosts TCU as a 14-point favorite, with ESPN giving the Red Raiders an 82.3% shot. A 47.5 total leaves room for TCU to hang around if Tech's offense stalls early."
+  "rankedNextGames:2026-wk13-georgia-tech-georgia": {
+   "hash": "62af7fa25474597c",
+   "blurb": "No. 1 Georgia is a 35.5-point home favorite over Georgia Tech, with ESPN giving the Bulldogs a 98.3% win probability. Clean Old-Fashioned Hate projects as a formality on paper."
   },
-  "rankedNextGames:2026-wk13-mississippi-state-ole-miss": {
-   "hash": "7de5412ecfa65587",
-   "blurb": "No. 22 Ole Miss is a 19.5-point home favorite over Mississippi State in the rivalry finale, with a 56.5 total pointing to plenty of scoring. ESPN has the Rebels at 87.5%, so the margin is the story."
-  },
-  "rankedNextGames:2026-wk13-cincinnati-byu": {
-   "hash": "8de977af904fc402",
-   "blurb": "No. 10 BYU welcomes Cincinnati as a 15.5-point favorite with ESPN at 88.2% for the Cougars. The 56.5 total means BYU can win big, but the Bearcats have the firepower to make it uncomfortable."
-  },
-  "rankedNextGames:2026-wk13-notre-dame-syracuse": {
-   "hash": "41a56984d20e672b",
-   "blurb": "No. 4 Notre Dame is a 24.5-point favorite at Syracuse, with ESPN giving the Irish a 95.1% chance. With a 52.5 total, this is a scoreboard-and-style-points assignment more than a competitive test."
-  },
-  "rankedNextGames:2026-wk13-west-virginia-utah": {
-   "hash": "3212c8a61018bf90",
-   "blurb": "No. 2 Utah hosts West Virginia as a 25.5-point favorite, and ESPN's 93.7% number tracks with a 67.5 total that screams track meet. The Utes have everything to lose and only margin to gain."
+  "rankedNextGames:2026-wk13-duke-wake-forest": {
+   "hash": "f6d6188042f719fa",
+   "blurb": "No. 8 Wake Forest hosts Duke laying 14.5 with a 78% win probability. The Demon Deacons are chasing Miami in the ACC, so a tidy win keeps the pressure on."
   },
   "rankedNextGames:2026-wk13-boston-college-miami": {
    "hash": "2966a3a233cc7250",
@@ -101,6 +69,10 @@
    "hash": "aad21e791735c460",
    "blurb": "Indiana slid from 8 to 14 in the polls, yet SP+ (5th) and FPI (8th) both still treat the Hoosiers as a genuine top-10 team. The analytics say the fall was an overcorrection."
   },
+  "predictions:florida": {
+   "hash": "29b552a44b42d384",
+   "blurb": "Florida moved up from 24th to 20th, with the metrics split -- 21st in FPI but all the way down at 47th in SP+."
+  },
   "predictions:arizona": {
    "hash": "32d02cdd65b65727",
    "blurb": "Arizona moved up three spots to No. 16, roughly where the metrics have them — SP+ 20th, FPI 24th. For once, the poll and the models are reading the same team."
@@ -109,17 +81,9 @@
    "hash": "02b89c722ae5c80d",
    "blurb": "The ACC's auto bid is the tightest race on the board: No. 7 Miami leads, but No. 8 Wake Forest is a single spot behind. One slip by the Hurricanes flips the league."
   },
-  "fieldStorylines:conf-race-sec": {
-   "hash": "c9f8c4f3a9b30fa0",
-   "blurb": "No. 1 Georgia holds the SEC's automatic bid with No. 3 Texas just two spots back. The Longhorns don't need much help — just a stumble from Athens."
-  },
   "fieldStorylines:conf-race-big-ten": {
    "hash": "fcd8d7b2f957e986",
    "blurb": "No. 9 UCLA sits atop the Big Ten with No. 12 Oregon three spots behind, close enough that a single result reorders the league."
-  },
-  "fieldStorylines:conf-race-big-12": {
-   "hash": "60421db35d57bdb4",
-   "blurb": "No. 2 Utah has the Big 12's clearest grip on an auto bid, with No. 10 BYU a full eight spots back. Barring a collapse, the Utes control this one."
   },
   "bubbleNotes:indiana": {
    "hash": "60666da5a057e80b",
@@ -136,6 +100,42 @@
   "bubbleNotes:arizona": {
    "hash": "168860aedffdb9d4",
    "blurb": "Arizona has worked its way up three spots to the 16 seed, but still sits four places outside the field. The trend is good; the margin for error isn't."
+  },
+  "rankedNextGames:2026-wk13-texas-texas-a-m": {
+   "hash": "7a86abf1cee1400b",
+   "blurb": "No. 3 Texas heads to College Station a 10.5-point favorite in a rivalry game with an all-business total of 40.5, and ESPN gives the Longhorns an 84% shot. A&M has the chance to blow up Texas's at-large and SEC positioning in one night."
+  },
+  "rankedNextGames:2026-wk13-tennessee-vanderbilt": {
+   "hash": "0adea7066c81e397",
+   "blurb": "No. 5 Tennessee is laying 13.5 at Vanderbilt with the total set at 42.5 and an 87% win probability on ESPN's model. Anything short of a clean finish would be a costly stumble for a team with real seeding on the line."
+  },
+  "rankedNextGames:2026-wk13-mississippi-state-ole-miss": {
+   "hash": "601ee81126ff8d1f",
+   "blurb": "No. 22 Ole Miss hosts Mississippi State as an 18.5-point favorite in a rivalry matchup with a juicy 56.5 total. The Rebels are an 87.5% pick, but a loss here would end any lingering at-large conversation."
+  },
+  "rankedNextGames:2026-wk13-tcu-texas-tech": {
+   "hash": "42a1105b4b7b7eec",
+   "blurb": "No. 11 Texas Tech welcomes TCU as a 15.5-point home favorite with the total at 46.5 and ESPN pegging the Red Raiders at 82%. Tech needs the kind of comfortable win that keeps it squarely in the Big 12 picture."
+  },
+  "rankedNextGames:2026-wk13-cincinnati-byu": {
+   "hash": "2d6abadaba71285d",
+   "blurb": "No. 10 BYU is a 15.5-point favorite over Cincinnati with an over/under of 55.5 and an 88% win probability. The Cougars can't afford a slip while they chase Utah in the Big 12 race."
+  },
+  "rankedNextGames:2026-wk13-notre-dame-syracuse": {
+   "hash": "82f8dcaeeddf9c72",
+   "blurb": "No. 4 Notre Dame is a 25.5-point favorite at Syracuse, with ESPN giving the Irish a 95% chance and the total set at 53.5. Style points are the only real currency here for a team jockeying for a top-four seed."
+  },
+  "rankedNextGames:2026-wk13-west-virginia-utah": {
+   "hash": "9953553571f7e0eb",
+   "blurb": "No. 2 Utah hosts West Virginia as a 25.5-point favorite with a lofty 66.5 total and a 94% win probability. The Utes just need to handle business to stay in front of the Big 12 pack."
+  },
+  "fieldStorylines:conf-race-sec": {
+   "hash": "86463d02957ba649",
+   "blurb": "The SEC's automatic bid is a two-horse sprint: No. 1 Georgia holds the lead with No. 3 Texas just two spots back. That gap is thin enough that one slip from the Bulldogs flips the league's playoff path."
+  },
+  "fieldStorylines:conf-race-big-12": {
+   "hash": "4f358b715f7adf56",
+   "blurb": "No. 2 Utah has real daylight atop the Big 12, sitting eight spots clear of No. 10 BYU. The Cougars need help as much as wins to close that gap for the league's auto bid."
   }
  }
 }
